@@ -24,3 +24,5 @@
 
 # Ignore gems installed
 /vendor/bundler/*
+# Ignore encrypted secrets key file.
+config/secrets.yml.key
