@@ -21,12 +21,27 @@ module UsersHelper
     raise NotImplementedError.new("Function check_cookie() has not made yet.")
   end
 
-  #現在ログインしているユーザのTwitter IDを取得する
+  #現在ログインしているユーザを全て取得する
+  def logined_users
+    users = []
+
+    #ユーザ情報テーブルのキーをひとつひとつ見ていく
+    userinfo = get_userinfo
+    userinfo.each_key |id| do
+      #そのユーザが存在すれば配列に追加
+      u = User.find_by(twitter_id: id)
+      users.push(u) if !(u.nil?)
+    end
+
+    return users
+  end
+
+  #現在選択中のユーザのTwitter IDを取得する
   def current_user_id
     return cookies.permanent.signed[:currentuserid]
   end
 
-  #現在ログインしているユーザを取得する
+  #現在選択中のユーザを取得する
   def current_user
     c = current_user_id
     return nil if c.nil?
