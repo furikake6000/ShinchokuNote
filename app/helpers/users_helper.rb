@@ -1,12 +1,18 @@
 module UsersHelper
   #Omniauth Twitterを用いた認証
   def twitter_login(auth)
-    #もし存在しなかったらユーザを作成する
-    User.find_or_create_by(twitter_id: auth[:uid])
+    #authからデータ取り出し
+    twitter_id = auth[:uid]
+    token = auth.credentials.token
+    secret = auth.credentials.secret
 
-    #ユーザ情報テーブルにユーザ情報を追加
+    #もし存在しなかったらユーザを作成する
+    User.find_or_create_by(twitter_id: twitter_id)
+
+    #ユーザ情報テーブルにユーザ情報を追加（すでにある場合は更新）
     userinfo = get_userinfo
-    userinfo.
+    userinfo[twitter_id] = {token: token, secret: secret}
+    set_userinfo(userinfo)
   end
 
   #Cookieに保存された認証情報が正しいものであるか
