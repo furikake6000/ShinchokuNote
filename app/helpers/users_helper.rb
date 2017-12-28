@@ -7,7 +7,7 @@ module UsersHelper
     secret = auth.credentials.secret
 
     #もし存在しなかったらユーザを作成する
-    User.find_or_create_by(twitter_id: twitter_id)
+    user = User.find_or_create_by(twitter_id: twitter_id)
 
     #ユーザ情報テーブルにユーザ情報を追加（すでにある場合は更新）
     userinfo = get_userinfo
@@ -21,18 +21,24 @@ module UsersHelper
     raise NotImplementedError.new("Function check_cookie() has not made yet.")
   end
 
+  #現在ログインしているユーザのTwitter IDを取得する
+  def current_user_id
+    return cookies.permanent.signed[:currentuserid]
+  end
+
   #現在ログインしているユーザを取得する
   def current_user
-    return nil if cookies.permanent.signed[:currentuserid].nil?
-    return @current_user ||= User.find_by(twid: cookies.permanent.signed[:currentuserid])
+    c = current_user_id
+    return nil if c.nil?
+    return @current_user ||= User.find_by(twitter_id: c)
   end
 
   #現在選択中のユーザを変更する
-  def change_current_user(twitter_id)
+  def change_current_user(user)
     #そのユーザがユーザ情報テーブル内に存在しなかったらnilを返す（ログインできない）
     # ※currentuserは変わらない
-    return nil if get_userinfo.has_key?(twitter_id)
-    cookies.permanent.signed[:currentuserid] = twitter_id
+    return nil if get_userinfo.has_key?(user.twitter_id)
+    cookies.permanent.signed[:currentuserid] = user.twitter_id
   end
 
   #Cookieに保存したJsonからユーザの情報テーブルを取得する
