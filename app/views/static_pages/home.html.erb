@@ -1,12 +1,13 @@
-<div class="col center">
+<div class="text-center col">
 
-  <%= image_tag("logo_big.png", width: "768") %>
+  <div class="mb-3">
+    <%= image_tag("logo_big.png", width: "768") %>
+  </div>
 
-  <p>進捗ノートにようこそ。</p>
-  <%= link_to "Twitterでログイン", "/auth/twitter", class: "btn btn-primary" %>
+  <%= link_to "Twitterでログイン", "/auth/twitter", class: "btn-lg btn-primary" %>
 
   <% @users.each do |u| %>
-    <p><%= u.twitter_id %> logged in.</p>
+    <p class="mt-3"><%= u.twitter_id %> logged in.</p>
   <% end %>
 
 </div>
