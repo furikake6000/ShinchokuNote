@@ -15,9 +15,17 @@
         <li class="nav-item">
           <%= link_to "進捗ノートの使い方", "/about", class:"nav-link"%>
         </li>
+        <% if logged_in? %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= "#{current_user.name}としてログイン" %>
+          </a>
+        </li>
+        <% else %>
         <li class="nav-item">
           <%= link_to "ログイン", "/auth/twitter", class:"nav-link"%>
         </li>
+        <% end %>
       </ul>
     </div>
   </nav>
