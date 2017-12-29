@@ -18,8 +18,16 @@
         <% if logged_in? %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= "#{current_user.name}としてログイン" %>
+            <%= "#{current_user.screen_name}" %>
           </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <% logged_in_users.each do |u| %>
+              <%= link_to "#{u.screen_name}に切替", "#", class: "dropdown-item" if u != current_user %>
+            <% end %>
+            <%= link_to "アカウント追加", "#", class: "dropdown-item" %>
+            <div class="dropdown-divider"></div>
+            <%= link_to "ログアウト", "#", class: "dropdown-item" %>
+          </div>
         </li>
         <% else %>
         <li class="nav-item">
