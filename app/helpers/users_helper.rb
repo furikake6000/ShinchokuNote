@@ -27,7 +27,7 @@ module UsersHelper
 
     #ユーザ情報テーブルのキーをひとつひとつ見ていく
     userinfo = get_userinfo
-    userinfo.each_key |id| do
+    userinfo.each_key do |id|
       #そのユーザが存在すれば配列に追加
       u = User.find_by(twitter_id: id)
       users.push(u) if !(u.nil?)
