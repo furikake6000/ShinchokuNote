@@ -1,6 +1,12 @@
-<p>進捗ノートにようこそ。</p>
-<%= link_to "Twitterでログイン", "/auth/twitter", class: "btn btn-primary" %>
+<div class="col center">
 
-<% @users.each do |u| %>
-  <p><%= u.twitter_id %> logged in.</p>
-<% end %>
+  <%= image_tag("logo_big.png", width: "768") %>
+
+  <p>進捗ノートにようこそ。</p>
+  <%= link_to "Twitterでログイン", "/auth/twitter", class: "btn btn-primary" %>
+
+  <% @users.each do |u| %>
+    <p><%= u.twitter_id %> logged in.</p>
+  <% end %>
+
+</div>
