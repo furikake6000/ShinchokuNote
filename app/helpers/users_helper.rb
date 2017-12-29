@@ -22,7 +22,7 @@ module UsersHelper
   end
 
   #現在ログインしているユーザを全て取得する
-  def logined_users
+  def logged_in_users
     users = []
 
     #ユーザ情報テーブルのキーをひとつひとつ見ていく
