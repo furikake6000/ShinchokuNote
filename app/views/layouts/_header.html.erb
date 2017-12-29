@@ -1,13 +1,23 @@
-<header>
-  <ul class="nav nav-pills justify-content-center mt-1 mb-3">
-    <li class="nav-item">
-      <%= link_to "ホーム", root_path, class:"nav-link"%>
-    </li>
-    <li class="nav-item">
-      <%= link_to "about", "/about", class:"nav-link"%>
-    </li>
-    <li class="nav-item">
-      <%= link_to "ログイン", "#", class:"nav-link"%>
-    </li>
-  </ul>
+<header class="mb-3">
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <%= link_to "ホーム", root_path, class:"nav-link"%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "進捗ノートの使い方", "/about", class:"nav-link"%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "ログイン", "/auth/twitter", class:"nav-link"%>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
 </header>
