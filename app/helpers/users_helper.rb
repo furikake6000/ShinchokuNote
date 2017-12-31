@@ -16,10 +16,13 @@ module UsersHelper
     user.name = auth.info.name
     user.save
 
-    #ユーザ情報テーブルにユーザ情報を追加（すでにある場合は更新）
-    userinfo = get_userinfo
-    userinfo[twitter_id] = {token: token, secret: secret}
-    set_userinfo(userinfo)
+    if logged_in?
+      #ログインしていたら　マスタユーザのグループリストを更新
+      raise NotImplementedError
+    else
+      #ログインしていなかったら　userをマスタユーザに指定
+      set_master_user(twitter_id, token, secret)
+    end
 
     #選択ユーザ(カレントユーザ)を変更
     change_current_user(user)
@@ -33,30 +36,56 @@ module UsersHelper
 
   #現在ログインしているユーザを全て取得する
   def logged_in_users
-    users = []
+    raise NotImplementedError
+  end
 
-    #ユーザ情報テーブルのキーをひとつひとつ見ていく
-    userinfo = get_userinfo
-    userinfo.each_key do |id|
-      #そのユーザが存在すれば配列に追加
-      u = User.find_by(twitter_id: id)
-      users.push(u) if !(u.nil?)
+  #マスタユーザの情報（IDとトークンの入ったHash）を取得する
+  def master_user_info
+    #キャッシュがあればそれを返す
+    return @master_user_info_cache if !(@master_user_info_cache.nil?)
+    if cookies.permanent.signed[:masteruserinfo].nil?
+      #cookieが存在しなければnilを返す
+      return nil
+    else
+      #存在すればJsonからhashを生成
+      hash = JSON.parse(cookies.permanent.signed[:masteruserinfo], {:symbolize_names => true})
+      #マスタユーザのデータは唯一である（そうでない場合をはじく）
+      return nil if hash.size != 1
+      #最後キャッシュに保存して返す
+      return @master_user_info_cache = hash
     end
-
-    return users
+  end
+  #マスタユーザのTwitter IDを取得する
+  def master_user_id
+    return nil if master_user_info.nil?
+    return master_user_info.keys.first
+  end
+  #マスタユーザを取得する
+  def master_user
+    return @master_user if !(@master_user.nil?)
+    return nil if master_user_id.nil?
+    return @master_user = User.find_by(twitter_id: master_user_id)
+  end
+  #マスタユーザのtokenを取得する
+  def master_user_token
+    return nil if master_user_id.nil?
+    return master_user_info[master_user_id].token
+  end
+  #マスタユーザのsecretを取得する
+  def master_user_secret
+    return nil if master_user_info.nil?
+    return master_user_info[master_user_id].secret
   end
 
   #現在選択中のユーザのTwitter IDを取得する
   def current_user_id
     return cookies.permanent.signed[:currentuserid]
   end
-
   #現在選択中のユーザを取得する
   def current_user
     return @current_user if !(@current_user.nil?)
-    c = current_user_id
-    return nil if c.nil?
-    return @current_user ||= User.find_by(twitter_id: c)
+    return nil if current_user_id.nil?
+    return @current_user = User.find_by(twitter_id: current_user_id)
   end
 
   #ログインしているかどうかを返す
@@ -64,22 +93,19 @@ module UsersHelper
     return !(current_user.nil?)
   end
 
-  #現在選択中のユーザを変更する
-  def change_current_user(user)
-    #そのユーザがユーザ情報テーブル内に存在しなかったらnilを返す（ログインできない）
-    # ※currentuserは変わらない
-    return nil if !(get_userinfo.has_key?(user.twitter_id))
-    cookies.permanent.signed[:currentuserid] = user.twitter_id
-  end
+  private
+    #マスタユーザを変更する
+    def set_master_user(twitter_id, token, secret)
+      masteruserinfo = {}
+      masteruserinfo[twitter_id] = {token: token, secret: secret}
+      cookie.permanent.signed[:masteruserinfo] = JSON.generate(masteruserinfo)
+    end
 
-  #Cookieに保存したJsonからユーザの情報テーブルを取得する
-  def get_userinfo
-    return {} if cookies.permanent.signed[:userinfo].nil?
-    JSON.parse(cookies.permanent.signed[:userinfo], {:symbolize_names => true})
-  end
-
-  #ユーザの情報テーブルをJsonにして保存する
-  def set_userinfo(userinfo)
-    cookies.permanent.signed[:userinfo] = JSON.generate(userinfo)
-  end
+    #現在選択中のユーザを変更する
+    def change_current_user(user)
+      #そのユーザがユーザ情報テーブル内に存在しなかったらnilを返す（ログインできない）
+      # ※currentuserは変わらない
+      return nil if !(get_userinfo.has_key?(user.twitter_id))
+      cookies.permanent.signed[:currentuserid] = user.twitter_id
+    end
 end
