@@ -14,7 +14,9 @@ module ApplicationHelper
     cipher = OpenSSL::Cipher::Cipher.new("AES-256-CBC")
     cipher.decrypt
     cipher.pkcs5_keyivgen(password, salt)
-    cipher.update(data) + cipher.final
+    s = cipher.update(data) + cipher.final
+    #このままだとASCII-8bit形式なので、日本語用にUTF-8に変更
+    s.to_s.force_encoding("utf-8")
   end
 
 end
