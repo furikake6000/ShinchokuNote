@@ -39,4 +39,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Encrypted_Secretsを使用する
+  config.read_encrypted_secrets = true
 end
