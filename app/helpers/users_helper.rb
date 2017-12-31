@@ -75,7 +75,7 @@ module UsersHelper
   #Cookieに保存したJsonからユーザの情報テーブルを取得する
   def get_userinfo
     return {} if cookies.permanent.signed[:userinfo].nil?
-    JSON.parse(cookies.permanent.signed[:userinfo])
+    JSON.parse(cookies.permanent.signed[:userinfo], {:symbolize_names => true})
   end
 
   #ユーザの情報テーブルをJsonにして保存する

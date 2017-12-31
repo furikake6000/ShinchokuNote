@@ -42,7 +42,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
     assert_equal(json, decryptedjson, "Decrypted json does not match with primary string.")
 
-    decryptedhash = JSON.parse(decryptedjson)
+    decryptedhash = JSON.parse(decryptedjson, {:symbolize_names => true})
 
     assert_equal(hash, decryptedhash, "Decrypted hash does not match with primary string.")
   end
