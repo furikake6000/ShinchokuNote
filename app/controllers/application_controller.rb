@@ -3,3 +3,13 @@ class ApplicationController < ActionController::Base
 
   include UsersHelper
 end
+
+#             ξ
+#      　　   ll
+#      　.＿＿ll＿＿
+#      .／ .∽ ..　＼
+#      │*　おでば　*│
+#      │*　守なぐ　*│
+#      │*　りいが　*│
+#      │*　　　　　*│ 2018.1.1
+#      .￣￣￣￣￣￣
