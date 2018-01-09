@@ -34,11 +34,20 @@ module UsersHelper
     raise NotImplementedError.new("Function check_cookie() has not made yet.")
   end
 
+  #現在ログインしているユーザのidを全て取得する
+  def logged_in_user_ids
+    return [] if master_user.nil?
+    users = get_user_group_info.keys
+    users.push(master_user_id)
+    return users
+  end
   #現在ログインしているユーザを全て取得する
   def logged_in_users
-    return [] if master_user.nil?
-    users = master_user.get_user_group_info.keys
-    users.push(master_user)
+    users = []
+    logged_in_user_ids.each do |id|
+      users.push(User.find_by(twitter_id: id))
+    end
+    return users
   end
 
   #マスタユーザの情報（IDとトークンの入ったHash）を取得する
@@ -60,7 +69,7 @@ module UsersHelper
   #マスタユーザのTwitter IDを取得する
   def master_user_id
     return nil if master_user_info.nil?
-    return master_user_info.keys.first
+    return master_user_info.keys.first.to_s
   end
   #マスタユーザを取得する
   def master_user
@@ -107,7 +116,21 @@ module UsersHelper
     def change_current_user(user)
       #そのユーザがユーザ情報テーブル内に存在しなかったらnilを返す（ログインできない）
       # ※currentuserは変わらない
-      return nil if !(logged_in_users.has_key?(user.twitter_id))
+      print(master_user_id.to_s + "\n")
+      print(logged_in_user_ids[0] + "\n")
+      print(user.twitter_id + "\n")
+      raise NotLoggedInError if !(logged_in_user_ids.include?(user.twitter_id))
       cookies.permanent.signed[:currentuserid] = user.twitter_id
     end
+
+    #このユーザに付随しているユーザ（グループ）を取得
+    def get_user_group_info
+      #まだ情報が登録されていなければ空のHashを返す
+      return {} if master_user.user_group_info.nil?
+      #パスワードはOAuthシークレット
+      pass = master_user_secret
+      encrypt_data(master_user.user_group_info, pass, master_user.salt_8byte)
+    end
 end
+
+class NotLoggedInError < StandardError; end
