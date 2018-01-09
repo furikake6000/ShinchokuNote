@@ -7,7 +7,8 @@ class User < ApplicationRecord
     raise IsNotMasterUserError if self.twitter_id != master_user_id
 
     pass = master_user_token
-    
+
+    raise NotImplementedError
   end
 
   private
