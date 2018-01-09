@@ -36,7 +36,8 @@ module UsersHelper
 
   #現在ログインしているユーザを全て取得する
   def logged_in_users
-    raise NotImplementedError
+    users = master_user.get_user_group_info.keys
+    users.push(master_user)
   end
 
   #マスタユーザの情報（IDとトークンの入ったHash）を取得する
