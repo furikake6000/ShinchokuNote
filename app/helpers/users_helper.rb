@@ -36,6 +36,7 @@ module UsersHelper
 
   #現在ログインしているユーザを全て取得する
   def logged_in_users
+    return [] if master_user.nil?
     users = master_user.get_user_group_info.keys
     users.push(master_user)
   end
@@ -99,7 +100,7 @@ module UsersHelper
     def set_master_user(twitter_id, token, secret)
       masteruserinfo = {}
       masteruserinfo[twitter_id] = {token: token, secret: secret}
-      cookie.permanent.signed[:masteruserinfo] = JSON.generate(masteruserinfo)
+      cookies.permanent.signed[:masteruserinfo] = JSON.generate(masteruserinfo)
     end
 
     #現在選択中のユーザを変更する
