@@ -5,10 +5,10 @@ class User < ApplicationRecord
   def get_user_group_info
     #自分がマスタユーザでないとusergroupinfoは取得できない
     raise IsNotMasterUserError if self.twitter_id != master_user_id
-    return {} if master_user.user_group_info.nil?
+    return [] if self.user_group_info.nil?
 
     pass = master_user_token
-    encrypt_data(master_user.user_group_info, pass, salt_8byte)
+    encrypt_data(self.user_group_info, pass, salt_8byte)
   end
 
   private

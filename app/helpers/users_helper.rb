@@ -92,7 +92,7 @@ module UsersHelper
 
   #ログインしているかどうかを返す
   def logged_in?
-    return !(current_user.nil?)
+    return !(current_user.nil?) && !(master_user.nil?)
   end
 
   private
@@ -107,7 +107,7 @@ module UsersHelper
     def change_current_user(user)
       #そのユーザがユーザ情報テーブル内に存在しなかったらnilを返す（ログインできない）
       # ※currentuserは変わらない
-      return nil if !(get_userinfo.has_key?(user.twitter_id))
+      return nil if !(logged_in_users.has_key?(user.twitter_id))
       cookies.permanent.signed[:currentuserid] = user.twitter_id
     end
 end
