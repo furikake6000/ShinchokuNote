@@ -1,9 +1,13 @@
 class User < ApplicationRecord
   validates :twitter_id, presence: true
 
+  #このユーザに付随しているユーザ（グループ）を取得
   def get_user_group_info
-    #このユーザに付随しているユーザ（グループ）を取得
-    raise NotImplementedError
+    #自分がマスタユーザでないとusergroupinfoは取得できない
+    raise IsNotMasterUserError if self.twitter_id != master_user_id
+
+    pass = master_user_token
+    
   end
 
   private
@@ -13,3 +17,5 @@ class User < ApplicationRecord
       OpenSSL::Digest::SHA256.digest(self.created_at.to_s)[0..7]
     end
 end
+
+class IsNotMasterUserError < RuntimeError; end
