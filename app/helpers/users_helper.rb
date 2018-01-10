@@ -1,4 +1,6 @@
 module UsersHelper
+  include ApplicationHelper
+
   #Omniauth Twitterを用いた認証
   def twitter_login(auth)
     #authからデータ取り出し
@@ -18,7 +20,9 @@ module UsersHelper
 
     if logged_in?
       #ログインしていたら　マスタユーザのグループリストを更新
-      raise NotImplementedError
+      group_info = get_user_group_info
+      group_info[twitter_id] = {"token": token, "secret": secret}
+      set_user_group_info(group_info)
     else
       #ログインしていなかったら　userをマスタユーザに指定
       set_master_user(twitter_id, token, secret)
@@ -59,7 +63,7 @@ module UsersHelper
       return nil
     else
       #存在すればJsonからhashを生成
-      hash = JSON.parse(cookies.permanent.signed[:masteruserinfo], {:symbolize_names => true})
+      hash = JSON.parse(cookies.permanent.signed[:masteruserinfo])
       #マスタユーザのデータは唯一である（そうでない場合をはじく）
       return nil if hash.size != 1
       #最後キャッシュに保存して返す
@@ -69,7 +73,7 @@ module UsersHelper
   #マスタユーザのTwitter IDを取得する
   def master_user_id
     return nil if master_user_info.nil?
-    return master_user_info.keys.first.to_s
+    return master_user_info.keys.first
   end
   #マスタユーザを取得する
   def master_user
@@ -80,12 +84,12 @@ module UsersHelper
   #マスタユーザのtokenを取得する
   def master_user_token
     return nil if master_user_id.nil?
-    return master_user_info[master_user_id].token
+    return master_user_info[master_user_id]["token"]
   end
   #マスタユーザのsecretを取得する
   def master_user_secret
     return nil if master_user_info.nil?
-    return master_user_info[master_user_id].secret
+    return master_user_info[master_user_id]["secret"]
   end
 
   #現在選択中のユーザのTwitter IDを取得する
@@ -123,13 +127,22 @@ module UsersHelper
       cookies.permanent.signed[:currentuserid] = user.twitter_id
     end
 
-    #このユーザに付随しているユーザ（グループ）を取得
+    #現在のマスタユーザに付随するグループを取得
     def get_user_group_info
       #まだ情報が登録されていなければ空のHashを返す
       return {} if master_user.user_group_info.nil?
       #パスワードはOAuthシークレット
       pass = master_user_secret
-      encrypt_data(master_user.user_group_info, pass, master_user.salt_8byte)
+      json = decrypt_data(master_user.user_group_info, pass, master_user.salt_8byte)
+      JSON.parse(json)
+    end
+    #現在のマスタユーザに付随するグループを設定
+    def set_user_group_info(group_info)
+      #パスワードはOAuthシークレット
+      pass = master_user_secret
+      json = JSON.generate(group_info)
+      master_user.user_group_info = encrypt_data(json, pass, master_user.salt_8byte).force_encoding("UTF-8")
+      master_user.save!
     end
 end
 

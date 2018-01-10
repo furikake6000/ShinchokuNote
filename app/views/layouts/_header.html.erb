@@ -24,7 +24,7 @@
             <% logged_in_users.each do |u| %>
               <%= link_to "#{u.screen_name}に切替", "#", class: "dropdown-item" if u != current_user %>
             <% end %>
-            <%= link_to "アカウント追加", "#", class: "dropdown-item" %>
+            <%= link_to "アカウント追加", "/auth/twitter?force_login=true", class: "dropdown-item" %>
             <div class="dropdown-divider"></div>
             <%= link_to "ログアウト", "#", class: "dropdown-item" %>
           </div>
