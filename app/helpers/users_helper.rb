@@ -72,40 +72,35 @@ module UsersHelper
   end
   #マスタユーザのTwitter IDを取得する
   def master_user_id
-    return nil if master_user_info.nil?
-    return master_user_info.keys.first
+    master_user_info.nil? ? nil : master_user_info.keys.first
   end
   #マスタユーザを取得する
   def master_user
-    return @master_user if !(@master_user.nil?)
     return nil if master_user_id.nil?
-    return @master_user = User.find_by(twitter_id: master_user_id)
+    @master_user ||= User.find_by(twitter_id: master_user_id)
   end
   #マスタユーザのtokenを取得する
   def master_user_token
-    return nil if master_user_id.nil?
-    return master_user_info[master_user_id]["token"]
+    master_user_info.nil? ? nil : master_user_info[master_user_id]["token"]
   end
   #マスタユーザのsecretを取得する
   def master_user_secret
-    return nil if master_user_info.nil?
-    return master_user_info[master_user_id]["secret"]
+    master_user_info.nil? ? nil : master_user_info[master_user_id]["secret"]
   end
 
   #現在選択中のユーザのTwitter IDを取得する
   def current_user_id
-    return cookies.permanent.signed[:currentuserid]
+    cookies.permanent.signed[:currentuserid]
   end
   #現在選択中のユーザを取得する
   def current_user
-    return @current_user if !(@current_user.nil?)
     return nil if current_user_id.nil?
-    return @current_user = User.find_by(twitter_id: current_user_id)
+    @current_user ||= User.find_by(twitter_id: current_user_id)
   end
 
   #ログインしているかどうかを返す
   def logged_in?
-    return !(current_user.nil?) && !(master_user.nil?)
+    !(current_user.nil?) && !(master_user.nil?)
   end
 
   private
