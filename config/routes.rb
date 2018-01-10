@@ -6,5 +6,6 @@ Rails.application.routes.draw do
 
   #ユーザ関連
   get '/auth/twitter/callback', to: 'users#login'
+  get '/switch', to: 'users#switchuser'
 
 end

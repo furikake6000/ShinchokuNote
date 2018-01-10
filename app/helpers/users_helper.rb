@@ -112,14 +112,11 @@ module UsersHelper
     end
 
     #現在選択中のユーザを変更する
-    def change_current_user(user)
+    def change_current_user(twitter_id)
       #そのユーザがユーザ情報テーブル内に存在しなかったらnilを返す（ログインできない）
       # ※currentuserは変わらない
-      print(master_user_id.to_s + "\n")
-      print(logged_in_user_ids[0] + "\n")
-      print(user.twitter_id + "\n")
-      raise NotLoggedInError if !(logged_in_user_ids.include?(user.twitter_id))
-      cookies.permanent.signed[:currentuserid] = user.twitter_id
+      raise NotLoggedInError if !(logged_in_user_ids.include?(twitter_id))
+      cookies.permanent.signed[:currentuserid] = twitter_id
     end
 
     #現在のマスタユーザに付随するグループを取得

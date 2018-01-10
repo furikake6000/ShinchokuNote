@@ -5,4 +5,9 @@ class UsersController < ApplicationController
     twitter_login(auth)
     redirect_to root_path
   end
+
+  def switchuser
+    change_current_user(params[:id])
+    redirect_to root_path
+  end
 end
