@@ -18,7 +18,7 @@ module UsersHelper
     user.name = auth.info.name
     user.save
 
-    if logged_in?
+    if logged_in? && twitter_id != master_user_id
       #ログインしていたら　マスタユーザのグループリストを更新
       group_info = get_user_group_info
       group_info[twitter_id] = {"token": token, "secret": secret}
