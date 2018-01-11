@@ -8,7 +8,8 @@ class UsersController < ApplicationController
   end
 
   def show
-
+    @user = User.find_by(screen_name: params[:id].to_s)
+    render_404 if @user.nil?
   end
 
   def login
