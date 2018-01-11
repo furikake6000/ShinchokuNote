@@ -103,6 +103,12 @@ module UsersHelper
     !(current_user.nil?) && !(master_user.nil?)
   end
 
+  #ログアウトする
+  def logout
+    cookies.delete(:currentuserid)
+    cookies.delete(:masteruserinfo)
+  end
+
   private
     #マスタユーザを変更する
     def set_master_user(twitter_id, token, secret)

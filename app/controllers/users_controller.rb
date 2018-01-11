@@ -19,6 +19,12 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
+  def logout
+    #cookieを削除すればログアウト処理に
+    logout
+    redirect_to root_path
+  end
+
   def home
     #未ログイン状態ならばstatic_pages#homeを描画
     if !(logged_in?)
