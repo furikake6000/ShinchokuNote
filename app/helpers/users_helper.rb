@@ -13,7 +13,7 @@ module UsersHelper
 
     #ユーザーの情報を更新
     user.url = auth.info.urls.Twitter
-    user.thumb_url = auth.info.image
+    user.thumb_url = get_fullsize_thumb_uri(auth.info.image)
     user.screen_name = auth.info.nickname
     user.name = auth.info.name
     user.save
