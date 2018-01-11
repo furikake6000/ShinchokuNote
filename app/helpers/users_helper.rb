@@ -29,7 +29,7 @@ module UsersHelper
     end
 
     #選択ユーザ(カレントユーザ)を変更
-    change_current_user(user)
+    change_current_user(twitter_id)
   end
 
   #Cookieに保存された認証情報が正しいものであるか
