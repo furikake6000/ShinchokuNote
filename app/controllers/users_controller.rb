@@ -1,4 +1,16 @@
 class UsersController < ApplicationController
+  def index
+    #Only admin
+  end
+
+  def new
+    redirect_to '/auth/twitter'
+  end
+
+  def show
+
+  end
+
   def login
     #auth情報を取り出しログイン
     auth = request.env['omniauth.auth']

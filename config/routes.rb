@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   #トップページ
   root 'users#home'
+
+  #リソース：ユーザ
+  resources :users, :path => 'u', :only => [:index, :new, :show]
+
   #固定ページ
   get '/about', to: 'static_pages#about'
 
