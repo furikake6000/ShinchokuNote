@@ -1,12 +1,5 @@
 <div class="alert alert-primary" role="alert">
   <div>
-    Cookie data:<br/>
-    <% if logged_in? %>
-    <p><%= "Cookie - masteruserinfo: #{cookies.permanent.signed[:masteruserinfo]}" %></p>
-    <p><%= "Cookie - currentuserid: #{cookies.permanent.signed[:currentuserid]}" %></p>
-    <% end %>
-  </div>
-  <div>
     User data:<br/>
     <%= logged_in? ? "Current user is @#{current_user.screen_name}(#{current_user.twitter_id})." : "Not logged in." %>
     <% logged_in_users.each do |u| %>
