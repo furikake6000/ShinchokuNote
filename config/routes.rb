@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   #固定ページ
   get '/about', to: 'static_pages#about'
+  get '/manage', to: 'static_pages#manage'
 
   #ユーザ関連
   get '/auth/twitter/callback', to: 'users#login'
