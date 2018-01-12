@@ -103,6 +103,11 @@ module UsersHelper
     !(current_user.nil?) && !(master_user.nil?)
   end
 
+  #adminユーザかどうかを返す
+  def admin?
+    current_user.admin?
+  end
+
   #ログアウトする
   def logout_user(twitter_id)
     if twitter_id == master_user_id

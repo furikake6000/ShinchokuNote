@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   def index
     #Only admin
+    redirect_to root_path and return if !(admin?)
+    @users = User.all
   end
 
   def new

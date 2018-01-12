@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   root 'users#home'
 
   #リソース：ユーザ
-  resources :users, :path => 'u', :only => [:index, :new, :show]
+  resources :users, :only => [:index, :new]
+  get '/u/:id', to: 'users#show'
 
   #固定ページ
   get '/about', to: 'static_pages#about'
