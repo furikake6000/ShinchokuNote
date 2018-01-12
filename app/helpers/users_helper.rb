@@ -104,9 +104,18 @@ module UsersHelper
   end
 
   #ログアウトする
-  def logout
-    cookies.delete(:currentuserid)
-    cookies.delete(:masteruserinfo)
+  def logout_user(twitter_id)
+    if twitter_id == master_user_id
+      #全ユーザログアウト
+      cookies.delete(:currentuserid)
+      cookies.delete(:masteruserinfo)
+    else
+      #そのユーザだけ連携解除
+      userinfo = get_user_group_info
+      userinfo.delete(twitter_id)
+      set_user_group_info(userinfo)
+    end
+
   end
 
   private
