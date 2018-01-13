@@ -18,18 +18,22 @@ module UsersHelper
     user.name = auth.info.name
     user.save
 
-    if logged_in? && twitter_id != master_user_id
+    login_user(user, token, secret)
+  end
+
+  def login_user(user, token, secret)
+    if logged_in? && user.twitter_id != master_user_id
       #ログインしていたら　マスタユーザのグループリストを更新
       group_info = get_user_group_info
-      group_info[twitter_id] = {"token": token, "secret": secret}
+      group_info[user.twitter_id] = {"token": token, "secret": secret}
       set_user_group_info(group_info)
     else
       #ログインしていなかったら　userをマスタユーザに指定
-      set_master_user(twitter_id, token, secret)
+      set_master_user(user.twitter_id, token, secret)
     end
 
     #選択ユーザ(カレントユーザ)を変更
-    change_current_user(twitter_id)
+    change_current_user(user.twitter_id)
   end
 
   #Cookieに保存された認証情報が正しいものであるか
