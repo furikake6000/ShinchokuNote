@@ -62,12 +62,12 @@ module UsersHelper
   def master_user_info
     #キャッシュがあればそれを返す
     return @master_user_info_cache if !(@master_user_info_cache.nil?)
-    if cookies.permanent.signed[:masteruserinfo].nil?
+    if getcookie(:masteruserinfo).nil?
       #cookieが存在しなければnilを返す
       return nil
     else
       #存在すればJsonからhashを生成
-      hash = JSON.parse(cookies.permanent.signed[:masteruserinfo])
+      hash = JSON.parse(getcookie(:masteruserinfo))
       #マスタユーザのデータは唯一である（そうでない場合をはじく）
       return nil if hash.size != 1
       #最後キャッシュに保存して返す
@@ -94,7 +94,7 @@ module UsersHelper
 
   #現在選択中のユーザのTwitter IDを取得する
   def current_user_id
-    cookies.permanent.signed[:currentuserid]
+    getcookie(:currentuserid)
   end
   #現在選択中のユーザを取得する
   def current_user
@@ -116,8 +116,8 @@ module UsersHelper
   def logout_user(twitter_id)
     if twitter_id == master_user_id
       #全ユーザログアウト
-      cookies.delete(:currentuserid)
-      cookies.delete(:masteruserinfo)
+      deletecookie(:currentuserid)
+      deletecookie(:masteruserinfo)
     else
       #そのユーザだけ連携解除
       userinfo = get_user_group_info
@@ -132,7 +132,7 @@ module UsersHelper
     def set_master_user(twitter_id, token, secret)
       masteruserinfo = {}
       masteruserinfo[twitter_id] = {token: token, secret: secret}
-      cookies.permanent.signed[:masteruserinfo] = JSON.generate(masteruserinfo)
+      setcookie(:masteruserinfo, JSON.generate(masteruserinfo))
     end
 
     #現在選択中のユーザを変更する
@@ -140,7 +140,7 @@ module UsersHelper
       #そのユーザがユーザ情報テーブル内に存在しなかったらnilを返す（ログインできない）
       # ※currentuserは変わらない
       raise NotLoggedInError if !(logged_in_user_ids.include?(twitter_id))
-      cookies.permanent.signed[:currentuserid] = twitter_id
+      setcookie(:currentuserid, twitter_id)
     end
 
     #現在のマスタユーザに付随するグループを取得

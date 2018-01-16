@@ -29,4 +29,17 @@ module ApplicationHelper
     render file: Rails.root.join('public/404.html'), status: 404
   end
 
+  #cookie取得
+  def getcookie(tag)
+    cookies.signed[tag]
+  end
+  #cookie保存
+  def setcookie(tag, value)
+    cookies.permanent.signed[tag] = value
+  end
+  #cookie削除
+  def deletecookie(tag)
+    cookies.delete(tag)
+  end
+
 end
