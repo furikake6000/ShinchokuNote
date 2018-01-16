@@ -109,7 +109,7 @@ module UsersHelper
 
   #adminユーザかどうかを返す
   def admin?
-    current_user.admin?
+    current_user && current_user.admin?
   end
 
   #ログアウトする
