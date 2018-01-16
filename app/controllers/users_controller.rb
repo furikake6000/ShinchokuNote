@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   def logout
     #cookieを削除すればログアウト処理に
-    logout_user(master_user_id)
+    logout_user(master_user)
     redirect_to root_path
   end
 
