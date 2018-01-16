@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
+  include ApplicationHelper
   include UsersHelper
 
   def setup
