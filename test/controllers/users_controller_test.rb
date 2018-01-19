@@ -43,6 +43,21 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_not(admin?)
   end
 
+  test "master user" do
+    assert_nil(master_user)
+
+    login_user(@noritama, "noritama_token", "noritama_secret")
+    assert_equal(master_user, current_user)
+    assert_equal(master_user, @noritama)
+
+    login_user(@okaka, "okaka_token", "okaka_secret")
+    assert_equal(master_user, @noritama)
+
+    get logout_path
+    assert_nil(master_user)
+    assert_nil(current_user)
+  end
+
   test "getting index" do
     #Cant get index without logging in
     get users_path
