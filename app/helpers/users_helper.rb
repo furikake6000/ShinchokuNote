@@ -123,6 +123,7 @@ module UsersHelper
       userinfo = get_user_group_info
       userinfo.delete(user.twitter_id)
       set_user_group_info(userinfo)
+      change_current_user(master_user)
     end
 
   end

@@ -22,6 +22,6 @@ module UsersHelper
   end
   #cookie削除
   def deletecookie(tag)
-    cookies.delete(tag)
+    cookies[tag] = nil
   end
 end
