@@ -14,14 +14,14 @@ module UsersHelper
 
   #cookie取得
   def getcookie(tag)
-    cookies[tag]
+    cookies[tag.to_s]
   end
   #cookie保存
   def setcookie(tag, value)
-    cookies[tag] = value
+    cookies[tag.to_s] = value
   end
   #cookie削除
   def deletecookie(tag)
-    cookies[tag] = nil
+    cookies.delete(tag.to_s)
   end
 end
