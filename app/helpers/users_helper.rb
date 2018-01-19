@@ -44,18 +44,20 @@ module UsersHelper
 
   #現在ログインしているユーザのidを全て取得する
   def logged_in_user_ids
+    return @loggedinuserids if !(@loggedinuserids.nil?)
     return [] if master_user.nil?
-    users = get_user_group_info.keys
-    users.push(master_user_id)
-    return users
+    @loggedinuserids = get_user_group_info.keys
+    @loggedinuserids.push(master_user_id)
+    return @loggedinuserids
   end
   #現在ログインしているユーザを全て取得する
   def logged_in_users
-    users = []
+    return @loggedinusers if !(@loggedinusers.nil?)
+    @loggedinusers = []
     logged_in_user_ids.each do |id|
-      users.push(User.find_by(twitter_id: id))
+      @loggedinusers.push(User.find_by(twitter_id: id))
     end
-    return users
+    return @loggedinusers
   end
 
   #マスタユーザの情報（IDとトークンの入ったHash）を取得する
@@ -76,7 +78,7 @@ module UsersHelper
   end
   #マスタユーザのTwitter IDを取得する
   def master_user_id
-    master_user_info.nil? ? nil : master_user_info.keys.first
+    @master_user_id ||= master_user_info.nil? ? nil : master_user_info.keys.first
   end
   #マスタユーザを取得する
   def master_user
@@ -94,12 +96,12 @@ module UsersHelper
 
   #現在選択中のユーザのTwitter IDを取得する
   def current_user_id
-    getcookie(:currentuserid)
+    @current_user_id ||= getcookie(:currentuserid)
   end
   #現在選択中のユーザを取得する
   def current_user
     return nil if current_user_id.nil?
-    @current_user ||= User.find_by(twitter_id: current_user_id)
+    @current_user ||= logged_in_users.find{|u| u.twitter_id == current_user_id}
   end
 
   #ログインしているかどうかを返す
