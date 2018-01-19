@@ -62,7 +62,7 @@ module UsersHelper
   def master_user_info
     #キャッシュがあればそれを返す
     return @master_user_info_cache if !(@master_user_info_cache.nil?)
-    if getcookie(:masteruserinfo).nil?
+    if getcookie(:masteruserinfo).blank?
       #cookieが存在しなければnilを返す
       return nil
     else
