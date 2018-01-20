@@ -36,7 +36,7 @@ module UsersHelper
     destroy_caches
 
     #選択ユーザ(カレントユーザ)を変更
-    change_current_user(user.twitter_id)
+    change_current_user(user)
   end
 
   #Cookieに保存された認証情報が正しいものであるか
@@ -105,7 +105,7 @@ module UsersHelper
       userinfo = get_user_group_info
       userinfo.delete(user.twitter_id)
       set_user_group_info(userinfo)
-      change_current_user(master_user.twitter_id)
+      change_current_user(master_user)
     end
 
     #ログイン情報が変化するため、キャッシュを削除
@@ -144,7 +144,10 @@ module UsersHelper
     end
 
     #現在選択中のユーザを変更する
-    def change_current_user(twitter_id)
+    def change_current_user(user)
+      change_current_user_id(user.twitter_id)
+    end
+    def change_current_user_id(twitter_id)
       #そのユーザがユーザ情報テーブル内に存在しなかったらnilを返す（ログインできない）
       # ※currentuserは変わらない
       raise NotLoggedInError if !(logged_in_user_ids.include?(twitter_id))
