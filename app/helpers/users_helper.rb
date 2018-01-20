@@ -32,6 +32,9 @@ module UsersHelper
       set_master_user(user.twitter_id, token, secret)
     end
 
+    #ログイン情報が変化するため、キャッシュを削除
+    destroy_caches
+
     #選択ユーザ(カレントユーザ)を変更
     change_current_user(user.twitter_id)
   end
@@ -60,6 +63,7 @@ module UsersHelper
   def master_user
     return nil if master_user_id.nil?
     @master_user ||= logged_in_users.find{|u| u.twitter_id == master_user_id}
+    @master_user ||= User.find_by(twitter_id: master_user_id)
   end
   #マスタユーザのtokenを取得する
   def master_user_token
@@ -104,6 +108,8 @@ module UsersHelper
       change_current_user(master_user)
     end
 
+    #ログイン情報が変化するため、キャッシュを削除
+    destroy_caches
   end
 
   private
