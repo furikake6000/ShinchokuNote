@@ -29,7 +29,7 @@ module UsersHelper
       set_user_group_info(group_info)
     else
       #ログインしていなかったら　userをマスタユーザに指定
-      set_master_user(user.twitter_id, token, secret)
+      set_master_user(user, token, secret)
     end
 
     #ログイン情報が変化するため、キャッシュを削除
@@ -137,9 +137,9 @@ module UsersHelper
       end
     end
     #マスタユーザを変更する
-    def set_master_user(twitter_id, token, secret)
+    def set_master_user(user, token, secret)
       masteruserinfo = {}
-      masteruserinfo[twitter_id] = {token: token, secret: secret}
+      masteruserinfo[user.twitter_id] = {token: token, secret: secret}
       setcookie(:masteruserinfo, JSON.generate(masteruserinfo))
     end
 
