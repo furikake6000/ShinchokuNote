@@ -105,7 +105,7 @@ module UsersHelper
       userinfo = get_user_group_info
       userinfo.delete(user.twitter_id)
       set_user_group_info(userinfo)
-      change_current_user(master_user)
+      change_current_user(master_user.twitter_id)
     end
 
     #ログイン情報が変化するため、キャッシュを削除
