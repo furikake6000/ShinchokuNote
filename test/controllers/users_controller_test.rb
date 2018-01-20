@@ -43,22 +43,34 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_not(admin?)
   end
 
-  test "master user" do
+  test "logging in with two accounts" do
+    #no master user and current uer at first
     assert_nil(master_user)
+    assert_nil(current_user)
 
+    #logging in with an account
     login_user(@noritama, "noritama_token", "noritama_secret")
-    assert_equal(master_user, current_user)
     assert_equal(master_user, @noritama)
+    assert_equal(current_user, @noritama)
 
+    #logging in with second account
     login_user(@okaka, "okaka_token", "okaka_secret")
     assert_equal(master_user, @noritama)
+    assert_equal(current_user, @okaka)
 
-    get logout_path
+    #logging out with second account
+    logout_user(@okaka)
+    assert_equal(master_user, @noritama)
+    assert_equal(current_user, @noritama)
+
+    #logging out with master account
+    login_user(@okaka, "okaka_token", "okaka_secret")
+    logout_user(@noritama)
     assert_nil(master_user)
     assert_nil(current_user)
   end
 
-  test "getting index" do
+  test "getting user index" do
     #Cant get index without logging in
     get users_path
     assert_redirected_to(root_path, message="Cant get index without logging in")
