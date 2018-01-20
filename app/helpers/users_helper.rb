@@ -42,48 +42,24 @@ module UsersHelper
     raise NotImplementedError.new("Function check_cookie() has not made yet.")
   end
 
-  #現在ログインしているユーザのidを全て取得する
-  def logged_in_user_ids
-    return @loggedinuserids if !(@loggedinuserids.nil?)
-    return [] if master_user.nil?
-    @loggedinuserids = get_user_group_info.keys
-    @loggedinuserids.push(master_user_id)
-    return @loggedinuserids
-  end
   #現在ログインしているユーザを全て取得する
   def logged_in_users
-    return @loggedinusers if !(@loggedinusers.nil?)
-    @loggedinusers = []
+    return @logged_in_users if !(@logged_in_users.nil?)
+    @logged_in_users = []
     logged_in_user_ids.each do |id|
-      @loggedinusers.push(User.find_by(twitter_id: id))
+      @logged_in_users.push(User.find_by(twitter_id: id))
     end
-    return @loggedinusers
+    return @logged_in_users
   end
 
-  #マスタユーザの情報（IDとトークンの入ったHash）を取得する
-  def master_user_info
-    #キャッシュがあればそれを返す
-    return @master_user_info_cache if !(@master_user_info_cache.nil?)
-    if getcookie(:masteruserinfo).blank?
-      #cookieが存在しなければnilを返す
-      return nil
-    else
-      #存在すればJsonからhashを生成
-      hash = JSON.parse(getcookie(:masteruserinfo))
-      #マスタユーザのデータは唯一である（そうでない場合をはじく）
-      return nil if hash.size != 1
-      #最後キャッシュに保存して返す
-      return @master_user_info_cache = hash
-    end
-  end
   #マスタユーザのTwitter IDを取得する
   def master_user_id
-    @master_user_id ||= master_user_info.nil? ? nil : master_user_info.keys.first
+    master_user_info.nil? ? nil : master_user_info.keys.first
   end
   #マスタユーザを取得する
   def master_user
     return nil if master_user_id.nil?
-    @master_user ||= User.find_by(twitter_id: master_user_id)
+    @master_user ||= logged_in_users.find{|u| u.twitter_id == master_user_id}
   end
   #マスタユーザのtokenを取得する
   def master_user_token
@@ -96,7 +72,7 @@ module UsersHelper
 
   #現在選択中のユーザのTwitter IDを取得する
   def current_user_id
-    @current_user_id ||= getcookie(:currentuserid)
+    getcookie(:currentuserid)
   end
   #現在選択中のユーザを取得する
   def current_user
@@ -131,6 +107,29 @@ module UsersHelper
   end
 
   private
+    #現在ログインしているユーザのidを全て取得する
+    def logged_in_user_ids
+      return [] if master_user.nil?
+      loggedinuserids = get_user_group_info.keys
+      loggedinuserids.push(master_user_id)
+      return loggedinuserids
+    end
+
+    #マスタユーザの情報（IDとトークンの入ったHash）を取得する
+    def master_user_info
+      #キャッシュがあればそれを返す
+      if getcookie(:masteruserinfo).blank?
+        #cookieが存在しなければnilを返す
+        return nil
+      else
+        #存在すればJsonからhashを生成
+        hash = JSON.parse(getcookie(:masteruserinfo))
+        #マスタユーザのデータは唯一である（そうでない場合をはじく）
+        return nil if hash.size != 1
+        #最後キャッシュに保存して返す
+        return hash
+      end
+    end
     #マスタユーザを変更する
     def set_master_user(twitter_id, token, secret)
       masteruserinfo = {}
@@ -162,6 +161,13 @@ module UsersHelper
       json = JSON.generate(group_info)
       master_user.user_group_info = encrypt_data(json, pass, master_user.salt_8byte).force_encoding("UTF-8")
       master_user.save!
+    end
+
+    #ログイン状態が変化した場合などに、キャッシュ破棄のために呼び出す
+    def destroy_caches
+      @current_user = nil
+      @master_user = nil
+      @logged_in_users = nil
     end
 end
 
