@@ -30,6 +30,10 @@ gem 'twitter'
 # メンテナンスモードを実装してくれるgem
 gem 'turnout'
 
+# code refactoring
+gem 'rubocop'
+gem 'scss-lint'
+
 group :development, :test do
   # Use sqlite on dev mode
   gem 'sqlite3'
