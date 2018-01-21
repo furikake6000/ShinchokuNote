@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180112074239) do
+ActiveRecord::Schema.define(version: 20180121134948) do
+
+  create_table "notes", force: :cascade do |t|
+    t.string "name"
+    t.string "desc"
+    t.string "type"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notes_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "twitter_id"
@@ -22,7 +34,7 @@ ActiveRecord::Schema.define(version: 20180112074239) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "user_group_info"
-    t.string "permission"
+    t.string "permission", default: ""
   end
 
 end
