@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   validates :twitter_id, presence: true
 
+  has_many :notes
+
   #adminかどうかを返す
   def admin?
     self.permission == "admin"
