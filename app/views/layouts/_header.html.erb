@@ -24,14 +24,14 @@
             <% logged_in_users.each do |u| %>
               <%= link_to "#{u.screen_name}に切替", "/switch?id=#{u.twitter_id}", class: "dropdown-item" if u != current_user %>
             <% end %>
-            <%= link_to "アカウント追加", "/auth/twitter?force_login=true", class: "dropdown-item" %>
+            <%= link_to "アカウント追加", "/users/new?force_login=true", class: "dropdown-item" %>
             <div class="dropdown-divider"></div>
             <%= link_to "ログアウト", "/logout", class: "dropdown-item" %>
           </div>
         </li>
         <% else %>
         <li class="nav-item">
-          <%= link_to "ログイン", "/auth/twitter", class:"nav-link"%>
+          <%= link_to "ログイン/新規登録", "/users/new", class:"nav-link"%>
         </li>
         <% end %>
       </ul>

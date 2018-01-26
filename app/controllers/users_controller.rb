@@ -6,7 +6,11 @@ class UsersController < ApplicationController
   end
 
   def new
-    redirect_to '/auth/twitter'
+    if params[:force_login] == "true"
+      redirect_to '/auth/twitter?force_login=true'
+    else
+      redirect_to '/auth/twitter'
+    end
   end
 
   def show
