@@ -11,7 +11,10 @@ Rails.application.routes.draw do
   get '/logout', to: 'users#logout'
 
   #リソース：ノート
-  resources :notes, :only => [:new, :show, :create, :edit, :update, :destroy]
+  resources :users, shallow:true do
+    #Shallowによりindex, new, createはuserから指定可能
+    resources :notes
+  end
   get '/n/:id', to: 'notes#show'  #リンク用短縮エイリアス
 
   #固定ページ
