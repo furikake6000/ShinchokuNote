@@ -2,11 +2,12 @@ class NotesController < ApplicationController
 
   def index
     #Userのshowアクションと同じなのでリダイレクト
-    redirect_to user_path(params[:id])
+    @user = User.find_by(screen_name: params[:user_id].to_s)
+    redirect_to user_path(params[:user_id])
   end
 
   def new
-    @user = User.find_by(screen_name: params[:id].to_s)
+    @user = User.find_by(screen_name: params[:user_id].to_s)
     if current_user != @user
       redirect_to root_path
     end
