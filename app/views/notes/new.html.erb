@@ -1,0 +1,15 @@
+<h1>新規ノート作成</h1>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for(@note) do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :desc %>
+      <%= f.text_field :desc %>
+
+      <%= f.submit "Create new note", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
