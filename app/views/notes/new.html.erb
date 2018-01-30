@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="col-md-6">
-    <%= form_for(@note) do |f| %>
+    <%= form_for @note, url: {action: :create} do |f| %>
       <%= f.label :name %>
       <%= f.text_field :name %>
 
