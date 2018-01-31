@@ -2,5 +2,7 @@
   <%= render 'users/user_header', user: current_user %>
   <h1>Homeページ</h1>
 
+  <%= link_to "プロジェクト新規作成", new_user_note_path(current_user.screen_name) %>
+
   <%= render partial: 'users/notes', locals: {notes: current_user.notes} %>
 </div>
