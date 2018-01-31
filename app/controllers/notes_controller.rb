@@ -47,6 +47,6 @@ class NotesController < ApplicationController
 
     #Noteのパラメータを安全に取り出す
     def get_notes_params
-      params.require(:note).permit(:name, :desc)
+      params.require(:note).permit(:type, :name, :desc)
     end
 end

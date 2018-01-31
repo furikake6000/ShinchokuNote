@@ -2,5 +2,5 @@
   <%= render 'users/user_header', user: current_user %>
   <h1>Homeページ</h1>
 
-  <%= render 'users/notes' %>
+  <%= render partial: 'users/notes', locals: {notes: current_user.notes} %>
 </div>
