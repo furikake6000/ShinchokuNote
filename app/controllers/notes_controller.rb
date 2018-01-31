@@ -1,16 +1,12 @@
 class NotesController < ApplicationController
+  before_action :note_user_collection, only:[:new, :show, :create, :update, :destroy]
 
   def index
     #Userのshowアクションと同じなのでリダイレクト
-    @user = User.find_by(screen_name: params[:user_id].to_s)
     redirect_to user_path(params[:user_id])
   end
 
   def new
-    @user = User.find_by(screen_name: params[:user_id].to_s)
-    if current_user != @user
-      redirect_to root_path
-    end
     @note = @user.notes.new
   end
 
@@ -41,6 +37,14 @@ class NotesController < ApplicationController
   end
 
   private
+    #User取得
+    def note_user_collection
+      @user = User.find_by(screen_name: params[:user_id].to_s)
+      if current_user != @user
+        redirect_to root_path
+      end
+    end
+
     #Noteのパラメータを安全に取り出す
     def get_notes_params
       params.require(:note).permit(:name, :desc)
