@@ -18,6 +18,7 @@ class NotesController < ApplicationController
     @note = @user.notes.new(get_notes_params)
     if @note.save
       #保存成功
+      redirect_to root_path
     else
       #やりなおし
       render 'new'
