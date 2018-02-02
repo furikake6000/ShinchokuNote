@@ -169,7 +169,7 @@ module UsersHelper
       token = auth.credentials.token
       secret = auth.credentials.secret
 
-      #もし存在しなかったらユーザを作成する
+      #もしそのtwitter_idを持つユーザが存在しなかったらユーザを作成する
       user = User.find_or_create_by(twitter_id: twitter_id)
 
       #ユーザーの情報を更新

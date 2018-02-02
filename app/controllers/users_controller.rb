@@ -21,6 +21,14 @@ class UsersController < ApplicationController
   def login
     #auth情報を取り出しログイン
     auth = request.env['omniauth.auth']
+    #ログインか新規登録かのチェック
+    if User.find_by(twitter_id: auth.uid).nil?
+      #新規登録時の挙動
+      if !MYCONF["allow_user_register"]
+        #新規登録不可の場合、そのせつを出力
+        render 'static_pages/register_denyed' and return
+      end
+    end
     twitter_login(auth)
     redirect_to root_path
   end
@@ -34,8 +42,7 @@ class UsersController < ApplicationController
   def home
     #未ログイン状態ならばstatic_pages#homeを描画
     if !(logged_in?)
-      render 'static_pages/home'
-      return
+      render 'static_pages/home' and return
     end
   end
 
