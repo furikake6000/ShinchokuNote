@@ -1,1 +1,1 @@
-MYCONF = YAML.load_file("#{Rails.root}/config/myconf.yml}")
+MYCONF = YAML.load_file("#{Rails.root}/config/myconf.yml")
