@@ -1,5 +1,5 @@
 class NotesController < ApplicationController
-  before_action :note_user_collection, only:[:new, :show, :create, :update, :destroy]
+  before_action :note_user_collection, only:[:new, :create]
   before_action :get_note, only:[:show, :update, :destroy]
 
   def index
@@ -48,7 +48,7 @@ class NotesController < ApplicationController
 
     #Note取得
     def get_note
-      @note = Note.find_by(id: params[:note_id])
+      @note = Note.find_by(id: params[:id])
       render_404 and return if @note.nil?
     end
 
