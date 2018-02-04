@@ -1,6 +1,8 @@
 class NotesController < ApplicationController
-  before_action :note_user_collection, only:[:new, :create]
-  before_action :get_note, only:[:show, :update, :destroy]
+  before_action :user_collection, only:[:new, :create]
+  before_action :get_note, only:[:show]
+  before_action :note_user_collection, only:[:update, :destroy]
+
 
   def index
     #Userのshowアクションと同じなのでリダイレクト
@@ -40,10 +42,16 @@ class NotesController < ApplicationController
 
   private
     #User取得
-    def note_user_collection
+    def user_collection
       @user = User.find_by(screen_name: params[:user_id].to_s)
       render_404 and return if @user.nil?
       redirect_to root_path if current_user != @user
+    end
+
+    #Note取得(自分のNote以外取得できない)
+    def note_user_collection
+      get_note
+      redirect_to root_path if current_user != @note.user
     end
 
     #Note取得
