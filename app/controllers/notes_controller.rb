@@ -1,5 +1,6 @@
 class NotesController < ApplicationController
   before_action :note_user_collection, only:[:new, :show, :create, :update, :destroy]
+  before_action :get_note, only:[:show, :update, :destroy]
 
   def index
     #Userのshowアクションと同じなのでリダイレクト
