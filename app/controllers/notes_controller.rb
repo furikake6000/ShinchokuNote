@@ -41,9 +41,14 @@ class NotesController < ApplicationController
     #User取得
     def note_user_collection
       @user = User.find_by(screen_name: params[:user_id].to_s)
-      if current_user != @user
-        redirect_to root_path
-      end
+      render_404 and return if @user.nil?
+      redirect_to root_path if current_user != @user
+    end
+
+    #Note取得
+    def get_note
+      @note = Note.find_by(id: params[:note_id])
+      render_404 and return if @note.nil?
     end
 
     #Noteのパラメータを安全に取り出す
