@@ -16,11 +16,11 @@ ActiveRecord::Schema.define(version: 20180121142431) do
     t.string "name"
     t.string "desc"
     t.string "type"
-    t.datetime "started_at"
-    t.datetime "finished_at"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "started_at"
+    t.datetime "finished_at"
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
