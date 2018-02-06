@@ -20,7 +20,7 @@ class NotesController < ApplicationController
     @note = @user.notes.new(notes_params)
     if @note.save
       # 保存成功
-      redirect_to root_path
+      redirect_to note_path(@note)
     else
       # やりなおし
       render 'new'
@@ -33,8 +33,13 @@ class NotesController < ApplicationController
   end
 
   def update
-    # 未実装
-    raise NotImplementedError
+    if @note.update_attributes(notes_params)
+      # 保存成功
+      redirect_to note_path(@note)
+    else
+      # やりなおし
+      render 'edit'
+    end
   end
 
   def destroy
