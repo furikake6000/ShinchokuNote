@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
   def index
-    #Only admin
-    redirect_to root_path and return if !(admin?)
+    # Only admin
+    redirect_to root_path && return unless admin?
     @users = User.all
   end
 
   def new
-    if params[:force_login] == "true"
+    if params[:force_login] == 'true'
       redirect_to '/auth/twitter?force_login=true'
     else
       redirect_to '/auth/twitter'
@@ -19,14 +19,14 @@ class UsersController < ApplicationController
   end
 
   def login
-    #auth情報を取り出しログイン
+    # auth情報を取り出しログイン
     auth = request.env['omniauth.auth']
-    #ログインか新規登録かのチェック
+    # ログインか新規登録かのチェック
     if User.find_by(twitter_id: auth.uid).nil?
-      #新規登録時の挙動
-      if !MYCONF["allow_user_register"]
-        #新規登録不可の場合、そのせつを出力
-        render 'static_pages/register_denyed' and return
+      # 新規登録時の挙動
+      unless MYCONF['allow_user_register']
+        # 新規登録不可の場合、そのせつを出力
+        render 'static_pages/register_denyed' && return
       end
     end
     twitter_login(auth)
@@ -34,16 +34,14 @@ class UsersController < ApplicationController
   end
 
   def logout
-    #cookieを削除すればログアウト処理に
+    # cookieを削除すればログアウト処理に
     logout_user(master_user)
     redirect_to root_path
   end
 
   def home
-    #未ログイン状態ならばstatic_pages#homeを描画
-    if !(logged_in?)
-      render 'static_pages/home' and return
-    end
+    # 未ログイン状態ならばstatic_pages#homeを描画
+    render 'static_pages/home' && return unless logged_in?
   end
 
   def switchuser
