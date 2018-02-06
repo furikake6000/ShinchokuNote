@@ -1,6 +1,6 @@
 class NotesController < ApplicationController
   before_action :user_collection, only: [:new, :create]
-  before_action :get_note, only: [:show]
+  before_action :note_find, only: [:show]
   before_action :note_user_collection, only:[:update, :destroy]
 
   def index
@@ -16,7 +16,7 @@ class NotesController < ApplicationController
   end
 
   def create
-    @note = @user.notes.new(get_notes_params)
+    @note = @user.notes.new(notes_params)
     if @note.save
       # 保存成功
       redirect_to root_path
@@ -38,27 +38,27 @@ class NotesController < ApplicationController
 
   private
 
-    # User取得
-    def user_collection
-      @user = User.find_by(screen_name: params[:user_id].to_s)
-      render_404 and return if @user.nil?
-      redirect_to root_path if current_user != @user
-    end
+  # User取得
+  def user_collection
+    @user = User.find_by(screen_name: params[:user_id].to_s)
+    render_404 && return if @user.nil?
+    redirect_to root_path if current_user != @user
+  end
 
-    # Note取得(自分のNote以外取得できない)
-    def note_user_collection
-      get_note
-      redirect_to root_path if current_user != @note.user
-    end
+  # Note取得(自分のNote以外取得できない)
+  def note_user_collection
+    note_find
+    redirect_to root_path if current_user != @note.user
+  end
 
-    # Note取得
-    def get_note
-      @note = Note.find_by(id: params[:id])
-      render_404 and return if @note.nil?
-    end
+  # Note取得
+  def note_find
+    @note = Note.find_by(id: params[:id])
+    render_404 && return if @note.nil?
+  end
 
-    # Noteのパラメータを安全に取り出す
-    def get_notes_params
-      params.require(:note).permit(:type, :name, :desc)
-    end
+  # Noteのパラメータを安全に取り出す
+  def notes_params
+    params.require(:note).permit(:type, :name, :desc)
+  end
 end
