@@ -1,7 +1,7 @@
 class NotesController < ApplicationController
-  before_action :user_collection, only: [:new, :create]
+  before_action :user_collection, only: %i[new create]
   before_action :note_find, only: [:show]
-  before_action :note_user_collection, only:[:update, :destroy]
+  before_action :note_user_collection, only: %i[update destroy]
 
   def index
     # Userのshowアクションと同じなのでリダイレクト
@@ -13,6 +13,7 @@ class NotesController < ApplicationController
   end
 
   def show
+    # before_actionですでに@noteは取得済みなのでなにもしない
   end
 
   def create
@@ -27,9 +28,13 @@ class NotesController < ApplicationController
   end
 
   def edit
+    # 未実装
+    raise NotImplementedError
   end
 
   def update
+    # 未実装
+    raise NotImplementedError
   end
 
   def destroy
