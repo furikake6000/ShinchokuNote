@@ -1,4 +1,3 @@
-# Note class expresses projects and other streams.
 class Note < ApplicationRecord
   belongs_to :user
   has_many :posts
