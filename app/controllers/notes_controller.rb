@@ -33,6 +33,7 @@ class NotesController < ApplicationController
   end
 
   def destroy
+    @note.delete
   end
 
   private
