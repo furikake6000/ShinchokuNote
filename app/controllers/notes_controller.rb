@@ -1,7 +1,7 @@
 class NotesController < ApplicationController
   before_action :user_collection, only: %i[new create]
-  before_action :note_find, only: [:show]
-  before_action :note_user_collection, only: %i[update destroy]
+  before_action :note_find, only: %i[show edit]
+  before_action :note_user_collection, only: %i[edit update destroy]
 
   def index
     # Userのshowアクションと同じなのでリダイレクト
@@ -17,7 +17,7 @@ class NotesController < ApplicationController
   end
 
   def create
-    @note = @user.notes.new(notes_params)
+    @note = @user.notes.new(notes_params('note'))
     if @note.save
       # 保存成功
       redirect_to note_path(@note)
@@ -28,12 +28,14 @@ class NotesController < ApplicationController
   end
 
   def edit
-    # 未実装
-    raise NotImplementedError
+    # before_actionですでに@noteは取得済みなのでなにもしない
   end
 
   def update
-    if @note.update_attributes(notes_params)
+    # @note.typeによってparamのどこに格納されるかが変わるため、
+    #  notes_paramsに適切な引数を与える必要がある。
+    #  これは小文字化しなければならない。
+    if @note.update_attributes(notes_params(@note.type.downcase))
       # 保存成功
       redirect_to note_path(@note)
     else
@@ -68,7 +70,7 @@ class NotesController < ApplicationController
   end
 
   # Noteのパラメータを安全に取り出す
-  def notes_params
-    params.require(:note).permit(:type, :name, :desc)
+  def notes_params(notetype)
+    params.require(notetype).permit(:type, :name, :desc)
   end
 end
