@@ -1,0 +1,6 @@
+<%= form_for(newpost) do |f| %>
+  <div class="field">
+    <%= f.text_area :content, placeholder: "リンクするツイートのURL" %>
+  </div>
+  <%= f.submit "Make new post", class: "btn btn-primary" %>
+<% end %>
