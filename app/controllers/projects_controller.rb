@@ -53,7 +53,7 @@ class ProjectsController < ApplicationController
 
   # project取得
   def project_find
-    @project = project.find_by(id: params[:id])
+    @project = Project.find_by(id: params[:id])
     render_404 && return if @project.nil?
   end
 
