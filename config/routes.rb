@@ -1,26 +1,23 @@
 Rails.application.routes.draw do
-  #トップページ
+  # トップページ
   root 'users#home'
 
-  #リソース：ユーザ
-  resources :users, :only => [:new, :index, :show, :new]
-  get '/login', to: 'users#new'
-  get '/u/:id', to: 'users#show'  #リンク用短縮エイリアス
+  # リソース：ユーザ
+  resources :users, only: %i[new index show]
   get '/auth/twitter/callback', to: 'users#login'
   get '/switch', to: 'users#switchuser'
+  get '/login', to: 'users#new'
   get '/logout', to: 'users#logout'
 
-  #リソース：ノート
-  resources :users, shallow:true do
-    #Shallowによりindex, new, createはuserから指定可能
-    resources :notes
+  # リソース：ノート
+  resources :users, shallow: true do
+    # Shallowによりindex, new, createはuserから指定可能
+    resources :projects, controller: :notes, type: 'Project'
   end
-  get '/n/:id', to: 'notes#show'  #リンク用短縮エイリアス
 
-  #固定ページ
+  # 固定ページ
   get '/about', to: 'static_pages#about'
   get '/manage', to: 'static_pages#manage'
 
-  #ユーザ関連
-
+  # ユーザ関連
 end
