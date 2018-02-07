@@ -19,12 +19,12 @@ Rails.application.routes.draw do
     ]
     notetypes.each do |ntype|
       # 一部イベントのみnotes_controllerで共通処理
-      resources ntype.sym,
+      resources ntype[:sym],
                 controller: :notes,
-                type: ntype.sym,
-                only: %i[create update delete]
+                type: ntype[:name],
+                only: %i[index destroy]
       # 一部イベント以外は独自コントローラで処理
-      resources ntype.sym
+      resources ntype[:sym]
     end
   end
 
