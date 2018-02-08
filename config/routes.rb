@@ -10,8 +10,9 @@ Rails.application.routes.draw do
   get '/logout', to: 'users#logout'
 
   # リソース：ノート
+  # Shallowによりindex, new, createはuserから指定可能
   resources :users, shallow: true do
-    # Shallowによりindex, new, createはuserから指定可能
+    # note typeごとにリソース宣言を行う
     notetypes = [
       { name: 'Project', sym: :projects },
       { name: 'Idea', sym: :ideas },
@@ -24,7 +25,21 @@ Rails.application.routes.draw do
                 type: ntype[:name],
                 only: %i[index destroy]
       # 一部イベント以外は独自コントローラで処理
-      resources ntype[:sym]
+      resources ntype[:sym], shallow: true do
+        # post typeごとにリソース宣言を行う
+        posttypes = [
+          { name: 'TweetPost', sym: :tweetposts }
+        ]
+        posttypes.each do |ptype|
+          # 一部イベントのみnotes_controllerで共通処理
+          resources ptype[:sym],
+                    controller: :posts,
+                    type: ptype[:name],
+                    only: %i[index destroy]
+          # 一部イベント以外は独自コントローラで処理
+          resources ptype[:sym]
+        end
+      end
     end
   end
 
