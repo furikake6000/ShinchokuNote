@@ -1,0 +1,2 @@
+class TweetPost < Post
+end
