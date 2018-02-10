@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :user_collection, only: %i[new create]
-  before_action :project_find, only: %i[show edit]
-  before_action :project_user_collection, only: %i[edit update]
+  before_action :find_project, only: %i[show edit]
+  before_action :find_my_project, only: %i[edit update]
 
   def new
     @project = @user.projects.new
@@ -46,13 +46,13 @@ class ProjectsController < ApplicationController
   end
 
   # project取得(自分のproject以外取得できない)
-  def project_user_collection
-    project_find
+  def find_my_project
+    find_project
     redirect_to root_path if current_user != @project.user
   end
 
   # project取得
-  def project_find
+  def find_project
     @project = Project.find_by(id: params[:id])
     render_404 && return if @project.nil?
   end
