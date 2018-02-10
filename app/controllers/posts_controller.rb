@@ -25,4 +25,13 @@ class PostsController < ApplicationController
     @note = note.find_by(id: params[:note_id])
     render_404 && return if @note.nil?
   end
+
+  # Postのパラメータを安全に取り出す
+  def posts_params
+    posttype = @post.type.downcase.to_sym unless @post.nil?
+    posttype ||= :post
+    print(posttype)
+    params.require(posttype).permit(:text, :type, :order,
+                                    :twitter_id, :media_urls)
+  end
 end
