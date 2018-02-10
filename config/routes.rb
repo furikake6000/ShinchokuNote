@@ -9,7 +9,11 @@ Rails.application.routes.draw do
     resources :notes, shallow: true do
       resources :posts
     end
+
+    # Post派生クラスTwitterPostはcreateのみ許可
+    resources :tweetposts, only: %i[create]
   end
+
   get '/auth/twitter/callback', to: 'users#login'
   get '/switch', to: 'users#switchuser'
   get '/login', to: 'users#new'
