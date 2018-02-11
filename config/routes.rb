@@ -7,11 +7,12 @@ Rails.application.routes.draw do
   resources :users, only: %i[new index show], shallow: true do
     # リソース：ノート
     resources :notes, shallow: true do
+      # リソース:投稿
       resources :posts
-    end
 
-    # Post派生クラスTwitterPostはcreateのみ許可
-    resources :tweetposts, only: %i[create]
+      # Post派生クラスTwitterPostはcreateのみ許可
+      resources :tweetposts, only: %i[create]
+    end
   end
 
   get '/auth/twitter/callback', to: 'users#login'
