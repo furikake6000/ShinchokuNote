@@ -5,6 +5,8 @@
     <% logged_in_users.each do |u| %>
       <p class="mt-3"><%= "@#{u.screen_name}(#{u.twitter_id}) logged in." %></p>
     <% end %>
+    <p>Current User Token: <%= current_user_token %></p>
+    <p>Current User Secret: <%= current_user_secret %></p>
   </div>
   <hr>
   <div>

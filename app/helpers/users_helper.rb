@@ -77,6 +77,23 @@ module UsersHelper
       logged_in_users.find { |u| u.twitter_id == current_user_id }
   end
 
+  # カレントユーザのinfoを取得する
+  def current_user_info
+    # user_group_infoになければmaster_user_info
+    @current_user_info ||=
+      (user_group_info[current_user_id] || master_user_info[current_user_id])
+  end
+
+  # カレントユーザのtokenを取得する
+  def current_user_token
+    current_user_info['token']
+  end
+
+  # カレントユーザのsecretを取得する
+  def current_user_secret
+    current_user_info['secret']
+  end
+
   # カレントユーザを変更する
   def change_current_user(user)
     change_current_user_id(user.twitter_id)
