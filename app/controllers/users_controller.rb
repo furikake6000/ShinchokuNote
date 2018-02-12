@@ -16,6 +16,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by(screen_name: params[:id].to_s)
     render_404 if @user.nil?
+
+    @client = client_new
+    @tweets = @client.user_timeline(@user.screen_name)
   end
 
   def login
