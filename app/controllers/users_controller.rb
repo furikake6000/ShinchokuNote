@@ -26,7 +26,8 @@ class UsersController < ApplicationController
       # 新規登録時の挙動
       unless MYCONF['allow_user_register']
         # 新規登録不可の場合、そのせつを出力
-        render 'static_pages/register_denyed' && return
+        render 'static_pages/register_denyed'
+        return
       end
     end
     twitter_login(auth)
@@ -35,13 +36,13 @@ class UsersController < ApplicationController
 
   def logout
     # cookieを削除すればログアウト処理に
-    logout_user(master_user)
+    logout_user(current_user)
     redirect_to root_path
   end
 
   def home
     # 未ログイン状態ならばstatic_pages#homeを描画
-    render 'static_pages/home' && return unless logged_in?
+    render 'static_pages/home' unless logged_in?
   end
 
   def switchuser
