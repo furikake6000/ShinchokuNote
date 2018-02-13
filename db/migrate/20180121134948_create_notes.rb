@@ -9,9 +9,9 @@ class CreateNotes < ActiveRecord::Migration[5.1]
 
       t.timestamps
 
-      #For "Project" < Note
+      # For "Project" < Note
       t.datetime :started_at
-      #For "FinishedProject" < Project
+      # For "FinishedProject" < Project
       t.datetime :finished_at
     end
   end
