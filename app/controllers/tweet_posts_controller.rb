@@ -2,7 +2,9 @@ class TweetPostsController < ApplicationController
   before_action :find_my_note, only: %i[create]
 
   def create
-    @post = @note.tweetposts.new(posts_params)
+    client = client_new
+    tweet = client.status(id: params[:tweetpost][:twitter_id])
+    @post = tweet_to_tweetpost(tweet, @note)
     if @post.save
       # 保存成功
       redirect_to note_path(@note)
@@ -26,9 +28,17 @@ class TweetPostsController < ApplicationController
     render_404 && return if @note.nil?
   end
 
-  # Postのパラメータを安全に取り出す
-  def posts_params
-    tweetid = params[:tweetpost][:twitter_id]
-    # Twitter IDをもとにデータを取得する
+  # TweetからTweetPostオブジェクトを作成する
+  def tweet_to_tweetpost(tweet, note)
+    tweetpost = note.tweetposts.new
+    tweetpost.tweet_id = tweet.id
+    # Text取得
+    tweetpost.text = tweet.full_text
+    # メディアURI取得
+    # Array->組み合わせArray->Hash->Jsonという長ったらしい変換を行う
+    media_url_array = [[1..tweet.uris.size], tweet.uris].transpose
+    media_url_hash = Hash[*media_url_array.flatten]
+    tweetpost.media_urls = media_url_hash.to_json
+    tweetpost
   end
 end
