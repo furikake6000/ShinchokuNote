@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :find_my_note, only: %i[create]
 
   def create
-    @post = @note.tweetposts.new(posts_params)
+    @post = @note.posts.new(posts_params)
     if @post.save
       # 保存成功
       redirect_to note_path(@note)
@@ -22,7 +22,7 @@ class PostsController < ApplicationController
 
   # note取得
   def find_note
-    @note = note.find_by(id: params[:note_id])
+    @note = Note.find_by(id: params[:note_id])
     render_404 && return if @note.nil?
   end
 
