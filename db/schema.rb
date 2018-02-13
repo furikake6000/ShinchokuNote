@@ -28,10 +28,12 @@ ActiveRecord::Schema.define(version: 20180121142431) do
     t.string "text"
     t.string "type"
     t.float "order"
+    t.integer "note_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "twitter_id"
     t.string "media_urls"
+    t.index ["note_id"], name: "index_posts_on_note_id"
   end
 
   create_table "users", force: :cascade do |t|
