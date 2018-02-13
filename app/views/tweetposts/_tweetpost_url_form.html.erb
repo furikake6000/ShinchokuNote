@@ -1,6 +1,8 @@
-<%= form_for(newpost) do |f| %>
+<%= form_for([note.becomes(Note), note.posts.new],
+              url: note_tweet_posts_path(note),
+              html: {method: 'POST'}) do |f| %>
   <div class="field">
-    <%= f.text_area :content, placeholder: "リンクするツイートのURL" %>
+    <%= f.text_area :twitter_id, placeholder: "リンクするツイートのURL" %>
   </div>
   <%= f.submit "Make new post", class: "btn btn-primary" %>
 <% end %>
