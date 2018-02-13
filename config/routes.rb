@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :posts
 
       # Post派生クラスTwitterPostはcreateのみ許可
-      resources :tweetposts, only: %i[create]
+      resources :tweet_posts, only: %i[create]
     end
   end
 
