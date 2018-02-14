@@ -1,4 +1,5 @@
 <h1><%= @note.name %></h1>
 <%= link_to '編集する', edit_note_path(@note)  %>
 <p><%= @note.desc %></p>
-<%= render partial: 'tweetposts/tweetpost_url_form', locals: {note: @note} %>
+<%= render partial: 'tweet_posts/tweet_post_url_form', locals: {note: @note} %>
+<%= render @note.posts %>

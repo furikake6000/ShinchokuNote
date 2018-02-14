@@ -1,6 +1,7 @@
 <%= form_for([note.becomes(Note), note.posts.new],
               url: note_tweet_posts_path(note),
               html: {method: 'POST'}) do |f| %>
+  <%= f.hidden_field :type, value: "TweetPost" %>
   <div class="field">
     <%= f.text_area :twitter_id, placeholder: "リンクするツイートのURL" %>
   </div>
