@@ -1,0 +1,8 @@
+<div class="media tweet mt-0 mb-3">
+  <%= image_tag(tweet_post.note.user.thumb_url, size: "48x48" , alt: tweet_post.note.user.name, class: "mr-3") %>
+
+  <div class="media-body">
+    <p class="mb-1"><%= tweet_post.note.user.name  %></p>
+    <p class="mb-1"><%= tweet_post.text %></p>
+  </div>
+</div>
