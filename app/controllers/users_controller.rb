@@ -18,7 +18,6 @@ class UsersController < ApplicationController
     render_404 if @user.nil?
 
     @client = client_new
-    @tweets = @client.user_timeline(@user.screen_name)
   end
 
   def login
