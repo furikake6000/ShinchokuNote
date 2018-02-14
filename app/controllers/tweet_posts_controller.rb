@@ -30,7 +30,7 @@ class TweetPostsController < ApplicationController
 
   # TweetからTweetPostオブジェクトを作成する
   def tweet_to_tweetpost(tweet, note)
-    tweetpost = note.posts.new
+    tweetpost = note.posts.new(type: 'TweetPost')
     tweetpost.twitter_id = tweet.id
     # Text取得
     tweetpost.text = tweet.full_text
