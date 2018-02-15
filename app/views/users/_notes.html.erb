@@ -2,14 +2,17 @@
 <h2>進行中のプロジェクト</h2>
 
 <div class="card-columns">
-  <%= render notes %>
+  <%= render user.notes %>
+
+  <% if current_user?(user) %>
   <div class="card bg-light">
     <div class="card-body">
       <h5 class="card-title">
-        <%= link_to "新規作成", new_user_note_path(current_user.screen_name) %>
+        <%= link_to "新規作成", new_user_note_path(user.screen_name) %>
       </h5>
     </div>
   </div>
+  <% end %>
 </div>
 
 </div>
