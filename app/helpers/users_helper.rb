@@ -77,6 +77,11 @@ module UsersHelper
       logged_in_users.find { |u| u.twitter_id == current_user_id }
   end
 
+  # 該当ユーザがcurrent_userか否か調べる
+  def current_user?(user)
+    logged_in? && user == current_user
+  end
+
   # カレントユーザのinfoを取得する
   def current_user_info
     # user_group_infoになければmaster_user_info
