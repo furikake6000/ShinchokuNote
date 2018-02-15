@@ -1,6 +1,8 @@
 <div class="projects">
 <h2>進行中のプロジェクト</h2>
-<% notes.each do |n| %>
-<%= render partial: "notes/note", locals: {note: n} %>
-<% end %>
+
+<div class="card-columns">
+  <%= render notes %>
+</div>
+
 </div>
