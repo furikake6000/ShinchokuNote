@@ -1,4 +1,7 @@
-<div>
-<h3><%= link_to note.name, note_path(note) %></h3>
-<%= note.desc %>
+<div class="card">
+  <%= image_tag(note.user.thumb_url, size: "96x96" , alt: note.user.name, class: "card-img-top") %>
+  <div class="card-body">
+    <h5 class="card-title"><%= link_to note.name, note_path(note) %></h5>
+    <p class="card-text"><%= note.desc %></p>
+  </div>
 </div>
