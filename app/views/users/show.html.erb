@@ -1,7 +1,4 @@
-<div class="text-center col">
-  <%= render 'users/user_header', user: @user %>
-  <h1>Showページ</h1>
+<%= render 'users/user_header', user: @user %>
+<h1>Showページ</h1>
 
-  <%= render partial: 'users/notes', locals: {notes: @user.notes} %>
-
-</div>
+<%= render partial: 'users/notes', locals: {notes: @user.notes} %>
