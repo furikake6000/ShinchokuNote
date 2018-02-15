@@ -3,6 +3,13 @@
 
 <div class="card-columns">
   <%= render notes %>
+  <div class="card bg-light">
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= link_to "新規作成", new_user_note_path(current_user.screen_name) %>
+      </h5>
+    </div>
+  </div>
 </div>
 
 </div>
