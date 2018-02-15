@@ -1,0 +1,24 @@
+<% if tweet.retweeted_status.nil? %>
+<div class="media tweet mt-0 mb-3">
+  <%= image_tag(get_fullsize_thumb_uri(tweet.user.profile_image_uri), size: "48x48" , alt: tweet.user.name, class: "mr-3") %>
+
+  <div class="media-body">
+    <p class="mb-1"><%= tweet.user.name  %></p>
+    <p class="mb-1 tweetcontent"><%= excludelinks(tweet.full_text) %></p>
+    <% tweet.uris.each do |uri| %>
+      <p><%= link_to uri.expanded_url.to_s, uri.url.to_s, target: "_new" %></p>
+    <% end %>
+    <% tweet.media.each do |media| %>
+      <%= link_to image_tag(media.media_url.to_s, size: "48x48"),media.media_url.to_s, target: "_new"  %>
+    <% end %>
+    <p class="mb-1 tweetstatus">
+      <%= " #{smart_time_to_str(tweet.created_at.dup.localtime("+09:00"))}" %>
+      <%= " #{tweet.retweet_count}リツイート" if tweet.retweet_count != 0 %>
+      <%= " #{tweet.favorite_count}いいね" if tweet.favorite_count != 0  %></p>
+  </div>
+</div>
+<hr>
+<% else %>
+<p class="retweet"><%= tweet.user.name  %>さんがリツイート</p>
+<%= render partial: 'layouts/tweet', locals:{tweet: tweet.retweeted_status} %>
+<% end %>
