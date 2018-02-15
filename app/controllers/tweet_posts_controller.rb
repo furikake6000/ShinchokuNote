@@ -33,7 +33,7 @@ class TweetPostsController < ApplicationController
     tweetpost = note.posts.new(type: 'TweetPost')
     tweetpost.twitter_id = tweet.id
     # Text取得
-    tweetpost.text = tweet.full_text
+    tweetpost.text = tweet.to_json
     # メディアURI取得
     # Array->組み合わせArray->Hash->Jsonという長ったらしい変換を行う
     media_url_hash = {}
