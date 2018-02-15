@@ -9,6 +9,12 @@ body{
 }
 
 .card-columns {
+  @include media-breakpoint-only(md) {
+    column-count: 2;
+  }
+  @include media-breakpoint-only(sm) {
+    column-count: 2;
+  }
 }
 
 .requestboxes{
