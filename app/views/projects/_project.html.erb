@@ -1,7 +1,7 @@
 <div class="card">
   <%= image_tag(project.user.thumb_url, size: "96x96" , alt: project.user.name, class: "card-img-top") %>
   <div class="card-body">
-    <h5 class="card-title">Project:<%= link_to project.name, project_path(project) %></h5>
+    <h5 class="card-title">Project:<%= link_to project.name, note_path(project) %></h5>
     <p class="card-text"><%= project.desc %></p>
   </div>
 </div>
