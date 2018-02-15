@@ -3,6 +3,5 @@ class TweetPost < Post
     return @data unless @data.nil?
     data_hash = JSON.parse text, symbolize_names: true
     @data = Twitter::Tweet.new(data_hash)
-    print(@data.attrs)
   end
 end
