@@ -1,7 +1,10 @@
 class UsersController < ApplicationController
   def index
     # Only admin
-    redirect_to root_path && return unless admin?
+    unless admin?
+      redirect_to root_path
+      return
+    end
     @users = User.all
   end
 
