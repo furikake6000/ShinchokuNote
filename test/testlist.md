@@ -1,7 +1,7 @@
 # Controller tests
 ## StaticPagesControllerTest
-- [x] Home test: 未ログイン時のルートページ表示の確認
-- [x] About page test: aboutページの表示の確認
+- [x] access root: ルートページアクセス、レスポンスとテンプレートの確認
+- [x] access about: Aboutページアクセス、レスポンスとテンプレートの確認
 ## UsersControllerTest
 - [x] logging in: ログイン、ログアウトを1度実行しlogged_in?関数の挙動を確認する
 - [x] logging in as admin: Admin、非Adminでログインしadmin?関数の挙動を確認する
