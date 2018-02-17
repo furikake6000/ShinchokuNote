@@ -9,7 +9,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @okaka = users(:okaka)
   end
 
-  test 'logging in' do
+  test 'log in' do
     # Not logged in at first
     assert_not logged_in?
     assert_nil current_user
@@ -25,7 +25,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_not logged_in?
   end
 
-  test 'logging in as admin' do
+  test 'log in as admin' do
     # Admin? is false in at first
     assert_not admin?
 
@@ -43,7 +43,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_not admin?
   end
 
-  test 'logging in with two accounts' do
+  test 'log in with two accounts' do
     # no master user and current uer at first
     assert_nil master_user
     assert_nil current_user
@@ -70,7 +70,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_nil current_user
   end
 
-  test 'getting user index' do
+  test 'get user index' do
     # Cant get index without logging in
     get users_path
     assert_redirected_to root_path
