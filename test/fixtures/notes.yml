@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  desc: MyString
-  type: 
+okaka_project_1:
+  type: Project
+  name: おかかプロジェクト1
+  desc: okaka所持テスト用ノート1です
 
-two:
-  name: MyString
-  desc: MyString
-  type: 
+okaka_project_2:
+  type: Project
+  name: おかかプロジェクト2
+  desc: okaka所持テスト用ノート2です
