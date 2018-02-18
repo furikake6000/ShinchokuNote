@@ -8,8 +8,8 @@
 - [x] log in as admin: Admin、非Adminでログインしadmin?関数の挙動を確認する
 - [x] log in with two accounts: 複数アカウントでログイン・ログアウトしmaster_userとcurrent_userが合致しているか確認する
 - [x] get user index: users/indexページの閲覧（adminしかできない）を非admin/admin双方で行い、アクセス制限ができているか確認する
-- [ ] get master_token and secret
-- [ ] get current_token and secret
+- [x] get master_user_token and secret
+- [x] get current_user_token and secret
 
 ## NotesControllerTest
 - [ ] make new note: ログイン状態でノートを作成し成功することを確認する

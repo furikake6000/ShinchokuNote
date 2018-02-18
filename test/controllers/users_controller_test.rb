@@ -63,8 +63,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_equal master_user, @noritama
     assert_equal current_user, @noritama
 
-    # logging out with master account
+    # logging in with second account again
     login_user @okaka, 'okaka_token', 'okaka_secret'
+    # logging out with first account
     logout_user @noritama
     assert_nil master_user
     assert_nil current_user
@@ -82,5 +83,33 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     login_user @okaka, 'okaka_token', 'okaka_secret'
     get users_path
     assert_response :success
+  end
+
+  test 'get master_user_token and secret' do
+    # No token and secret without logging in
+    assert_nil master_user_token
+    assert_nil master_user_secret
+    # Token and secret with logging in
+    login_user @noritama, 'noritama_token', 'noritama_secret'
+    assert_equal master_user_token, 'noritama_token'
+    assert_equal master_user_secret, 'noritama_secret'
+    # Token and secret with logging in with two accounts
+    login_user @okaka, 'okaka_token', 'okaka_secret'
+    assert_equal master_user_token, 'noritama_token'
+    assert_equal master_user_secret, 'noritama_secret'
+  end
+
+  test 'get current_user_token and secret' do
+    # No token and secret without logging in
+    assert_nil current_user_token
+    assert_nil current_user_secret
+    # Token and secret with logging in
+    login_user @noritama, 'noritama_token', 'noritama_secret'
+    assert_equal current_user_token, 'noritama_token'
+    assert_equal current_user_secret, 'noritama_secret'
+    # Token and secret with logging in with two accounts
+    login_user @okaka, 'okaka_token', 'okaka_secret'
+    assert_equal current_user_token, 'okaka_token'
+    assert_equal current_user_secret, 'okaka_secret'
   end
 end
