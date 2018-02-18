@@ -85,8 +85,7 @@ module UsersHelper
   # カレントユーザのinfoを取得する
   def current_user_info
     # user_group_infoになければmaster_user_info
-    @current_user_info ||=
-      (user_group_info[current_user_id] || master_user_info[current_user_id])
+    user_group_info[current_user_id] || master_user_info[current_user_id] || {}
   end
 
   # カレントユーザのtokenを取得する
@@ -123,11 +122,11 @@ module UsersHelper
   # マスタユーザの情報（IDとトークンの入ったHash）を取得する
   def master_user_info
     # cookieが存在しなければnilを返す
-    return nil if getcookie(:masteruserinfo).blank?
+    return {} if getcookie(:masteruserinfo).blank?
     # 存在すればJsonからhashを生成
     hash = JSON.parse(getcookie(:masteruserinfo))
     # マスタユーザのデータは唯一である（そうでない場合をはじく）
-    return nil if hash.size != 1
+    return {} if hash.size != 1
     # 最後キャッシュに保存して返す
     hash
   end
@@ -146,12 +145,12 @@ module UsersHelper
 
   # マスタユーザのtokenを取得する
   def master_user_token
-    master_user_info.nil? ? nil : master_user_info[master_user_id]['token']
+    master_user_info.empty? ? nil : master_user_info[master_user_id]['token']
   end
 
   # マスタユーザのsecretを取得する
   def master_user_secret
-    master_user_info.nil? ? nil : master_user_info[master_user_id]['secret']
+    master_user_info.empty? ? nil : master_user_info[master_user_id]['secret']
   end
 
   # マスタユーザを変更する
@@ -164,7 +163,7 @@ module UsersHelper
   # マスタユーザに付随するグループを取得
   def user_group_info
     # まだ情報が登録されていなければ空のHashを返す
-    return {} if master_user.user_group_info.nil?
+    return {} if master_user.nil? || master_user.user_group_info.nil?
     # パスワードはOAuthシークレット
     pass = master_user_secret
     json = decrypt_data(master_user.user_group_info,
