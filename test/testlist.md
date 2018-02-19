@@ -10,12 +10,17 @@
 - [x] get user index: users/indexページの閲覧（adminしかできない）を非admin/admin双方で行い、アクセス制限ができているか確認する
 - [x] get master_user_token and secret
 - [x] get current_user_token and secret
+- [ ] delete user: 自分のアカウントが削除できることを確認する
+- [ ] delete other user as admin: 他人のアカウントがadmin権限で削除できることを確認する
+- [ ] delete other user: 未ログイン状態とnonadminが他人のアカウントを削除できないことを確認する
 
 ## NotesControllerTest
 - [ ] make new note: ログイン状態でノートを作成し成功することを確認する
 - [ ] make new note of others: 未ログイン状態とログイン状態で他人のノートが作成できないことを確認する
 - [ ] edit note: ログイン状態でノートを編集し成功することを確認する
 - [ ] edit note of others: 未ログイン状態とログイン状態で他人のノートが編集できないことを確認する
+- [ ] delete note: ログイン状態でノートを削除し成功することを確認する
+- [ ] delete note of others: 未ログイン状態とログイン状態で他人のノートが削除できないことを確認する
 
 ## ProjectsControllerTest
 
@@ -24,6 +29,8 @@
 - [ ] make new post of others: 未ログイン状態とログイン状態で他人のポストが作成できないことを確認する
 - [ ] edit post: ログイン状態でポストを編集し成功することを確認する
 - [ ] edit post of others: 未ログイン状態とログイン状態で他人のポストが編集できないことを確認する
+- [ ] delete post: ログイン状態でポストを削除し成功することを確認する
+- [ ] delete post of others: 未ログイン状態とログイン状態で他人のポストが削除できないことを確認する
 
 ## TweeePostsControllerTest
 - [ ] make new tweetpost: 実際のtweetに紐付いたポストを作成しコンテンツの読み取りに成功することを確認する
