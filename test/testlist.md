@@ -29,6 +29,26 @@
 - [ ] make new tweetpost: 実際のtweetに紐付いたポストを作成しコンテンツの読み取りに成功することを確認する
 
 # Model tests
+## UserTest
+- [ ] valid user: okakaを召喚してvalidを確認
+- [ ] invalid user uniqueness: okakaを保存した後にokakaのvalidationを確認して一意性の確認
+- [ ] invalid user no_twitter_id: twitter_idのないUserがinvalidであることを確認
+- [ ] admin and nonadmin: okakaとnoritamaのadmin?を確認
+
+## NoteTest
+- [ ] valid note: okaka_project_1を召喚してvalidを確認
+- [ ] invalid note uniqueness: 同ユーザが同じ名前のNoteを保存しようとして一意性の確認
+- [ ] invalid note no_type: typeのないNoteがinvalidであることを確認
+- [ ] invalid note wrong_type: 存在しないtype「'Undefined'」のNoteがinvalidであることを確認
+
+## ProjectTest
+- [ ] valid project: okaka_project_1を召喚してvalidを確認
+- [ ] invalid project no_name: nameのないProjectがinvalidであることを確認
+
+## PostTest
+- [ ] valid post: okaka_project_tweetpost_1を召喚してvalidを確認
+- [ ] invalid post no_type: typeのないPostがinvalidであることを確認
+- [ ] invalid post wrong_type: 存在しないtype「'Undefined'」のPostがinvalidであることを確認
 
 # Integration tests
 
