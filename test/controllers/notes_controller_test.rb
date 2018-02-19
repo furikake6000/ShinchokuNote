@@ -10,12 +10,11 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'make new note' do
-    print(User.first.screen_name)
     # logging in
     login_user @okaka, 'okaka_token', 'okaka_secret'
 
     # creating a note
-    assert_difference '@okaka.notes.size', 1 do
+    assert_difference '@okaka.notes.count', 1 do
       post user_notes_path(@okaka.screen_name), params: { note: {
         type: 'Project',
         name: 'TestNote',
