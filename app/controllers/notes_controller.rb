@@ -70,7 +70,6 @@ class NotesController < ApplicationController
   def notes_params
     notetype = @note.type.downcase.to_sym unless @note.nil?
     notetype ||= :note
-    print(notetype)
     params.require(notetype).permit(:type, :name, :desc)
   end
 end
