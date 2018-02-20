@@ -2,10 +2,18 @@
 
 okaka_project_1:
   type: Project
+  user: okaka
   name: おかかプロジェクト1
   desc: okaka所持テスト用ノート1です
 
 okaka_project_2:
   type: Project
+  user: okaka
   name: おかかプロジェクト2
   desc: okaka所持テスト用ノート2です
+
+noritama_project_1:
+  type: Project
+  user: noritama
+  name: のりたまプロジェクト1
+  desc: noritama所持テスト用ノート1です
