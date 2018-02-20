@@ -57,6 +57,11 @@
 - [ ] invalid post no_type: typeのないPostがinvalidであることを確認
 - [ ] invalid post wrong_type: 存在しないtype「'Undefined'」のPostがinvalidであることを確認
 
+# Helper tests
+## ApplicationHelperTest
+- [x] Encryption and decryption: encrypt_dataしたものをdecrypt_dataし整合性を確認
+- [x] Encryption and decryption for Json: Jsonデータをencrypt, decryptし整合性を確認
+
 # Integration tests
 
 # Fixtures
