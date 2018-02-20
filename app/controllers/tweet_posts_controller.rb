@@ -34,14 +34,7 @@ class TweetPostsController < ApplicationController
     tweetpost.twitter_id = tweet.id
     # Text取得
     tweetpost.text = tweet.to_json
-    # メディアURI取得
-    # Array->組み合わせArray->Hash->Jsonという長ったらしい変換を行う
-    media_url_hash = {}
-    unless tweet.uris.empty?
-      media_url_array = [[1..tweet.uris.size], tweet.uris].transpose
-      media_url_hash = Hash[*media_url_array.flatten]
-    end
-    tweetpost.media_urls = media_url_hash.to_json
+    # 作成したTweetPostを返す
     tweetpost
   end
 end
