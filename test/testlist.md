@@ -15,8 +15,8 @@
 - [ ] delete other user: 未ログイン状態とnonadminが他人のアカウントを削除できないことを確認する
 
 ## NotesControllerTest
-- [ ] make new note: ログイン状態でノートを作成し成功することを確認する
-- [ ] make new note of others: 未ログイン状態とログイン状態で他人のノートが作成できないことを確認する
+- [x] make new note: ログイン状態でノートを作成し成功することを確認する
+- [x] make new note of others: 未ログイン状態とログイン状態で他人のノートが作成できないことを確認する
 - [ ] edit note: ログイン状態でノートを編集し成功することを確認する
 - [ ] edit note of others: 未ログイン状態とログイン状態で他人のノートが編集できないことを確認する
 - [ ] delete note: ログイン状態でノートを削除し成功することを確認する
