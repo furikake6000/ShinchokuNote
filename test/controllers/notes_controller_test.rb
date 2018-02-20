@@ -93,4 +93,29 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     # assert not changed
     assert_equal edited_note, @noritama_project1
   end
+
+  test 'delete note' do
+    # logging in
+    login_user @okaka, 'okaka_token', 'okaka_secret'
+
+    # deleting a note
+    assert_difference '@okaka.notes.count', -1 do
+      delete note_path(@okaka_project1)
+    end
+  end
+
+  test 'delete note of others' do
+    # deleting a note without logging in
+    assert_no_difference 'Note.count' do
+      delete note_path(@okaka_project1)
+    end
+
+    # logging in
+    login_user @okaka, 'okaka_token', 'okaka_secret'
+
+    # deleting a note of others
+    assert_no_difference 'Note.count' do
+      delete note_path(@noritama_project1)
+    end
+  end
 end
