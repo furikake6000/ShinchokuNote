@@ -64,7 +64,7 @@
 
 ## TwitterHelperTest
 - [x] client_new success: 実在するtokenとsecretを使ってclient_newを行い取得できるか（nilでないか）を確認
-- [ ] client_new failure: ダミーのtokenとsecretを使ってclient_newを行い取得できないことを確認
+- [x] client_new failure: ダミーのtokenとsecretを使ってclient_newを行い取得できないことを確認
 
 # Integration tests
 
