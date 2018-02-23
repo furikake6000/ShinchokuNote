@@ -34,6 +34,9 @@ gem 'turnout'
 gem 'rubocop'
 gem 'scss-lint'
 
+# Security(Encryption)
+gem 'sodium'
+
 group :development, :test do
   # Use sqlite on dev mode
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
