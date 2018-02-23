@@ -35,7 +35,7 @@ gem 'rubocop'
 gem 'scss-lint'
 
 # Security(Encryption)
-gem 'sodium'
+gem 'rbnacl'
 
 group :development, :test do
   # Use sqlite on dev mode
