@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   validates :twitter_id, presence: true
+  validates :twitter_id, uniqueness: true
 
   has_many :notes
 
