@@ -43,10 +43,11 @@ ActiveRecord::Schema.define(version: 20180121142431) do
     t.string "url"
     t.string "thumb_url"
     t.string "desc"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "user_group_info"
     t.string "permission", default: ""
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["twitter_id"], name: "index_users_on_twitter_id", unique: true
   end
 
 end
