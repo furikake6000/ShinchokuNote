@@ -11,8 +11,9 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'invalid user uniqueness' do
+    dup_user = @okaka.dup
     @okaka.save
-    assert_not @okaka.valid?
+    assert_not dup_user.valid?
   end
 
   test 'invalid user no_twitter_id' do
