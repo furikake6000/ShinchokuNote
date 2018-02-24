@@ -168,7 +168,7 @@ module UsersHelper
     pass = master_user_secret
     json = decrypt_data(master_user.user_group_info,
                         pass,
-                        master_user.salt_8byte)
+                        master_user.salt)
     JSON.parse(json)
   end
 
@@ -178,7 +178,7 @@ module UsersHelper
     pass = master_user_secret
     json = JSON.generate(group_info)
     master_user.user_group_info =
-      encrypt_data(json, pass, master_user.salt_8byte).force_encoding('UTF-8')
+      encrypt_data(json, pass, master_user.salt).force_encoding('UTF-8')
     master_user.save!
   end
 
