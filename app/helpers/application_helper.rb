@@ -1,22 +1,24 @@
 module ApplicationHelper
-  # 秘密鍵暗号方式（AES-256-CBC）でデータを暗号化する
-  # 引用元（http://webos-goodies.jp/archives/encryption_in_ruby.html）
+  require 'rbnacl'
+
+  # RbNaClを使用して対象鍵暗号を施す
+
   # 暗号化
   def encrypt_data(data, password, salt)
-    cipher = OpenSSL::Cipher::Cipher.new('AES-256-CBC')
-    cipher.encrypt
-    cipher.pkcs5_keyivgen(password, salt)
-    cipher.update(data) + cipher.final
+    key = RbNaCl::Hash.sha256(password)[0..31]
+    nonce = RbNaCl::Hash.sha256(salt)[0..23]
+    secret_box = RbNaCl::SecretBox.new(key)
+    secret_box.encrypt(nonce, data)
   end
 
   # 復号化
-  def decrypt_data(data, password, salt)
-    cipher = OpenSSL::Cipher::Cipher.new('AES-256-CBC')
-    cipher.decrypt
-    cipher.pkcs5_keyivgen(password, salt)
-    s = cipher.update(data) + cipher.final
+  def decrypt_data(cipherdata, password, salt)
+    key = RbNaCl::Hash.sha256(password)[0..31]
+    nonce = RbNaCl::Hash.sha256(salt)[0..23]
+    secret_box = RbNaCl::SecretBox.new(key)
+    data = secret_box.decrypt(nonce, cipherdata)
     # このままだとASCII-8bit形式なので、日本語用にUTF-8に変更
-    s.to_s.force_encoding('utf-8')
+    data.to_s.force_encoding('utf-8')
   end
 
   # Twitterのサムネイルの原寸バージョンを取得する
