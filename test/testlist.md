@@ -53,9 +53,9 @@
 - [ ] invalid project no_name: nameのないProjectがinvalidであることを確認
 
 ## PostTest
-- [ ] valid post: okaka_project_tweetpost_1を召喚してvalidを確認
-- [ ] invalid post no_type: typeのないPostがinvalidであることを確認
-- [ ] invalid post wrong_type: 存在しないtype「'Undefined'」のPostがinvalidであることを確認
+- [x] valid post: okaka_project_tweetpost_1を召喚してvalidを確認
+- [x] invalid post no_type: typeのないPostがinvalidであることを確認
+- [x] invalid post wrong_type: 存在しないtype「'Undefined'」のPostがinvalidであることを確認
 
 # Helper tests
 ## ApplicationHelperTest
