@@ -37,10 +37,10 @@
 
 # Model tests
 ## UserTest
-- [ ] valid user: okakaを召喚してvalidを確認
-- [ ] invalid user uniqueness: okakaを保存した後にokakaのvalidationを確認して一意性の確認
-- [ ] invalid user no_twitter_id: twitter_idのないUserがinvalidであることを確認
-- [ ] admin and nonadmin: okakaとnoritamaのadmin?を確認
+- [x] valid user: okakaを召喚してvalidを確認
+- [x] invalid user uniqueness: okakaを保存した後にokakaのvalidationを確認して一意性の確認
+- [x] invalid user no_twitter_id: twitter_idのないUserがinvalidであることを確認
+- [x] admin and nonadmin: okakaとnoritamaのadmin?を確認
 
 ## NoteTest
 - [ ] valid note: okaka_project_1を召喚してvalidを確認
