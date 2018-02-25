@@ -37,6 +37,9 @@ gem 'scss-lint'
 # Security(Encryption)
 gem 'rbnacl'
 
+# font-awesome
+gem 'font-awesome-rails'
+
 group :development, :test do
   # Use sqlite on dev mode
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
