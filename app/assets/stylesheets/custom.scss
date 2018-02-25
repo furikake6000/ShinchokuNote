@@ -1,7 +1,7 @@
 @import "bootstrap";
 
 body{
-  background-color: #FFFFFF;
+  background-color: #FFB6B9;
 }
 
 .headermenu{
@@ -15,6 +15,13 @@ body{
   @include media-breakpoint-only(sm) {
     column-count: 2;
   }
+}
+
+.maintray{
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
 .requestboxes{
