@@ -61,6 +61,7 @@
 ## ApplicationHelperTest
 - [x] Encryption and decryption: encrypt_dataしたものをdecrypt_dataし整合性を確認
 - [x] Encryption and decryption for Json: Jsonデータをencrypt, decryptし整合性を確認
+- [x] get_fullsize_thumb_uri: 'get_fullsize_thumb_uri'メソッドの動作を確認
 
 ## TwitterHelperTest
 - [x] client_new success: 実在するtokenとsecretを使ってclient_newを行い取得できるか（nilでないか）を確認

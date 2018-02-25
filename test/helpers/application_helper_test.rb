@@ -46,4 +46,10 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
     assert_equal hash, decryptedhash
   end
+
+  test 'get_fullsize_thumb_uri' do
+    thumb_url = 'http://pbs.twimg.com/profile_images/962856023206674432/5khbioGO_normal.jpg'
+    fullsize_thumb_url = 'https://pbs.twimg.com/profile_images/962856023206674432/5khbioGO.jpg'
+    assert_equal get_fullsize_thumb_uri(thumb_url), fullsize_thumb_url
+  end
 end

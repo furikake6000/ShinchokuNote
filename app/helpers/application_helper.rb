@@ -23,7 +23,7 @@ module ApplicationHelper
 
   # Twitterのサムネイルの原寸バージョンを取得する
   def get_fullsize_thumb_uri(thumb_url)
-    thumb_url.to_s.sub(/http/, 'https').sub(/(.*)_normal/) { $1 }
+    thumb_url.to_s.sub(/http/, 'https').sub(/(.*)_normal/, '\1')
   end
 
   # 文字列からURL部分を取り除く
