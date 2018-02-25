@@ -10,7 +10,9 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <%= link_to "ホーム", root_path, class:"nav-link"%>
+          <%= link_to root_path, class:"nav-link" do%>
+            <i class="fas fa-home"></i>ホーム
+          <% end %>
         </li>
         <li class="nav-item">
           <%= link_to "進捗ノートの使い方", "/about", class:"nav-link"%>
