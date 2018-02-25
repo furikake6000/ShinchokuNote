@@ -1,8 +1,5 @@
-<div class="media mb-3">
-  <%= link_to image_tag(user.thumb_url, size: "96x96" , alt: user.name, class: "mr-3 rounded-circle"), user.url, target:"_new" unless user.thumb_url.blank? %>
-  <div class="media-body">
-    <h4 class="mt-0"><%= user.name %></h4>
-
-    <p><%= link_to "@#{user.screen_name}", user.url, target:"_new" %></p>
-  </div>
+<div class="text-center mb-3">
+  <%= link_to image_tag(user.thumb_url, size: "128x128" , alt: user.name, class: "mr-3 rounded-circle"), user.url, target:"_new" unless user.thumb_url.blank? %>
+  <h4 class="mt-0"><%= user.name %></h4>
+  <p><%= link_to "@#{user.screen_name}", user.url, target:"_new" %></p>
 </div>
