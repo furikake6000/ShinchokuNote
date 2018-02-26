@@ -46,6 +46,13 @@ header{
   border-radius: 20px;
   padding: 20px;
   margin-bottom: 20px;
+
+  h3{
+    font-size: large;
+    letter-spacing: 0.5em;
+    color: white;
+    border-bottom: medium dotted white;
+  }
 }
 
 .request-boxes-list{
