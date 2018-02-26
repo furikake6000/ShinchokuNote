@@ -48,6 +48,7 @@ header{
   margin-bottom: 20px;
 
   h3{
+    font-weight: bold;
     font-size: large;
     letter-spacing: 0.5em;
     color: white;
@@ -69,4 +70,32 @@ header{
 
 .finished-projects-list{
   background-color: #A8D3D4;
+}
+
+// Note partial
+.note{
+  background-color: rgba(255,255,255,0.7);
+  clear: both;
+  margin: 10px 0px;
+
+  .note-thumb{
+    width: 150px;
+    float: left;
+    margin-right: 10px;
+  }
+
+  .note-title{
+    font-weight: bold;
+  }
+
+  .note-body{
+    padding: 10px;
+  }
+}
+
+// Clearfix
+.cf:after {
+  content:" ";
+  display:block;
+  clear:both;
 }

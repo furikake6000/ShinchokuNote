@@ -1,6 +1,5 @@
 <%= render 'users/user_header', user: current_user %>
-<h1>Homeページ</h1>
 
-<%= link_to "プロジェクト新規作成", new_user_note_path(current_user.screen_name) %>
+<%= link_to "プロジェクト新規作成", new_user_note_path(current_user.screen_name), class:"btn btn-primary mb-3", role:"button" %>
 
 <%= render partial: 'users/notes', locals: {user: current_user} %>
