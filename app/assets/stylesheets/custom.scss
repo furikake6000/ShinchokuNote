@@ -20,7 +20,7 @@
 // Primary settings
 
 body{
-  background-color: #FFB6B9;
+  background-color: #19B0C1;
 }
 
 header{
@@ -31,32 +31,35 @@ header{
 // Original classes
 
 .headermenu{
-  background-color: #FFB6B9;
+
 }
 
 .maintray{
-  background-color: #FFFFFF;
+  background-color: #F2FFE3;
   border-radius: 20px;
   padding: 20px;
   margin-bottom: 20px;
 }
 
-.requestboxes{
-  background-color: #FFD5EA;
-  margin-top: 20px;
+// Lists
+.notes-list{
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
-.projects{
-  background-color: #ffffff;
-  margin-top: 20px;
+.request-boxes-list{
+  background-color: #FFBA19;
 }
 
-.ideas{
-  background-color: #ffffff;
-  margin-top: 20px;
+.projects-list{
+  background-color: #4CDFE0;
 }
 
-.finishedprojects{
-  background-color: #ffffff;
-  margin-top: 20px;
+.ideas-list{
+  background-color: #84F3F5;
+}
+
+.finished-projects-list{
+  background-color: #A8D3D4;
 }
