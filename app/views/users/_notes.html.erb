@@ -5,4 +5,24 @@
   <%= render user.notes %>
 </div>
 
+<div class="requestbox-list">
+  <h3>リクエストボックス</h3>
+  <%= render request_boxes_of user %>
+</div>
+
+<div class="project-list">
+  <h3>現在取り組んでいるプロジェクト</h3>
+  <%= render projects_of user %>
+</div>
+
+<div class="idea-list">
+  <h3>現在構想中のプロジェクト</h3>
+  <%= render ideas_of user %>
+</div>
+
+<div class="finishedproject-list">
+  <h3>完成したプロジェクト</h3>
+  <%= render finished_projects_of user %>
+</div>
+
 </div>
