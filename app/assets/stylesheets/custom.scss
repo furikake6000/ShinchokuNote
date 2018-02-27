@@ -28,6 +28,14 @@ body{
   background-color: #B2EBF2;
 }
 
+h1{
+  font-weight: bold;
+  font-size: x-large;
+  letter-spacing: 0.25em;
+  color: #018a9b;
+  border-bottom: medium dotted #018a9b;
+}
+
 header{
   max-width: 750px;
   margin: auto;
@@ -42,6 +50,19 @@ header{
   border-radius: 20px;
   padding: 20px;
   margin-bottom: 20px;
+}
+
+// User header
+
+.user-header{
+  h2{
+    font-weight: bold;
+    font-size: x-large;
+  }
+
+  .user-header-thumb{
+    width: 128px;
+  }
 }
 
 // Lists

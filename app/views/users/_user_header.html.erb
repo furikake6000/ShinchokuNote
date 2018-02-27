@@ -1,8 +1,9 @@
-<div class="media mb-3">
-  <%= link_to image_tag(user.thumb_url, size: "128x128" , alt: user.name, class: "mr-3 rounded-circle"), user.url, target:"_new" unless user.thumb_url.blank? %>
-  <div class="media-body">
-    <h2 class="mt-0"><%= user.name %> さんのノート</h2>
+<div class="user-header media mb-3">
+  <%= link_to image_tag(user.thumb_url, alt: user.name, class: "mr-3 user-header-thumb rounded-circle"), user.url, target:"_new" unless user.thumb_url.blank? %>
+  <div class="user-header-body media-body">
+    <h2><%= user.name %> さんのノート</h2>
 
     <p><%= link_to "@#{user.screen_name}", user.url, target:"_new" %></p>
+    <p><%= user.desc %></p>
   </div>
 </div>
