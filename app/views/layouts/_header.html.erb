@@ -1,46 +1,48 @@
 <header>
   <nav class="navbar navbar-expand-md navbar-light headermenu">
 
-    <%= link_to image_tag("logo.png", height: "48", class: "d-inline-block align-top"), root_path, class: "navbar-brand" %>
+    <%= link_to image_tag("logo.png", height: "36", class: "d-inline-block align-top"), root_path, class: "navbar-brand" %>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <%= link_to root_path, class:"nav-link" do%>
-            <%= fa_icon 'home', text: 'ホーム' %>
-          <% end %>
-        </li>
-        <li class="nav-item">
-          <%= link_to about_path, class:"nav-link" do%>
-            <%= fa_icon 'info-circle', text: '進捗ノートの使い方' %>
-          <% end %>
-        </li>
-        <% if logged_in? %>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= fa_icon 'user', text: current_user.screen_name %>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <% logged_in_users.each do |u| %>
-              <%= link_to "#{u.screen_name}に切替", "/switch?id=#{u.twitter_id}", class: "dropdown-item" if u != current_user %>
+    <div class="collapse navbar-collapse" id="navbarToggler">
+      <div class="navright">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <%= link_to root_path, class:"nav-link" do%>
+              <%= fa_icon 'home', text: 'ホーム' %>
             <% end %>
-            <%= link_to new_user_path + "?force_login=true", class: "dropdown-item"  do%>
-              <%= fa_icon 'user-plus', text: 'アカウント追加' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to about_path, class:"nav-link" do%>
+              <%= fa_icon 'info-circle', text: '進捗ノートの使い方' %>
             <% end %>
-            <div class="dropdown-divider"></div>
-            <%= link_to "ログアウト", logout_path, class: "dropdown-item" %>
-          </div>
-        </li>
-        <% else %>
-        <li class="nav-item">
-          <%= link_to "ログイン/新規登録", new_user_path, class:"nav-link"%>
-        </li>
-        <% end %>
-      </ul>
+          </li>
+          <% if logged_in? %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= fa_icon 'user', text: current_user.screen_name %>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <% logged_in_users.each do |u| %>
+                <%= link_to "#{u.screen_name}に切替", "/switch?id=#{u.twitter_id}", class: "dropdown-item" if u != current_user %>
+              <% end %>
+              <%= link_to new_user_path + "?force_login=true", class: "dropdown-item"  do%>
+                <%= fa_icon 'user-plus', text: 'アカウント追加' %>
+              <% end %>
+              <div class="dropdown-divider"></div>
+              <%= link_to "ログアウト", logout_path, class: "dropdown-item" %>
+            </div>
+          </li>
+          <% else %>
+          <li class="nav-item">
+            <%= link_to "ログイン/新規登録", new_user_path, class:"nav-link"%>
+          </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </nav>
 

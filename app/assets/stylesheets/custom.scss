@@ -15,6 +15,13 @@
   }
 }
 
+.navright {
+  @include media-breakpoint-up(md) {
+    margin-left: auto;
+    float: right;
+  }
+}
+
 .btn {
   font-weight: bold;
   letter-spacing: 0.25em;
@@ -37,10 +44,6 @@ h1{
 header{
   max-width: 750px;
   margin: auto;
-}
-
-.headermenu{
-
 }
 
 .maintray{
