@@ -2,10 +2,8 @@
 
 // Bootstrap settings
 
-@include media-breakpoint-up(md) {
-  .container {
-    max-width: 750px;
-  }
+.container {
+  max-width: 576px;
 }
 
 .card-columns {
