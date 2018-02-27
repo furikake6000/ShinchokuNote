@@ -96,15 +96,16 @@ header{
 
 .home-controll-panel{
   border-radius: 20px;
-  border: medium dotted black;
+  border: medium dotted #018a9b;
   margin-bottom: 20px;
   padding: 20px;
 
   h3{
+    color: #018a9b;
     font-weight: bold;
     font-size: large;
     letter-spacing: 0.5em;
-    border-bottom: medium dotted black;
+    border-bottom: medium dotted #018a9b;
   }
 }
 
