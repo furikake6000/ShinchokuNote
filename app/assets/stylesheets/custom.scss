@@ -20,12 +20,12 @@
   font-weight: bold;
 }
 
-.navbar-toggler{
+.navbar-toggler,.nav-item, .nav-item > a{
   color: #018a9b;
-}
 
-.nav-item, .nav-item > a{
-  color: #018a9b;
+  :hover{
+    color: #005660;
+  }
 }
 
 .navright {
@@ -156,3 +156,6 @@ header{
   display:block;
   clear:both;
 }
+
+// dropmenu
+@import "dropmenu";
