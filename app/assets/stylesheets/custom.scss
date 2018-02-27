@@ -17,6 +17,15 @@
 
 .navbar {
   font-size: large;
+  font-weight: bold;
+}
+
+.navbar-toggler{
+  color: #018a9b;
+}
+
+.nav-item, .nav-item > a{
+  color: #018a9b;
 }
 
 .navright {

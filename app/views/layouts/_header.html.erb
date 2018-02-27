@@ -1,10 +1,10 @@
 <header>
-  <nav class="navbar navbar-expand-md navbar-light headermenu">
+  <nav class="navbar navbar-expand-md headermenu">
 
     <%= link_to image_tag("logo.png", height: "36", class: "d-inline-block align-top"), root_path, class: "navbar-brand" %>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+      <%= fa_icon 'bars lg' %>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarToggler">
