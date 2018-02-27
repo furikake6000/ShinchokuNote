@@ -15,6 +15,10 @@
   }
 }
 
+.navbar {
+  font-size: large;
+}
+
 .navright {
   @include media-breakpoint-up(md) {
     margin-left: auto;
