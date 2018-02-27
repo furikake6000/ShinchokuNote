@@ -1,7 +1,7 @@
 <div class="note cf">
   <%= image_tag(note.user.thumb_url, size: "96x96" , alt: note.user.name, class: "note-thumb") %>
   <div class="note-body">
-    <h5 class="note-title"><%= link_to note.name, note_path(note) %></h5>
+    <h4><%= link_to note.name, note_path(note) %></h4>
     <p class="note-text"><%= note.desc %></p>
   </div>
 </div>
