@@ -2,5 +2,5 @@
   <h3>コントロールパネル</h3>
 
   <%= link_to "新規作成", new_user_note_path(current_user.screen_name), class:"btn btn-primary", role:"button" %>
-  <%= link_to "設定", '#', class:"btn btn-info", role:"button" %>
+  <%= link_to "設定", edit_user_path(current_user.screen_name), class:"btn btn-info", role:"button" %>
 </div>

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   # リソース：ユーザ
   # Shallowによりindex, new, createはuserから指定可能
-  resources :users, only: %i[new index show], shallow: true do
+  resources :users, except: %i[create destroy], shallow: true do
     # リソース：ノート
     resources :notes, shallow: true do
       # リソース:投稿

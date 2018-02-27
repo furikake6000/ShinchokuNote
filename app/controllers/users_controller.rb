@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_action :user_collection, only: %i[edit update]
+  before_action :find_user, only: %i[show]
+
   def index
     # Only admin
     unless admin?
@@ -16,11 +19,22 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
-    @user = User.find_by(screen_name: params[:id].to_s)
-    render_404 if @user.nil?
+  def edit
+    # before_actionですでに@userは取得済みなのでなにもしない
+  end
 
-    @client = client_new
+  def update
+    if @user.update_attributes(users_params)
+      # 保存成功
+      redirect_to root_path
+    else
+      # やりなおし
+      render 'edit'
+    end
+  end
+
+  def show
+    # before_actionですでに@userは取得済みなのでなにもしない
   end
 
   def login
@@ -53,5 +67,24 @@ class UsersController < ApplicationController
   def switchuser
     change_current_user_id(params[:id])
     redirect_to root_path
+  end
+
+  private
+
+  # User取得(current_userのみ許可)
+  def user_collection
+    user_findout
+    redirect_to root_path if current_user != @user
+  end
+
+  # User取得
+  def find_user
+    @user = User.find_by(screen_name: params[:id].to_s)
+    render_404 && return if @user.nil?
+  end
+
+  # Noteのパラメータを安全に取り出す
+  def users_params
+    params.require(:user).permit(:desc)
   end
 end
