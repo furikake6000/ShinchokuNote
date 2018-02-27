@@ -3,7 +3,7 @@
   <div class="user-header-body media-body">
     <h2><%= user.name %> さんのノート</h2>
 
-    <p><%= link_to "@#{user.screen_name}", user.url, target:"_new" %></p>
+    <p><%= link_to fa_icon('twitter', text: user.screen_name), user.url, target:"_new" %></p>
     <p><%= user.desc %></p>
   </div>
 </div>
