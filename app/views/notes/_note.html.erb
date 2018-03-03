@@ -3,10 +3,14 @@
   <div class="note-body">
     <h4><%= link_to note.name, note_path(note) %></h4>
     <p class="note-text"><%= note.desc %></p>
+
+
+    <div class="note-reactionbox cf">
+      <span class="checked"><%= fa_icon 'star', text: '30' %></span>
+      <span><%= fa_icon 'envelope', text: '5' %></span>
+      <span><i>進 55(+3)</i></span>
+    </div>
   </div>
   <div class="note-bottombox">
-    <span class="checked"><%= fa_icon 'star', text: '30' %></span>
-    <span><%= fa_icon 'envelope', text: '5' %></span>
-    <span><i>進 55(+3)</i></span>
   </div>
 </div>

@@ -40,18 +40,37 @@
   letter-spacing: 0.25em;
 }
 
+// Variables and Mixins
+$primary-darker: #018a9b;
+
+@mixin chaptitle($color: $primary-darker, $font-size: 1.2rem, $letter-spacing: 0.4em){
+  font-weight: bold;
+  font-size: $font-size;
+  letter-spacing: $letter-spacing;
+  color: $color;
+  border-bottom: medium dotted $color;
+}
+
+@mixin rfontsize($font-size){
+  font-size: $font-size;
+
+}
+
 // Primary settings
+
+html{
+  font-size: 100%;
+  @include media-breakpoint-down(xs) {
+    font-size: calc(60% + 1.2vw);
+  }
+}
 
 body{
   background-color: #B2EBF2;
 }
 
 h1{
-  font-weight: bold;
-  font-size: x-large;
-  letter-spacing: 0.25em;
-  color: #018a9b;
-  border-bottom: medium dotted #018a9b;
+  @include chaptitle($primary-darker, x-large)
 }
 
 header{
@@ -71,11 +90,12 @@ header{
 .user-header{
   h2{
     font-weight: bold;
-    font-size: x-large;
+    font-size: 1.4rem;
   }
 
   .user-header-thumb{
     width: 128px;
+    max-width: 30vw;
   }
 }
 
@@ -85,13 +105,8 @@ header{
   border-radius: 20px;
   padding: 20px;
   margin-bottom: 20px;
-
   h3{
-    font-weight: bold;
-    font-size: large;
-    letter-spacing: 0.5em;
-    color: white;
-    border-bottom: medium dotted white;
+    @include chaptitle(white)
   }
 }
 
@@ -121,13 +136,15 @@ header{
   .note-thumb{
     width: 150px;
     height: 150px;
+    max-width: 30vw;
+    max-height: 30vw;
     float: left;
     margin-right: 10px;
   }
 
   h4{
     font-weight: bold;
-    font-size: large;
+    font-size: 1.2rem;
   }
 
   .note-body{
@@ -135,9 +152,9 @@ header{
     height: 100%;
   }
 
-  .note-bottombox{
+  .note-reactionbox{
     font-weight: bold;
-    font-size: large;
+    font-size: 1.2rem;
     position: absolute;
     right: 10px;
     bottom: 10px;
@@ -150,6 +167,10 @@ header{
       &.checked{
         color: $primary;
       }
+      @include media-breakpoint-down(xs){
+        font-size: 1rem;
+        margin: 0px 5px;
+      }
     }
   }
 }
@@ -161,13 +182,8 @@ header{
   border: medium dotted #018a9b;
   margin-bottom: 20px;
   padding: 20px;
-
   h3{
-    color: #018a9b;
-    font-weight: bold;
-    font-size: large;
-    letter-spacing: 0.5em;
-    border-bottom: medium dotted #018a9b;
+    @include chaptitle
   }
 }
 
