@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180121142431) do
+ActiveRecord::Schema.define(version: 20180303153542) do
+
+  create_table "comments", force: :cascade do |t|
+    t.string "text"
+    t.boolean "is_read"
+    t.integer "from_user_id", null: false
+    t.integer "to_note_id", null: false
+    t.integer "response_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_user_id"], name: "index_comments_on_from_user_id"
+    t.index ["response_id"], name: "index_comments_on_response_id"
+    t.index ["to_note_id"], name: "index_comments_on_to_note_id"
+  end
 
   create_table "notes", force: :cascade do |t|
     t.string "name"
@@ -52,6 +65,15 @@ ActiveRecord::Schema.define(version: 20180121142431) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["twitter_id"], name: "index_users_on_twitter_id", unique: true
+  end
+
+  create_table "watchlists", force: :cascade do |t|
+    t.integer "from_user_id", null: false
+    t.integer "to_note_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_user_id"], name: "index_watchlists_on_from_user_id"
+    t.index ["to_note_id"], name: "index_watchlists_on_to_note_id"
   end
 
 end

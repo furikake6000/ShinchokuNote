@@ -4,14 +4,15 @@ class CreateComments < ActiveRecord::Migration[5.1]
       t.string :text
       t.boolean :is_read
 
-      t.integer :from_user_id, null: false
-      t.integer :to_note_id, null: false
-      t.integer :response_id, null: true
+      t.references :from_user, null: false
+      t.references :to_note, null: false
+      t.references :response, null: true
 
       t.timestamps
     end
 
-    add_index :comment, :from_user_id
-    add_index :comment, :to_note_id
+    add_foreign_key :comments, :users, column: :from_user_id
+    add_foreign_key :comments, :notes, column: :to_note_id
+    add_foreign_key :comments, :posts, column: :response_id
   end
 end
