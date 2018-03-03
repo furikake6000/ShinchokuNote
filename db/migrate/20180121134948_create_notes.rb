@@ -4,6 +4,10 @@ class CreateNotes < ActiveRecord::Migration[5.1]
       t.string :name
       t.string :desc
       t.string :type
+      t.string :thumb_info
+      t.string :tags
+      t.string :comment_receive_stance
+      t.string :comment_share_stance
 
       t.references :user, foreign_key: true
 

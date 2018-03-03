@@ -16,6 +16,10 @@ ActiveRecord::Schema.define(version: 20180121142431) do
     t.string "name"
     t.string "desc"
     t.string "type"
+    t.string "thumb_info"
+    t.string "tags"
+    t.string "comment_receive_stance"
+    t.string "comment_share_stance"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
