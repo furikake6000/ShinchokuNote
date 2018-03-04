@@ -15,7 +15,8 @@ ActiveRecord::Schema.define(version: 20180303153542) do
   create_table "comments", force: :cascade do |t|
     t.string "text"
     t.boolean "is_read"
-    t.integer "from_user_id", null: false
+    t.integer "from_user_id"
+    t.string "from_addr"
     t.integer "to_note_id", null: false
     t.integer "response_id"
     t.datetime "created_at", null: false

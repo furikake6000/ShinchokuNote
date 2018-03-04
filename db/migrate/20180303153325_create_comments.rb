@@ -4,7 +4,8 @@ class CreateComments < ActiveRecord::Migration[5.1]
       t.string :text
       t.boolean :is_read
 
-      t.references :from_user, null: false
+      t.references :from_user, null: true
+      t.string :from_addr, null: true
       t.references :to_note, null: false
       t.references :response, null: true
 
