@@ -3,5 +3,5 @@ class Post < ApplicationRecord
   has_one :responded_comment,
           class_name: 'Comment',
           foreign_key: 'response_id',
-          destroy: :nullify
+          dependent: :nullify
 end
