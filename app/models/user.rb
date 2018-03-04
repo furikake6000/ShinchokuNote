@@ -2,7 +2,21 @@ class User < ApplicationRecord
   validates :twitter_id, presence: true
   validates :twitter_id, uniqueness: true
 
-  has_many :notes
+  has_many :notes,
+           dependent: :destroy
+
+  has_many :comments,
+           class_name: 'Comment',
+           foreign_key: 'from_user_id',
+           dependent: :destroy
+
+  has_many :watchlists,
+           class_name: 'Watchlist',
+           foreign_key: 'from_user_id',
+           dependent: :destroy
+
+  has_many :watching_notes,
+           through: :watchlists
 
   # adminかどうかを返す
   def admin?
