@@ -1,4 +1,17 @@
 class Note < ApplicationRecord
+  enum comment_receive_stance: {
+    noone: 0,
+    only_follower: 1,
+    only_signed: 2,
+    everyone: 10
+  }, _suffix: true
+  enum comment_share_stance: {
+    only_me: 0,
+    only_follower: 1,
+    only_signed: 2,
+    everyone: 10
+  }, _suffix: true
+
   belongs_to :user
 
   has_many :posts

@@ -6,8 +6,8 @@ class CreateNotes < ActiveRecord::Migration[5.1]
       t.string :type
       t.string :thumb_info
       t.string :tags
-      t.string :comment_receive_stance, default: 'everyone'
-      t.string :comment_share_stance, default: 'only_me'
+      t.integer :comment_receive_stance, default: 10 # everyone
+      t.integer :comment_share_stance, default: 0 # only me
 
       t.references :user, foreign_key: true
 

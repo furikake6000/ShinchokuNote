@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(version: 20180303153542) do
     t.string "type"
     t.string "thumb_info"
     t.string "tags"
-    t.string "comment_receive_stance", default: "everyone"
-    t.string "comment_share_stance", default: "only_me"
+    t.integer "comment_receive_stance", default: 10
+    t.integer "comment_share_stance", default: 0
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
