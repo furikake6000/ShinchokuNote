@@ -17,6 +17,8 @@ class NotesController < ApplicationController
   end
 
   def create
+    # Typeだけ特別に読み込む（editでは変更が禁止されている）
+    @note.type = params[:note][:type]
     @note = @user.notes.new(notes_params)
     if @note.save
       # 保存成功
