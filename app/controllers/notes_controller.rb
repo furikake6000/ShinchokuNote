@@ -68,7 +68,7 @@ class NotesController < ApplicationController
 
   # Noteのパラメータを安全に取り出す
   def notes_params
-    notetype = @note.type.downcase.to_sym unless @note.nil?
+    notetype = @note.type.underscore.to_sym unless @note.nil?
     notetype ||= :note
     params.require(notetype).permit(:type, :name, :desc)
   end
