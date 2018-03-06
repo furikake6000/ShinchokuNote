@@ -40,6 +40,9 @@ gem 'rbnacl'
 # font-awesome
 gem 'font-awesome-rails'
 
+# Enumのローカリゼーションをしてくれる
+gem 'enum_help'
+
 group :development, :test do
   # Use sqlite on dev mode
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
