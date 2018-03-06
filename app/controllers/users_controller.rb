@@ -73,7 +73,7 @@ class UsersController < ApplicationController
 
   # User取得(current_userのみ許可)
   def user_collection
-    user_findout
+    find_user
     redirect_to root_path if current_user != @user
   end
 
