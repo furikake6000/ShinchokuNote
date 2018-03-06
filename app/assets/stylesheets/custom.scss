@@ -1,5 +1,16 @@
 @import "my_bootstrap";
 
+// Variables and Mixins
+$primary-darker: #018a9b;
+
+@mixin chaptitle($color: $primary-darker, $font-size: 1.2rem, $letter-spacing: 0.4em){
+  font-weight: bold;
+  font-size: $font-size;
+  letter-spacing: $letter-spacing;
+  color: $color;
+  border-bottom: medium dotted $color;
+}
+
 // Bootstrap settings
 
 .container {
@@ -40,20 +51,10 @@
   letter-spacing: 0.25em;
 }
 
-// Variables and Mixins
-$primary-darker: #018a9b;
-
-@mixin chaptitle($color: $primary-darker, $font-size: 1.2rem, $letter-spacing: 0.4em){
+label {
+  color: $primary-darker;
   font-weight: bold;
-  font-size: $font-size;
-  letter-spacing: $letter-spacing;
-  color: $color;
-  border-bottom: medium dotted $color;
-}
-
-@mixin rfontsize($font-size){
-  font-size: $font-size;
-
+  letter-spacing: 0.1em;
 }
 
 // Primary settings
