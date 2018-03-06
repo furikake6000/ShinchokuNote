@@ -1,0 +1,14 @@
+ja:
+  hello: 'こんにちは'
+  enums:
+    note:
+      comment_receive_stance:
+        noone: 受け付けない
+        only_follower: フォロワーさんのみ
+        only_signed: 匿名ユーザ以外
+        everyone: だれでも
+      comment_share_stance:
+        only_me: 自分のみ
+        only_follower: フォロワーさんのみ
+        only_signed: 匿名ユーザ以外
+        everyone: だれでも
