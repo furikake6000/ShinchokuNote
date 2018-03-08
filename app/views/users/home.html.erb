@@ -1,0 +1,5 @@
+<%= render 'users/user_header', user: current_user %>
+
+<%= render partial: 'users/home_controll_panel' %>
+
+<%= render partial: 'users/notes', locals: {user: current_user} %>

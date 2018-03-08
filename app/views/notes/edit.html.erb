@@ -1,0 +1,28 @@
+<h1>ノート編集</h1>
+
+<%= form_for @note, url: {action: :update} do |f| %>
+
+  <%= f.hidden_field :type, value: @note.type %>
+
+  <%= f.label :name, 'ページの名称', class: 'mb-0' %>
+  <div class="input-group mb-3">
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+
+  <%= f.label :desc, 'ページの説明文', class: 'mb-0' %>
+  <div class="input-group mb-3">
+    <%= f.text_area :desc, class: 'form-control' %>
+  </div>
+
+  <%= f.label :comment_receive_stance, 'コメント受信範囲', class: 'mb-0' %>
+  <div class="input-group mb-3">
+    <%= f.select :comment_receive_stance, Note.comment_receive_stances_i18n.invert, {}, class: 'form-control' %>
+  </div>
+
+  <%= f.label :comment_share_stance, 'コメント公開範囲', class: 'mb-0' %>
+  <div class="input-group mb-3">
+    <%= f.select :comment_share_stance, Note.comment_share_stances_i18n.invert, {}, class: 'form-control' %>
+  </div>
+
+  <%= f.submit "保存", class: "btn btn-primary mb-3" %>
+<% end %>

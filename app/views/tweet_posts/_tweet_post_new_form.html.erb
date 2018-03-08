@@ -1,0 +1,9 @@
+<%= form_for([note.becomes(Note), note.posts.new],
+              url: note_tweet_posts_path(note),
+              html: {method: 'POST'}) do |f| %>
+  <%= f.hidden_field :type, value: "TweetPost" %>
+  <div class="input-group">
+    <%= f.text_field :text, class:'form-control mr-3' %>
+    <%= f.submit "つぶやく", class: "btn btn-primary" %>
+  </div>
+<% end %>

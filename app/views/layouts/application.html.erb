@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>捗ノート</title>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+    <%= favicon_link_tag() %>
+
+    <!--Stylesheets-->
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <!--JS sources-->
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <%= render 'layouts/header' %>
+    <div class="container maintray">
+      <%= yield %>
+      <%= render 'layouts/debug_info' if Rails.env.development? %>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+<header>
+  <nav class="navbar navbar-expand-md headermenu">
+
+    <%= link_to image_tag("logo.png", height: "36", class: "d-inline-block align-top"), root_path, class: "navbar-brand" %>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+      <%= fa_icon 'bars lg' %>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarToggler">
+      <div class="navright">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <%= link_to root_path, class:"nav-link" do%>
+              <%= fa_icon 'home', text: 'ホーム' %>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to about_path, class:"nav-link" do%>
+              <%= fa_icon 'info-circle', text: '進捗ノートの使い方' %>
+            <% end %>
+          </li>
+
+          <% if logged_in? %>
+          <li class="nav-item dropmenu">
+            <div class="nav-link">
+              <%= fa_icon 'user', text: current_user.screen_name %>
+            </div>
+            <div class="dropmenu-content">
+              <% logged_in_users.each do |u| %>
+                <%= link_to "#{u.screen_name}に切替", "/switch?id=#{u.twitter_id}", class: "dropdown-item" if u != current_user %>
+              <% end %>
+              <%= link_to "/auth/twitter?force_login=true", class: "dropdown-item"  do%>
+                <%= fa_icon 'user-plus', text: 'アカウント追加' %>
+              <% end %>
+              <hr/>
+              <%= link_to "ログアウト", logout_path, class: "dropdown-item" %>
+            </div>
+          </li>
+          <% else %>
+          <li class="nav-item">
+            <%= link_to "ログイン/新規登録", new_user_path, class:"nav-link"%>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+</header>

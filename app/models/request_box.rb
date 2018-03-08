@@ -1,0 +1,2 @@
+class RequestBox < Note
+end

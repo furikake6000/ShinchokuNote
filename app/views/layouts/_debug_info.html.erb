@@ -1,0 +1,16 @@
+<div class="alert alert-primary" role="alert">
+  <div>
+    User data:<br/>
+    <%= logged_in? ? "Current user is @#{current_user.screen_name}(#{current_user.twitter_id})." : "Not logged in." %>
+    <% logged_in_users.each do |u| %>
+      <p class="mt-3"><%= "@#{u.screen_name}(#{u.twitter_id}) logged in." %></p>
+    <% end %>
+    <p>Current User Token: <%= current_user_token if logged_in? %></p>
+    <p>Current User Secret: <%= current_user_secret if logged_in? %></p>
+  </div>
+  <hr>
+  <div>
+    Debug log:<br/>
+    <%= debug(params) if Rails.env.development? %>
+  </div>
+</div>

@@ -1,0 +1,216 @@
+@import "my_bootstrap";
+
+// Variables and Mixins
+$primary-darker: #018a9b;
+
+@mixin chaptitle($color: $primary-darker, $font-size: 1.2rem, $letter-spacing: 0.4em){
+  font-weight: bold;
+  font-size: $font-size;
+  letter-spacing: $letter-spacing;
+  color: $color;
+  border-bottom: medium dotted $color;
+}
+
+// Bootstrap settings
+
+.container {
+  max-width: 576px;
+}
+
+.card-columns {
+  @include media-breakpoint-only(md) {
+    column-count: 2;
+  }
+  @include media-breakpoint-only(sm) {
+    column-count: 2;
+  }
+}
+
+.navbar {
+  font-size: large;
+  font-weight: bold;
+}
+
+.navbar-toggler,.nav-item, .nav-item > a{
+  color: #018a9b;
+
+  :hover{
+    color: #005660;
+  }
+}
+
+.navright {
+  @include media-breakpoint-up(md) {
+    margin-left: auto;
+    float: right;
+  }
+}
+
+.btn {
+  font-weight: bold;
+  letter-spacing: 0.25em;
+}
+
+label {
+  color: $primary-darker;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+
+// Primary settings
+
+html{
+  font-size: 100%;
+  @include media-breakpoint-down(xs) {
+    font-size: calc(60% + 1.2vw);
+  }
+}
+
+body{
+  background-color: #B2EBF2;
+}
+
+h1{
+  @include chaptitle($primary-darker, x-large)
+}
+
+header{
+  max-width: 750px;
+  margin: auto;
+}
+
+.maintray{
+  background-color: #FFF3E0;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+// User header
+
+.user-header{
+  h2{
+    font-weight: bold;
+    font-size: 1.4rem;
+  }
+
+  .user-header-thumb{
+    width: 128px;
+    max-width: 30vw;
+  }
+}
+
+// Lists
+
+.notes-list{
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  h3{
+    @include chaptitle(white)
+  }
+}
+
+.request-boxes-list{
+  background-color: #FFB300;
+}
+
+.projects-list{
+  background-color: #00BCD4;
+}
+
+.ideas-list{
+  background-color: #80DEEA;
+}
+
+.finished-projects-list{
+  background-color: #A8D3D4;
+}
+
+// Note partial
+.note{
+  background-color: rgba(255,255,255,0.7);
+  clear: both;
+  margin: 10px 0px;
+  position: relative;
+
+  .note-thumb{
+    width: 150px;
+    height: 150px;
+    max-width: 30vw;
+    max-height: 30vw;
+    float: left;
+    margin-right: 10px;
+  }
+
+  h4{
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .note-body{
+    padding: 10px;
+    height: 100%;
+  }
+
+  .note-reactionbox{
+    font-weight: bold;
+    font-size: 1.2rem;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    color: $info;
+    span{
+      margin: 0px 10px;
+      i{
+        font-style: normal;
+      }
+      &.checked{
+        color: $primary;
+      }
+      @include media-breakpoint-down(xs){
+        font-size: 1rem;
+        margin: 0px 5px;
+      }
+    }
+  }
+}
+
+// Controll panel
+
+.home-controll-panel{
+  border-radius: 20px;
+  border: medium dotted #018a9b;
+  margin-bottom: 20px;
+  padding: 20px;
+  h3{
+    @include chaptitle
+  }
+}
+
+// PostForm
+.post-form{
+  border-radius: 20px;
+  border: medium dotted #018a9b;
+  margin-bottom: 20px;
+  padding: 20px;
+  h3{
+    @include chaptitle
+  }
+
+  .nav-item{
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+  }
+}
+
+// Clearfix
+.cf:after {
+  content:" ";
+  display:block;
+  clear:both;
+}
+
+// dropmenu
+@import "dropmenu";

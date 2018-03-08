@@ -1,0 +1,7 @@
+# 日本語コメント
+AsciiComments:
+  Enabled: false
+
+# クラスの一行目のコメント
+Documentation:
+  Enabled: false

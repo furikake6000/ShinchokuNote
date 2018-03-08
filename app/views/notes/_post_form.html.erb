@@ -1,0 +1,27 @@
+<div class="post-form">
+  <h3>進捗を報告する</h3>
+  <nav>
+    <div class="nav nav-pills post-form-tab mb-2" role="tablist">
+      <a class="nav-item nav-link active" id="selectfromurl-tab" data-toggle="tab" href="#selectfromurl" role="tab" aria-controls="selectfromurl" aria-selected="true">
+        URLから紐付け
+      </a>
+      <a class="nav-item nav-link" id="selectfromlist-tab" data-toggle="tab" href="#selectfromlist" role="tab" aria-controls="selectfromlist" aria-selected="false">
+        リストから紐付け
+      </a>
+      <a class="nav-item nav-link" id="makenew-tab" data-toggle="tab" href="#makenew" role="tab" aria-controls="makenew" aria-selected="false">
+        新規作成
+      </a>
+    </div>
+  </nav>
+  <div class="tab-content post-form-content">
+    <div class="tab-pane fade show active" id="selectfromurl" role="tabpanel" aria-labelledby="selectfromurl-tab">
+      <%= render partial: 'tweet_posts/tweet_post_url_form', locals: {note: note} %>
+    </div>
+    <div class="tab-pane fade" id="selectfromlist" role="tabpanel" aria-labelledby="selectfromlist-tab">
+      読み込み中...
+    </div>
+    <div class="tab-pane fade" id="makenew" role="tabpanel" aria-labelledby="makenew-tab">
+      <%= render partial: 'tweet_posts/tweet_post_new_form', locals: {note: note} %>
+    </div>
+  </div>
+</div>

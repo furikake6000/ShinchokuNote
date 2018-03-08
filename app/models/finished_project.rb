@@ -1,0 +1,2 @@
+class FinishedProject < Note
+end

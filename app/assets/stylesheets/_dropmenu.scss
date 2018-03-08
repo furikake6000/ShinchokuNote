@@ -1,0 +1,24 @@
+.dropmenu {
+}
+
+.dropmenu:hover {
+  .dropmenu-content {
+    visibility: visible;
+    opacity: 1;
+    height: auto;
+  }
+}
+
+.dropmenu-content {
+  background-color: white;
+  visibility: hidden;
+  opacity: 0;
+  height: 0px;
+  overflow: hidden;
+  position: absolute;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+}

@@ -1,0 +1,46 @@
+Scafford: User
+  has_many notes
+  has_many watching_notes(Note) through user_watch_notes
+  string twitter_id
+  string name
+  string screen_name
+  string url
+  string thumb_url
+
+  add_index twitter_id
+
+Scafford: Note
+  string type
+  belongs_to user
+  has_many posts
+  has_many watched_users(User) through user_watch_notes
+
+Scafford: RequestBox << Note
+  has_many Request
+
+Scafford: ProjectNote << Note
+  integer shinchoku_dodesuka
+
+Scafford: RequestBox << Note
+
+Model: Post
+  belongs_to note
+  has_many answered_requests(Request) id:answer_id
+  string text
+  float order
+
+Model: TweetPost << Post
+  string twitter_id
+
+# --Postを継承してさまざまなタイプを作成できる（動画、画像、音楽etc...）--
+
+Model: Request
+  belongs_to note
+  belongs_to answer(Post) id:answer_id
+  belongs_to from(User) id:from_id
+  string from_ipaddr
+  string text
+
+Model: User_Watch_Note
+  belongs_to user
+  belongs_to note
