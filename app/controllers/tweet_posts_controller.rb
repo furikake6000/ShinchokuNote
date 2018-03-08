@@ -24,7 +24,7 @@ class TweetPostsController < ApplicationController
       tweet = client.status(tweet_id)
     elsif params[:post][:text]
       # Post new tweet
-
+      tweet = client.update(params[:post][:text])
     end
     tweet
   end
