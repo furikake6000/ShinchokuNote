@@ -10,6 +10,9 @@ Rails.application.routes.draw do
       # リソース:投稿
       resources :posts
 
+      # リソース:コメント
+      resources :comments, only: %i[create]
+
       # Post派生クラスTwitterPostはcreateのみ許可
       resources :tweet_posts, only: %i[create]
     end

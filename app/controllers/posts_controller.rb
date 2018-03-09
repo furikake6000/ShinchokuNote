@@ -30,7 +30,6 @@ class PostsController < ApplicationController
   def posts_params
     posttype = @post.type.downcase.to_sym unless @post.nil?
     posttype ||= :post
-    print(posttype)
     params.require(posttype).permit(:text, :type, :order,
                                     :twitter_id, :media_urls)
   end
