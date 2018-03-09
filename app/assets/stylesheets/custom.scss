@@ -178,7 +178,7 @@ header{
 
 // Controll panel
 
-.home-controll-panel{
+.control-panel{
   border-radius: 20px;
   border: medium dotted #018a9b;
   margin-bottom: 20px;
@@ -190,14 +190,6 @@ header{
 
 // PostForm
 .post-form{
-  border-radius: 20px;
-  border: medium dotted #018a9b;
-  margin-bottom: 20px;
-  padding: 20px;
-  h3{
-    @include chaptitle
-  }
-
   .nav-item{
     font-size: 0.9rem;
     font-weight: bold;
