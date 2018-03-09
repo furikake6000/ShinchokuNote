@@ -4,4 +4,5 @@
 <%= render partial: 'posts/post_form', locals:{note: @note} if current_users_note?(@note) %>
 <%= render partial: 'comments/comment_form', locals:{note: @note} %>
 <%= render @note.posts %>
+<%= @note.comments.size.to_s + '件のコメント' %>
 <%= render @note.comments %>
