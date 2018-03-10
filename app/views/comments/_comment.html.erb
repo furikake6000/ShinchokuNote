@@ -1,5 +1,10 @@
 <div class="media comment mt-0 mb-3">
-  <p class="mb-1"><%= comment.from_user.name unless comment.from_user.nil? %></p>
+  <% unless comment.from_user.nil? %>
+    <%= image_tag(comment.from_user.thumb_url, size: "48x48" , alt: comment.from_user.name, class: "mr-3") %>
+    <p class="mb-1"><%= comment.from_user.name %></p>
+  <% else %>
+    <p class="mb-1">名無しさん</p>
+  <% end %>
   <p class="mb-1"><%= comment.text  %></p>
 </div>
 <hr>
