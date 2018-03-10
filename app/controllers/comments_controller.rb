@@ -8,8 +8,16 @@ class CommentsController < ApplicationController
       @comment.from_user = current_user
     else
       @comment.from_addr =
-        request.env["HTTP_X_FORWARDED_FOR"] ||
+        request.env['HTTP_X_FORWARDED_FOR'] ||
         request.remote_ip
+    end
+    # Anonimity
+    if ActiveRecord::Type::Boolean.new.cast(params[:comment][:anonimity])
+      # Anonimity: Open
+      @comment.open_anonimity!
+    else
+      # Anonimity: Secret
+      @comment.secret_anonimity!
     end
     if @comment.save
       # 保存成功
