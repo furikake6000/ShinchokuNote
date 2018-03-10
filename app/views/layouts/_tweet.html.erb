@@ -1,5 +1,5 @@
 <% if tweet.retweeted_status.nil? %>
-<div class="media tweet mt-0 mb-3">
+<div class="post-box media tweet mt-0 mb-3">
   <%= image_tag(get_fullsize_thumb_uri(tweet.user.profile_image_uri), size: "48x48" , alt: tweet.user.name, class: "mr-3") %>
 
   <div class="media-body">
@@ -8,8 +8,10 @@
     <% tweet.uris.each do |uri| %>
       <p><%= link_to uri.expanded_url.to_s, uri.url.to_s, target: "_new" %></p>
     <% end %>
-    
-    <% unless tweet.media.blank? %>
+
+    <% if tweet.media.size == 1 %>
+    <%= image_tag(tweet.media[0].media_url.to_s, class: "d-block w-100") %>
+    <% elsif tweet.media.size >= 2 %>
     <div id="media-car-<%= tweet.id %>" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
         <% tweet.media.each_with_index do |media, i| %>
@@ -36,7 +38,6 @@
       <%= " #{tweet.favorite_count}いいね" if tweet.favorite_count != 0  %></p>
   </div>
 </div>
-<hr>
 <% else %>
 <p class="retweet"><%= tweet.user.name  %>さんがリツイート</p>
 <%= render partial: 'layouts/tweet', locals:{tweet: tweet.retweeted_status} %>

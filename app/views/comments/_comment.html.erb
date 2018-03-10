@@ -1,4 +1,4 @@
-<div class="media comment mt-0 mb-3">
+<div class="post-box media comment mt-0 mb-3">
   <% if comment.from_user.nil? || comment.secret_anonimity? %>
     <p class="mb-1">名無しさん</p>
   <% else %>
@@ -7,4 +7,3 @@
   <% end %>
   <p class="mb-1"><%= comment.text  %></p>
 </div>
-<hr>
