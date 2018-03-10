@@ -1,7 +1,7 @@
 <div class="comment-form control-panel">
   <h3>コメント</h3>
 
-  <%= form_for [note.becomes(Note), note.comments.build] do |f| %>
+  <%= form_for [note.becomes(Note), Comment.new] do |f| %>
     <div class="input-group mb-2">
       <%= f.text_area :text, class: 'form-control' %>
     </div>
