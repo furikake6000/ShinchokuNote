@@ -2,7 +2,7 @@
 <%= link_to '編集する', edit_note_path(@note)  %>
 <p><%= @note.desc %></p>
 <%= render partial: 'posts/post_form', locals:{note: @note} if current_users_note?(@note) %>
-<%= render partial: 'comments/comment_form', locals:{note: @note} %>
+<%= render partial: 'comments/comment_form', locals:{note: @note} unless current_users_note?(@note) %>
 <%= render @note.posts %>
 <%= "#{@note.comments.size}件のコメント" %>
 <%= render @note.comments %>
