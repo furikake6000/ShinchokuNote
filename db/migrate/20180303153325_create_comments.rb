@@ -9,6 +9,8 @@ class CreateComments < ActiveRecord::Migration[5.1]
       t.references :to_note
       t.references :response
 
+      t.string :anonimity
+
       t.timestamps
     end
 

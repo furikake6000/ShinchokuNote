@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20180303153542) do
     t.string "from_addr"
     t.integer "to_note_id"
     t.integer "response_id"
+    t.string "anonimity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["from_user_id"], name: "index_comments_on_from_user_id"
