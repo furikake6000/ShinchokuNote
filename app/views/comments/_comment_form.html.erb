@@ -2,9 +2,18 @@
   <h3>コメント</h3>
 
   <%= form_for [note.becomes(Note), Comment.new] do |f| %>
+    <% if logged_in? %>
+      <div class="input-group">
+        <%= f.check_box :anonimity, class: 'mt-1' %>
+        <%= f.label :anonimity, '投稿者を公開する', class: 'ml-2' %>
+      </div>
+    <% end %>
     <div class="input-group mb-2">
       <%= f.text_area :text, class: 'form-control' %>
     </div>
+    <% unless logged_in? %>
+      <p class="text-muted small-text">※投稿者を公開したい場合はログインしてください。</p>
+    <% end %>
     <div class="input-group">
       <%= f.submit "コメントする", class: "btn btn-primary" %>
     </div>
