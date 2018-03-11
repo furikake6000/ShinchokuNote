@@ -66,4 +66,16 @@ module ApplicationHelper
   def deletecookie(tag)
     cookies.delete(tag)
   end
+
+  # リダイレクト先を保存しておく
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get?
+  end
+
+  # 記憶したリダイレクト先に戻る
+  def redirect_back_or(default)
+    # Redirect to session[:forwarding_url], or default if nil
+    redirect_to(session[:forwarding_url] || default)
+    session.delete(:forwarding_url)
+  end
 end
