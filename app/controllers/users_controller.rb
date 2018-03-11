@@ -66,7 +66,7 @@ class UsersController < ApplicationController
 
   def switchuser
     change_current_user_id(params[:id])
-    redirect_to root_path
+    redirect_back(fallback_location: root_path)
   end
 
   private
