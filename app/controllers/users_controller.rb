@@ -56,7 +56,7 @@ class UsersController < ApplicationController
   def logout
     # cookieを削除すればログアウト処理に
     logout_user(current_user)
-    redirect_to root_path
+    redirect_back(fallback_location: root_path)
   end
 
   def home
