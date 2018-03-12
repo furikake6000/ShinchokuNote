@@ -207,8 +207,8 @@ header{
 
 // PostBox
 .post-box{
-  box-shadow:5px 5px rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
+  border-radius: 10px;
+  border: 1px solid $gray-400;
   background-color: white;
   padding: 10px;
 }
