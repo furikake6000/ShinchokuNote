@@ -35,6 +35,12 @@
 ## TweeePostsControllerTest
 - [ ] make new tweetpost: 実際のtweetに紐付いたポストを作成しコンテンツの読み取りに成功することを確認する
 
+## CommentsControllerTest
+- [ ] make new comment(everyone): コメント受け付けスタンス「誰でも」で未ログイン、フォロー外、フォロー内、自分自身でコメントする。すべて正しく動作することを確認する
+- [ ] make new comment(only_signed): コメント受け付けスタンス「ログインユーザのみ」で未ログイン、フォロー外、フォロー内、自分自身でコメントする。すべて正しく動作することを確認する
+- [ ] make new comment(only_follower): コメント受け付けスタンス「フォロワーのみ」で未ログイン、フォロー外、フォロー内、自分自身でコメントする。すべて正しく動作することを確認する
+- [ ] make new comment(only_me): コメント受け付けスタンス「自分のみ」で未ログイン、フォロー外、フォロー内、自分自身でコメントする。すべて正しく動作することを確認する
+
 # Model tests
 ## UserTest
 - [x] valid user: okakaを召喚してvalidを確認
