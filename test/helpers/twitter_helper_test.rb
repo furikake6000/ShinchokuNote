@@ -10,7 +10,7 @@ class TwitterHelperTest < ActionDispatch::IntegrationTest
   end
 
   test 'client_new success' do
-    # logging in (dummy token and secret)
+    # logging in (true token and secret)
     login_user @okaka,
                Rails.application.secrets.okaka_token,
                Rails.application.secrets.okaka_secret
