@@ -6,7 +6,7 @@ class Note < ApplicationRecord
     Idea: 'Idea'
   }
   enum comment_receive_stance: {
-    noone: 0,
+    only_me: 0,
     only_follower: 1,
     only_signed: 2,
     everyone: 10
