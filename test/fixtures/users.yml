@@ -1,18 +1,26 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 okaka:
-  twitter_id: 0
+  twitter_id: 973542414823522305
   name: おかか
-  screen_name: okakachanbot
-  url: https://twitter.com/intent/user?user_id=3254249689
-  thumb_url: https://pbs.twimg.com/profile_images/950164585994108928/ALEUJLCR.jpg
+  screen_name: okaka_unitest
+  url: https://twitter.com/okaka_unitest
+  thumb_url: https://pbs.twimg.com/profile_images/973547033922449414/LxbOtmM0.jpg
   desc: ""
   permission: admin
 
 noritama:
-  twitter_id: 1
+  twitter_id: 973543911615430656
   name: のりたま
-  screen_name: noritama
-  url:
-  thumb_url:
-  desc:
+  screen_name: noritam_unitest
+  url: https://twitter.com/noritam_unitest
+  thumb_url: https://abs.twimg.com/sticky/default_profile_images/default_profile.png
+  desc: ""
+
+noriwasa:
+  twitter_id: 973544822802821121
+  name: のりわさ
+  screen_name: noriwas_unitest
+  url: https://twitter.com/noriwas_unitest
+  thumb_url: https://abs.twimg.com/sticky/default_profile_images/default_profile.png
+  desc: ""
