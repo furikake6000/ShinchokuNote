@@ -2,6 +2,9 @@ ja:
   hello: 'こんにちは'
   enums:
     note:
+      type:
+        RequestBox: リクエストボックス
+        Project: プロジェクト
       comment_receive_stance:
         only_me: 自分のみ
         only_follower: フォロワーさんのみ
@@ -12,3 +15,11 @@ ja:
         only_follower: フォロワーさんのみ
         only_signed: 匿名ユーザ以外
         everyone: だれでも
+    project:
+      stage:
+        idea: 構想中
+        standby: 準備中
+        in_progress: 進捗中
+        finished: 完成
+        frozen: 凍結中
+        closed: お蔵入り

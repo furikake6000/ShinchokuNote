@@ -1,9 +1,7 @@
 class Note < ApplicationRecord
   enum type: {
     RequestBox: 'RequestBox',
-    Project: 'Project',
-    FinishedProject: 'FinishedProject',
-    Idea: 'Idea'
+    Project: 'Project'
   }
   enum comment_receive_stance: {
     only_me: 0,

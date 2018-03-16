@@ -4,6 +4,7 @@ class CreateNotes < ActiveRecord::Migration[5.1]
       t.string :name
       t.string :desc
       t.string :type
+      t.integer :stage, default: 2 # in progress
       t.string :thumb_info
       t.string :tags
       t.integer :comment_receive_stance, default: 10 # everyone

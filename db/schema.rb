@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20180303153542) do
     t.string "name"
     t.string "desc"
     t.string "type"
+    t.integer "stage", default: 2
     t.string "thumb_info"
     t.string "tags"
     t.integer "comment_receive_stance", default: 10
