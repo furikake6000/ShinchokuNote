@@ -1,7 +1,7 @@
 <% if project.idea_stage? || project.standby_stage? %>
-<span class="badge badge-info">
-<% elsif project.in_progress_stage? %>
 <span class="badge badge-primary">
+<% elsif project.in_progress_stage? %>
+<span class="badge badge-danger">
 <% elsif project.finished_stage? %>
 <span class="badge badge-success">
 <% elsif project.frozen_stage? %>

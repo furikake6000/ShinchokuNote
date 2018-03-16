@@ -73,7 +73,7 @@ class NotesController < ApplicationController
     notetype = @note.type.underscore.to_sym unless @note.nil?
     notetype ||= :note
     params.require(notetype).permit(
-      :name, :desc, :tags,
+      :name, :desc, :tags, :stage,
       :comment_share_stance,
       :comment_receive_stance,
       :thumb_info

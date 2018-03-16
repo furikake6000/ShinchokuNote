@@ -14,6 +14,13 @@
     <%= f.text_area :desc, class: 'form-control' %>
   </div>
 
+  <% if @note.type == 'Project' %>
+  <%= f.label :stage, '現状', class: 'mb-0' %>
+  <div class="input-group mb-3">
+    <%= f.select :stage, Project.stages_i18n.invert, {}, class: 'form-control' %>
+  </div>
+  <% end %>
+
   <%= f.label :comment_receive_stance, 'コメント受信範囲', class: 'mb-0' %>
   <div class="input-group mb-3">
     <%= f.select :comment_receive_stance, Note.comment_receive_stances_i18n.invert, {}, class: 'form-control' %>
