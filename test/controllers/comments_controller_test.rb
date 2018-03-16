@@ -7,6 +7,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @okaka = users(:okaka)
     @noritama = users(:noritama)
+    @noriwasa = users(:noriwasa)
     @okaka_project1 = notes(:okaka_project_1)
     @noritama_project1 = notes(:noritama_project_1)
   end
