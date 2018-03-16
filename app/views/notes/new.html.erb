@@ -3,7 +3,7 @@
 <%= form_for @note, url: {action: :create} do |f| %>
   <%= f.label :type, 'ページの種類', class: 'mb-0' %>
   <div class="input-group mb-3">
-    <%= f.select :type, [['リクエストボックス', 'RequestBox'], ['プロジェクト', 'Project'], ['構想中のプロジェクト', 'Idea']], {}, class: 'form-control' %>
+    <%= f.select :type, [['リクエストボックス', 'RequestBox'], ['プロジェクト', 'Project']], {}, class: 'form-control' %>
   </div>
 
   <%= f.label :name, 'ページの名称', class: 'mb-0' %>
