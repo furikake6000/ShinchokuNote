@@ -11,9 +11,7 @@ class TwitterHelperTest < ActionDispatch::IntegrationTest
 
   test 'client_new success' do
     # logging in (true token and secret)
-    login_user @okaka,
-               Rails.application.secrets.okaka_token,
-               Rails.application.secrets.okaka_secret
+    login_as_okaka
 
     # getting a tweet and collect
     client = client_new

@@ -28,9 +28,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment from other user (not follower)
-    login_user @noriwasa,
-               Rails.application.secrets.noriwasa_token,
-               Rails.application.secrets.noriwasa_secret
+    login_as_noriwasa
     assert_difference '@okaka_project1.comments.count', 1 do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of others',
@@ -39,9 +37,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment from other user (follower)
-    login_user @noritama,
-               Rails.application.secrets.noritama_token,
-               Rails.application.secrets.noritama_secret
+    login_as_noritama
     assert_difference '@okaka_project1.comments.count', 1 do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of others',
@@ -50,9 +46,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment of myself
-    login_user @okaka,
-               Rails.application.secrets.okaka_token,
-               Rails.application.secrets.okaka_secret
+    login_as_okaka
     assert_difference '@okaka_project1.comments.count', 1 do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of myself',
@@ -75,9 +69,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment from other user (not follower)
-    login_user @noriwasa,
-               Rails.application.secrets.noriwasa_token,
-               Rails.application.secrets.noriwasa_secret
+    login_as_noriwasa
     assert_difference '@okaka_project1.comments.count', 1 do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of others',
@@ -86,9 +78,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment from other user (follower)
-    login_user @noritama,
-               Rails.application.secrets.noritama_token,
-               Rails.application.secrets.noritama_secret
+    login_as_noritama
     assert_difference '@okaka_project1.comments.count', 1 do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of others',
@@ -97,9 +87,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment of myself
-    login_user @okaka,
-               Rails.application.secrets.okaka_token,
-               Rails.application.secrets.okaka_secret
+    login_as_okaka
     assert_difference '@okaka_project1.comments.count', 1 do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of myself',
@@ -122,9 +110,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment from other user (not follower)
-    login_user @noriwasa,
-               Rails.application.secrets.noriwasa_token,
-               Rails.application.secrets.noriwasa_secret
+    login_as_noriwasa
     assert_no_difference '@okaka_project1.comments.count' do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of others',
@@ -133,9 +119,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment from other user (follower)
-    login_user @noritama,
-               Rails.application.secrets.noritama_token,
-               Rails.application.secrets.noritama_secret
+    login_as_noritama
     assert_difference '@okaka_project1.comments.count', 1 do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of others',
@@ -144,9 +128,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment of myself
-    login_user @okaka,
-               Rails.application.secrets.okaka_token,
-               Rails.application.secrets.okaka_secret
+    login_as_okaka
     assert_difference '@okaka_project1.comments.count', 1 do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of myself',
@@ -169,9 +151,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment from other user (not follower)
-    login_user @noriwasa,
-               Rails.application.secrets.noriwasa_token,
-               Rails.application.secrets.noriwasa_secret
+    login_as_noriwasa
     assert_no_difference '@okaka_project1.comments.count' do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of others',
@@ -180,9 +160,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment from other user (follower)
-    login_user @noritama,
-               Rails.application.secrets.noritama_token,
-               Rails.application.secrets.noritama_secret
+    login_as_noritama
     assert_no_difference '@okaka_project1.comments.count' do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of others',
@@ -191,9 +169,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment of myself
-    login_user @okaka,
-               Rails.application.secrets.okaka_token,
-               Rails.application.secrets.okaka_secret
+    login_as_okaka
     assert_difference '@okaka_project1.comments.count', 1 do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of myself',

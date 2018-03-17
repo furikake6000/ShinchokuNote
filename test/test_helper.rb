@@ -6,7 +6,30 @@ class ActiveSupport::TestCase
   # for all tests in alphabetical order.
   fixtures :all
 
+  def setup
+    @okaka = users(:okaka)
+    @noritama = users(:noritama)
+    @noriwasa = users(:noriwasa)
+  end
+
   # Add more helper methods to be used by all tests here...
+  def login_as_okaka
+    login_user @okaka,
+               Rails.application.secrets.okaka_token,
+               Rails.application.secrets.okaka_secret
+  end
+
+  def login_as_noritama
+    login_user @noritama,
+               Rails.application.secrets.noritama_token,
+               Rails.application.secrets.noritama_secret
+  end
+
+  def login_as_noriwasa
+    login_user @noriwasa,
+               Rails.application.secrets.noriwasa_token,
+               Rails.application.secrets.noriwasa_secret
+  end
 
   # ApplicationHelperモジュールの書き換え
   module ApplicationHelperFixes
