@@ -208,9 +208,29 @@ header{
 // PostBox
 .post-box{
   border-radius: 10px;
-  border: 1px solid $gray-400;
+  border: 2px solid $gray-400;
   background-color: white;
   padding: 10px;
+}
+
+// Comment
+.comment{
+  .comment-text{
+    font-size: 1.5rem;
+  }
+  .comment-footer{
+    position: relative;
+    border-top: 2px dotted $gray-600;
+    font-size: 0.9rem;
+    color: $gray-600;
+    .comment-from{
+      position: absolute;
+      right: 0px;
+    }
+    .comment-timestamp{
+
+    }
+  }
 }
 
 // Clearfix
