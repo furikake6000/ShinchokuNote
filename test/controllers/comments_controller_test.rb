@@ -57,7 +57,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
 
   test 'make new comment(only_signed)' do
     # Changing comment_receive_stance
-    @okaka_project1.everyone_comment_receive_stance!
+    @okaka_project1.only_signed_comment_receive_stance!
     @okaka_project1.save!
 
     # Comment from anonimous
@@ -98,7 +98,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
 
   test 'make new comment(only_follower)' do
     # Changing comment_receive_stance
-    @okaka_project1.everyone_comment_receive_stance!
+    @okaka_project1.only_follower_comment_receive_stance!
     @okaka_project1.save!
 
     # Comment from anonimous
@@ -139,7 +139,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
 
   test 'make new comment(only_me)' do
     # Changing comment_receive_stance
-    @okaka_project1.everyone_comment_receive_stance!
+    @okaka_project1.only_me_comment_receive_stance!
     @okaka_project1.save!
 
     # Comment from anonimous
