@@ -220,5 +220,24 @@ header{
   clear:both;
 }
 
+// Coverbox
+.coverdbox{
+  position: relative;
+  z-index: 0;
+}
+
+.coversbox{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  z-index: 10;
+  background-color: transparentize( white, 0.3 );
+  text-align: center;
+  p{
+    margin-top: 10px;
+  }
+}
+
 // dropmenu
 @import "dropmenu";
