@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   include UsersHelper
   include TwitterHelper
+  include NotesHelper
 end
 
 #             ξ

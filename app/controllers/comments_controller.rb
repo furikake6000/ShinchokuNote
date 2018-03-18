@@ -3,6 +3,25 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @note.comments.new(comments_params)
+
+    # Comment権限があるか精査
+    case @note.comment_receive_stance
+    when 'only_signed'
+      # "Only signed"ならばログインしていない場合return
+      return unless logged_in?
+    when 'only_follower'
+      # "Only follower"ならばフォローしているか否かの判別を行う
+      return unless logged_in?
+      client = client_new
+      return unless current_users_note?(@note) || client.friendship?(
+        current_user.screen_name,
+        @note.user.screen_name
+      )
+    when 'only_me'
+      # "Only me"ならば自分のみ許可
+      return unless current_users_note?(@note)
+    end
+
     # User情報
     if logged_in?
       @comment.from_user = current_user
