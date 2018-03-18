@@ -1,4 +1,6 @@
-<div class="post-box comment mt-0 mb-3">
+<div class="comment mb-3">
+<%= link_to comment_path(comment), class: "comment-link" do %>
+<div class="post-box comment-content">
   <div class="comment-text"><%= comment.text  %></div>
   <div class="comment-footer">
     <span class="comment-timestamp"><%= smart_time_to_str(comment.created_at) %></span>
@@ -6,4 +8,11 @@
       <span class="comment-from">by <%= comment.from_user.name %></span>
     <% end %>
   </div>
+</div>
+<% end %>
+<div class="comment-toolbox">
+  <span><%= fa_icon 'envelope', text: '既読' %></span>
+  <span><%= fa_icon 'star', text: 'お気に入り' %></span>
+  <span><%= fa_icon 'envelope', text: 'ミュート' %></span>
+</div>
 </div>

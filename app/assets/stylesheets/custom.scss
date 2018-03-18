@@ -214,7 +214,17 @@ header{
 }
 
 // Comment
+a.comment-link{
+  text-decoration: none;
+  color: black;
+  :hover{
+    background-color: lighten($primary, 53%);
+  }
+}
 .comment{
+  .comment-content{
+    border-bottom-right-radius: 0px;
+  }
   .comment-text{
     font-size: 1.5rem;
   }
@@ -227,8 +237,21 @@ header{
       position: absolute;
       right: 0px;
     }
-    .comment-timestamp{
-
+  }
+  .comment-toolbox{
+    background-color: white;
+    font-size: 0.8rem;
+    color: $gray-600;
+    padding: 0px 5px;
+    width: 55vw;
+    max-width: 250px;
+    min-width: 220px;
+    margin-left: auto;
+    border: 2px solid $gray-400;
+    border-top: 0px;
+    border-radius: 0px 0px 10px 10px;
+    span{
+      margin: 0px 5px;
     }
   }
 }
