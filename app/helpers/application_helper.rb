@@ -38,12 +38,16 @@ module ApplicationHelper
 
   # イイカンジに働いてくれるTime->Str変換器
   def smart_time_to_str(time)
-    if time.localtime.to_date == Time.now.localtime.to_date
+    time_c = time.dup
+    if time_c.to_date == Time.now.to_date
       # 日付が今日だった場合、時刻のみ表示
-      time.strftime('%H時%M分')
-    else
+      I18n.l(time_c.localtime, format: :hour_min)
+    elsif time.year == Time.now.year
       # 月日と時刻を表示
-      time.strftime('%m月%d日 %H時%M分')
+      I18n.l(time_c.localtime, format: :date_hour_min)
+    else
+      # 年月日と時刻を表示
+      I18n.l(time_c.localtime, format: :year_date_hour_min)
     end
   end
 

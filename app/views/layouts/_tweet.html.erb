@@ -33,7 +33,7 @@
     <% end %>
 
     <p class="mb-1 tweetstatus">
-      <%= " #{smart_time_to_str(tweet.created_at.dup.localtime("+09:00"))}" %>
+      <%= smart_time_to_str(tweet.created_at) %>
       <%= " #{tweet.retweet_count}リツイート" if tweet.retweet_count != 0 %>
       <%= " #{tweet.favorite_count}いいね" if tweet.favorite_count != 0  %></p>
   </div>
