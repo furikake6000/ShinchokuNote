@@ -221,13 +221,16 @@ header{
 a.comment-link{
   text-decoration: none;
   color: black;
-  :hover{
-    background-color: lighten($primary, 53%);
-  }
+
 }
 .comment{
   .comment-content{
     border-bottom-right-radius: 0px;
+    transition: background-color .3s ease;
+    background-color: white;
+  }
+  .comment-content:hover{
+    background-color: lighten($primary, 53%);
   }
   .comment-text{
     font-size: 1.5rem;
