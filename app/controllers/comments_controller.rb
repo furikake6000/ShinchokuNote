@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :find_note, only: %i[create]
+  before_action :find_comment, only: %i[show]
 
   def create
     @comment = @note.comments.new(comments_params)
@@ -31,11 +32,21 @@ class CommentsController < ApplicationController
     end
   end
 
+  def show
+    # @commentの取得はbefore_actionで完了している
+  end
+
   private
   # note取得
   def find_note
     @note = Note.find_by(id: params[:note_id])
     render_404 && return if @note.nil?
+  end
+
+  # comment取得
+  def find_comment
+    @comment = Comment.find_by(id: params[:id])
+    render_404 && return if @comment.nil?
   end
 
   # Commentのパラメータを安全に取り出す
