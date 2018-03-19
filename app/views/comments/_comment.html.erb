@@ -1,7 +1,7 @@
 <div class="comment mb-3">
 <%= link_to comment_path(comment), class: "comment-link" do %>
 <div class="media-box media-box-with-toolbox">
-  <div class="media-text"><%= comment.text  %></div>
+  <div class="media-text-l"><%= comment.text  %></div>
   <div class="media-footer">
     <span><%= smart_time_to_str(comment.created_at) %></span>
     <% unless comment.from_user.nil? || comment.secret_anonimity? %>
