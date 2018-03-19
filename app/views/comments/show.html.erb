@@ -1,2 +1,13 @@
-<%= link_to 'ページに戻る', note_path(@comment.to_note) %>
-<%= render @comment %>
+<%= link_to "#{@comment.to_note.name}に戻る", note_path(@comment.to_note) %>
+<div class="comment mb-3">
+<div class="media-box">
+  <div class="media-text-xl"><%= @comment.text  %></div>
+  <div class="media-footer">
+    <span><%= smart_time_to_str(@comment.created_at) %></span>
+    <% unless @comment.from_user.nil? || @comment.secret_anonimity? %>
+      <span class="media-footer-right">by <%= @comment.from_user.name %></span>
+    <% end %>
+  </div>
+</div>
+返信する
+</div>
