@@ -1,10 +1,10 @@
 <% if tweet.retweeted_status.nil? %>
-<div class="post-box media tweet mt-0 mb-3">
-  <%= image_tag(get_fullsize_thumb_uri(tweet.user.profile_image_uri), size: "48x48" , alt: tweet.user.name, class: "mr-3") %>
+<div class="media-box tweet mt-0 mb-3">
+  <%= image_tag(get_fullsize_thumb_uri(tweet.user.profile_image_uri), size: "32x32" , alt: tweet.user.name) %>
+  <span><%= tweet.user.name %></span>
 
   <div class="media-body">
-    <p class="mb-1"><%= tweet.user.name  %></p>
-    <p class="mb-1 tweetcontent"><%= excludelinks(tweet.full_text) %></p>
+    <p class="mb-1 media-text"><%= excludelinks(tweet.full_text) %></p>
     <% tweet.uris.each do |uri| %>
       <p><%= link_to uri.expanded_url.to_s, uri.url.to_s, target: "_new" %></p>
     <% end %>
@@ -31,11 +31,9 @@
     </div>
 
     <% end %>
-
-    <p class="mb-1 tweetstatus">
-      <%= smart_time_to_str(tweet.created_at) %>
-      <%= " #{tweet.retweet_count}リツイート" if tweet.retweet_count != 0 %>
-      <%= " #{tweet.favorite_count}いいね" if tweet.favorite_count != 0  %></p>
+  </div>
+  <div class="media-footer">
+    <%= smart_time_to_str(tweet.created_at) %>
   </div>
 </div>
 <% else %>

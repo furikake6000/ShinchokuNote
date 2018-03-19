@@ -209,57 +209,54 @@ header{
   }
 }
 
-// PostBox
-.post-box{
-  border-radius: 10px;
-  border: 2px solid $gray-400;
-  background-color: white;
-  padding: 10px;
-}
-
 // Comment
 a.comment-link{
   text-decoration: none;
   color: black;
-
-}
-.comment{
-  .comment-content{
-    border-bottom-right-radius: 0px;
-    transition: background-color .3s ease;
-    background-color: white;
-  }
-  .comment-content:hover{
+  transition: background-color .3s ease;
+  background-color: white;
+  :hover{
     background-color: lighten($primary, 53%);
   }
-  .comment-text{
+}
+
+// Media-box
+.media-box{
+  border-radius: 10px;
+  border: 2px solid $gray-400;
+  background-color: white;
+  padding: 10px;
+  .media-text{
     font-size: 1.5rem;
   }
-  .comment-footer{
+  .media-footer{
     position: relative;
     border-top: 2px dotted $gray-600;
     font-size: 0.9rem;
     color: $gray-600;
-    .comment-from{
+    .media-footer-right{
       position: absolute;
       right: 0px;
     }
   }
-  .comment-toolbox{
-    background-color: white;
-    font-size: 0.8rem;
-    color: $gray-600;
-    padding: 0px 5px;
-    width: 55vw;
-    max-width: 250px;
-    min-width: 220px;
-    margin-left: auto;
-    border: 2px solid $gray-400;
-    border-top: 0px;
-    border-radius: 0px 0px 10px 10px;
-    span{
-      margin: 0px 5px;
-    }
+}
+.media-box-with-toolbox{
+  border-bottom-right-radius: 0px;
+}
+.media-toolbox{
+  background-color: white;
+  font-size: 0.8rem;
+  color: $gray-600;
+  padding: 0px 5px;
+  width: 55vw;
+  max-width: 250px;
+  min-width: 220px;
+  margin-left: auto;
+  border: 2px solid $gray-400;
+  border-top: 0px;
+  border-radius: 0px 0px 10px 10px;
+  span{
+    margin: 0px 5px;
   }
 }
 
