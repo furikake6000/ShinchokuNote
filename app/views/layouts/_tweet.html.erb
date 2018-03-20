@@ -1,5 +1,5 @@
 <% if tweet.retweeted_status.nil? %>
-<div class="media-box tweet mt-3 mb-0">
+<div class="media-box tweet">
   <%= image_tag(get_fullsize_thumb_uri(tweet.user.profile_image_uri), size: "32x32" , alt: tweet.user.name) %>
   <span><%= tweet.user.name %></span>
 
