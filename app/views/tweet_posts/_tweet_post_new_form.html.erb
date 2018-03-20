@@ -2,6 +2,9 @@
               url: note_tweet_posts_path(note),
               html: {method: 'POST'}) do |f| %>
   <%= f.hidden_field :type, value: "TweetPost" %>
+  <% if response_to %>
+    <%= f.hidden_field :response_to, value: response_to.id %>
+  <% end %>
   <div class="input-group">
     <%= f.text_field :text, class:'form-control mr-3' %>
     <%= f.submit "つぶやく", class: "btn btn-primary" %>
