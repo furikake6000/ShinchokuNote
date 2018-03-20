@@ -8,6 +8,10 @@
       <span class="media-footer-right">by <%= comment.from_user.name %></span>
     <% end %>
   </div>
+
+  <% if comment.response_post %>
+    <%= render comment.response_post %>
+  <% end %>
 </div>
 <% end %>
 <div class="media-toolbox">
