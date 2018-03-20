@@ -2,7 +2,7 @@
               url: note_tweet_posts_path(note),
               html: {method: 'POST'}) do |f| %>
   <%= f.hidden_field :type, value: "TweetPost" %>
-  <% if response_to %>
+  <% if defined?(response_to) %>
     <%= f.hidden_field :response_to, value: response_to.id %>
   <% end %>
   <div class="input-group">
