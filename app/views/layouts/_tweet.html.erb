@@ -43,9 +43,9 @@
     </div>
 
     <%# コメントへの返信である場合にコメントを表示する %>
-    <% if !defined?(light) && defined?(response_of) %>
+    <% if !defined?(hide_response) && defined?(response_of) %>
       <span class="text-muted"><%= fa_icon 'reply', text: '以下のコメントへの返信です', class: 'mt-3' %></span>
-      <%= render 'comments/comment', {comment: response_of, light: true} %>
+      <%= render 'comments/comment', {comment: response_of, light: true, hide_response: true} %>
     <% end %>
   </div>
 </div>

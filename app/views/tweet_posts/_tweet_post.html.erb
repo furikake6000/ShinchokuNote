@@ -1,5 +1,6 @@
 <%# variablesをセッティングする %>
 <% values = {tweet: tweet_post.tweet} %>
 <% values[:light] = light if defined?(light) %>
+<% values[:hide_response] = light if defined?(hide_response) %>
 <% values[:response_of] = tweet_post.responded_comment if tweet_post.responded_comment %>
 <%= render 'layouts/tweet', values %>

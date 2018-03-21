@@ -6,6 +6,8 @@
   <div class="media-content">
     <% if defined?(light) %>
       <div class="media-text"><%= comment.text  %></div>
+    <% elsif defined?(heavy) %>
+      <div class="media-text-xl"><%= comment.text  %></div>
     <% else %>
       <div class="media-text-l"><%= comment.text  %></div>
 
@@ -23,9 +25,9 @@
       <% end %>
     </div>
 
-    <% if !defined?(light) && comment.response_post %>
+    <% if !defined?(hide_response) && comment.response_post %>
       <span class="text-muted"><%= fa_icon 'reply', text: 'このコメントに対する返信', class: 'mt-3' %></span>
-      <%= render 'tweet_posts/tweet_post', {tweet_post: comment.response_post, light: true} %>
+      <%= render 'tweet_posts/tweet_post', {tweet_post: comment.response_post, light: true, hide_response: true} %>
     <% end %>
   </div>
 </div>
