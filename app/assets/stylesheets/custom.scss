@@ -219,10 +219,18 @@ a.comment-link{
 
 // Media-box
 .media-box{
+  position: relative;
+  overflow: hidden;
   border-radius: 10px;
   border: 2px solid $gray-400;
   background-color: white;
   padding: 10px;
+
+  .media-content{
+    position: relative;
+    z-index: 1;
+  }
+
   .media-text{
     font-size: 1.2rem;
   }
@@ -242,12 +250,22 @@ a.comment-link{
       right: 0px;
     }
   }
+
+  .bgstr{
+    position: absolute;
+    top: -50px;
+    right: 0;
+    white-space: nowrap;
+    font-size: 7rem;
+    font-weight: bold;
+    color: transparentize($primary, 0.8);
+    transform: rotate(-30deg);
+  }
 }
 .media-box-with-toolbox{
   border-bottom-right-radius: 0px;
 }
 .media-toolbox{
-  background-color: white;
   .tool{
     color: $gray-600;
   	float: left;
