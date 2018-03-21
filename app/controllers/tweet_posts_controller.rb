@@ -37,6 +37,9 @@ class TweetPostsController < ApplicationController
     if params[:post][:response_to]
       # Response処理
       newpost.responded_comment = responded_comment
+      tweet_hash = tweet.to_hash
+      tweet_hash['text'] = params[:post][:text]
+      newpost.text = tweet_hash.to_json
     end
     newpost
   end

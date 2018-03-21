@@ -1,1 +1,5 @@
-<%= render partial: 'layouts/tweet', locals:{tweet: tweet_post.tweet} %>
+<%# variablesをセッティングする %>
+<% values = {tweet: tweet_post.tweet} %>
+<% values[:light] = light if defined?(light) %>
+<% values[:response_of] = tweet_post.responded_comment if tweet_post.responded_comment %>
+<%= render 'layouts/tweet', values %>
