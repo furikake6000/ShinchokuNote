@@ -1,2 +1,2 @@
 <%= "#{note.comments.size}件のコメント" %>
-<%= render note.comments %>
+<%= render note.comments.order('updated_at DESC') %>
