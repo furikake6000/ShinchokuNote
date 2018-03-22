@@ -26,8 +26,8 @@ class TweetPostsController < ApplicationController
       if params[:post][:response_to]
         responded_comment = Comment.find(params[:post][:response_to])
         tweet = client.update(
-          '💭: ' + responded_comment.text +
-          "\n✅: " + params[:post][:text]
+          '✉️: ' + responded_comment.text +
+          "\n💬: " + params[:post][:text]
         )
       else
         tweet = client.update(params[:post][:text])
