@@ -29,3 +29,6 @@ config/secrets.yml.key
 
 # Ignore Mac DS_Store files
 .DS_Store
+
+# Ignore generated erd file
+erd.pdf
