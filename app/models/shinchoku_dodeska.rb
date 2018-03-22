@@ -1,0 +1,2 @@
+class ShinchokuDodeska < ApplicationRecord
+end

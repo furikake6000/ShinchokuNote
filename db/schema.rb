@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180303153542) do
+ActiveRecord::Schema.define(version: 20180322082859) do
 
   create_table "comments", force: :cascade do |t|
     t.string "text"
@@ -54,6 +54,16 @@ ActiveRecord::Schema.define(version: 20180303153542) do
     t.string "twitter_id"
     t.string "media_urls"
     t.index ["note_id"], name: "index_posts_on_note_id"
+  end
+
+  create_table "shinchoku_dodeskas", force: :cascade do |t|
+    t.integer "from_user_id"
+    t.string "from_addr"
+    t.integer "to_note_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_user_id"], name: "index_shinchoku_dodeskas_on_from_user_id"
+    t.index ["to_note_id"], name: "index_shinchoku_dodeskas_on_to_note_id"
   end
 
   create_table "users", force: :cascade do |t|
