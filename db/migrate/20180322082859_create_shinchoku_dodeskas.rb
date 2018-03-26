@@ -4,6 +4,7 @@ class CreateShinchokuDodeskas < ActiveRecord::Migration[5.1]
       t.references :from_user
       t.string :from_addr
       t.references :to_note
+      t.integer :content
 
       t.timestamps
     end
