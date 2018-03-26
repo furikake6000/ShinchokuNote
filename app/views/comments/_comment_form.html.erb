@@ -1,8 +1,9 @@
 <div class="comment-form control-panel">
   <h3>コメント</h3>
 
-  <div class="coverdbox">
-    <%= form_for [note.becomes(Note), Comment.new] do |f| %>
+  <%= form_for [note.becomes(Note), Comment.new] do |f| %>
+    <div class="coverdbox">
+
       <%# コメント可能 %>
       <% if logged_in? %>
         <div class="input-group">
@@ -17,16 +18,39 @@
         <p class="text-muted small-text">※投稿者を公開したい場合はログインしてください。</p>
       <% end %>
       <div class="input-group">
-        <%= f.submit "コメントする", class: "btn btn-primary" %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentConfirm">
+          コメントする
+        </button>
       </div>
-    <% end %>
-    <% unless user_can_comment?(note, current_user) %>
-      <%# コメント不可 %>
-      <div class="coversbox">
-        <p>以下の設定により、<br/>
-        このページにはコメントができません。<br/></p>
-        <p>「コメント権限: <%= note.comment_receive_stance_i18n %>」</p>
+
+      <% unless user_can_comment?(note, current_user) %>
+        <%# コメント不可 %>
+        <div class="coversbox">
+          <p>以下の設定により、<br/>
+          このページにはコメントができません。<br/></p>
+          <p>「コメント権限: <%= note.comment_receive_stance_i18n %>」</p>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="modal fade" id="commentConfirm" tabindex="-1" role="dialog" aria-labelledby="commentConfirm" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="commentConfirmLabel">コメントを投稿します</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            以下の内容でコメントを投稿します。よろしいですか？
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info" data-dismiss="modal">やり直す</button>
+            <%= f.submit "コメントする", class: "btn btn-primary" %>
+          </div>
+        </div>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
