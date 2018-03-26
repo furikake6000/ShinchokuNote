@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :user_collection, only: %i[edit update]
-  before_action :find_user, only: %i[show]
+  before_action -> { load_user_as_me :id }, only: %i[edit update]
+  before_action -> { load_user :id }, only: %i[show]
 
   def index
     # Only admin
@@ -70,18 +70,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-  # User取得(current_userのみ許可)
-  def user_collection
-    find_user
-    redirect_to root_path if current_user != @user
-  end
-
-  # User取得
-  def find_user
-    @user = User.find_by(screen_name: params[:id].to_s)
-    render_404 && return if @user.nil?
-  end
 
   # Noteのパラメータを安全に取り出す
   def users_params

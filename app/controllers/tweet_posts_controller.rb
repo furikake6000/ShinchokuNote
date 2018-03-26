@@ -1,5 +1,5 @@
 class TweetPostsController < ApplicationController
-  before_action :find_my_note, only: %i[create]
+  before_action -> { load_note_as_mine :note_id }, only: %i[create]
 
   def create
     @post = tweetpost_from_params(@note)
@@ -43,18 +43,6 @@ class TweetPostsController < ApplicationController
       newpost.text = tweet_hash.to_json
     end
     newpost
-  end
-
-  # note取得(自分のnote以外取得できない)
-  def find_my_note
-    find_note
-    redirect_to root_path if current_user != @note.user
-  end
-
-  # note取得
-  def find_note
-    @note = Note.find_by(id: params[:note_id])
-    render_404 && return if @note.nil?
   end
 
   # TweetからTweetPostオブジェクトを作成する

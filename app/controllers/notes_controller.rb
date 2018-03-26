@@ -1,7 +1,7 @@
 class NotesController < ApplicationController
-  before_action :user_collection, only: %i[new create]
-  before_action :find_note, only: %i[show]
-  before_action :find_my_note, only: %i[edit update destroy]
+  before_action -> { load_user_as_me :user_id }, only: %i[new create]
+  before_action -> { load_note :id }, only: %i[show]
+  before_action -> { load_note_as_mine :id }, only: %i[edit update destroy]
 
   def index
     # Userのshowアクションと同じなのでリダイレクト
@@ -49,25 +49,6 @@ class NotesController < ApplicationController
   end
 
   private
-
-  # User取得
-  def user_collection
-    @user = User.find_by(screen_name: params[:user_id].to_s)
-    render_404 && return if @user.nil?
-    redirect_to root_path if current_user != @user
-  end
-
-  # Note取得(自分のNote以外取得できない)
-  def find_my_note
-    find_note
-    redirect_to root_path if current_user != @note.user
-  end
-
-  # Note取得
-  def find_note
-    @note = Note.find_by(id: params[:id])
-    render_404 && return if @note.nil?
-  end
 
   # Noteのパラメータを安全に取り出す
   def notes_params
