@@ -1,7 +1,15 @@
 module ApplicationHelper
+  # RbNaClを使用して対象鍵暗号を施す
   require 'rbnacl'
 
-  # RbNaClを使用して対象鍵暗号を施す
+  # ページのtitleを提供する
+  def full_title(page_title)
+    if page_title.empty?
+      '捗ノート'
+    else
+      page_title + ' | 進捗ノート'
+    end
+  end
 
   # 暗号化
   def encrypt_data(data, password, salt)
