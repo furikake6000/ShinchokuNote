@@ -1,0 +1,11 @@
+<h1>
+  <%= @note.name %>
+  <%= render 'projects/stagebadge', project: @note %>
+</h1>
+<%= link_to '編集する', edit_note_path(@note)  %>
+<p><%= @note.desc %></p>
+
+<%= render 'posts/post_form', note: @note if current_users_note?(@note) %>
+<%= render 'comments/comment_form', note: @note unless current_users_note?(@note) %>
+
+<%= render 'notes/posts', note: @note %>

@@ -1,5 +1,10 @@
 class PostsController < ApplicationController
+  before_action -> { load_note :note_id }, only: %i[index]
   before_action -> { load_note_as_mine :note_id }, only: %i[create]
+
+  def index
+    # @noteはbefore_actionで取得済み
+  end
 
   def create
     @post = @note.posts.new(posts_params)

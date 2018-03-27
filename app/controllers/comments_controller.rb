@@ -1,6 +1,10 @@
 class CommentsController < ApplicationController
-  before_action -> { load_note :note_id }, only: %i[create]
+  before_action -> { load_note :note_id }, only: %i[index create]
   before_action -> { load_comment :id }, only: %i[show]
+
+  def index
+    # @noteはbefore_actionで取得済み
+  end
 
   def create
     @comment = @note.comments.new(comments_params)
