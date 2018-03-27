@@ -25,11 +25,25 @@ class TweetPostsController < ApplicationController
       # Post new tweet
       if params[:post][:response_to]
         responded_comment = Comment.find(params[:post][:response_to])
-        tweet = client.update(
-          '✉️: ' + responded_comment.text +
-          "\n💬: " + params[:post][:text] +
-          "\n" + comment_url(responded_comment, only_path: false)
-        )
+
+        tweetstr = '✉️: ' + responded_comment.text +
+                   "\n💬: " + params[:post][:text]
+
+        if tweetstr.length > 140
+          # 1ツイートに収まらない質問 or 回答
+          tweet = client.update('✉️: ' + responded_comment.text)
+          tweet = client.update(
+            '💬: ' + params[:post][:text] +
+            "\n" + comment_url(responded_comment, only_path: false),
+            in_reply_to_status_id: tweet.id
+          )
+        else
+          tweet = client.update(
+            tweetstr +
+            "\n" + comment_url(responded_comment, only_path: false)
+          )
+        end
+
       else
         tweet = client.update(params[:post][:text])
       end
