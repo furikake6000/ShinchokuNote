@@ -2,7 +2,8 @@ class CreateComments < ActiveRecord::Migration[5.1]
   def change
     create_table :comments do |t|
       t.string :text
-      t.boolean :is_read
+      t.boolean :read_flag
+      t.boolean :favor_flag
 
       t.references :from_user
       t.string :from_addr

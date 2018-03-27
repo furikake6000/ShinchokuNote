@@ -14,7 +14,8 @@ ActiveRecord::Schema.define(version: 20180322082859) do
 
   create_table "comments", force: :cascade do |t|
     t.string "text"
-    t.boolean "is_read"
+    t.boolean "read_flag"
+    t.boolean "favor_flag"
     t.integer "from_user_id"
     t.string "from_addr"
     t.integer "to_note_id"
@@ -60,6 +61,7 @@ ActiveRecord::Schema.define(version: 20180322082859) do
     t.integer "from_user_id"
     t.string "from_addr"
     t.integer "to_note_id"
+    t.integer "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["from_user_id"], name: "index_shinchoku_dodeskas_on_from_user_id"
