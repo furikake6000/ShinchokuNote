@@ -1,3 +1,5 @@
+<% provide(:title, @note.name) %>
+
 <h1>
   <%= @note.name %>
   <%= render 'projects/stagebadge', project: @note %>

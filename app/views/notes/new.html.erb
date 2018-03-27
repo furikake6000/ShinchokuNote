@@ -1,3 +1,5 @@
+<% provide(:title, "#{@user.name}の新規ノート作成") %>
+
 <h1>新規ページ作成</h1>
 
 <%= form_for @note, url: {action: :create} do |f| %>

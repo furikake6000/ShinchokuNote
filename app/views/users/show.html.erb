@@ -1,3 +1,5 @@
+<% provide(:title, @user.name) %>
+
 <%= render 'users/user_header', user: @user %>
 
 <%= render partial: 'users/notes', locals: {user: @user} %>

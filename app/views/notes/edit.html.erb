@@ -1,3 +1,5 @@
+<% provide(:title, "#{@note.name}の編集") %>
+
 <h1>ノート編集</h1>
 
 <%= form_for @note, url: {action: :update} do |f| %>

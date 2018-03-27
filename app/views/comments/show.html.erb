@@ -1,3 +1,5 @@
+<% provide(:title, "#{@comment.to_note.name}のコメント") %>
+
 <%= link_to "#{@comment.to_note.name}に戻る", note_path(@comment.to_note) %>
 <%= render 'comments/comment', {comment: @comment, heavy: true, hide_response: true} %>
 <% if @comment.response_post %>
