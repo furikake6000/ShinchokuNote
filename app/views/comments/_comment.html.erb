@@ -3,7 +3,6 @@
   <div class="bgstr"><%= fa_icon 'envelope' %></div>
 
   <div class="media-content">
-    <%= link_to '詳細', comment_path(comment), class: "comment-link" %>
     <% if defined?(light) %>
       <div class="media-text"><%= comment.text  %></div>
     <% elsif defined?(heavy) %>
@@ -15,6 +14,7 @@
         <div class="tool"><%= fa_icon 'check', text: '既読' %></div>
         <div class="tool"><%= fa_icon 'star', text: 'お気に入り' %></div>
         <div class="tool"><%= fa_icon 'eye-slash', text: 'ミュート' %></div>
+        <%= link_to '詳細', comment_path(comment), class: "comment-link" %>
       </div>
     <% end %>
 
