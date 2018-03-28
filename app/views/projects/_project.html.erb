@@ -9,7 +9,9 @@
 
     <div class="note-reactionbox cf">
       <span class="checked"><%= fa_icon 'star', text: '30' %></span>
-      <span><%= fa_icon 'envelope', text: '3' %></span>
+      <% unless project.comments.empty? %>
+        <span><%= fa_icon 'envelope', text: project.comments.size %></span>
+      <% end %>
       <span><i>進 55(+3)</i></span>
     </div>
   </div>
