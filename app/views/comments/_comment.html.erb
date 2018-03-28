@@ -1,9 +1,9 @@
 <div class="comment mb-3">
-<%= link_to comment_path(comment), class: "comment-link" do %>
 <div class="media-box">
   <div class="bgstr"><%= fa_icon 'envelope' %></div>
 
   <div class="media-content">
+    <%= link_to '詳細', comment_path(comment), class: "comment-link" %>
     <% if defined?(light) %>
       <div class="media-text"><%= comment.text  %></div>
     <% elsif defined?(heavy) %>
@@ -31,5 +31,4 @@
     <% end %>
   </div>
 </div>
-<% end %>
 </div>

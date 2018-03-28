@@ -211,10 +211,10 @@ header{
 
 // Comment
 a.comment-link{
-  text-decoration: none;
-  color: black;
-  transition: background-color .3s ease;
-  background-color: white;
+  position: absolute;
+  right: 0;
+  font-weight: bold;
+  letter-spacing: 0.1em;
 }
 
 // Media-box
