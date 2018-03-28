@@ -4,6 +4,7 @@ class CreateComments < ActiveRecord::Migration[5.1]
       t.string :text
       t.boolean :read_flag
       t.boolean :favor_flag
+      t.boolean :muted
 
       t.references :from_user
       t.string :from_addr
