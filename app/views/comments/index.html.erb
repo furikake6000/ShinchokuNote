@@ -2,7 +2,7 @@
 
 <h1>
   <%= @note.name %>
-  <%= render 'projects/stagebadge', project: @note %>
+  <%= render 'projects/stagebadge', project: @note if @note.type == 'Project'  %>
 </h1>
 <%= link_to '編集する', edit_note_path(@note)  %>
 <p><%= @note.desc %></p>
