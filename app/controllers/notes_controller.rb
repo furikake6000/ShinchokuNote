@@ -13,8 +13,7 @@ class NotesController < ApplicationController
   end
 
   def show
-    # typeに合わせてshowの形を変える
-    render "#{@note.type.underscore.pluralize}/show"
+    # before_actionですでに@noteは取得済みなのでなにもしない
   end
 
   def create
