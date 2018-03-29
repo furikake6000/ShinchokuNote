@@ -10,4 +10,4 @@
 <%= render 'posts/post_form', note: @note if current_users_note?(@note) %>
 <%= render 'comments/comment_form', note: @note unless current_users_note?(@note) %>
 
-<%= render 'notes/comments', note: @note %>
+<%= render 'notes/comments', note: @note, comments: @comments %>

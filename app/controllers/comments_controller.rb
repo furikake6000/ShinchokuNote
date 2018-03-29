@@ -5,6 +5,27 @@ class CommentsController < ApplicationController
 
   def index
     # @noteはbefore_actionで取得済み
+
+    # Commentsのフィルター機能
+    params['comments_filter'] = params['comments_filter'] || 'all'
+    case params['comments_filter']
+    when 'all' then
+      @comments = @note.comments.order('updated_at DESC')
+    when 'unread' then
+      @comments = @note.comments
+                       .where(read_flag: false).order('updated_at DESC')
+    when 'read' then
+      @comments = @note.comments
+                       .where(read_flag: true).order('updated_at DESC')
+    when 'favored' then
+      @comments = @note.comments
+                       .where(favor_flag: true).order('updated_at DESC')
+    end
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create

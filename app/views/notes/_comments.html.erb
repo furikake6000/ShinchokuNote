@@ -1,2 +1,20 @@
-<%= "#{note.comments.size}件のコメント" %>
-<%= render note.comments.order('updated_at DESC') %>
+<%= "#{comments.size}件のコメント" %>
+
+<ul>
+  <li>
+    <%= link_to '未読', note_comments_path(note, params: { comments_filter: 'unread' }), remote: true %>
+  </li>
+  <li>
+    <%= link_to '既読', note_comments_path(note, params: { comments_filter: 'read' }), remote: true %>
+  </li>
+  <li>
+    <%= link_to 'すべて', note_comments_path(note), remote: true %>
+  </li>
+  <li>
+    <%= link_to 'お気に入り', note_comments_path(note, params: { comments_filter: 'favored' }), remote: true %>
+  </li>
+</ul>
+
+<div id="comments_container">
+  <%= render comments %>
+</div>
