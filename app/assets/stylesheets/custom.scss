@@ -267,9 +267,18 @@ a.comment-link{
 }
 .media-toolbox{
   .tool{
-    color: $gray-600;
   	float: left;
     margin-right: 20px;
+    a{
+      text-decoration: none;
+      color: $gray-600;
+    }
+
+    &.active{
+      a{
+        color: $secondary;
+      }
+    }
   }
 }
 

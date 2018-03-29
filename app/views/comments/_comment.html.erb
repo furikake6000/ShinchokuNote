@@ -11,9 +11,16 @@
       <div class="media-text-l"><%= comment.text  %></div>
 
       <div class="media-toolbox cf">
-        <div class="tool"><%= fa_icon 'check', text: '既読' %></div>
-        <div class="tool"><%= fa_icon 'star', text: 'お気に入り' %></div>
-        <div class="tool"><%= fa_icon 'eye-slash', text: 'ミュート' %></div>
+
+        <div id="toggle_comment_<%= comment.id %>_read_flag" class="tool <%= 'active' if comment.read_flag %>">
+          <%= link_to fa_icon('check', text: '既読'), comment_path(comment, params: { comment: { read_flag: 'toggle' } }), method: :put, remote: true %>
+        </div>
+        <div id="toggle_comment_<%= comment.id %>_favor_flag" class="tool <%= 'active' if comment.favor_flag %>">
+          <%= link_to fa_icon('star', text: 'お気に入り'), comment_path(comment, params: { comment: { favor_flag: 'toggle' } }), method: :put, remote: true %>
+        </div>
+        <div id="toggle_comment_<%= comment.id %>_muted" class="tool <%= 'active' if comment.muted %>">
+          <%= link_to fa_icon('eye-slash', text: 'ミュート'), comment_path(comment, params: { comment: { muted: 'toggle' } }), method: :put, remote: true %>
+        </div>
         <%= link_to '詳細', comment_path(comment), class: "comment-link" %>
       </div>
     <% end %>

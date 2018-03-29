@@ -1,0 +1,26 @@
+// toggle_comment_xx_read_flag
+<% if @comment.read_flag %>
+  document.getElementById("toggle_comment_<%= @comment.id %>_read_flag")
+    .classList.add('active');
+<% else %>
+  document.getElementById("toggle_comment_<%= @comment.id %>_read_flag")
+    .classList.remove('active');
+<% end %>
+
+// toggle_comment_xx_favor_flag
+<% if @comment.favor_flag %>
+  document.getElementById("toggle_comment_<%= @comment.id %>_favor_flag")
+    .classList.add('active');
+<% else %>
+  document.getElementById("toggle_comment_<%= @comment.id %>_favor_flag")
+    .classList.remove('active');
+<% end %>
+
+// toggle_comment_xx_muted
+<% if @comment.muted %>
+  document.getElementById("toggle_comment_<%= @comment.id %>_muted")
+    .classList.add('active');
+<% else %>
+  document.getElementById("toggle_comment_<%= @comment.id %>_muted")
+    .classList.remove('active');
+<% end %>

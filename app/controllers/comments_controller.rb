@@ -44,6 +44,11 @@ class CommentsController < ApplicationController
   def update
     @comment.update_attributes(comments_params_editable)
     # Updateミスなどの対応は後に
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   private
