@@ -31,9 +31,14 @@ class ApplicationController < ActionController::Base
     @comment = Comment.find(params[paramname])
   end
 
-  def load_comment_as_mine(paramname)
+  def load_comment_from_me(paramname)
     load_comment paramname
     redirect_to root_path if current_user != @comment.from_user
+  end
+
+  def load_comment_to_me(paramname)
+    load_comment paramname
+    redirect_to root_path if current_user != @comment.to_note.user
   end
 end
 
