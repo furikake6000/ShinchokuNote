@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :posts
 
       # リソース:コメント
-      resources :comments, only: %i[index create show]
+      resources :comments, only: %i[index create show update]
 
       # Post派生クラスTwitterPostはcreateのみ許可
       resources :tweet_posts, only: %i[create]

@@ -40,10 +40,20 @@ class CommentsController < ApplicationController
     # @commentの取得はbefore_actionで完了している
   end
 
+  def update
+    @comment.update_attributes(comments_params_editable)
+    # Updateミスなどの対応は後に
+  end
+
   private
 
   # Commentのパラメータを安全に取り出す
   def comments_params
     params.require(:comment).permit(:text)
+  end
+
+  # Commentのパラメータ（edit可能なもの）を安全に取り出す
+  def comments_params_editable
+    params.require(:comment).permit(:read_flag, :favor_flag, :muted)
   end
 end
