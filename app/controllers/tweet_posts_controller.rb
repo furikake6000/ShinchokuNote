@@ -55,6 +55,9 @@ class TweetPostsController < ApplicationController
       tweet_hash = tweet.to_hash
       tweet_hash['text'] = params[:post][:text]
       newpost.text = tweet_hash.to_json
+
+      # responded_commentの既読処理はしておく
+      responded_comment.read_flag = true
     end
     newpost
   end
