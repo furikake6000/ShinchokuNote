@@ -27,6 +27,24 @@ class ApplicationController < ActionController::Base
     redirect_to root_path if current_user != @note.user
   end
 
+  def load_comments
+    # Commentsのフィルター機能
+    params['comments_filter'] = params['comments_filter'] || 'all'
+    case params['comments_filter']
+    when 'all' then
+      @comments = @note.comments.order('updated_at DESC')
+    when 'unread' then
+      @comments = @note.comments
+                       .where(read_flag: false).order('updated_at DESC')
+    when 'read' then
+      @comments = @note.comments
+                       .where(read_flag: true).order('updated_at DESC')
+    when 'favored' then
+      @comments = @note.comments
+                       .where(favor_flag: true).order('updated_at DESC')
+    end
+  end
+
   def load_comment(paramname)
     @comment = Comment.find(params[paramname])
   end

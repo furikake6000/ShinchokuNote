@@ -1,26 +1,12 @@
 class CommentsController < ApplicationController
   before_action -> { load_note :note_id }, only: %i[index create]
+  before_action -> { load_comments }, only: %i[index]
   before_action -> { load_comment :id }, only: %i[show]
   before_action -> { load_comment_to_me :id }, only: %i[update]
 
   def index
     # @noteはbefore_actionで取得済み
-
-    # Commentsのフィルター機能
-    params['comments_filter'] = params['comments_filter'] || 'all'
-    case params['comments_filter']
-    when 'all' then
-      @comments = @note.comments.order('updated_at DESC')
-    when 'unread' then
-      @comments = @note.comments
-                       .where(read_flag: false).order('updated_at DESC')
-    when 'read' then
-      @comments = @note.comments
-                       .where(read_flag: true).order('updated_at DESC')
-    when 'favored' then
-      @comments = @note.comments
-                       .where(favor_flag: true).order('updated_at DESC')
-    end
+    # @commentsはbefore_actionで取得済み
 
     respond_to do |format|
       format.html
