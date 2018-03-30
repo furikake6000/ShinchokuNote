@@ -2,9 +2,9 @@ class CreateComments < ActiveRecord::Migration[5.1]
   def change
     create_table :comments do |t|
       t.string :text
-      t.boolean :read_flag
-      t.boolean :favor_flag
-      t.boolean :muted
+      t.boolean :read_flag, default: false
+      t.boolean :favor_flag, default: false
+      t.boolean :muted, default: false
 
       t.references :from_user
       t.string :from_addr

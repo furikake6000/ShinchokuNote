@@ -14,9 +14,9 @@ ActiveRecord::Schema.define(version: 20180322082859) do
 
   create_table "comments", force: :cascade do |t|
     t.string "text"
-    t.boolean "read_flag"
-    t.boolean "favor_flag"
-    t.boolean "muted"
+    t.boolean "read_flag", default: false
+    t.boolean "favor_flag", default: false
+    t.boolean "muted", default: false
     t.integer "from_user_id"
     t.string "from_addr"
     t.integer "to_note_id"
