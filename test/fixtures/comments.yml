@@ -2,8 +2,8 @@
 
 one:
   text: MyString
-  is_read: false
+  read_flag: false
 
 two:
   text: MyString
-  is_read: false
+  read_flag: false
