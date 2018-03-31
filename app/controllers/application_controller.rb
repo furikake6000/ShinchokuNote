@@ -38,7 +38,10 @@ class ApplicationController < ActionController::Base
   end
 
   def load_comments
-
+    # Commentsのアクセス制限
+    unless user_can_see_comments? @note, current_user
+      render_403
+    end
 
     # Commentsのフィルター機能
     params['comments_filter'] = params['comments_filter'] || 'all'
@@ -58,6 +61,11 @@ class ApplicationController < ActionController::Base
   end
 
   def load_comment(paramname)
+    # Commentsのアクセス制限
+    unless user_can_see_comments? @comment.to_note, current_user
+      render_403
+    end
+
     @comment = Comment.find(params[paramname])
   end
 
