@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  include CommentsHelper
+
   before_action -> { load_note :note_id }, only: %i[index create]
   before_action -> { load_comments }, only: %i[index]
   before_action -> { load_comment :id }, only: %i[show]
