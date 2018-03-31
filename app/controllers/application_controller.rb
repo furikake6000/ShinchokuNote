@@ -7,6 +7,16 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # 404ページ
+  def render_404
+    render file: Rails.root.join('public/404.html'), status: 404
+  end
+
+  # 403ページ
+  def render_403
+    render file: Rails.root.join('public/403.html'), status: 403
+  end
+
   def load_user(paramname)
     @user = User.find_by(screen_name: params[paramname].to_s)
     # find_byの場合見つからなくても404を吐いてくれない
@@ -28,6 +38,8 @@ class ApplicationController < ActionController::Base
   end
 
   def load_comments
+
+
     # Commentsのフィルター機能
     params['comments_filter'] = params['comments_filter'] || 'all'
     case params['comments_filter']
