@@ -24,7 +24,7 @@ noritama_project_1:
   name: のりたまプロジェクト
   desc: noritama所持テスト用ノートです
 
-noriwasa_project_1]
+noriwasa_project_1:
   type: Project
   user: noriwasa
   name: のりわさプロジェクト
