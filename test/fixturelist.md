@@ -19,4 +19,7 @@
 ### noritama_project_1
 
 ### noriwasa_project_1
+
 ## Posts
+### okaka_tweet_post_1
+- 実際のツイートと紐付いている
