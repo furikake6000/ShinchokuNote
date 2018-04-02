@@ -12,4 +12,11 @@
 - okaka, noriwasaをフォローしていない
 
 ## Notes
+### okaka_project_1
+
+### okaka_project_2
+
+### noritama_project_1
+
+### noriwasa_project_1
 ## Posts
