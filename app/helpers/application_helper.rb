@@ -85,4 +85,10 @@ module ApplicationHelper
     redirect_to(session[:forwarding_url] || default)
     session.delete(:forwarding_url)
   end
+
+  # テストなどのためにランダム文章を生成する
+  def random_sentence
+    rand = Random.new
+    "I am #{rand(1..10000000)}! Nice to meet you!!"
+  end
 end
