@@ -32,14 +32,21 @@
 - [ ] delete post: ログイン状態でポストを削除し成功することを確認する
 - [ ] delete post of others: 未ログイン状態とログイン状態で他人のポストが削除できないことを確認する
 
-## TweeePostsControllerTest
-- [ ] make new tweetpost: 実際のtweetに紐付いたポストを作成しコンテンツの読み取りに成功することを確認する
+## TweetPostsControllerTest
+- [ ] make new tweetpost(link): 実際のtweetに紐付いたポストを作成しコンテンツの読み取りに成功することを確認する
+- [ ] make new tweetpost(new): 新しくつぶやいてポストを作成しコンテンツの読み取りに成功することを確認する
+- [ ] make new tweetpost as others: 紐付けてポストを作成するやつを他人のアカウントに対して行う
 
 ## CommentsControllerTest
-- [x] make new comment(everyone): コメント受け付けスタンス「誰でも」で未ログイン、フォロー外、フォロー内、自分自身でコメントする。すべて正しく動作することを確認する
-- [x] make new comment(only_signed): コメント受け付けスタンス「ログインユーザのみ」で未ログイン、フォロー外、フォロー内、自分自身でコメントする。すべて正しく動作することを確認する
-- [x] make new comment(only_follower): コメント受け付けスタンス「フォロワーのみ」で未ログイン、フォロー外、フォロー内、自分自身でコメントする。すべて正しく動作することを確認する
-- [x] make new comment(only_me): コメント受け付けスタンス「自分のみ」で未ログイン、フォロー外、フォロー内、自分自身でコメントする。すべて正しく動作することを確認する
+- [x] make new comment(everyone): コメント受付スタンス「誰でも」で未ログイン、フォロー外、フォロー内、自分自身でコメントする。すべて正しく動作することを確認する
+- [x] make new comment(only_signed): コメント受付スタンス「ログインユーザのみ」で(ry
+- [x] make new comment(only_follower): コメント受付スタンス「フォロワーのみ」で(ry
+- [x] make new comment(only_me): コメント受付スタンス「自分のみ」で(ry
+
+- [ ] show comment(everyone): コメント表示スタンス「誰でも」で未ログイン、フォロー外、フォロー内、自分自身でnote#showの表示とcomment#showの表示を確認する。すべて正しく動作することを確認する
+- [ ] show comment(only_signed): コメント表示スタンス「誰でも」で(ry
+- [ ] show comment(only_follower): コメント表示スタンス「誰でも」で(ry
+- [ ] show comment(only_me): コメント表示スタンス「誰でも」で(ry
 
 # Model tests
 ## UserTest
