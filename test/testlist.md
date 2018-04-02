@@ -74,14 +74,3 @@
 - [x] client_new failure: ダミーのtokenとsecretを使ってclient_newを行い取得できないことを確認
 
 # Integration tests
-
-# Fixtures
-## Users
-### okaka
-- Admin権限を持つ
-- noritamaをフォローしている
-### noritama
-- Admin権限を持つ
-- okakaをフォローしている
-## Notes
-## Posts
