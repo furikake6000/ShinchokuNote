@@ -33,8 +33,8 @@
 - [ ] delete post of others: 未ログイン状態とログイン状態で他人のポストが削除できないことを確認する
 
 ## TweetPostsControllerTest
-- [ ] make new tweetpost(link): 実際のtweetに紐付いたポストを作成しコンテンツの読み取りに成功することを確認する
-- [ ] make new tweetpost(new): 新しくつぶやいてポストを作成しコンテンツの読み取りに成功することを確認する
+- [x] make new tweetpost(link): 実際のtweetに紐付いたポストを作成しコンテンツの読み取りに成功することを確認する
+- [x] make new tweetpost(new): 新しくつぶやいてポストを作成しコンテンツの読み取りに成功することを確認する
 - [ ] make new tweetpost as others: 紐付けてポストを作成するやつを他人のアカウントに対して行う
 
 ## CommentsControllerTest
