@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include UsersHelper
   include TwitterHelper
   include NotesHelper
+  include CommentsHelper
 
   private
 
@@ -38,7 +39,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_comments
-    # Commentsのアクセス制限
+    # Commentsのアクセス制限
     unless user_can_see_comments? @note, current_user
       render_403
     end
