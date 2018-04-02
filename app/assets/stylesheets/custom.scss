@@ -3,7 +3,7 @@
 // Variables and Mixins
 $primary-darker: #018a9b;
 
-@mixin chaptitle($color: $primary-darker, $font-size: 1.2rem, $letter-spacing: 0.4em){
+@mixin chaptitle($color: darken($primary, 20), $font-size: 1.2rem, $letter-spacing: 0.4em){
   font-weight: bold;
   font-size: $font-size;
   letter-spacing: $letter-spacing;
@@ -32,10 +32,10 @@ $primary-darker: #018a9b;
 }
 
 .navbar-toggler,.nav-item, .nav-item > a{
-  color: #018a9b;
+  color: $primary;
 
   :hover{
-    color: #005660;
+    color: darken($primary, 20);
   }
 }
 
@@ -52,7 +52,7 @@ $primary-darker: #018a9b;
 }
 
 label {
-  color: $primary-darker;
+  color: darken($primary, 20);
   font-weight: bold;
   letter-spacing: 0.1em;
 }
@@ -71,11 +71,11 @@ html{
 }
 
 body{
-  background-color: #B2EBF2;
+  background-color: #F4E2D3;
 }
 
 h1{
-  @include chaptitle($primary-darker, x-large)
+  @include chaptitle(darken($primary, 20), x-large)
 }
 
 header{
@@ -84,7 +84,7 @@ header{
 }
 
 .maintray{
-  background-color: #FFF3E0;
+  background-color: #FFF;
   border-radius: 20px;
   padding: 20px;
   margin-bottom: 20px;
@@ -124,19 +124,11 @@ header{
 }
 
 .request-boxes-list{
-  background-color: #FFB300;
+  background-color: $secondary;
 }
 
 .projects-list{
-  background-color: #00BCD4;
-}
-
-.ideas-list{
-  background-color: #80DEEA;
-}
-
-.finished-projects-list{
-  background-color: #A8D3D4;
+  background-color: $primary;
 }
 
 // Note partial
@@ -171,13 +163,13 @@ header{
     position: absolute;
     right: 10px;
     bottom: 10px;
-    color: $info;
+    color: $gray-600;
     span{
       margin: 0px 10px;
       i{
         font-style: normal;
       }
-      &.checked{
+      &.active{
         color: $primary;
       }
       @include media-breakpoint-down(xs){
@@ -192,7 +184,7 @@ header{
 
 .control-panel{
   border-radius: 20px;
-  border: medium dotted #018a9b;
+  border: medium dotted darken($primary, 20);
   margin-bottom: 20px;
   padding: 20px;
   h3{
@@ -276,7 +268,7 @@ a.comment-link{
 
     &.active{
       a{
-        color: $secondary;
+        color: $primary;
       }
     }
   }
