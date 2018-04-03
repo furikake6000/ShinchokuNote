@@ -26,7 +26,13 @@ class ApplicationController < ActionController::Base
 
   def load_user_as_me(paramname)
     load_user paramname
-    redirect_to root_path if current_user != @user
+    redirect_to root_path && return if current_user != @user
+  end
+
+  def load_user_as_me_or_admin(paramname)
+    load_user paramname
+    redirect_to root_path && return \
+      if current_user != @user && !current_user.admin?
   end
 
   def load_note(paramname)
@@ -40,9 +46,7 @@ class ApplicationController < ActionController::Base
 
   def load_comments
     # Commentsのアクセス制限
-    unless user_can_see_comments? @note, current_user
-      render_403
-    end
+    render_403 unless user_can_see_comments? @note, current_user
 
     # Commentsのフィルター機能
     params['comments_filter'] = params['comments_filter'] || 'all'
