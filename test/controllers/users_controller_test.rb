@@ -112,4 +112,40 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_equal current_user_token, 'okaka_token'
     assert_equal current_user_secret, 'okaka_secret'
   end
+
+  test 'delete user' do
+    login_as_okaka
+    # delete myself
+    assert_difference 'User.count', -1 do
+      delete user_path(@okaka)
+    end
+    # automatically logged out when deleting myself
+    assert_nil current_user
+    # could not find user deleted
+    assert_nil User.find_by(screen_name: @okaka.screen_name)
+  end
+
+  test 'delete other user as admin' do
+    login_as_okaka
+    # delete others
+    assert_difference 'User.count', -1 do
+      delete user_path(@noritama)
+    end
+    # not logged out
+    assert_equal current_user, @okaka
+    # could not find user deleted
+    assert_nil User.find_by(screen_name: @noritama.screen_name)
+  end
+
+  test 'delete other user' do
+    login_as_noritama
+    # delete others(failure)
+    assert_no_difference 'User.count' do
+      delete user_path(@okaka)
+    end
+    # not logged out
+    assert_equal current_user, @noritama
+    # can find user not deleted
+    assert User.find_by(screen_name: @noritama.screen_name)
+  end
 end
