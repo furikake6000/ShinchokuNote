@@ -21,7 +21,7 @@ class TweetPostsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_equal @okaka_project1.posts.last.twitter_id,
-                 "980710729052377088"
+                 '980710729052377088'
   end
 
   test 'make new tweetpost(new)' do
@@ -35,7 +35,7 @@ class TweetPostsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_equal @okaka_project1.posts.last.twitter_id,
-                 "980710729052377088"
+                 '980710729052377088'
   end
 
   test 'make new tweetpost as others' do
@@ -50,6 +50,6 @@ class TweetPostsControllerTest < ActionDispatch::IntegrationTest
     end
 
     tweet_info = JSON.parse @okaka_project1.posts.last.text
-    assert_equal tweet_info["text"], new_tweet_text
+    assert_equal tweet_info['text'], new_tweet_text
   end
 end
