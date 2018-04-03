@@ -25,17 +25,15 @@
 ## ProjectsControllerTest
 
 ## PostsControllerTest
-- [ ] make new post: ログイン状態でポストを作成し成功することを確認する
-- [ ] make new post of others: 未ログイン状態とログイン状態で他人のポストが作成できないことを確認する
-- [ ] edit post: ログイン状態でポストを編集し成功することを確認する
-- [ ] edit post of others: 未ログイン状態とログイン状態で他人のポストが編集できないことを確認する
-- [ ] delete post: ログイン状態でポストを削除し成功することを確認する
-- [ ] delete post of others: 未ログイン状態とログイン状態で他人のポストが削除できないことを確認する
 
 ## TweetPostsControllerTest
 - [x] make new tweetpost(link): 実際のtweetに紐付いたポストを作成しコンテンツの読み取りに成功することを確認する
 - [x] make new tweetpost(new): 新しくつぶやいてポストを作成しコンテンツの読み取りに成功することを確認する
-- [ ] make new tweetpost as others: 紐付けてポストを作成するやつを他人のアカウントに対して行う
+- [ ] make new tweetpost as others: 未ログイン状態とログイン状態で他人のポストが作成できないことを確認する(new方式で作成する)
+- [ ] delete post: ログイン状態でポストを削除し成功することを確認する
+- [ ] delete post(with tweet): ログイン状態でポストを削除し(Tweetごと)成功することを確認する
+- [ ] delete post of others: 未ログイン状態とログイン状態で他人のポストが削除できないことを確認する
+
 
 ## CommentsControllerTest
 - [x] make new comment(everyone): コメント受付スタンス「誰でも」で未ログイン、フォロー外、フォロー内、自分自身でコメントする。すべて正しく動作することを確認する
