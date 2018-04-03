@@ -123,6 +123,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_nil current_user
     # could not find user deleted
     assert_nil User.find_by(screen_name: @okaka.screen_name)
+
+    # check @okaka has deleted logically(paranoid)
+    assert @okaka.deleted?
   end
 
   test 'delete other user as admin' do
@@ -135,6 +138,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_equal current_user, @okaka
     # could not find user deleted
     assert_nil User.find_by(screen_name: @noritama.screen_name)
+
+    # check @noritama has deleted logically(paranoid)
+    assert @noritama.deleted?
   end
 
   test 'delete other user' do
