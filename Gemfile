@@ -46,6 +46,9 @@ gem 'enum_help'
 # React.js
 gem 'react-rails'
 
+# 論理削除を実装するparanoia
+gem 'paranoia'
+
 group :development, :test do
   # Use sqlite on dev mode
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
