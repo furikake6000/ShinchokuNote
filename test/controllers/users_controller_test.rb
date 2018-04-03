@@ -117,7 +117,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     login_as_okaka
     # delete myself
     assert_difference 'User.count', -1 do
-      delete user_path(@okaka)
+      delete user_path(@okaka.screen_name)
     end
     # automatically logged out when deleting myself
     assert_nil current_user
@@ -132,7 +132,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     login_as_okaka
     # delete others
     assert_difference 'User.count', -1 do
-      delete user_path(@noritama)
+      delete user_path(@noritama.screen_name)
     end
     # not logged out
     assert_equal current_user, @okaka
@@ -147,7 +147,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     login_as_noritama
     # delete others(failure)
     assert_no_difference 'User.count' do
-      delete user_path(@okaka)
+      delete user_path(@okaka.screen_name)
     end
     # not logged out
     assert_equal current_user, @noritama
