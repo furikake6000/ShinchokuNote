@@ -12,12 +12,16 @@ class CreateNotes < ActiveRecord::Migration[5.1]
 
       t.references :user, foreign_key: true
 
-      t.timestamps
-
       # For "Project" < Note
       t.datetime :started_at
       # For "FinishedProject" < Project
       t.datetime :finished_at
+
+      # For paranoia
+      t.datetime :deleted_at
+
+      t.timestamps
     end
+    add_index :notes, :deleted_at
   end
 end

@@ -1,4 +1,6 @@
 class Project < Note
+  acts_as_paranoid
+
   enum stage: {
     idea: 0,
     standby: 1,

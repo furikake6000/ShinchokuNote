@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  acts_as_paranoid
+
   validates :twitter_id, presence: true
   validates :twitter_id, uniqueness: true
 

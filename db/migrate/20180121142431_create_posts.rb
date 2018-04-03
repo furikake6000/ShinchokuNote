@@ -7,11 +7,15 @@ class CreatePosts < ActiveRecord::Migration[5.1]
 
       t.references :note, foreign_key: true
 
-      t.timestamps
+      # For paranoia
+      t.datetime :deleted_at
 
       # For "TweetPost" < Post
       t.string :twitter_id
       t.string :media_urls
+
+      t.timestamps
     end
+    add_index :posts, :deleted_at
   end
 end

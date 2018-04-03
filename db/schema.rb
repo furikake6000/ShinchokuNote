@@ -22,8 +22,10 @@ ActiveRecord::Schema.define(version: 20180322082859) do
     t.integer "to_note_id"
     t.integer "response_id"
     t.integer "anonimity", default: 0
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_comments_on_deleted_at"
     t.index ["from_user_id"], name: "index_comments_on_from_user_id"
     t.index ["response_id"], name: "index_comments_on_response_id"
     t.index ["to_note_id"], name: "index_comments_on_to_note_id"
@@ -39,10 +41,12 @@ ActiveRecord::Schema.define(version: 20180322082859) do
     t.integer "comment_receive_stance", default: 10
     t.integer "comment_share_stance", default: 0
     t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.datetime "started_at"
     t.datetime "finished_at"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_notes_on_deleted_at"
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
@@ -51,10 +55,12 @@ ActiveRecord::Schema.define(version: 20180322082859) do
     t.string "type"
     t.float "order"
     t.integer "note_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.string "twitter_id"
     t.string "media_urls"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_posts_on_deleted_at"
     t.index ["note_id"], name: "index_posts_on_note_id"
   end
 
@@ -78,8 +84,10 @@ ActiveRecord::Schema.define(version: 20180322082859) do
     t.string "desc"
     t.string "user_group_info"
     t.string "permission", default: ""
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["twitter_id"], name: "index_users_on_twitter_id", unique: true
   end
 

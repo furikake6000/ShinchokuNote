@@ -1,4 +1,6 @@
 class Note < ApplicationRecord
+  acts_as_paranoid
+
   enum type: {
     RequestBox: 'RequestBox',
     Project: 'Project'

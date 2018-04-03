@@ -13,11 +13,15 @@ class CreateComments < ActiveRecord::Migration[5.1]
 
       t.integer :anonimity, default: 0
 
+      # For paranoia
+      t.datetime :deleted_at
+
       t.timestamps
     end
 
     add_foreign_key :comments, :users, column: :from_user_id
     add_foreign_key :comments, :notes, column: :to_note_id
     add_foreign_key :comments, :posts, column: :response_id
+    add_index :comments, :deleted_at
   end
 end

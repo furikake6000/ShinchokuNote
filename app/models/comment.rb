@@ -1,8 +1,11 @@
 class Comment < ApplicationRecord
+  acts_as_paranoid
+
   enum anonimity: {
     secret: 0,
     open: 1
   }, _suffix: true
+
   belongs_to :from_user,
              class_name: 'User',
              foreign_key: 'from_user_id',
