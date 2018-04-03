@@ -11,11 +11,13 @@ class ApplicationController < ActionController::Base
   # 404ページ
   def render_404
     render file: Rails.root.join('public/404.html'), status: 404
+    true
   end
 
   # 403ページ
   def render_403
     render file: Rails.root.join('public/403.html'), status: 403
+    true
   end
 
   def load_user(paramname)
@@ -26,13 +28,12 @@ class ApplicationController < ActionController::Base
 
   def load_user_as_me(paramname)
     load_user paramname
-    redirect_to root_path && return if current_user != @user
+    render_403 && return unless current_user == @user
   end
 
   def load_user_as_me_or_admin(paramname)
     load_user paramname
-    redirect_to root_path && return \
-      if current_user != @user && !current_user.admin?
+    render_403 && return unless current_user == @user || current_user.admin?
   end
 
   def load_note(paramname)

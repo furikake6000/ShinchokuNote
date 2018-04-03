@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action -> { load_user_as_me :id }, only: %i[edit update]
+  before_action -> { load_user_as_me_or_admin :id },
+                only: %i[edit update destroy]
   before_action -> { load_user :id }, only: %i[show]
 
   def index
@@ -35,6 +36,11 @@ class UsersController < ApplicationController
 
   def show
     # before_actionですでに@userは取得済みなのでなにもしない
+  end
+
+  def destroy
+    logout_user(@user)
+    @user.destroy
   end
 
   def login
