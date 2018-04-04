@@ -1,1 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+okaka_to_noritama_comment_1:
+  text: Hello Noritama! from Okaka.
+  from_user: okaka
+  to_note: noritama_project_1
+  anonimity: secret
+
+noritama_to_okaka_comment_1:
+  text: Hello Okaka! from Noritama.
+  from_user: noritama
+  to_note: okaka_project_1
+  anonimity: secret
