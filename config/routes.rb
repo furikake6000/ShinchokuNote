@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     # リソース：ノート
     resources :notes, shallow: true do
       # リソース:投稿
-      resources :posts
+      resources :posts, only: %i[index destroy]
 
       # リソース:コメント
       resources :comments, only: %i[index create show update]
