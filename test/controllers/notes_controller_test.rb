@@ -130,4 +130,23 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     # Check okaka_proj1 has not deleted
     assert Note.find(@okaka_project1.id)
   end
+
+  test 'delete note of others as admin' do
+    # logging in
+    login_as_okaka
+
+    # deleting a note of others
+    assert_difference 'Note.count', -1 do
+      delete note_path(@noritama_project1)
+    end
+
+    # Check noritama_proj1 has deleted
+    assert_raises ActiveRecord::RecordNotFound do
+      Note.find(@noritama_project1.id)
+    end
+    # check noritama has deleted logically(paranoid)
+    noritama_proj1_tomb = Note.with_deleted.find(@noritama_project1.id)
+    assert noritama_proj1_tomb
+    assert noritama_proj1_tomb.deleted?
+  end
 end

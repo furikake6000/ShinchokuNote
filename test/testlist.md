@@ -21,6 +21,7 @@
 - [x] edit note of others: 未ログイン状態とログイン状態で他人のノートが編集できないことを確認する
 - [x] delete note: ログイン状態でノートを削除し成功することを確認する
 - [x] delete note of others: 未ログイン状態とログイン状態で他人のノートが削除できないことを確認する
+- [x] delete note of others as admin: Admin権限で他人のNoteが消せることを確認する
 
 ## ProjectsControllerTest
 
