@@ -59,14 +59,13 @@
 - [x] admin and nonadmin: okakaとnoritamaのadmin?を確認
 
 ## NoteTest
-- [x] valid note: okaka_project_1を召喚してvalidを確認
 - [x] invalid note uniqueness: 同ユーザが同じ名前のNoteを保存しようとして一意性の確認
 - [x] invalid note no_type: typeのないNoteがinvalidであることを確認
 - [x] invalid note wrong_type: 存在しないtype「'Undefined'」のNoteがinvalidであることを確認
 
 ## ProjectTest
-- [ ] valid project: okaka_project_1を召喚してvalidを確認
-- [ ] invalid project no_name: nameのないProjectがinvalidであることを確認
+- [x] valid project: okaka_project_1を召喚してvalidを確認
+- [x] invalid project no_name: nameのないProjectがinvalidであることを確認
 
 ## PostTest
 - [x] valid post: okaka_project_tweetpost_1を召喚してvalidを確認

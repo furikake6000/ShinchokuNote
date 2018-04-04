@@ -9,10 +9,6 @@ class NoteTest < ActiveSupport::TestCase
     @noritama_project1 = notes(:noritama_project_1)
   end
 
-  test 'valid note' do
-    assert @okaka_project1.valid?
-  end
-
   test 'invalid note uniqueness' do
     @okaka_project1.save
     # Same user cant have same name note
