@@ -95,11 +95,11 @@ class TweetPostsControllerTest < ActionDispatch::IntegrationTest
     assert_raises ActiveRecord::RecordNotFound do
       Post.find(new_tweetpost.id)
     end
-    # check newpost has deleted physically
-    new_tweetpost_tomb = Post.with_deleted.find(new_tweetpost.id)
-    assert_nil new_tweetpost_tomb
+
     # Check newpost has deleted from twitter
-    assert_nil client.status(new_tweet_id)
+    assert_raise Twitter::Error::NotFound do
+      client.status(new_tweet_id)
+    end
   end
 
   test 'delete post of others' do
@@ -116,6 +116,6 @@ class TweetPostsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Check okaka_tweetpost has not deleted
-    assert Post.find(@okaka_tweet_post1)
+    assert Post.find(@okaka_tweet_post1.id)
   end
 end
