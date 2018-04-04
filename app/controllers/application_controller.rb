@@ -85,20 +85,29 @@ class ApplicationController < ActionController::Base
   def load_comment(paramname)
     @comment = Comment.find(params[paramname])
 
+    # 存在しない場合は404
+    render_404 && return if @comment.nil?
     # Commentsのアクセス制限
-    unless user_can_see_comments? @comment.to_note, current_user
-      render_403
-    end
+    render_403 && return \
+      unless user_can_see_comments?(@comment.to_note, current_user) ||
+             current_user == @comment.from_user
   end
 
   def load_comment_from_me(paramname)
     load_comment paramname
-    redirect_to root_path if current_user != @comment.from_user
+    render_403 && return unless current_user == @comment.from_user
+  end
+
+  def load_comment_from_me_or_admin(paramname)
+    load_comment paramname
+    render_403 && return \
+      unless current_user &&
+             (current_user == @comment.from_user || current_user.admin?)
   end
 
   def load_comment_to_me(paramname)
     load_comment paramname
-    redirect_to root_path if current_user != @comment.to_note.user
+    render_403 && return unless current_user == @comment.to_note.user
   end
 end
 

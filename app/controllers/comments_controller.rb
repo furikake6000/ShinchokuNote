@@ -5,6 +5,7 @@ class CommentsController < ApplicationController
   before_action -> { load_comments }, only: %i[index]
   before_action -> { load_comment :id }, only: %i[show]
   before_action -> { load_comment_to_me :id }, only: %i[update]
+  before_action -> { load_comment_from_me_or_admin :id }, only: %i[destroy]
 
   def index
     # @noteはbefore_actionで取得済み
@@ -58,6 +59,10 @@ class CommentsController < ApplicationController
       format.html
       format.js
     end
+  end
+
+  def destroy
+    @comment.destroy
   end
 
   private
