@@ -96,12 +96,21 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
 
   test 'delete note' do
     # logging in
-    login_user @okaka, 'okaka_token', 'okaka_secret'
+    login_as_okaka
 
     # deleting a note
     assert_difference '@okaka.notes.count', -1 do
       delete note_path(@okaka_project1)
     end
+
+    # Check okaka_proj1 has deleted
+    assert_raises ActiveRecord::RecordNotFound do
+      Note.find(@okaka_project1.id)
+    end
+    # check okaka has deleted logically(paranoid)
+    okaka_proj1_tomb = Note.with_deleted.find(@okaka_project1.id)
+    assert okaka_proj1_tomb
+    assert okaka_proj1_tomb.deleted?
   end
 
   test 'delete note of others' do
@@ -111,11 +120,14 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     end
 
     # logging in
-    login_user @okaka, 'okaka_token', 'okaka_secret'
+    login_as_noritama
 
     # deleting a note of others
     assert_no_difference 'Note.count' do
-      delete note_path(@noritama_project1)
+      delete note_path(@okaka_project1)
     end
+
+    # Check okaka_proj1 has not deleted
+    assert Note.find(@okaka_project1.id)
   end
 end
