@@ -2,7 +2,8 @@ class NotesController < ApplicationController
   before_action -> { load_user_as_me :user_id }, only: %i[new create]
   before_action -> { load_note :id }, only: %i[show]
   before_action -> { load_comments }, only: %i[show]
-  before_action -> { load_note_as_mine :id }, only: %i[edit update destroy]
+  before_action -> { load_note_as_mine_or_admin :id },
+                only: %i[edit update destroy]
 
   def index
     # Userのshowアクションと同じなのでリダイレクト

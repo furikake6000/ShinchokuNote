@@ -43,7 +43,13 @@ class ApplicationController < ActionController::Base
 
   def load_note_as_mine(paramname)
     load_note paramname
-    redirect_to root_path if current_user != @note.user
+    render_403 && return unless current_user == @note.user
+  end
+
+  def load_note_as_mine_or_admin(paramname)
+    load_note paramname
+    render_403 && return \
+      unless current_user && (current_user == @note.user || current_user.admin?)
   end
 
   def load_comments
