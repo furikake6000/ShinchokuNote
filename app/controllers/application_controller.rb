@@ -52,6 +52,15 @@ class ApplicationController < ActionController::Base
       unless current_user && (current_user == @note.user || current_user.admin?)
   end
 
+  def load_post(paramname)
+    @post = Post.find(params[paramname])
+  end
+
+  def load_post_as_mine(paramname)
+    load_post paramname
+    render_403 && return unless current_user == @post.note.user
+  end
+
   def load_comments
     # Commentsのアクセス制限
     render_403 unless user_can_see_comments? @note, current_user
