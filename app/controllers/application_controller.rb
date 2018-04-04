@@ -33,7 +33,8 @@ class ApplicationController < ActionController::Base
 
   def load_user_as_me_or_admin(paramname)
     load_user paramname
-    render_403 && return unless current_user == @user || current_user.admin?
+    render_403 && return \
+      unless current_user && (current_user == @user || current_user.admin?)
   end
 
   def load_note(paramname)
