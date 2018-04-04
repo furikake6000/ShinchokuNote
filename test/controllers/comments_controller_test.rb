@@ -184,7 +184,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     login_as_okaka
 
     # deleting a comment
-    assert_difference 'Comments.count', -1 do
+    assert_difference 'Comment.count', -1 do
       delete comment_path(@okaka_comment1)
     end
 
@@ -202,7 +202,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     login_as_okaka
 
     # deleting a comment
-    assert_difference 'Comments.count', -1 do
+    assert_difference 'Comment.count', -1 do
       delete comment_path(@noritama_comment1)
     end
 
@@ -220,7 +220,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     login_as_noritama
 
     # deleting a comment
-    assert_difference 'Comments.count', -1 do
+    assert_difference 'Comment.count', -1 do
       delete comment_path(@okaka_comment1)
     end
 
