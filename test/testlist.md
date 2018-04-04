@@ -10,9 +10,9 @@
 - [x] get user index: users/indexページの閲覧（adminしかできない）を非admin/admin双方で行い、アクセス制限ができているか確認する
 - [x] get master_user_token and secret
 - [x] get current_user_token and secret
-- [ ] delete user: 自分のアカウントが削除できることを確認する
-- [ ] delete other user as admin: 他人のアカウントがadmin権限で削除できることを確認する
-- [ ] delete other user: 未ログイン状態とnonadminが他人のアカウントを削除できないことを確認する
+- [x] delete user: 自分のアカウントが削除できることを確認する
+- [x] delete other user as admin: 他人のアカウントがadmin権限で削除できることを確認する
+- [x] delete other user: 未ログイン状態とnonadminが他人のアカウントを削除できないことを確認する
 
 ## NotesControllerTest
 - [x] make new note: ログイン状態でノートを作成し成功することを確認する
