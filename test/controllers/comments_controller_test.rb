@@ -12,6 +12,8 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     @noritama_project1 = notes(:noritama_project_1)
     # Noritama follows okaka
     # Noriwasa doesn't follow okaka
+    @okaka_comment1 = comments(:okaka_to_noritama_comment_1)
+    @noritama_comment1 = comments(:noritama_to_okaka_comment_1)
   end
 
   test 'make new comment(everyone)' do
@@ -176,5 +178,53 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
         anonimity: :anonimity_secret
       } }
     end
+  end
+
+  test 'delete comment' do
+    login_as_okaka
+
+    # deleting a comment
+    assert_difference 'Comments.count', -1 do
+      delete comment_path(@okaka_comment1)
+    end
+
+    # check comment has deleted
+    assert_raises ActiveRecord::RecordNotFound do
+      Comment.find(@okaka_comment1.id)
+    end
+    # check comment has deleted logically(paranoid)
+    okaka_comment1_tomb = Comment.with_deleted.find(@okaka_comment1.id)
+    assert okaka_comment1_tomb
+    assert okaka_comment1_tomb.deleted?
+  end
+
+  test 'delete comment as admin' do
+    login_as_okaka
+
+    # deleting a comment
+    assert_difference 'Comments.count', -1 do
+      delete comment_path(@noritama_comment1)
+    end
+
+    # check comment has deleted
+    assert_raises ActiveRecord::RecordNotFound do
+      Comment.find(@noritama_comment1.id)
+    end
+    # check comment has deleted logically(paranoid)
+    noritama_comment1_tomb = Comment.with_deleted.find(@noritama_comment1.id)
+    assert noritama_comment1_tomb
+    assert noritama_comment1_tomb.deleted?
+  end
+
+  test 'delete comment as others' do
+    login_as_noritama
+
+    # deleting a comment
+    assert_difference 'Comments.count', -1 do
+      delete comment_path(@okaka_comment1)
+    end
+
+    # check comment has not deleted
+    assert Comment.find(@okaka_comment1.id)
   end
 end

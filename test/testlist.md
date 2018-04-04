@@ -47,9 +47,9 @@
 - [ ] show comment(only_follower): コメント表示スタンス「誰でも」で(ry
 - [ ] show comment(only_me): コメント表示スタンス「誰でも」で(ry
 
-- [ ] delete comment: 自分のコメントを削除する
-- [ ] delete comment as admin: 他人のコメントをadminが削除する
-- [ ] delete comment as others: 他人のコメントを非adminが削除する
+- [x] delete comment: 自分のコメントを削除する
+- [x] delete comment as admin: 他人のコメントをadminが削除する
+- [x] delete comment as others: 他人のコメントを非adminが削除する
 
 # Model tests
 ## UserTest
