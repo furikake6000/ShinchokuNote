@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action -> { load_note :note_id }, only: %i[index]
   before_action -> { load_note_as_mine :note_id }, only: %i[create]
+  before_action -> { load_post_as_mine :id }, only: %i[destroy]
 
   def index
     # @noteはbefore_actionで取得済み
@@ -14,6 +15,21 @@ class PostsController < ApplicationController
     else
       # やりなおし
       render 'notes/show'
+    end
+  end
+
+  def destroy
+    if ActiveRecord::Type::Boolean.new.cast(
+      params.dig(:post, :with_delete_tweet)
+    )
+      # Delete tweet
+      client = client_new
+      client.destroy_status(@post.twitter_id)
+      # Physical delete
+      @post.destroy
+    else
+      # Logical delete
+      @post.destroy
     end
   end
 
