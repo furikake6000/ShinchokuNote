@@ -219,8 +219,8 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   test 'delete comment as others' do
     login_as_noritama
 
-    # deleting a comment
-    assert_difference 'Comment.count', -1 do
+    # deleting a comment(failure)
+    assert_no_difference 'Comment.count' do
       delete comment_path(@okaka_comment1)
     end
 
