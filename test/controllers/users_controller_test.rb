@@ -149,6 +149,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'delete other user' do
+    # delete others without logging in(failure)
+    assert_no_difference 'User.count' do
+      delete user_path(@okaka.screen_name)
+    end
     login_as_noritama
     # delete others(failure)
     assert_no_difference 'User.count' do
