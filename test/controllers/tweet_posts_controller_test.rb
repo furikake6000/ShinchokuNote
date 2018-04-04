@@ -59,9 +59,7 @@ class TweetPostsControllerTest < ActionDispatch::IntegrationTest
     login_as_okaka
 
     assert_difference '@okaka_project1.posts.count', -1 do
-      delete note_tweet_posts_path(@okaka_tweet_post1), params: { post: {
-          with_delete_tweet: false
-      } }
+      delete note_posts_path(@okaka_tweet_post1)
     end
 
     # Check okaka_post has deleted
@@ -88,7 +86,7 @@ class TweetPostsControllerTest < ActionDispatch::IntegrationTest
     new_tweet_id = new_tweetpost.twitter_id
 
     assert_difference '@okaka_project1.posts.count', -1 do
-      delete note_tweet_posts_path(new_tweetpost), params: { post: {
+      delete note_posts_path(new_tweetpost), params: { post: {
           with_delete_tweet: true
       } }
     end
@@ -108,13 +106,11 @@ class TweetPostsControllerTest < ActionDispatch::IntegrationTest
     login_as_noritama
 
     assert_no_difference '@okaka_project1.posts.count' do
-      delete note_tweet_posts_path(@okaka_tweet_post1), params: { post: {
-          with_delete_tweet: false
-      } }
+      delete note_posts_path(@okaka_tweet_post1)
     end
 
     assert_no_difference '@okaka_project1.posts.count' do
-      delete note_tweet_posts_path(@okaka_tweet_post1), params: { post: {
+      delete note_posts_path(@okaka_tweet_post1), params: { post: {
           with_delete_tweet: true
       } }
     end
