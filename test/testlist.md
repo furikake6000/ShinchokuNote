@@ -31,9 +31,9 @@
 - [x] make new tweetpost(link): 実際のtweetに紐付いたポストを作成しコンテンツの読み取りに成功することを確認する
 - [x] make new tweetpost(new): 新しくつぶやいてポストを作成しコンテンツの読み取りに成功することを確認する
 - [ ] make new tweetpost as others: 未ログイン状態とログイン状態で他人のポストが作成できないことを確認する(new方式で作成する)
-- [ ] delete post: ログイン状態でポストを削除し成功することを確認する
-- [ ] delete post(with tweet): ログイン状態でポストを削除し(Tweetごと)成功することを確認する
-- [ ] delete post of others: 未ログイン状態とログイン状態で他人のポストが削除できないことを確認する
+- [x] delete post: ログイン状態でポストを削除し成功することを確認する
+- [x] delete post(with tweet): ログイン状態でポストを削除し(Tweetごと)成功することを確認する
+- [x] delete post of others: 未ログイン状態とログイン状態で他人のポストが削除できないことを確認する
 
 
 ## CommentsControllerTest
