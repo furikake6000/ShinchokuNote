@@ -1,0 +1,28 @@
+// Primary settings
+
+html{
+  font-size: 100%;
+  @include media-breakpoint-down(xs) {
+    font-size: calc(60% + 1.2vw);
+  }
+}
+
+body{
+  background-color: #F4E2D3;
+}
+
+h1{
+  @include chaptitle(darken($primary, 20), x-large)
+}
+
+header{
+  max-width: 750px;
+  margin: auto;
+}
+
+.maintray{
+  background-color: #FFF;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
