@@ -12,7 +12,6 @@ class CreatePosts < ActiveRecord::Migration[5.1]
 
       # For "TweetPost" < Post
       t.string :twitter_id
-      t.string :media_urls
 
       t.timestamps
     end
