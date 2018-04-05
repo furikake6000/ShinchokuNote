@@ -63,7 +63,10 @@ class ApplicationController < ActionController::Base
 
   def load_comments
     # Commentsのアクセス制限
-    render_403 unless user_can_see_comments? @note, current_user
+    unless user_can_see_comments? @note, current_user
+      @comments = nil
+      return
+    end
 
     # Commentsのフィルター機能
     params['comments_filter'] = params['comments_filter'] || 'all'
