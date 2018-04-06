@@ -20,6 +20,7 @@
   <body>
     <%= render 'layouts/header' %>
     <div class="container maintray">
+      <%= render 'layouts/flashes' %>
       <%= yield %>
       <%= render 'layouts/debug_info' if Rails.env.development? %>
     </div>
