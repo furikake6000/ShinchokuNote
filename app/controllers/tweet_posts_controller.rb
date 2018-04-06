@@ -21,6 +21,8 @@ class TweetPostsController < ApplicationController
       # Get tweet
       tweet_id = params[:post][:twitter_id].split('/').last
       tweet = client.status(tweet_id)
+      # flash
+      flash[:success] = 'ツイートをノートに紐付けました！'
     elsif params[:post][:text]
       # Post new tweet
       if params[:post][:response_to]
@@ -47,6 +49,8 @@ class TweetPostsController < ApplicationController
       else
         tweet = client.update(params[:post][:text])
       end
+      # flash
+      flash[:success] = '新しくツイートを投稿しました！'
     end
     newpost = tweet_to_tweetpost(tweet, note)
     if params[:post][:response_to]
