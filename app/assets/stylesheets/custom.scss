@@ -61,6 +61,10 @@ label {
   letter-spacing: 0px;
 }
 
+.field_with_errors {
+  @extend .input-group;
+}
+
 // Primary settings
 
 html{
