@@ -28,7 +28,7 @@ class NotesController < ApplicationController
       redirect_to note_path(@note)
     else
       # やりなおし
-      flash.now[:danger] = 'ノートの作成に失敗しました。'
+      flash.now[:danger] = '作成に失敗しました。'
       render 'new'
     end
   end
@@ -40,9 +40,11 @@ class NotesController < ApplicationController
   def update
     if @note.update_attributes(notes_params)
       # 保存成功
+      flash[:success] = '変更を適用しました。'
       redirect_to note_path(@note)
     else
       # やりなおし
+      flash.now[:danger] = '設定の変更に失敗しました。'
       render 'edit'
     end
   end
