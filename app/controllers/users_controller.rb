@@ -56,12 +56,14 @@ class UsersController < ApplicationController
       end
     end
     twitter_login(auth)
+    flash[:success] = 'ログインしました'
     redirect_to root_path
   end
 
   def logout
     # cookieを削除すればログアウト処理に
     logout_user(current_user)
+    flash[:success] = 'ログアウトしました'
     redirect_back(fallback_location: root_path)
   end
 
@@ -72,6 +74,7 @@ class UsersController < ApplicationController
 
   def switchuser
     change_current_user_id(params[:id])
+    flash[:success] = 'ユーザを切り替えました'
     redirect_back(fallback_location: root_path)
   end
 
