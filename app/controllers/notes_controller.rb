@@ -24,9 +24,11 @@ class NotesController < ApplicationController
     @note.type = params[:note][:type]
     if @note.save
       # 保存成功
+      flash[:success] = "ノート「#{@note.name}」の作成に成功しました。"
       redirect_to note_path(@note)
     else
       # やりなおし
+      flash.now[:danger] = 'ノートの作成に失敗しました。'
       render 'new'
     end
   end
