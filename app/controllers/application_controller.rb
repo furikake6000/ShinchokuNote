@@ -112,6 +112,18 @@ class ApplicationController < ActionController::Base
     load_comment paramname
     render_403 && return unless current_user == @comment.to_note.user
   end
+
+  def load_watchlist(paramname)
+    @watchlist = Watchlist.find(params[paramname])
+
+    # 存在しない場合は404
+    render_404 && return if @watchlist.nil?
+  end
+
+  def load_watchlist_from_me(paramname)
+    load_watchlist paramname
+    render_403 && return unless current_user == @watchlist.from_user
+  end
 end
 
 #             ξ

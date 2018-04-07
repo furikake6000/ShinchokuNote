@@ -15,6 +15,9 @@ Rails.application.routes.draw do
 
       # Post派生クラスTwitterPostはcreateのみ許可
       resources :tweet_posts, only: %i[create]
+
+      # ノートに対しWatchlist#Createができる
+      resources :watchlists, only: %i[create destroy]
     end
   end
 
