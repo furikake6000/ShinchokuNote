@@ -221,9 +221,11 @@ a.comment-link{
   	float: left;
     margin-right: 20px;
     text-decoration: none;
+    font-weight: bold;
     color: $gray-600;
     a{
       text-decoration: none;
+      font-weight: bold;
       color: $gray-600;
     }
 
