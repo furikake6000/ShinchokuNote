@@ -1,7 +1,10 @@
 <div class="note cf">
   <%= image_tag(note.user.thumb_url, size: "96x96" , alt: note.user.name, class: "note-thumb") %>
   <div class="note-body">
-    <h4><%= link_to note.name, note_path(note) %></h4>
+    <h4>
+      <%= link_to note.name, note_path(note) %>
+      <%= render(partial: 'projects/stagebadge', locals:{project: note.becomes(Project)}) if note.type == 'Project' %>
+    </h4>
     <p class="note-text"><%= note.desc %></p>
 
     <div class="note-reactionbox cf">
