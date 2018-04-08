@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
       # ノートに対しWatchlist#Createができる
       resources :watchlists, only: %i[create destroy]
+      post '/watchlists/toggle', to: 'watchlists#toggle'
     end
   end
 

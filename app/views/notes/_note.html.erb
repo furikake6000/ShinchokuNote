@@ -9,7 +9,7 @@
 
     <div class="note-reactionbox cf">
       <span>
-        <%= link_to fa_icon('star', text: note.watching_users.size ), note_watchlists_path(note), method: :post, remote: true %>
+        <%= link_to fa_icon('star', text: note.watching_users.size ), note_watchlists_toggle_path(note), method: :post, remote: true %>
       </span>
       <span><%= fa_icon 'envelope', text: '5' %></span>
       <span><i>進 55(+3)</i></span>
