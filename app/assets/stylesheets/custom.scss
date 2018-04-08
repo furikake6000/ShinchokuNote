@@ -135,55 +135,6 @@ header{
   background-color: $primary;
 }
 
-// Note partial
-.note{
-  background-color: rgba(255,255,255,0.7);
-  clear: both;
-  margin: 10px 0px;
-  position: relative;
-
-  .note-thumb{
-    width: 150px;
-    height: 150px;
-    max-width: 30vw;
-    max-height: 30vw;
-    float: left;
-    margin-right: 10px;
-  }
-
-  h4{
-    font-weight: bold;
-    font-size: 1.2rem;
-  }
-
-  .note-body{
-    padding: 10px;
-    height: 100%;
-  }
-
-  .note-reactionbox{
-    font-weight: bold;
-    font-size: 1.2rem;
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    color: $gray-600;
-    span{
-      margin: 0px 10px;
-      i{
-        font-style: normal;
-      }
-      &.active{
-        color: $primary;
-      }
-      @include media-breakpoint-down(xs){
-        font-size: 1rem;
-        margin: 0px 5px;
-      }
-    }
-  }
-}
-
 // Controll panel
 
 .control-panel{
