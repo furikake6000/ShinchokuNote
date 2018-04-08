@@ -123,16 +123,38 @@ header{
   padding: 20px;
   margin-bottom: 20px;
   h3{
-    @include chaptitle(white)
+    @include chaptitle
   }
 }
 
 .request-boxes-list{
   background-color: $secondary;
+  h3{
+    @include chaptitle(white)
+  }
 }
 
 .projects-list{
   background-color: $primary;
+  h3{
+    @include chaptitle(white)
+  }
+}
+
+.watchlist{
+  background-color: $primary;
+  h3{
+    @include chaptitle(white)
+  }
+}
+
+.following_users_posts{
+  background-color: lighten($primary, 40);
+  border: medium solid darken($primary, 20);
+}
+
+.newest_posts{
+  border: medium solid darken($primary, 20);
 }
 
 // Controll panel
