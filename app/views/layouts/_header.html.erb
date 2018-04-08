@@ -11,13 +11,13 @@
       <div class="navright">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <%= link_to root_path, class:"nav-link" do%>
-              <%= fa_icon 'home', text: 'ホーム' %>
+            <%= link_to user_path(current_user.screen_name), class:"nav-link" do%>
+              <%= fa_icon 'address-book', text: '自分のノート' %>
             <% end %>
           </li>
           <li class="nav-item">
             <%= link_to about_path, class:"nav-link" do%>
-              <%= fa_icon 'info-circle', text: '進捗ノートの使い方' %>
+              <%= fa_icon 'info-circle', text: '使い方' %>
             <% end %>
           </li>
 
