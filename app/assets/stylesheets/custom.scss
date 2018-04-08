@@ -223,19 +223,23 @@ a.comment-link{
   padding: 10px;
 
   .media-content{
+    font-size: 1.2rem;
     position: relative;
     z-index: 1;
+
+    h5{
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      font-size: 1.5rem;
+    }
+    .media-text-l{
+      font-size: 1.5rem;
+    }
+    .media-text-xl{
+      font-size: 2.0rem;
+    }
   }
 
-  .media-text{
-    font-size: 1.2rem;
-  }
-  .media-text-l{
-    font-size: 1.5rem;
-  }
-  .media-text-xl{
-    font-size: 2.0rem;
-  }
   .media-footer{
     position: relative;
     border-top: 2px dotted $gray-600;
