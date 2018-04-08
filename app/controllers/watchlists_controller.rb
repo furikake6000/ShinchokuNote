@@ -4,8 +4,8 @@ class WatchlistsController < ApplicationController
 
   def create
     new_watchlist = Watchlist.new
-    new_watchlist.from_user = current_user
-    new_watchlist.to_note = @note
+    new_watchlist.watching_user = current_user
+    new_watchlist.watching_note = @note
     new_watchlist.save!
   end
 

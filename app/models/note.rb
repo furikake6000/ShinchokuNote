@@ -30,7 +30,7 @@ class Note < ApplicationRecord
 
   has_many :watchlists,
            class_name: 'Watchlist',
-           foreign_key: 'from_user_id',
+           foreign_key: 'to_note_id',
            dependent: :destroy
 
   has_many :watching_users,
@@ -39,4 +39,8 @@ class Note < ApplicationRecord
   validates :name, presence: true
   validates :type, presence: true
   validates_uniqueness_of :name, scope: :user
+
+  def watchlisted_by?(user)
+    watching_users.include? user
+  end
 end
