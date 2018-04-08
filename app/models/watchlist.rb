@@ -1,4 +1,6 @@
 class Watchlist < ApplicationRecord
   belongs_to :watching_user, class_name: 'User', foreign_key: 'from_user_id'
   belongs_to :watching_note, class_name: 'Note', foreign_key: 'to_note_id'
+
+  validates :from_user_id, uniqueness: { scope: :to_note_id }
 end
