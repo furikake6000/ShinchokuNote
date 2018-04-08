@@ -1,17 +1,17 @@
 <% provide(:title, "#{@note.name}の編集") %>
 
-<h1>ノート編集</h1>
+<h1>ページ編集</h1>
 
 <%= form_for @note, url: {action: :update} do |f| %>
 
   <%= f.hidden_field :type, value: @note.type %>
 
-  <%= f.label :name, 'ノートの名称', class: 'mb-0' %>
+  <%= f.label :name, 'ページの名称', class: 'mb-0' %>
   <div class="input-group mb-3">
     <%= f.text_field :name, class: 'form-control' %>
   </div>
 
-  <%= f.label :desc, 'ノートの説明文', class: 'mb-0' %>
+  <%= f.label :desc, 'ページの説明文', class: 'mb-0' %>
   <div class="input-group mb-3">
     <%= f.text_area :desc, class: 'form-control' %>
   </div>
@@ -38,20 +38,20 @@
 <% end %>
 
 <button type="button" class="btn btn-danger mb-3" data-toggle="modal" data-target="#deleteNoteModal">
-  ノートを削除する
+  ページを削除する
 </button>
 
 <div class="modal fade" id="deleteNoteModal" tabindex="-1" role="dialog" aria-labelledby="deleteNoteModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="deleteNoteModal">ノートを削除します</h5>
+        <h5 class="modal-title" id="deleteNoteModal">ページを削除します</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>ノート「<%= @note.name %>」を削除します。</p>
+        <p>ページ「<%= @note.name %>」を削除します。</p>
         <p class="text-danger font-weight-bold">復元はできません。本当によろしいですか？</p>
       </div>
       <div class="modal-footer">
