@@ -1,1 +1,11 @@
-<%= render partial: 'notes/note', locals: { note: request_box.becomes(Note) } %>
+<div class="media-box">
+  <div class="bgstr"><%= fa_icon 'envelope' %></div>
+  <div class="media-content">
+    <h5>
+      <%= link_to request_box.name, note_path(request_box) %>
+    </h5>
+    <%= request_box.desc %>
+
+    <%= render 'notes/note_footer', { note: request_box } %>
+  </div>
+</div>

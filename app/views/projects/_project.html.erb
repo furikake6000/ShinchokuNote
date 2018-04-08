@@ -1,1 +1,12 @@
-<%= render partial: 'notes/note', locals: { note: project.becomes(Note) } %>
+<div class="media-box">
+  <div class="bgstr"><%= fa_icon 'file-text' %></div>
+  <div class="media-content">
+    <h5>
+      <%= link_to project.name, note_path(project) %>
+      <%= render(partial: 'projects/stagebadge', locals:{project: project}) %>
+    </h5>
+    <%= project.desc %>
+
+    <%= render 'notes/note_footer', { note: project } %>
+  </div>
+</div>

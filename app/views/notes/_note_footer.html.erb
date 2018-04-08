@@ -1,0 +1,15 @@
+<div class="media-toolbox cf">
+  <div id="toggle_note_<%= note.id %>_watchlisted" class="tool <%= 'active' if note.watchlisted_by?(current_user) %>">
+    <%= link_to fa_icon('star', text: note.watching_users.count ), note_watchlists_toggle_path(note), method: :post, remote: true %>
+  </div>
+  <div class="tool">
+    <%= fa_icon 'envelope-o', text: note.comments.count %>
+  </div>
+  <div class="tool">
+    進 55(+3)
+  </div>
+</div>
+
+<div class="media-footer">
+  <span><%= smart_time_to_str(note.created_at) %> 作成</span>
+</div>
