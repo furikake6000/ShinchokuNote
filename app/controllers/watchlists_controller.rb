@@ -23,6 +23,7 @@ class WatchlistsController < ApplicationController
       create
     else
       @watchlist.destroy
+      @watchlist = nil
     end
 
     respond_to do |format|

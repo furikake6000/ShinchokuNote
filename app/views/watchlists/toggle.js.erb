@@ -1,7 +1,14 @@
 <%# 数値を正しいものに更新する %>
+document.getElementById("toggle_note_<%= @note.id %>_watchlisted")
+  .children[0]
+  .innerHTML = "<%= escape_javascript(link_to(fa_icon('star', text: @note.watching_users.count ))) %>";
 
 <% if @watchlist %>
   <%# 該当部分をactiveにする %>
+  document.getElementById("toggle_note_<%= @note.id %>_watchlisted")
+    .classList.add('active');
 <% else %>
   <%# 該当部分を非activeにする %>
+  document.getElementById("toggle_note_<%= @note.id %>_watchlisted")
+    .classList.remove('active');
 <% end %>
