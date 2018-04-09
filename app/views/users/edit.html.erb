@@ -1,16 +1,14 @@
 <% provide(:title, "#{@user.name}の設定") %>
 
-<h1>ユーザ編集</h1>
+<h1><%= @user.name %>の設定</h1>
 
-<div class="row">
-  <div class="col-md-6">
-    <%= form_for @user, url: {action: :update} do |f| %>
-      <%= "アカウント情報: #{@user.name}" %>
-
-      <%= f.label :desc %>
-      <%= f.text_field :desc %>
-
-      <%= f.submit "保存する", class: "btn btn-primary" %>
-    <% end %>
+<%= form_for @user, url: {action: :update} do |f| %>
+  <%= f.label :desc, 'プロフィール' %>
+  <div class="input-group mb-3">
+    <%= f.text_area :desc, class: 'form-control' %>
   </div>
-</div>
+
+  <%= f.submit "保存する", class: "btn btn-primary" %>
+<% end %>
+
+<%= link_to 'ユーザの削除', user_leave_path(@user.screen_name), class: 'btn btn-danger mt-3 mb-3' %>

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action -> { load_user_as_me_or_admin :id },
                 only: %i[edit update destroy]
+  before_action -> { load_user_as_me_or_admin :user_id }, only: :leave
   before_action -> { load_user :id }, only: :show
   before_action -> { load_newest_posts 10 }, only: :home
   before_action -> { load_watching_posts 10 }, only: :home
@@ -38,6 +39,10 @@ class UsersController < ApplicationController
   end
 
   def show
+    # before_actionですでに@userは取得済みなのでなにもしない
+  end
+
+  def leave
     # before_actionですでに@userは取得済みなのでなにもしない
   end
 

@@ -20,6 +20,9 @@ Rails.application.routes.draw do
       resources :watchlists, only: %i[create destroy]
       post '/watchlists/toggle', to: 'watchlists#toggle'
     end
+
+    # 削除メニュー
+    get '/leave', to: 'users#leave'
   end
 
   get '/auth/twitter/callback', to: 'users#login'
