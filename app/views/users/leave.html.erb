@@ -1,8 +1,25 @@
-<% provide(:title, 'ユーザの削除') %>
+<% provide(:title, 'アカウントの停止') %>
 
-<h1>ユーザの削除</h1>
-ユーザを削除できます。<br>
+<h1>アカウントの停止</h1>
+アカウントを停止できます。<br>
 実行前にかならず以下をお読みください。
-<div class="alert alert-danger">
+<div class="alert alert-warning">
+  <h4>アカウント停止に関して</h4>
+  アカウントを停止すると、以下のことが起こります。
+  <hr>
+  <ul>
+    <li>全てのノートのページにアクセスできなくなります。</li>
+    <li>投稿した全ての進捗にアクセスできなくなります。</li>
+    <li>投稿に紐付けられたツイートは残ります。</li>
+    <li>投稿したコメントは残ります。ただし「投稿者を公開する」によるアカウント表示は削除されます。</li>
+  </ul>
+  <hr>
+  停止されたあとも、ログインすることは可能です。<br>
+  この場合トップページに「アカウントを復旧する」メニューが表示され、そこからアカウントの復旧が行なえます。<br>
+</div>
 
+<div class="text-center">
+  本当にアカウントを停止しますか？<br>
+  <%= link_to 'アカウントの停止', user_path(@user.screen_name, method: :delete), class: 'btn btn-danger mt-3 mb-3' %>
+  <%= link_to 'やめる', edit_user_path(@user.screen_name), class: 'btn btn-info mt-3 mb-3' %>
 </div>
