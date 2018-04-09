@@ -124,6 +124,18 @@ class ApplicationController < ActionController::Base
     load_watchlist paramname
     render_403 && return unless current_user == @watchlist.from_user
   end
+
+  def load_newest_posts(size)
+    @newest_posts = Post.order('created_at DESC').limit(size)
+  end
+
+  def load_watching_posts(size)
+    # Watching notesのpostsを結合したlist
+    @watching_posts = current_user.watching_notes
+                                  .inject([]) { |result, n| result + n.posts }
+                                  .sort_by{ |n| n.created_at }
+                                  .reverse
+  end
 end
 
 #             ξ
