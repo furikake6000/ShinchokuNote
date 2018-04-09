@@ -9,8 +9,7 @@ class User < ApplicationRecord
 
   has_many :comments,
            class_name: 'Comment',
-           foreign_key: 'from_user_id',
-           dependent: :destroy
+           foreign_key: 'from_user_id'
 
   has_many :watchlists,
            class_name: 'Watchlist',
