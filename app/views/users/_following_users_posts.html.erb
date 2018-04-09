@@ -1,3 +1,9 @@
 <div class="notes-list following_users_posts">
   <h3><%= fa_icon 'twitter', text: 'フォロー中のユーザーの進捗' %></h3>
+  <div class="mb-2">
+    <% @twitter_friends.each do |u| %>
+      <%= render 'users/icon_with_link', { user: u, size: 48 } %>
+    <% end %>
+  </div>
+  <%= render @twitter_friends_posts %>
 </div>

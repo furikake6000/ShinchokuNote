@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_action -> { load_user :id }, only: :show
   before_action -> { load_newest_posts 10 }, only: :home
   before_action -> { load_watching_posts 10 }, only: :home
+  before_action -> { load_twitter_friends_posts 10 }, only: :home
 
   def index
     # Only admin

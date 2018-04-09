@@ -131,10 +131,32 @@ class ApplicationController < ActionController::Base
 
   def load_watching_posts(size)
     # Watching notesのpostsを結合したlist
-    @watching_posts = current_user.watching_notes
-                                  .inject([]) { |result, n| result + n.posts }
-                                  .sort_by{ |n| n.created_at }
-                                  .reverse
+    @watching_posts = current_user
+                        .watching_notes
+                        .inject([]) { |result, n| result + n.posts }[0..size]
+                        .sort_by{ |n| n.created_at }
+                        .reverse
+  end
+
+  # フォロー中のユーザを取得する
+  def load_twitter_friends
+    client = client_new
+    @twitter_friends = []
+    client.friend_ids.each_slice(1000) do |allfriends|
+      @twitter_friends.concat(User.where("twitter_id IN (?)", allfriends.map(&:to_s)))
+    end
+    @twitter_friends
+  end
+
+  # フォロー中のユーザのポストを取得する
+  def load_twitter_friends_posts(size)
+    load_twitter_friends if @twitter_friends.nil?
+    # Twitter friendsのnotesのpostsを結合したlist
+    friends_notes = @twitter_friends.inject([]) { |result, u| result + u.notes }
+    @twitter_friends_posts = friends_notes
+                              .inject([]) { |result, n| result + n.posts }[0..size]
+                              .sort_by{ |n| n.created_at }
+                              .reverse
   end
 end
 
