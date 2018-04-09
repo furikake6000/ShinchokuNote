@@ -195,6 +195,18 @@ a.comment-link{
   background-color: white;
   padding: 10px;
 
+  .media-righttop{
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 1rem;
+    font-weight: bold;
+    color: $gray-600;
+    a{
+      color: $gray-600;
+    }
+  }
+
   .media-content{
     font-size: 1.2rem;
     position: relative;
@@ -243,6 +255,7 @@ a.comment-link{
   	float: left;
     margin-right: 20px;
     text-decoration: none;
+    font-size: 1rem;
     font-weight: bold;
     color: $gray-600;
     a{
