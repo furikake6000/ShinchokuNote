@@ -14,11 +14,14 @@ Rails.application.routes.draw do
       resources :comments, only: %i[index create show update destroy]
 
       # Post派生クラスTwitterPostはcreateのみ許可
-      resources :tweet_posts, only: %i[create]
+      resources :tweet_posts, only: :create
 
       # ノートに対しWatchlist#Createができる
       resources :watchlists, only: %i[create destroy]
       post '/watchlists/toggle', to: 'watchlists#toggle'
+
+      # 進捗どうですか
+      resources :shinchoku_dodeskas, only: :create
     end
 
     # 削除メニュー

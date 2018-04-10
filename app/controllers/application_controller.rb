@@ -122,7 +122,19 @@ class ApplicationController < ActionController::Base
 
   def load_watchlist_from_me(paramname)
     load_watchlist paramname
-    render_403 && return unless current_user == @watchlist.from_user
+    render_403 && return unless current_user == @watchlist.watching_user
+  end
+
+  def load_shinchoku_dodeska(paramname)
+    @shinchoku_dodeska = ShinchokuDodeska.find(params[paramname])
+
+    # 存在しない場合は404
+    render_404 && return if @shinchoku_dodeska.nil?
+  end
+
+  def load_shinchoku_dodeska_from_me(paramname)
+    load_shinchoku_dodeska paramname
+    render_403 && return unless current_user == @shinchoku_dodeska.from_user
   end
 
   def load_newest_posts(size)
