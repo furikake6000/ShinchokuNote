@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_action -> { load_user :id }, only: :show
   before_action -> { load_newest_posts 10 }, only: :home
   before_action -> { load_watching_posts 10 }, only: :home
-  before_action -> { load_twitter_friends_posts 10 }, only: :home
+  # before_action -> { load_twitter_friends_posts 10 }, only: :home
 
   def index
     # Only admin
@@ -64,14 +64,14 @@ class UsersController < ApplicationController
       end
     end
     twitter_login(auth)
-    flash[:success] = 'ログインしました'
+    flash[:success] = 'ログインしました'
     redirect_to root_path
   end
 
   def logout
     # cookieを削除すればログアウト処理に
     logout_user(current_user)
-    flash[:success] = 'ログアウトしました'
+    flash[:success] = 'ログアウトしました'
     redirect_back(fallback_location: root_path)
   end
 
@@ -82,7 +82,7 @@ class UsersController < ApplicationController
 
   def switchuser
     change_current_user_id(params[:id])
-    flash[:success] = 'ユーザを切り替えました'
+    flash[:success] = 'ユーザを切り替えました'
     redirect_back(fallback_location: root_path)
   end
 
