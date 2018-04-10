@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   # リソース：ユーザ
   # Shallowによりindex, new, createはuserから指定可能
-  resources :users, except: %i[create], shallow: true do
+  resources :users, except: %i[create destroy], shallow: true do
     # リソース：ノート
     resources :notes, shallow: true do
       # リソース:投稿
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     end
 
     # 削除メニュー
-    get '/leave', to: 'users#leave'
+    # get '/leave', to: 'users#leave'
   end
 
   get '/auth/twitter/callback', to: 'users#login'
