@@ -313,23 +313,30 @@ a.comment-link{
 
 // foot-toolbar
 .foot-toolbar{
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   text-align: center;
   //background-color: lighten($primary, 40);
 
   .toolbtn{
-    padding: 5px 10px;
-    margin: 10px 5px;
-    background-color: white;
-    color: $primary;
-    border-radius: 0.4rem;
-    border: 3px solid $primary;
-    font-size: 1.5rem;
+    padding: 10px;
+    margin: 5px;
+    background-color: $info;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0px 2px 8px 0px $gray-700;
+    font-size: 1.2rem;
+    font-weight: bold;
   }
 
   a:hover{
     text-decoration: none;
-    background-color: lighten($primary, 40);
+    background-color: lighten($info, 10);
+    box-shadow: 0px 2px 8px 0px $gray-600;
+  }
+
+  a:active{
+    margin-bottom: 2px;
+    box-shadow: 0px 0px 4px 0px $gray-600;
   }
 }
 
