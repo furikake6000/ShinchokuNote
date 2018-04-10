@@ -18,3 +18,5 @@
 <% if user_can_see_comments?(@note, current_user) %>
   <%= render 'notes/comments', {note: @note, comments: @comments} %>
 <% end %>
+
+<%= render 'notes/foot_toolbar' %>

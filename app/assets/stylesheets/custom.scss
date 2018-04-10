@@ -298,5 +298,27 @@ a.comment-link{
   }
 }
 
+// foot-toolbar
+.foot-toolbar{
+  padding: 10px;
+  text-align: right;
+  //background-color: lighten($primary, 40);
+
+  .toolbtn{
+    padding: 5px 10px;
+    margin: 10px 5px;
+    background-color: lighten($primary, 20);
+    color: white;
+    border-radius: 0.4rem;
+    font-size: 2.4rem;
+    font-weight: bold;
+  }
+
+  a:hover{
+    text-decoration: none;
+    background-color: $primary;
+  }
+}
+
 // dropmenu
 @import "dropmenu";
