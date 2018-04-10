@@ -313,23 +313,23 @@ a.comment-link{
 
 // foot-toolbar
 .foot-toolbar{
-  padding: 10px;
-  text-align: right;
+  margin-bottom: 10px;
+  text-align: center;
   //background-color: lighten($primary, 40);
 
   .toolbtn{
     padding: 5px 10px;
     margin: 10px 5px;
-    background-color: lighten($primary, 20);
-    color: white;
+    background-color: white;
+    color: $primary;
     border-radius: 0.4rem;
-    font-size: 2.4rem;
-    font-weight: bold;
+    border: 3px solid $primary;
+    font-size: 1.5rem;
   }
 
   a:hover{
     text-decoration: none;
-    background-color: $primary;
+    background-color: lighten($primary, 40);
   }
 }
 

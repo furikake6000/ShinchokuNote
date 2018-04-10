@@ -1,4 +1,6 @@
 <div class="foot-toolbar fixed-bottom">
-  <%= link_to fa_icon('envelope-o'), '#', class: 'toolbtn' %>
-  <%= link_to '進', '#', class: 'toolbtn' %>
+  <%= link_to fa_icon('envelope-o', text: 'コメント'), '#', class: 'toolbtn' %>
+  <%= link_to '#', class: 'toolbtn' do %>
+    <span class="icon-shinchokunote"></span> 進捗どうですか
+  <% end %>
 </div>
