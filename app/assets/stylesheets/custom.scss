@@ -95,11 +95,24 @@ header{
 }
 
 // Primary classes
+
 .small-text{
   font-size: 0.8rem;
 }
 .large-text{
   font-size: 1.2rem;
+}
+
+// Logo
+
+@font-face {
+  font-family: 'icon-shinchoku';
+  src: font-url('icon-shinchoku.ttf');
+}
+
+.icon-shinchokunote:before {
+  font-family: 'icon-shinchoku';
+  content: "\e900";
 }
 
 // User header
