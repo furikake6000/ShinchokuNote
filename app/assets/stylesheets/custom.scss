@@ -344,28 +344,6 @@ a.comment-link{
       }
     }
   }
-
-  .toolbtn-old{
-    padding: 10px;
-    margin: 5px;
-    background-color: $info;
-    color: white;
-    border-radius: 5px;
-    box-shadow: 0px 2px 8px 0px $gray-700;
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
-
-  a-old:hover{
-    text-decoration: none;
-    background-color: lighten($info, 10);
-    box-shadow: 0px 2px 8px 0px $gray-600;
-  }
-
-  a-old:active{
-    margin-bottom: 2px;
-    box-shadow: 0px 0px 4px 0px $gray-600;
-  }
 }
 
 // dropmenu
