@@ -1,6 +1,10 @@
-<div class="foot-toolbar fixed-bottom">
-  <%= link_to fa_icon('envelope-o', text: 'コメント'), '#', class: 'toolbtn' %>
-  <%= link_to '#', class: 'toolbtn' do %>
-    <span class="icon-shinchokunote"></span> 進捗どうですか
-  <% end %>
+<div class="fixed-bottom foot-toolbar">
+  <ul>
+    <li>
+      <%= link_to fa_icon('envelope-o', text: note.comments.size), '#' %>
+    </li>
+    <li><%= link_to '#' do %>
+      <span class="icon-shinchokunote"></span> <%= note.shinchoku_dodeskas.size %>
+    <% end %></li>
+  </ul>
 </div>

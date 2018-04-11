@@ -1,7 +1,6 @@
 @import "my_bootstrap";
 
 // Variables and Mixins
-$primary-darker: #018a9b;
 
 @mixin chaptitle($color: darken($primary, 20), $font-size: 1.2rem, $letter-spacing: 0.2em){
   font-weight: bold;
@@ -313,11 +312,40 @@ a.comment-link{
 
 // foot-toolbar
 .foot-toolbar{
-  margin-bottom: 20px;
+  margin-bottom: 0;
   text-align: center;
-  //background-color: lighten($primary, 40);
+  background-color: white;
 
-  .toolbtn{
+  ul{
+    margin: 0 auto;
+    padding: 0;
+    max-width: 576px;
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    li{
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    a{
+      font-size: 1.8rem;
+      color: $gray-400;
+      &.active{
+        color: $red;
+      }
+    }
+
+    a:hover{
+      text-decoration: none;
+      color: $gray-600;
+      &.active{
+        color: darken($red, 20);
+      }
+    }
+  }
+
+  .toolbtn-old{
     padding: 10px;
     margin: 5px;
     background-color: $info;
@@ -328,13 +356,13 @@ a.comment-link{
     font-weight: bold;
   }
 
-  a:hover{
+  a-old:hover{
     text-decoration: none;
     background-color: lighten($info, 10);
     box-shadow: 0px 2px 8px 0px $gray-600;
   }
 
-  a:active{
+  a-old:active{
     margin-bottom: 2px;
     box-shadow: 0px 0px 4px 0px $gray-600;
   }
