@@ -11,6 +11,11 @@ class ShinchokuDodeskasController < ApplicationController
     @shinchoku_dodeska.from_user = current_user
     @shinchoku_dodeska.to_note = @note
     @shinchoku_dodeska.save!
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def destroy

@@ -3,8 +3,8 @@
     <li>
       <%= link_to fa_icon('envelope-o', text: note.comments.size), '#' %>
     </li>
-    <li>
-      <a href="<%= note_shinchoku_dodeskas_path(note)  %>" data-method="post" data-remote="true" rel="nofollow" class="<%= 'active' if posted_shinchoku_dodeska_today?(note, current_user) %>">
+    <li id="post_note_<%= note.id %>_shinchoku_dodeska" class="<%= 'active' if posted_shinchoku_dodeska_today?(note, current_user) %>">
+      <a href="<%= note_shinchoku_dodeskas_path(note)  %>" data-method="post" data-remote="true" rel="nofollow">
         <span class="icon-shinchokunote"></span> <%= note.shinchoku_dodeskas.size %>
       </a>
     </li>

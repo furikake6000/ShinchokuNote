@@ -326,21 +326,25 @@ a.comment-link{
     li{
       display: table-cell;
       vertical-align: middle;
-    }
 
-    a{
-      font-size: 1.8rem;
-      color: $gray-400;
       &.active{
-        color: $red;
+        a{
+          color: $red;
+        }
       }
-    }
 
-    a:hover{
-      text-decoration: none;
-      color: $gray-600;
-      &.active{
-        color: darken($red, 20);
+      a{
+        font-size: 1.8rem;
+        color: $gray-400;
+        
+      }
+  
+      a:hover{
+        text-decoration: none;
+        color: $gray-600;
+        &.active{
+          color: darken($red, 20);
+        }
       }
     }
   }

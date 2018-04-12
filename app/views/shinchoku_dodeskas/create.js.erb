@@ -1,0 +1,7 @@
+<%# 数値を正しいものに更新する %>
+document.getElementById("post_note_<%= @note.id %>_shinchoku_dodeska")
+  .children[0]
+  .innerHTML = "<span class=icon-shinchokunote></span> <%= @note.shinchoku_dodeskas.size %>";
+
+<%# 該当部分をactiveにする %>
+document.getElementById("post_note_<%= @note.id %>_shinchoku_dodeska").classList.add('active');
