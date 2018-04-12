@@ -68,7 +68,9 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment.destroy
+    unless @comment.response_post
+      @comment.destroy
+    end
   end
 
   private
