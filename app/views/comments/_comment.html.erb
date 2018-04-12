@@ -1,7 +1,7 @@
-<div class="comment mb-3">
-<div class="media-box">
+<div class="media-box comment mb-3">
   <div class="bgstr"><%= fa_icon 'envelope-o' %></div>
 
+  <div class="media-content">
     <% unless comment.response_post %>
     <div class="media-righttop">
       <a href="" data-toggle="modal" data-target="#deleteComment<%= comment.id %>Modal">
@@ -10,7 +10,6 @@
     </div>
     <% end %>
 
-  <div class="media-content">
     <% if defined?(light) %>
       <%= comment.text  %>
     <% elsif defined?(heavy) %>
@@ -44,7 +43,6 @@
       <%= render 'tweet_posts/tweet_post', {tweet_post: comment.response_post, light: true, hide_response: true} %>
     <% end %>
   </div>
-</div>
 </div>
 
 <% unless comment.response_post %>
