@@ -8,10 +8,15 @@
   <div class="input-group mb-2">
     <%= f.text_area :text, placeholder: 'つぶやく内容', class:'form-control' %>
   </div>
-  <div class="input-group mb-2">
+  <div class="input-group mb-2 form-tweetimg">
     <input type="file" name="tweet_pic">
   </div>
+  <div class="preview-tweetimg"></div>
   <div class="text-right">
     <%= f.submit "Twitterでつぶやく", class: "btn btn-primary" %>
   </div>
+<% end %>
+
+<% content_for :javascript do %>
+  <%= javascript_include_tag 'tweetimgupload'%>
 <% end %>
