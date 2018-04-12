@@ -72,16 +72,17 @@ class ApplicationController < ActionController::Base
     params['comments_filter'] = params['comments_filter'] || 'all'
     case params['comments_filter']
     when 'all' then
-      @comments = @note.comments.order('created_at DESC')
+      @comments = @note.comments
+                       .where(muted: false).order('created_at DESC')
     when 'unread' then
       @comments = @note.comments
-                       .where(read_flag: false).order('created_at DESC')
+                       .where(read_flag: false, muted: false).order('created_at DESC')
     when 'read' then
       @comments = @note.comments
-                       .where(read_flag: true).order('created_at DESC')
+                       .where(read_flag: true, muted: false).order('created_at DESC')
     when 'favored' then
       @comments = @note.comments
-                       .where(favor_flag: true).order('created_at DESC')
+                       .where(favor_flag: true, muted: false).order('created_at DESC')
     end
   end
 
