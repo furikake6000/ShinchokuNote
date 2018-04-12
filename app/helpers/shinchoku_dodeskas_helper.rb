@@ -5,6 +5,6 @@ module ShinchokuDodeskasHelper
       user.id,
       note.id,
       Time.now.beginning_of_day
-    )
+    ).empty?.!
   end
 end
