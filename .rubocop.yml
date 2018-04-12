@@ -1,3 +1,5 @@
+# 無視する警告
+
 # 日本語コメント
 AsciiComments:
   Enabled: false
@@ -5,3 +7,10 @@ AsciiComments:
 # クラスの一行目のコメント
 Documentation:
   Enabled: false
+
+
+# 無視するファイル
+AllCops:
+  Exclude:
+  - 'db/schema.rb'
+  - 'db/migrate/*'
