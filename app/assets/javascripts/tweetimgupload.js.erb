@@ -8,23 +8,19 @@ $(function(){
             return false;
         }
 
-        reader.onload = (function(f){
-            return function(e){
-                let options = {
-                    method: "POST",
-                    apiURL: "https://upload.twitter.com/1.1/media/upload.json",
-                    parameters: {
-                        oauth_callback: location.href,
-                        oauth_consumer_key: "<%= Rails.application.secrets.twitter_api_key %>",
-                        oauth_nonce: Date.now(),
-                        oauth_signature_method: "HMAC-SHA1",
-                        oauth_timestamp: Date.now() / 1000,
-                        oauth_version: "1.0"
-                    }
-                };
-            }
-        })(file);
+        reader.onload = function(e){
+            $.ajax({
+                url: '/tweet_posts/imgsig',
+                type: 'POST',
+                data: {
+                    'media': 'e.target.result',
+                    'oauth_callback': location.href,
+                    'oauth_nonce': Date.now(),
+                    'oauth_timestamp': Math.floor(Date.now() / 1000)
+                }
+            })
+        };
 
-        reader.readAsBinaryString(file);
+        reader.readAsDataURL(file);
     })
 })

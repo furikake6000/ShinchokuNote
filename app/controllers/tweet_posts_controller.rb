@@ -1,4 +1,5 @@
 class TweetPostsController < ApplicationController
+  protect_from_forgery except: :imgsig
   before_action -> { load_note_as_mine :note_id }, only: %i[create]
 
   def create
@@ -10,6 +11,32 @@ class TweetPostsController < ApplicationController
       # やりなおし
       render 'notes/show'
     end
+  end
+
+  def imgsig
+    # Making params
+    reqparams = {
+      'oauth_token': current_user_token,
+      'oauth_consumer_key': Rails.application.secrets.twitter_api_key,
+      'oauth_signature_method': 'HMAC-SHA1',
+      'oauth_version': '1.0'
+    }
+    reqparams.merge!(imgsig_params)
+
+    # Generating & escaping key and params
+    sig_key = CGI.escape(Rails.application.secrets.twitter_api_secret) +
+             '&' +
+             CGI.escape(current_user_secret)
+    method_data = CGI.escape('POST')
+    requesturl_data = CGI.escape('https://upload.twitter.com/1.1/media/upload.json')
+    reqparams_data = CGI.escape(reqparams.to_query)
+    sig_data = method_data + '&' + requesturl_data + '&' + reqparams_data
+
+    # Generating auth key
+    digest = OpenSSL::Digest.new('sha1')
+    signature = OpenSSL::HMAC.digest(digest, sig_key, sig_data)
+    
+    print(signature)
   end
 
   private
@@ -74,5 +101,12 @@ class TweetPostsController < ApplicationController
     tweetpost.text = tweet.to_json
     # 作成したTweetPostを返す
     tweetpost
+  end
+
+  # imgsigのparams
+  def imgsig_params
+    params.permit(:media, :oauth_callback, :oauth_consumer_key,
+                  :oauth_nonce, :oauth_signature_method, :oauth_timestamp,
+                  :oauth_version)
   end
 end
