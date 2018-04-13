@@ -1,0 +1,30 @@
+$(function(){
+    $('.form-tweetimg').on('change', 'input[type="file"]', function(e){
+        let file = e.target.files[0];
+        let reader = new FileReader();
+        let $preview = $(".preview-tweetimg");
+
+        if(file.type.indexOf("image") < 0){
+            return false;
+        }
+
+        reader.onload = (function(f){
+            return function(e){
+                let options = {
+                    method: "POST",
+                    apiURL: "https://upload.twitter.com/1.1/media/upload.json",
+                    parameters: {
+                        oauth_callback: location.href,
+                        oauth_consumer_key: "<%= Rails.application.secrets.twitter_api_key %>",
+                        oauth_nonce: Date.now(),
+                        oauth_signature_method: "HMAC-SHA1",
+                        oauth_timestamp: Date.now() / 1000,
+                        oauth_version: "1.0"
+                    }
+                };
+            }
+        })(file);
+
+        reader.readAsBinaryString(file);
+    })
+})
