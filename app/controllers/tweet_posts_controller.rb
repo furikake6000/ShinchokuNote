@@ -83,22 +83,30 @@ class TweetPostsController < ApplicationController
           # 1ツイートに収まらない質問 or 回答
           tweet = client.update('✉️: ' + responded_comment.text)
           tweet = client.update(
-            '💬: ' + params[:post][:text] +
-            "\n" + comment_url(responded_comment, only_path: false),
-            in_reply_to_status_id: tweet.id
-          )
+                    '💬: ' + params[:post][:text] +
+                    "\n" + comment_url(responded_comment, only_path: false),
+                    in_reply_to_status_id: tweet.id
+                  )
         else
           tweet = client.update(
             tweetstr +
-            "\n" + comment_url(responded_comment, only_path: false)
+            "\n" +
+            comment_url(responded_comment, only_path: false)
           )
         end
 
       else
-        tweet = client.update(params[:post][:text])
+        if params[:post][:image]
+          tweet = client.update_with_media(
+                    params[:post][:text],
+                    params[:post][:image].tempfile
+                  )
+        else
+          tweet = client.update(params[:post][:text])
+        end
       end
       # flash
-      flash[:success] = '新しくツイートを投稿しました！'
+      flash[:success] = '新しくツイートを投稿しました！'
     end
     newpost = tweet_to_tweetpost(tweet, note)
     if params[:post][:response_to]
