@@ -99,7 +99,7 @@ class TweetPostsController < ApplicationController
         if params[:post][:image]
           tweet = client.update_with_media(
                     params[:post][:text],
-                    params[:post][:image].tempfile
+                    params[:post][:image].map{ |img| img.tempfile }
                   )
         else
           tweet = client.update(params[:post][:text])

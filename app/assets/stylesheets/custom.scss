@@ -190,6 +190,28 @@ header{
   }
 }
 
+// ImageForm
+#image-form-virtual{
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  vertical-align: middle;
+  border: medium dashed $gray-500;
+  border-radius: 10px;
+  color: $gray-500;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+#image-form-hidden{
+  display: none;
+}
+#image-form-preview{
+  img{
+    width: 25%;
+    padding: 5px;
+  }
+}
+
 // Comment
 a.comment-link{
   position: absolute;
