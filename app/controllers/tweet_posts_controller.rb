@@ -1,4 +1,6 @@
 class TweetPostsController < ApplicationController
+  require 'tempfile'
+
   protect_from_forgery except: :imgsig
   before_action -> { load_note_as_mine :note_id }, only: %i[create]
 
@@ -35,8 +37,27 @@ class TweetPostsController < ApplicationController
     # Generating auth key
     digest = OpenSSL::Digest.new('sha1')
     signature = OpenSSL::HMAC.digest(digest, sig_key, sig_data)
-    
-    print(signature)
+    signature_base64 = Base64.strict_encode64(signature)
+
+    response = {
+      'params': reqparams,
+      'signature': signature_base64
+    }
+
+    Tempfile.open { |t|
+      t.binmode
+      print("BASE64 DATA:" + reqparams['media_data'][0, 100])
+      mime_type = reqparams['media_data'].slice(0..reqparams['media_data'].index(';'))
+      data = reqparams['media_data'].slice(reqparams['media_data'].index(';') + 8..-1)
+      print("MIME_TYPE: " + mime_type)
+      print("DATA[100]: " + data[0, 100])
+      t.write Base64.decode64(data)
+
+      client = client_new
+      client.update_with_media("hoge", t.path)
+     }
+
+    render json: response
   end
 
   private
@@ -105,7 +126,7 @@ class TweetPostsController < ApplicationController
 
   # imgsigのparams
   def imgsig_params
-    params.permit(:media, :oauth_callback, :oauth_consumer_key,
+    params.permit(:media_data, :oauth_callback, :oauth_consumer_key,
                   :oauth_nonce, :oauth_signature_method, :oauth_timestamp,
                   :oauth_version)
   end

@@ -9,16 +9,19 @@ $(function(){
         }
 
         reader.onload = function(e){
+            var media_data = e.target.result;
+            console.log(media_data)
+
             $.ajax({
                 url: '/tweet_posts/imgsig',
                 type: 'POST',
                 data: {
-                    'media': 'e.target.result',
+                    'media_data': media_data,
                     'oauth_callback': location.href,
                     'oauth_nonce': Date.now(),
                     'oauth_timestamp': Math.floor(Date.now() / 1000)
                 }
-            })
+            });
         };
 
         reader.readAsDataURL(file);
