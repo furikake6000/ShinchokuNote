@@ -1,7 +1,7 @@
 <% provide(:title, @user.name) %>
 
-<%= render partial: 'users/home_controll_panel' if current_user?(@user) %>
+<%= render 'notes/random_button' if current_user?(@user) %>
 
 <%= render 'users/user_header', user: @user %>
 
-<%= render partial: 'users/notes', locals: {user: @user} %>
+<%= render 'users/notes', user: @user %>
