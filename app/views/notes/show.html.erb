@@ -1,5 +1,7 @@
 <% provide(:title, @note.name) %>
 
+<%= render 'notes/random_button' if @omakase %>
+
 <h1>
   <%= @note.name %>
   <%= render 'projects/stagebadge', project: @note if @note.type == 'Project' %>

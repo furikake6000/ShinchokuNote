@@ -15,7 +15,8 @@ class NotesController < ApplicationController
   end
 
   def show
-    # before_actionですでに@noteは取得済みなのでなにもしない
+    # before_actionですでに@noteは取得済
+    @omakase = true if params[:omakase]
   end
 
   def create
@@ -58,7 +59,7 @@ class NotesController < ApplicationController
     # Noteモデルからランダムに一件取得
     # (参考: https://easyramble.com/get-record-randomly-with-active-record.html)
     @note = Note.where('id >= ?', rand(0..Note.last.id)).first
-    redirect_to note_path(@note)
+    redirect_to note_path(@note, params: { omakase: true })
   end
 
   private
