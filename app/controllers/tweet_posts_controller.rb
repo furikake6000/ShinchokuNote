@@ -65,6 +65,8 @@ class TweetPostsController < ApplicationController
   # paramsからtweetを取得
   def tweetpost_from_params(note)
     client = client_new
+
+    # ツイートを生成
     if params[:post][:twitter_id]
       # Get tweet
       tweet_id = params[:post][:twitter_id].split('/').last
@@ -74,40 +76,47 @@ class TweetPostsController < ApplicationController
     elsif params[:post][:text]
       # Post new tweet
       if params[:post][:response_to]
+        # 返信ありの場合
         responded_comment = Comment.find(params[:post][:response_to])
-
-        tweetstr = '✉️: ' + responded_comment.text +
-                   "\n💬: " + params[:post][:text]
-
-        if tweetstr.length > 140
-          # 1ツイートに収まらない質問 or 回答
-          tweet = client.update('✉️: ' + responded_comment.text)
-          tweet = client.update(
-                    '💬: ' + params[:post][:text] +
-                    "\n" + comment_url(responded_comment, only_path: false),
-                    in_reply_to_status_id: tweet.id
-                  )
-        else
-          tweet = client.update(
-            tweetstr +
-            "\n" +
-            comment_url(responded_comment, only_path: false)
-          )
-        end
-
-      else
-        if params[:post][:image]
-          tweet = client.update_with_media(
-                    params[:post][:text],
+        # 返信先のコメントのテキスト、文字数の最大制限を求める
+        responded_comment_maxlen = 140 - 10 - params[:post][:text].length
+        # 必要に応じて載せるコメントを切り貼りする
+        responded_comment_text = 
+          responded_comment.text.length > responded_comment_maxlen ?
+          '> ' + responded_comment.text[0..responded_comment_maxlen - 3] + '...' :
+          '> ' + responded_comment.text
+        # つぶやく文字列を決定
+        tweetstr = responded_comment_text + "\n" +
+                   params[:post][:text] + "\n" +
+                   comment_url(responded_comment, only_path: false) +
+                   " #進捗ノート"
+        # 画像の有無を判別し投稿
+        tweet = params[:post][:image] ?
+                  client.update_with_media(
+                    tweetstr,
                     params[:post][:image].map{ |img| img.tempfile }
-                  )
-        else
-          tweet = client.update(params[:post][:text])
-        end
+                  ) :
+                  client.update(tweetstr)
+      else
+        # 返信なしの場合
+        # つぶやく文字列を決定
+        tweetstr = params[:post][:text] + "\n" +
+                   comment_url(responded_comment, only_path: false) +
+                   " #進捗ノート"
+        # 画像の有無を判別し投稿
+        tweet = params[:post][:image] ?
+        client.update_with_media(
+          tweetstr,
+          params[:post][:image].map{ |img| img.tempfile }
+        ) :
+        client.update(tweetstr)
       end
+
       # flash
       flash[:success] = '新しくツイートを投稿しました！'
     end
+
+    # 投稿したツイートを元にPostを作成
     newpost = tweet_to_tweetpost(tweet, note)
     if params[:post][:response_to]
       # Response処理
