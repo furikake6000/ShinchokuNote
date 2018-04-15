@@ -32,7 +32,6 @@ Rails.application.routes.draw do
   get '/switch', to: 'users#switchuser'
   get '/login', to: 'users#new'
   get '/logout', to: 'users#logout'
-  post '/tweet_posts/imgsig', to: 'tweet_posts#imgsig'
 
   # 固定ページ
   get '/about', to: 'static_pages#about'
