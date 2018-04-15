@@ -3,7 +3,7 @@ function disableEvent(e) {
     e.stopPropagation();
 }
 
-$(function(){
+$(document).on('turbolinks:load', function(){
     let $virtualform = $('#image-form-virtual');
     let $realform = $('#image-form-hidden');
     let $preview = $('#image-form-preview');
