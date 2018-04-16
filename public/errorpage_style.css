@@ -1,23 +1,26 @@
-// Primary settings
-
 html{
   font-size: 100%;
-  @include media-breakpoint-down(xs) {
-    font-size: calc(60% + 1.2vw);
-  }
 }
 
 body{
   background-color: #F4E2D3;
 }
 
-h1{
-  @include chaptitle(darken($primary, 20), x-large)
-}
-
-header{
+header {
   max-width: 750px;
   margin: auto;
+}
+
+h1{
+  font-weight: bold;
+  font-size: 1.2rem;
+  letter-spacing: 0.2em;
+  color: #C07C48;
+  border-bottom: medium dotted #C07C48;
+}
+
+.container {
+  max-width: 576px;
 }
 
 .maintray{
