@@ -139,7 +139,8 @@ class ApplicationController < ActionController::Base
   end
 
   def load_newest_posts(size)
-    @newest_posts = Post.order('created_at DESC').limit(size)
+    @newest_posts = Post.order('created_at DESC').limit(size)\
+      if logged_in?
   end
 
   def load_watching_posts(size)
@@ -148,7 +149,8 @@ class ApplicationController < ActionController::Base
                         .watching_notes
                         .inject([]) { |result, n| result + n.posts }[0..size]
                         .sort_by{ |n| n.created_at }
-                        .reverse
+                        .reverse \
+      if logged_in?
   end
 
   # フォロー中のユーザを取得する

@@ -10,11 +10,13 @@
     <div class="collapse navbar-collapse" id="navbarToggler">
       <div class="navright">
         <ul class="navbar-nav mr-auto">
+          <% if logged_in? %>
           <li class="nav-item">
             <%= link_to user_path(current_user.screen_name), class:"nav-link" do%>
               <%= fa_icon 'address-book', text: '自分のノート' %>
             <% end %>
           </li>
+          <% end %>
           <li class="nav-item">
             <%= link_to about_path, class:"nav-link" do%>
               <%= fa_icon 'info-circle', text: '使い方' %>
