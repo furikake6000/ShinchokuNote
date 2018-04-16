@@ -1,7 +1,7 @@
 <div class="fixed-bottom foot-toolbar">
   <ul>
     <li>
-      <%= link_to fa_icon('envelope-o', text: note.comments.size), '#' %>
+      <%= link_to fa_icon('envelope-o', text: note.comments.size), '#comment-form' %>
     </li>
     <li id="post_note_<%= note.id %>_shinchoku_dodeska" class="<%= 'active' if posted_shinchoku_dodeska_today?(note, current_user) %>">
       <a href="<%= note_shinchoku_dodeskas_path(note)  %>" data-method="post" data-remote="true" rel="nofollow">
