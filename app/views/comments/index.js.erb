@@ -1,1 +1,17 @@
+// disactive all tabs
+$("#comments_unread_tab").removeClass("active");
+$("#comments_read_tab").removeClass("active");
+$("#comments_all_tab").removeClass("active");
+$("#comments_favor_tab").removeClass("active");
+
+<% if @comments_flag_all %>
+    $("#comments_all_tab").addClass("active");
+<% elsif @comments_flag_unread %>
+    $("#comments_unread_tab").addClass("active");
+<% elsif @comments_flag_read %>
+    $("#comments_read_tab").addClass("active");
+<% elsif @comments_flag_favored %>
+    $("#comments_favored_tab").addClass("active");
+<% end %>
+
 document.getElementById("comments_container").innerHTML = "<%= escape_javascript(render @comments) %>";

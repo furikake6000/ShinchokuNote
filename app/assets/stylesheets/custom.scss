@@ -217,6 +217,22 @@ header{
 }
 
 // Comment
+.comments-menu{
+  text-align: center;
+  background-color: white;
+
+  ul{
+    padding: 0;
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    li{
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+}
+
 a.comment-link{
   position: absolute;
   right: 0;
