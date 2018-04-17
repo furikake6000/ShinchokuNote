@@ -1,17 +1,22 @@
+$all_tab = $("#comments_all_tab");
+$unread_tab = $("#comments_unread_tab");
+$read_tab = $("#comments_read_tab");
+$favored_tab = $("#comments_favored_tab");
+
 // disactive all tabs
-$("#comments_unread_tab").removeClass("active");
-$("#comments_read_tab").removeClass("active");
-$("#comments_all_tab").removeClass("active");
-$("#comments_favor_tab").removeClass("active");
+$unread_tab.removeClass("active");
+$read_tab.removeClass("active");
+$all_tab.removeClass("active");
+$favored_tab.removeClass("active");
 
 <% if @comments_flag_all %>
-    $("#comments_all_tab").addClass("active");
+    $all_tab.addClass("active");
 <% elsif @comments_flag_unread %>
-    $("#comments_unread_tab").addClass("active");
+    $unread_tab.addClass("active");
 <% elsif @comments_flag_read %>
-    $("#comments_read_tab").addClass("active");
+    $read_tab.addClass("active");
 <% elsif @comments_flag_favored %>
-    $("#comments_favored_tab").addClass("active");
+    $favored_tab.addClass("active");
 <% end %>
 
-document.getElementById("comments_container").innerHTML = "<%= escape_javascript(render @comments) %>";
+$("#comments_container").html("<%= escape_javascript(render @comments) %>");
