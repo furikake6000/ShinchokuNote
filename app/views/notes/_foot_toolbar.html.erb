@@ -1,5 +1,8 @@
 <div class="fixed-bottom foot-toolbar">
   <ul>
+    <li id="toggle_note_<%= note.id %>_watchlisted" class="tool <%= 'active' if note.watchlisted_by?(current_user)%>">
+      <%= link_to fa_icon('star', text: note.watching_users.count ), note_watchlists_toggle_path(note), method: :post, remote: true %>
+    </li>
     <li>
       <%= link_to fa_icon('envelope-o', text: note.comments.size), '#comment-form' %>
     </li>
