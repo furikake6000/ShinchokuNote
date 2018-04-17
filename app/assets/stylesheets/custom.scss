@@ -68,6 +68,12 @@ label {
   @extend .input-group;
 }
 
+.nav-item{
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+
 // Primary settings
 
 html{
@@ -185,15 +191,6 @@ header{
   }
 }
 
-// PostForm
-.post-form{
-  .nav-item{
-    font-size: 0.9rem;
-    font-weight: bold;
-    letter-spacing: 0.1em;
-  }
-}
-
 // ImageForm
 #image-form-virtual{
   width: 100%;
@@ -217,18 +214,20 @@ header{
 }
 
 // Comment
-.comments-menu{
-  text-align: center;
-  background-color: white;
+#comments_container{
+  background-color: lighten($primary, 10);
+  border: medium solid darken($primary, 20);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  h3{
+    @include chaptitle(white)
+  }
 
-  ul{
-    padding: 0;
-    width: 100%;
-    display: table;
-    table-layout: fixed;
-    li{
-      display: table-cell;
-      vertical-align: middle;
+  ul li a{
+    color: white;
+    &.active{
+      background-color: darken($primary, 10);
     }
   }
 }
