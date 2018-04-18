@@ -20,10 +20,20 @@
 
   <body>
     <%= render 'layouts/header' %>
-    <div class="container maintray">
-      <%= render 'layouts/flashes' %>
-      <%= yield %>
-      <%= render 'layouts/debug_info' if Rails.env.development? %>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-4">
+          <%= yield :leftcol %>
+        </div>
+        <div class="col-lg-6 col-md-8 maintray">
+          <%= render 'layouts/flashes' %>
+          <%= yield %>
+          <%= render 'layouts/debug_info' if Rails.env.development? %>
+        </div>
+        <div class="col-lg-3">
+          <%= yield :rightcol %>
+        </div>
+      </div>
     </div>
   </body>
 </html>
