@@ -123,14 +123,13 @@ header{
 // User header
 
 .user-header{
-  h2{
+  .user-header-name{
     font-weight: bold;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
   }
 
-  .user-header-thumb{
-    width: 128px;
-    max-width: 30vw;
+  hr{
+    border-top: 5px dotted $gray-400;
   }
 }
 
