@@ -1,5 +1,7 @@
 <% provide(:title, @note.name) %>
 
+<%= render 'users/user_leftcol', { user: @note.user } %>
+
 <%= render 'notes/random_button' if @omakase %>
 
 <h1>
