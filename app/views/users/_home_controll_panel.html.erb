@@ -1,6 +1,0 @@
-<div class="control-panel">
-  <h3><%= fa_icon 'wrench', text: 'コントロールパネル' %></h3>
-
-  <%= link_to fa_icon('file-text') + fa_icon('envelope') + "新規作成", new_user_note_path(current_user.screen_name), class:"btn btn-primary", role:"button" %>
-  <%= link_to "設定", edit_user_path(current_user.screen_name), class:"btn btn-info", role:"button" %>
-</div>

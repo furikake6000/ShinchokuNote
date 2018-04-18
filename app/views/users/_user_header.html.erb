@@ -5,6 +5,7 @@
 
     <span><%= link_to fa_icon('twitter', text: '@' + user.screen_name), user.url, target:"_new" %></span>
     <p><%= user.desc %></p>
+    <%= link_to '新規ページ作成', new_user_note_path(current_user.screen_name), class:"btn btn-primary", role:"button" if current_user?(user) %>
     <hr>
   </div>
 </div>
