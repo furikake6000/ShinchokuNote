@@ -133,6 +133,21 @@ header{
   }
 }
 
+.user-leftcol{
+  background-color: #FFF;
+  border-radius: 20px;
+  padding: 20px;
+  padding-top: 10px;
+  .user-leftcol-name{
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  hr{
+    border-top: 5px dotted $gray-400;
+  }
+}
+
 // Lists
 
 .notes-list{

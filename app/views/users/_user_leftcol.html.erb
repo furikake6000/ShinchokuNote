@@ -1,0 +1,13 @@
+<% content_for :leftcol do %>
+<div class="user-leftcol mb-3">
+  <%= link_to image_tag(user.thumb_url, alt: user.name, class: "mr-1 user-leftcol-thumb rounded-circle", size: "108x108"), user.url, target:"_new" unless user.thumb_url.blank? %>
+  <div>
+    <div class="user-leftcol-name"><%= user.name %></div>
+
+    <div><%= link_to fa_icon('twitter', text: '@' + user.screen_name), user.url, target:"_new" %></div>
+    <div><%= user.desc %></div>
+    <hr>
+    <%= link_to 'ユーザーページ', user_path(user.screen_name), class: 'btn btn-primary btn-block' %>
+  </div>
+</div>
+<% end %>
