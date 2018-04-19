@@ -254,7 +254,7 @@ a.comment-link{
   position: relative;
   overflow: hidden;
   border-radius: 10px;
-  border: 2px solid $gray-400;
+  border: 3px solid darken(adjust-hue($primary, -10deg), 10);
   background-color: white;
   padding: 10px;
 

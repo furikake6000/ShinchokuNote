@@ -1,6 +1,6 @@
 <% tweet = tweet_post.tweet %>
 
-<%= render 'notes/note_info', note: tweet_post.note %>
+<%= render 'notes/note_info', note: tweet_post.note if defined?(with_note_info) %>
 
 <% if tweet.retweeted_status.nil? %>
 <div class="media-box tweet mb-3">
@@ -14,9 +14,6 @@
     </div>
 
     <div class="media-body">
-      <%= image_tag(get_fullsize_thumb_uri(tweet.user.profile_image_uri), size: "32x32" , alt: tweet.user.name) %>
-      <span><%= tweet.user.name %></span>
-
       <% if defined?(light) %>
         <p class="mb-1 media-text"><%= excludelinks(tweet.full_text) %></p>
       <% else %>
