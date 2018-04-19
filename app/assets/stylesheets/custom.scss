@@ -334,6 +334,24 @@ a.comment-link{
     }
   }
 }
+.note-info{
+  border-radius: 10px;
+  background-color: darken(adjust-hue($primary, -10deg), 10);
+  padding: 10px;
+  color: white;
+  a{
+    color: white;
+  }
+  a:hover{
+    color: white;
+  }
+  img{
+    vertical-align: text-bottom;
+  }
+  .note-info-user-name{
+    font-weight: bold;
+  }
+}
 
 // Clearfix
 .cf:after {

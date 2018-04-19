@@ -1,8 +1,11 @@
 <% tweet = tweet_post.tweet %>
 
+<%= render 'notes/note_info', note: tweet_post.note %>
+
 <% if tweet.retweeted_status.nil? %>
 <div class="media-box tweet mb-3">
   <div class="bgstr"><%= fa_icon 'comment-o' %></div>
+  
   <div class="media-content">
     <div class="media-righttop">
       <a href="" data-toggle="modal" data-target="#deletePost<%= tweet_post.id %>Modal">
