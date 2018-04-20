@@ -35,5 +35,7 @@
         </div>
       </div>
     </div>
+    <%= render 'users/login_modal' unless logged_in? %>
+    <%= yield :modals %>
   </body>
 </html>
