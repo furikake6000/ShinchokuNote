@@ -1,6 +1,10 @@
 <div class="media-toolbox cf">
   <div id="toggle_note_<%= note.id %>_watchlisted" class="tool <%= 'active' if note.watchlisted_by?(current_user) %>">
-    <%= link_to fa_icon('star', text: note.watching_users.count ), note_watchlists_toggle_path(note), method: :post, remote: true %>
+    <% if logged_in? %>
+      <%= link_to fa_icon('star', text: note.watching_users.count ), note_watchlists_toggle_path(note), method: :post, remote: true %>
+    <% else %>
+      <%= link_to fa_icon('star', text: note.watching_users.count ), '', data: { toggle: 'modal', target: '#loginModal' } %>
+    <% end %>
   </div>
   <div class="tool">
     <%= fa_icon 'envelope-o', text: note.comments.count %>
