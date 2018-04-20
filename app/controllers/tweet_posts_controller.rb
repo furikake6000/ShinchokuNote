@@ -55,7 +55,7 @@ class TweetPostsController < ApplicationController
         # 返信なしの場合
         # つぶやく文字列を決定
         tweetstr = params[:post][:text] + "\n" +
-                   comment_url(responded_comment, only_path: false) +
+                   note_url(@note, only_path: false) +
                    ' #進捗ノート'
         # 画像の有無を判別し投稿
         tweet = params[:post][:image] ?
