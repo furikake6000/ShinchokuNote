@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  helper_method :unread_watching_post_num
+
   include UsersHelper
   include TwitterHelper
   include NotesHelper
@@ -142,13 +144,28 @@ class ApplicationController < ActionController::Base
   end
 
   def load_watching_posts(size)
-    # Watching notesのpostsを結合したlist
-    @watching_posts = current_user
-                        .watching_notes
-                        .inject([]) { |result, n| result + n.posts }[0..size]
-                        .sort_by{ |n| n.created_at }
-                        .reverse \
-      if logged_in?
+    # note_idがwatching_noteであるpostを抽出
+    @watching_posts = Post.where('note_id IN (?)', current_user.watching_notes.map(&:id))
+                          .order('created_at DESC')
+                          .limit(size) if logged_in?
+  end
+
+  def load_unread_watching_posts(size)
+    # note_idがwatching_noteであるpostを抽出
+    @unread_posts_loaded_flag = true
+    @unread_posts = Post.where(
+                            'note_id IN (?) AND created_at > ?',
+                            current_user.watching_notes.map(&:id),
+                            current_user.checked_notifications_at
+                          )
+                          .order('created_at DESC')
+                          .limit(size) if logged_in?
+  end
+
+  # 未読投稿が何件あるかをカウントする
+  def unread_watching_post_num
+    load_unread_watching_posts 99 unless @unread_posts_loaded_flag
+    @unread_posts.size
   end
 
   # フォロー中のユーザを取得する
