@@ -22,15 +22,15 @@
     <%= render 'layouts/header' %>
     <div class="container">
       <div class="row">
-        <div class="col-lg-3 col-md-4">
+        <div class="col-xl-3 col-md-4 order-md-1 order-2">
           <%= yield :leftcol %>
         </div>
-        <div class="col-lg-6 col-md-8 maintray">
+        <div class="col-xl-6 col-md-8 maintray order-md-2 order-1">
           <%= render 'layouts/flashes' %>
           <%= yield %>
           <%= render 'layouts/debug_info' if Rails.env.development? %>
         </div>
-        <div class="col-lg-3">
+        <div class="col-xl-3 order-3">
           <%= yield :rightcol %>
         </div>
       </div>
