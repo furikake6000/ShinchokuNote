@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  after_initialize :set_default_value, if: :new_record?
+
   acts_as_paranoid
 
   validates :twitter_id, presence: true
@@ -29,5 +31,11 @@ class User < ApplicationRecord
     # Created_atをとりあえずsaltとして使用
     created_at.to_s
     # ハッシュ化はencrypt関数がやってくれる
+  end
+
+  private
+  # 初期化
+  def set_default_value
+    self.checked_notifications_at = Time.now
   end
 end
