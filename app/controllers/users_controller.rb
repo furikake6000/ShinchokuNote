@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_action -> { load_user :id }, only: :show
   before_action -> { load_newest_posts 10 }, only: :home
   before_action -> { load_watching_posts 10 }, only: :home
+  before_action -> { load_unread_watching_posts 30 }, only: :notifications
   # before_action -> { load_twitter_friends_posts 10 }, only: :home
 
   def index
@@ -84,6 +85,10 @@ class UsersController < ApplicationController
     change_current_user_id(params[:id])
     flash[:success] = 'ユーザを切り替えました'
     redirect_back(fallback_location: root_path)
+  end
+
+  def notifications
+
   end
 
   private

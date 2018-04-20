@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get '/switch', to: 'users#switchuser'
   get '/login', to: 'users#new'
   get '/logout', to: 'users#logout'
+  get '/notifications', to: 'users#notifications'
   get '/omakase', to: 'notes#omakase'
 
   # 固定ページ
