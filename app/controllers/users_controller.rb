@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_action -> { load_user :id }, only: :show
   before_action -> { load_newest_posts 10 }, only: :home
   before_action -> { load_watching_posts 10 }, only: :home
-  before_action -> { load_unread_watching_posts 99 }, only: :notifications
+  before_action -> { load_notifications 99 }, only: :notifications
   # before_action -> { load_twitter_friends_posts 10 }, only: :home
 
   def index
@@ -88,7 +88,7 @@ class UsersController < ApplicationController
   end
 
   def notifications
-    # @unread_posts はbefore_actionですでに読み込んでいる
+    # @notifications はbefore_actionですでに読み込んでいる
   end
 
   private

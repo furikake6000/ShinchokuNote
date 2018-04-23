@@ -162,6 +162,11 @@ class ApplicationController < ActionController::Base
                           .limit(size) if logged_in?
   end
 
+  def load_notifications(size)
+    load_watching_posts size
+    @notifications = @watching_posts
+  end
+
   # 未読投稿が何件あるかをカウントする
   def unread_watching_post_num
     load_unread_watching_posts 99 unless @unread_posts_loaded_flag
