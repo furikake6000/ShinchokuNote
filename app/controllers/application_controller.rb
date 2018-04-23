@@ -186,6 +186,13 @@ class ApplicationController < ActionController::Base
           current_user.checked_notifications_at
         ).group_by(&:to_note)
 
+    # 自分のノートに新規で付いたウォッチリストを調べる
+    @recent_watchlists = Watchlist.where(
+          'to_note_id IN (?) AND created_at > ?',
+          current_user.notes.map(&:id),
+          current_user.checked_notifications_at
+        ).group_by(&:watching_note)
+
     @notifications = @watching_posts
   end
 

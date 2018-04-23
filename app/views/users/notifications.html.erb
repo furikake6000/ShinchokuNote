@@ -10,4 +10,10 @@
 
 <% end %>
 
+<% @recent_watchlists.each do |n, s| %>
+
+<div>ノート「<%= n.name %>」は新しく<%= s.size %>人のウォッチリストに登録されました！</div>
+
+<% end %>
+
 <%= render 'users/foot_toolbar' %>
