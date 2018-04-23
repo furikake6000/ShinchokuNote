@@ -163,9 +163,6 @@ class ApplicationController < ActionController::Base
   end
 
   def load_notifications(size)
-    # Watching Postsを読み込む
-    load_watching_posts size
-
     # Notesをフォローしてる人間が新規に作ったNotesを調べる
     # やりかたがわからない...
 
@@ -192,8 +189,6 @@ class ApplicationController < ActionController::Base
           current_user.notes.map(&:id),
           current_user.checked_notifications_at
         ).group_by(&:watching_note)
-
-    @notifications = @watching_posts
   end
 
   # 未読投稿が何件あるかをカウントする
