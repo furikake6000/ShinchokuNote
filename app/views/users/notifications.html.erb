@@ -2,4 +2,12 @@
 
 <%= render @notifications, with_note_info: true %>
 
+<%= render @to_me_comments %>
+
+<% @recent_shinchoku_dodeskas.each do |n, s| %>
+
+<div>ノート「<%= n.name %>」に新しく<%= s.size %>件の進捗どうですかが投稿されました！</div>
+
+<% end %>
+
 <%= render 'users/foot_toolbar' %>

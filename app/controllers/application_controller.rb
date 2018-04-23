@@ -154,16 +154,38 @@ class ApplicationController < ActionController::Base
     # note_idがwatching_noteであるpostを抽出
     @unread_posts_loaded_flag = true
     @unread_posts = Post.where(
-                            'note_id IN (?) AND created_at > ?',
-                            current_user.watching_notes.map(&:id),
-                            current_user.checked_notifications_at
-                          )
-                          .order('created_at DESC')
-                          .limit(size) if logged_in?
+        'note_id IN (?) AND created_at > ?',
+        current_user.watching_notes.map(&:id),
+        current_user.checked_notifications_at
+      )
+      .order('created_at DESC')
+      .limit(size) if logged_in?
   end
 
   def load_notifications(size)
+    # Watching Postsを読み込む
     load_watching_posts size
+
+    # Notesをフォローしてる人間が新規に作ったNotesを調べる
+    # やりかたがわからない...
+
+    # 自分のノートについたコメントを調べる
+    @to_me_comments = Comment.joins(:to_note)
+                             .where(
+                               notes:{
+                                 user_id: current_user.id
+                               }
+                              )
+                              .order('created_at DESC')
+                              .limit(size) if logged_in?
+
+    # 自分のノートに新規で付いた進捗どうですかを調べる
+    @recent_shinchoku_dodeskas = ShinchokuDodeska.where(
+          'to_note_id IN (?) AND created_at > ?',
+          current_user.notes.map(&:id),
+          current_user.checked_notifications_at
+        ).group_by(&:to_note)
+
     @notifications = @watching_posts
   end
 
