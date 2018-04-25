@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 
   # 固定ページ
   get '/about', to: 'static_pages#about'
+  get '/faq', to: 'static_pages#faq'
   get '/manage', to: 'static_pages#manage'
 
   # ユーザ関連
