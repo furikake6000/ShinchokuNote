@@ -424,5 +424,15 @@ a.comment-link{
   }
 }
 
+// footer
+.footer{
+  padding-bottom: 100px;
+
+  hr{
+    max-width: 576px;
+    border-top: 5px dotted white;
+  }
+}
+
 // dropmenu
 @import "dropmenu";
