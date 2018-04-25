@@ -139,8 +139,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_newest_posts(size)
-    @newest_posts = Post.order('created_at DESC').limit(size)\
-      if logged_in?
+    @newest_posts = Post.order('created_at DESC').limit(size)
   end
 
   def load_watching_posts(size)

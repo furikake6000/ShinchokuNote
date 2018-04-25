@@ -92,6 +92,11 @@ header{
   margin: auto;
 }
 
+.singlecol{
+  max-width: 576px;
+  margin: auto;
+}
+
 // Primary classes
 
 .small-text{
@@ -141,9 +146,21 @@ header{
   }
 }
 
+// Trays
+.tray-light{
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  h3{
+    @include chaptitle
+  }
+}
+
 // Lists
 
 .notes-list{
+  background-color: white;
   border-radius: 20px;
   padding: 20px;
   margin-bottom: 20px;

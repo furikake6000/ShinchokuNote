@@ -1,4 +1,6 @@
 class StaticPagesController < ApplicationController
+  before_action -> { load_newest_posts 99 }, only: :home
+  
   def home
     @users = logged_in_users
   end
