@@ -132,10 +132,6 @@ header{
 }
 
 .user-leftcol{
-  background-color: #FFF;
-  border-radius: 20px;
-  padding: 20px;
-  padding-top: 10px;
   .user-leftcol-name{
     font-size: 1.5rem;
     font-weight: bold;
@@ -147,56 +143,49 @@ header{
 }
 
 // Trays
+.tray{
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
 .tray-light{
+  @extend .tray;
   background-color: white;
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 20px;
   h3{
     @include chaptitle
   }
 }
 
-// Lists
-
-.notes-list{
-  background-color: white;
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 20px;
-  h3{
-    @include chaptitle
-  }
-}
-
-.request-boxes-list{
-  background-color: $secondary;
-  h3{
-    @include chaptitle(white)
-  }
-}
-
-.projects-list{
-  background-color: $primary;
-  h3{
-    @include chaptitle(white)
-  }
-}
-
-.watchlist{
-  background-color: $primary;
-  h3{
-    @include chaptitle(white)
-  }
-}
-
-.following_users_posts{
-  background-color: lighten($primary, 40);
+.tray-light-withedge{
+  @extend .tray-light;
   border: medium solid darken($primary, 20);
 }
 
-.newest_posts{
-  border: medium solid darken($primary, 20);
+.tray-primary{
+  @extend .tray;
+  background-color: lighten($primary, 10);
+  h3{
+    @include chaptitle(white)
+  }
+}
+
+.tray-primary-withedge{
+  @extend .tray-primary;
+  border: medium solid white;
+}
+
+.tray-secondary{
+  @extend .tray;
+  background-color: lighten($secondary, 10);
+  h3{
+    @include chaptitle(white)
+  }
+}
+
+.tray-secondary-withedge{
+  @extend .tray-secondary;
+  border: medium solid white;
 }
 
 // Controll panel
@@ -235,15 +224,6 @@ header{
 
 // Comment
 #comments_container{
-  background-color: lighten($primary, 10);
-  border: medium solid darken($primary, 20);
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 20px;
-  h3{
-    @include chaptitle(white)
-  }
-
   ul li a{
     color: white;
     &.active{

@@ -1,5 +1,5 @@
 <% content_for :leftcol do %>
-<div class="user-leftcol mb-3">
+<div class="user-leftcol tray-light mb-3">
   <%= link_to image_tag(user.thumb_url, alt: user.name, class: "mr-1 user-leftcol-thumb rounded-circle", size: "108x108"), user.url, target:"_new" unless user.thumb_url.blank? %>
   <div>
     <div class="user-leftcol-name"><%= user.name %></div>
