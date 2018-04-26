@@ -11,8 +11,13 @@
       <div class="navright">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <%= link_to about_path, class:"nav-link" do%>
-              <%= fa_icon 'info-circle', text: '使い方' %>
+            <%= link_to fa_icon('gift', text: 'おまかせ表示'), omakase_path, class: 'nav-link' %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to notifications_path, class: 'nav-link' do %>
+              <%= fa_icon('bell', text: '通知') %>
+              <span class="badge badge-danger navbar-badge"><%= unread_watching_post_num %></span>
             <% end %>
           </li>
 
