@@ -14,6 +14,7 @@
             <%= link_to fa_icon('gift', text: 'おまかせ表示'), omakase_path, class: 'nav-link' %>
           </li>
 
+          <% if logged_in? %>
           <li class="nav-item">
             <%= link_to notifications_path, class: 'nav-link' do %>
               <%= fa_icon('bell', text: '通知') %>
@@ -21,7 +22,6 @@
             <% end %>
           </li>
 
-          <% if logged_in? %>
           <li class="nav-item dropmenu">
             <div class="nav-link">
               <%= fa_icon 'user', text: current_user.screen_name %>
