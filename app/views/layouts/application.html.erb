@@ -37,7 +37,6 @@
           <div class="maincol col-xl-6 col-md-8 order-md-2 order-1">
             <%= render 'layouts/flashes' %>
             <%= yield %>
-            <%= render 'layouts/debug_info' if Rails.env.development? %>
           </div>
           <div class="rightcol col-xl-3 order-3">
             <%= yield :rightcol %>
@@ -49,5 +48,7 @@
     <%= yield :foot_toolbar %>
     <%= render 'users/login_modal' unless logged_in? %>
     <%= yield :modals %>
+
+    <%= render 'layouts/debug_info' if Rails.env.development? %>
   </body>
 </html>

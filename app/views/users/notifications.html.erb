@@ -2,13 +2,13 @@
 
 <%= render @to_me_comments %>
 
-<% @recent_shinchoku_dodeskas.each do |n, s| %>
+<% @recent_shinchoku_dodeskas.group_by(&:to_note).each do |n, s| %>
 
 <div>ノート「<%= n.name %>」に新しく<%= s.size %>件の進捗どうですかが投稿されました！</div>
 
 <% end %>
 
-<% @recent_watchlists.each do |n, s| %>
+<% @recent_watchlists.group_by(&:watching_note).each do |n, s| %>
 
 <div>ノート「<%= n.name %>」は新しく<%= s.size %>人のウォッチリストに登録されました！</div>
 

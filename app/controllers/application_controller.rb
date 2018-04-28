@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  helper_method :unread_watching_post_num
+  helper_method :unread_watching_post_num, :notifications_num
 
   include UsersHelper
   include TwitterHelper
@@ -162,32 +162,47 @@ class ApplicationController < ActionController::Base
   end
 
   def load_notifications(size)
+    @notifications_loaded_flag = true
+
     # Notesをフォローしてる人間が新規に作ったNotesを調べる
     # やりかたがわからない...
 
     # 自分のノートについたコメントを調べる
-    @to_me_comments = Comment.joins(:to_note)
+    if logged_in?
+      @to_me_comments = Comment.joins(:to_note)
                              .where(
                                notes:{
                                  user_id: current_user.id
                                }
                               )
                               .order('created_at DESC')
-                              .limit(size) if logged_in?
-
+                              .limit(size)
+      @recent_to_me_comments = @to_me_comments.select{
+        |c| c.created_at > current_user.checked_notifications_at
+      }
+    end
     # 自分のノートに新規で付いた進捗どうですかを調べる
     @recent_shinchoku_dodeskas = ShinchokuDodeska.where(
           'to_note_id IN (?) AND created_at > ?',
           current_user.notes.map(&:id),
           current_user.checked_notifications_at
-        ).group_by(&:to_note)
+        )
 
     # 自分のノートに新規で付いたウォッチリストを調べる
     @recent_watchlists = Watchlist.where(
           'to_note_id IN (?) AND created_at > ?',
           current_user.notes.map(&:id),
           current_user.checked_notifications_at
-        ).group_by(&:watching_note)
+        )
+  end
+
+  def notifications_num
+    return 0 unless logged_in?
+    load_notifications 99 unless @notifications_loaded_flag
+    print @recent_to_me_comments.size
+    print @recent_shinchoku_dodeskas.size
+    print @recent_watchlists.size
+    @recent_to_me_comments.size + @recent_shinchoku_dodeskas.size + @recent_watchlists.size
   end
 
   # 未読投稿が何件あるかをカウントする
