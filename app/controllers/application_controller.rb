@@ -143,57 +143,81 @@ class ApplicationController < ActionController::Base
   end
 
   def load_watching_posts(size)
+    return nil unless logged_in?
     # note_idがwatching_noteであるpostを抽出
     @watching_posts = Post.where('note_id IN (?)', current_user.watching_notes.map(&:id))
                           .order('created_at DESC')
-                          .limit(size) if logged_in?
+                          .limit(size)
   end
 
   def load_unread_watching_posts(size)
-    # note_idがwatching_noteであるpostを抽出
     @unread_posts_loaded_flag = true
+
+    return nil unless logged_in?
+
+    # note_idがwatching_noteであるpostを抽出
     @unread_posts = Post.where(
-        'note_id IN (?) AND created_at > ?',
-        current_user.watching_notes.map(&:id),
-        current_user.checked_notifications_at
-      )
-      .order('created_at DESC')
-      .limit(size) if logged_in?
+      'note_id IN (?) AND created_at > ?',
+      current_user.watching_notes.map(&:id),
+      current_user.checked_notifications_at
+    ).order('created_at DESC').limit(size)
   end
 
   def load_notifications(size)
     @notifications_loaded_flag = true
 
-    # Notesをフォローしてる人間が新規に作ったNotesを調べる
-    # やりかたがわからない...
+    return nil unless logged_in?
 
     # 自分のノートについたコメントを調べる
-    if logged_in?
-      @to_me_comments = Comment.joins(:to_note)
-                             .where(
-                               notes:{
-                                 user_id: current_user.id
-                               }
-                              )
-                              .order('created_at DESC')
-                              .limit(size)
-      @recent_to_me_comments = @to_me_comments.select{
-        |c| c.created_at > current_user.checked_notifications_at
-      }
+    @to_me_comments = Comment.joins(:to_note)
+                             .where(notes: { user_id: current_user.id } )
+                             .order('created_at DESC')
+                             .limit(size)
+    @recent_to_me_comments = @to_me_comments.select do |c|
+      c.created_at > current_user.checked_notifications_at
     end
+
     # 自分のノートに新規で付いた進捗どうですかを調べる
     @recent_shinchoku_dodeskas = ShinchokuDodeska.where(
-          'to_note_id IN (?) AND created_at > ?',
-          current_user.notes.map(&:id),
-          current_user.checked_notifications_at
-        )
+      'to_note_id IN (?) AND created_at > ?',
+      current_user.notes.map(&:id),
+      current_user.checked_notifications_at
+    )
 
     # 自分のノートに新規で付いたウォッチリストを調べる
     @recent_watchlists = Watchlist.where(
-          'to_note_id IN (?) AND created_at > ?',
-          current_user.notes.map(&:id),
-          current_user.checked_notifications_at
-        )
+      'to_note_id IN (?) AND created_at > ?',
+      current_user.notes.map(&:id),
+      current_user.checked_notifications_at
+    )
+
+    @notifications = []
+    @to_me_comments.each do |c|
+      @notifications << {
+        type: 'Comment',
+        time: c.created_at,
+        content: c
+      }
+    end
+
+    @recent_shinchoku_dodeskas.group_by(&:to_note).each do |n, s|
+      @notifications << {
+        type: 'ShinchokuDodeskas',
+        time: s.max_by(&:created_at).created_at,
+        note: n,
+        shinchoku_dodeskas: s
+      }
+    end
+    @recent_watchlists.group_by(&:watching_note).each do |n, w|
+      @notifications << {
+        type: 'Watchlists',
+        time: w.max_by(&:created_at).created_at,
+        note: n,
+        watchlists: w
+      }
+    end
+    print(@notifications)
+    @notifications.sort_by! { |v| v[:time] }.reverse!
   end
 
   def notifications_num
