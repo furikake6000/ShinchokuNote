@@ -91,4 +91,9 @@ module ApplicationHelper
     rand = Random.new
     "I am #{rand(1..10000000)}! Nice to meet you!!"
   end
+
+  # Twitterインテントリンク
+  def twitter_intent_link(text, url)
+    "https://twitter.com/share?text=#{CGI.escape(text)}&url=#{url}&hashtags=進捗ノート"
+  end
 end
