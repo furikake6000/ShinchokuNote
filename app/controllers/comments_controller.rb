@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
     @comment = @note.comments.new(comments_params)
 
     unless user_can_comment?(@note, current_user)
-      flash.now[:danger] = 'ノートの設定でコメントが投稿できませんでした。ノートの所有者にお問い合わせください。'
+      flash.now[:danger] = 'ノートの設定でコメントが投稿できませんでした。ノートの所有者にお問い合わせください。'
       render 'notes/show'
       return
     end
@@ -43,11 +43,11 @@ class CommentsController < ApplicationController
     end
     if @comment.save
       # 保存成功
-      flash[:success] = 'コメントを投稿しました。'
+      flash[:success] = 'コメントを投稿しました。'
       redirect_to note_path(@note)
     else
       # やりなおし
-      flash.now[:danger] = 'コメントの投稿に失敗しました。'
+      flash.now[:danger] = 'コメントの投稿に失敗しました。'
       render 'notes/show'
     end
   end
