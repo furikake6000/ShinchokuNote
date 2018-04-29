@@ -1,7 +1,7 @@
-<%= render 'users/user_leftcol', { user: current_user } %>
+<%= render 'users/user_leftcol', user: current_user %>
 
 <% content_for :rightcol do %>
-    <%= render 'notes/random_button' %>
+    <%= render 'notes/random_button', omakase: true %>
 <% end %>
 
 <div class="tray-light-withedge">

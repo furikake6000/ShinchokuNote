@@ -1,3 +1,4 @@
+<%= render 'notes/note_info', note: comment.to_note if defined?(with_note_info) %>
 <div class="media-box comment mb-3">
   <div class="bgstr"><%= fa_icon 'envelope-o' %></div>
 
@@ -5,7 +6,7 @@
     <% unless comment.response_post %>
     <div class="media-righttop">
       <a href="" data-toggle="modal" data-target="#deleteComment<%= comment.id %>Modal">
-        削除する
+        削除
       </a>
     </div>
     <% end %>
@@ -13,9 +14,9 @@
     <% if defined?(light) %>
       <%= comment.text  %>
     <% elsif defined?(heavy) %>
-      <div class="media-text-xl"><%= comment.text  %></div>
+      <div class="media-text-xl"><%= comment.text %></div>
     <% else %>
-      <div class="media-text-l"><%= comment.text  %></div>
+      <div class="media-text-l"><%= comment.text %></div>
 
       <div class="media-toolbox cf">
         <div id="toggle_comment_<%= comment.id %>_read_flag" class="tool <%= 'active' if comment.read_flag %>">
@@ -27,7 +28,9 @@
         <div id="toggle_comment_<%= comment.id %>_muted" class="tool <%= 'active' if comment.muted %>">
           <%= link_to fa_icon('eye-slash', text: 'ミュート'), comment_path(comment, params: { comment: { muted: 'toggle' } }), method: :put, remote: true %>
         </div>
-        <%= link_to '詳細', comment_path(comment), class: "comment-link" %>
+        <div>
+          <%= link_to '詳細', comment_path(comment), class: "comment-link" %>
+        </div>
       </div>
     <% end %>
 

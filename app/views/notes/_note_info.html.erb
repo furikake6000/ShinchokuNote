@@ -1,6 +1,8 @@
 <div class="note-info">
-  <%= image_tag note.user.thumb_url, alt: note.user.name, class: "mr-1 note-info-user-thumb rounded-circle", size: "32x32" unless note.user.thumb_url.blank? %>
-  <span class="note-info-user-name mr-3"><%= link_to note.user.name, user_path(note.user.screen_name) %></span>
-  >
+  <% if defined?(with_user_info) %>
+    <%= image_tag note.user.thumb_url, alt: note.user.name, class: "mr-1 note-info-user-thumb rounded-circle", size: "32x32" unless note.user.thumb_url.blank? %>
+    <span class="note-info-user-name mr-3"><%= link_to note.user.name, user_path(note.user.screen_name) %></span>
+    >
+  <% end %>
   <span class="note-info-name mr-3"><%= link_to note.name, note_path(note) %></span>
 </div>

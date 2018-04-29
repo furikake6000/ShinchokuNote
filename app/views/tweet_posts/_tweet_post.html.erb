@@ -1,17 +1,19 @@
 <% tweet = tweet_post.tweet %>
 
-<%= render 'notes/note_info', note: tweet_post.note if defined?(with_note_info) %>
+<%= render 'notes/note_info', note: tweet_post.note, with_user_info: true if defined?(with_note_info) %>
 
 <% if tweet.retweeted_status.nil? %>
 <div class="media-box tweet mb-3">
   <div class="bgstr"><%= fa_icon 'comment-o' %></div>
   
   <div class="media-content">
+    <% if current_user?(tweet_post.note.user) %>
     <div class="media-righttop">
       <a href="" data-toggle="modal" data-target="#deletePost<%= tweet_post.id %>Modal">
-        削除する
+        削除
       </a>
     </div>
+    <% end %>
 
     <div class="media-body">
       <% if defined?(light) %>

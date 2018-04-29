@@ -13,30 +13,16 @@
     <div class="tab-content" id="tabs-tabContent">
     <div class="tab-pane fade show active" id="notify_all" role="tabpanel" aria-labelledby="notify_all_tab">
         
-        <% @recent_shinchoku_dodeskas.group_by(&:to_note).each do |n, s| %>
-
-            <div>ノート「<%= n.name %>」に新しく<%= s.size %>件の進捗どうですかが投稿されました！</div>
-
-        <% end %>
-
-        <% @recent_watchlists.group_by(&:watching_note).each do |n, s| %>
-
-            <div>ノート「<%= n.name %>」は新しく<%= s.size %>人のウォッチリストに登録されました！</div>
-
-        <% end %>
-
-        <%= render @to_me_comments %>
-
         <% @notifications.each do |n| %>
 
-            <%= n[:type] + n[:time].localtime.to_s %><br>
+            <%= render 'users/notification', notify: n %>
 
         <% end %>
 
     </div>
     <div class="tab-pane fade" id="notify_comments" role="tabpanel" aria-labelledby="notify_comments_tab">
         
-        <%= render @to_me_comments %>
+        <%= render @to_me_comments, with_note_info: true %>
 
     </div>
     </div>
