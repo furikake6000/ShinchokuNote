@@ -11,7 +11,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-Rails.application.config.assets.precompile += %w[image-form-virtual.js]
+Rails.application.config.assets.precompile += %w[image-form-virtual.js copy_to_clipboard.js]
 
 # Original Webfonts
 Rails.application.config.assets.paths <<

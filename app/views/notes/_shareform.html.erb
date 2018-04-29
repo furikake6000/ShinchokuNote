@@ -1,0 +1,16 @@
+<% content_for :rightcol do %>
+
+<div class="tray-secondary-withedge">
+    <h3>このノートを共有</h3>
+    <input id="share_url" type="text" value="<%= note_url(note) %>" readonly="readonly" class="form-control mb-2" />
+    <a class="btn btn-secondary mb-1" href="#" role="button"><%= fa_icon 'twitter', text: 'ツイート' %></a>
+    <button onclick="copyShareUrlToClipboard()" id="share_button" class="btn btn-secondary mb-1">
+        <%= fa_icon 'share-alt', text: 'リンクをコピー', id: 'share_icon' %>
+    </button>
+</div>
+
+<% content_for :javascript do %>
+  <%= javascript_include_tag 'copy_to_clipboard'%>
+<% end %> 
+
+<% end %>

@@ -216,16 +216,12 @@ class ApplicationController < ActionController::Base
         watchlists: w
       }
     end
-    print(@notifications)
     @notifications.sort_by! { |v| v[:time] }.reverse!
   end
 
   def notifications_num
     return 0 unless logged_in?
     load_notifications 99 unless @notifications_loaded_flag
-    print @recent_to_me_comments.size
-    print @recent_shinchoku_dodeskas.size
-    print @recent_watchlists.size
     @recent_to_me_comments.size + @recent_shinchoku_dodeskas.size + @recent_watchlists.size
   end
 
