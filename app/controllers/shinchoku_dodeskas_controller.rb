@@ -8,7 +8,11 @@ class ShinchokuDodeskasController < ApplicationController
     return if posted_shinchoku_dodeska_today?(@note, current_user)
 
     @shinchoku_dodeska = ShinchokuDodeska.new
-    @shinchoku_dodeska.from_user = current_user
+    if logged_in?
+      @shinchoku_dodeska.from_user = current_user
+    else
+      @shinchoku_dodeska.from_addr = request.remote_ip
+    end
     @shinchoku_dodeska.to_note = @note
     @shinchoku_dodeska.save!
 

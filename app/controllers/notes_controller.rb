@@ -23,6 +23,8 @@ class NotesController < ApplicationController
     @note = @user.notes.new(notes_params)
     # Typeだけ特別に読み込む（editでは変更が禁止されている）
     @note.type = params[:note][:type]
+    # IPを記録
+    @note.from_addr = request.remote_ip
     if @note.save
       # 保存成功
       flash[:success] = "ノート「#{@note.name}」の作成に成功しました。"
