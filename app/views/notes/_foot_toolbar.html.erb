@@ -9,7 +9,7 @@
       <% end %>
     </li>
     <li>
-      <%= link_to fa_icon('envelope-o', text: note.comments.size), '#comment-form' %>
+      <%= link_to fa_icon('envelope-o', text: note.comments.size), 'javascript:void(0);', onclick: 'showCommentsTab()' %>
     </li>
     <li id="post_note_<%= note.id %>_shinchoku_dodeska" class="<%= 'active' if posted_shinchoku_dodeska_today?(note, current_user) %>">
       <a href="<%= note_shinchoku_dodeskas_path(note)  %>" data-method="post" data-remote="true" rel="nofollow">
@@ -19,3 +19,7 @@
   </ul>
 </div>
 <% end %>
+
+<% content_for :javascript do %>
+  <%= javascript_include_tag 'show_comments_tab'%>
+<% end %> 
