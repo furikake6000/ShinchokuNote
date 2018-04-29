@@ -164,6 +164,8 @@ class ApplicationController < ActionController::Base
   end
 
   def load_notifications(size)
+    return nil if @notifications_loaded_flag
+    
     @notifications_loaded_flag = true
 
     return nil unless logged_in?

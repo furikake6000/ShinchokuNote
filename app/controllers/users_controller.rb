@@ -79,6 +79,8 @@ class UsersController < ApplicationController
   def home
     # 未ログイン状態ならばstatic_pages#homeを描画
     render 'static_pages/home' unless logged_in?
+
+    load_notifications 99
   end
 
   def switchuser
@@ -89,6 +91,8 @@ class UsersController < ApplicationController
 
   def notifications
     # @notifications はbefore_actionですでに読み込んでいる
+    current_user.checked_notifications_at = Time.now
+    current_user.save!
   end
 
   private
