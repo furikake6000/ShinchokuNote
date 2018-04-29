@@ -12,7 +12,6 @@ class CommentsController < ApplicationController
     # @commentsはbefore_actionで取得済み
 
     respond_to do |format|
-      format.html
       format.js
     end
   end

@@ -11,7 +11,10 @@ Rails.application.routes.draw do
       resources :posts, only: %i[index destroy]
 
       # リソース:コメント
-      resources :comments, only: %i[index create show update destroy]
+      resources :comments, only: %i[create show update destroy]
+      constraints lambda { |req| req.format == :js } do
+        resources :comments, only: :index
+      end
 
       # Post派生クラスTwitterPostはcreateのみ許可
       resources :tweet_posts, only: :create
