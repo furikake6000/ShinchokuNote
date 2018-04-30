@@ -61,7 +61,7 @@ class NotesController < ApplicationController
     # Noteモデルからランダムに一件取得
     # (参考: https://easyramble.com/get-record-randomly-with-active-record.html)
     @note = Note.where('id >= ?', rand(0..Note.last.id)).first
-    redirect_to note_path(@note)
+    redirect_to note_path(@note, omakase: true)
   end
 
   private

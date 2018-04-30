@@ -1,10 +1,10 @@
 <% provide(:title, @note.name) %>
 
+<%= render 'notes/random_button' if @omakase %>
+
 <div class="tray-light-withedge">
 
   <%= render 'users/user_leftcol', { user: @note.user } %>
-
-  <%= render 'notes/random_button' if @omakase %>
 
   <h1>
     <%= @note.name %>
