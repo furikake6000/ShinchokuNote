@@ -20,6 +20,9 @@ module UsersHelper
     destroy_caches
     # 選択ユーザ(カレントユーザ)を変更
     change_current_user(user)
+
+    # ログインが正しいものであるかチェック(間違っていたらログアウト)
+    logout_user(user) unless verify_user_info
   end
 
   # ユーザを指定してログアウト
@@ -206,7 +209,7 @@ module UsersHelper
 
   # Cookieに保存された認証情報が正しいものであるか
   # (Twitter IDとAPI User Token, API User Secretsの認証)
-  def check_cookie
+  def verify_user_info
     return nil unless logged_in?
     client = client_new
     user_of_me = client.verify_credentials
