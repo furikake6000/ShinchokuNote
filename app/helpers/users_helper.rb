@@ -207,7 +207,10 @@ module UsersHelper
   # Cookieに保存された認証情報が正しいものであるか
   # (Twitter IDとAPI User Token, API User Secretsの認証)
   def check_cookie
-    raise NotImplementedError, 'Function check_cookie() has not made yet.'
+    return nil unless logged_in?
+    client = client_new
+    user_of_me = client.verify_credentials
+    user_of_me.id.to_s == current_user.twitter_id
   end
 
   # ログイン状態が変化した場合などに、キャッシュ破棄のために呼び出す
