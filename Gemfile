@@ -18,62 +18,63 @@ gem 'uglifier', '>= 1.3.0'
 # jQuery and bootstrap
 gem 'bootstrap', '~> 4.0.0.beta2.1'
 gem 'bootstrap-will_paginate', '~> 1.0.0'
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
+gem 'jquery-rails', '~>4.3.1'
+gem 'jquery-ui-rails', '~>6.0.1'
 gem 'will_paginate', '~> 3.1.5'
 
 # Twitter連携
-gem 'omniauth'
-gem 'omniauth-twitter'
-gem 'twitter'
+gem 'omniauth', '~>1.7'
+gem 'omniauth-twitter', '~>1.4'
+gem 'twitter', '~>6.2.0'
 
 # メンテナンスモードを実装してくれるgem
-gem 'turnout'
-
-# code refactoring
-gem 'rubocop'
-gem 'scss-lint'
+gem 'turnout', '~>2.4'
 
 # Security(Encryption)
-gem 'rbnacl'
+gem 'rbnacl', '~>5.0'
 
 # font-awesome
-gem 'font-awesome-rails'
+gem 'font-awesome-rails', '~>4.7'
 
 # Enumのローカリゼーションをしてくれる
-gem 'enum_help'
+gem 'enum_help', '~>0.0'
 
 # React.js
-gem 'react-rails'
+#gem 'react-rails', '~>2.4'
 
 # 論理削除を実装するparanoia
-gem 'paranoia'
+gem 'paranoia', '~>2.4'
 
 group :development, :test do
-  # Use sqlite on dev mode
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'byebug', '~>9.1', platforms: %i[mri mingw x64_mingw]
   gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
-  gem 'sqlite3'
+  gem 'selenium-webdriver', '~>3.8'
+
+  # Use sqlite on dev mode
+  gem 'sqlite3', '~>1.3.13'
 
   # Relationship diagrams
-  gem 'rails-erd'
+  gem 'rails-erd', '~>1.5'
 end
 
 group :development do
-  gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'spring'
+  gem 'listen', '~>3.1'
+  gem 'spring', '~>2.0'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'web-console', '>= 3.3.0'
+  gem 'web-console', '~>3.5'
+
+  # code refactoring
+  gem 'rubocop', '~>0.52'
+  gem 'scss-lint', '~>0.7'
 end
 
 group :test do
-  gem 'rails-controller-testing'
+  gem 'rails-controller-testing', '~>1.0'
 end
 
 group :production do
   # Use postgresql on production mode
-  gem 'pg', '0.20.0'
+  gem 'pg', '~>0.20.0'
 end
 
 # Below gem is only for Windows
