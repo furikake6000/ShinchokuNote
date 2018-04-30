@@ -64,7 +64,7 @@ group :development do
   gem 'web-console', '~>3.5'
 
   # code refactoring
-  gem 'rubocop', '~>0.52'
+  gem 'rubocop', '~>0.55'
   gem 'scss-lint', '~>0.7'
 end
 
