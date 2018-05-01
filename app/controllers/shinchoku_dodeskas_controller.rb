@@ -11,7 +11,9 @@ class ShinchokuDodeskasController < ApplicationController
     if logged_in?
       @shinchoku_dodeska.from_user = current_user
     else
-      @shinchoku_dodeska.from_addr = request.remote_ip
+      @shinchoku_dodeska.from_addr =
+        request.env['HTTP_X_FORWARDED_FOR'] ||
+        request.remote_ip
     end
     @shinchoku_dodeska.to_note = @note
     @shinchoku_dodeska.save!
