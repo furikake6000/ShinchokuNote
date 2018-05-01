@@ -1,5 +1,6 @@
 module UsersHelper
   include ApplicationHelper
+  include TwitterHelper
 
   private
 
