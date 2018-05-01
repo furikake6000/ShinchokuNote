@@ -11,6 +11,9 @@ class StaticPagesController < ApplicationController
   def faq
   end
 
+  def beta
+  end
+
   def manage
     #Only admin
     redirect_to root_path and return if !(admin?)
