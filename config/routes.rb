@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   get '/about', to: 'static_pages#about'
   get '/faq', to: 'static_pages#faq'
   get '/manage', to: 'static_pages#manage'
+  get '/beta', to: 'static_pages#beta'
 
   # ユーザ関連
 end
