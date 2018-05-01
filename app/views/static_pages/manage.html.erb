@@ -1,2 +1,23 @@
 <h1>管理用ページ</h1>
 Adminのみ閲覧可
+
+<div class="tray-light-withedge">
+    <h3>現在のサービスステータス</h3>
+    <p><%= "ユーザ数: #{User.all.size}" %></p>
+    <p><%= "ノート数: #{Note.all.size}" %></p>
+    <p><%= "コメント数: #{Comment.all.size}" %></p>
+    <p class="mb-0"><%= "進捗どうですか数: #{ShinchokuDodeska.all.size}" %></p>
+</div>
+
+<div class="tray-light-withedge">
+    <h3>ユーザリスト</h3>
+    <% User.all.each do |u| %>
+
+    <div>
+    <%= "#{u.id}: " %>
+    <%= link_to u.name, user_path(u.screen_name) %>
+    <%= " #{u.screen_name}" %>
+    </div>
+
+    <% end %>
+</div>
