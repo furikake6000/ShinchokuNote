@@ -1,21 +1,18 @@
 class StaticPagesController < ApplicationController
   before_action -> { load_newest_posts 99 }, only: :home
-  
+
   def home
     @users = logged_in_users
   end
 
-  def about
-  end
+  def about; end
 
-  def faq
-  end
+  def faq; end
 
-  def beta
-  end
+  def beta; end
 
   def manage
-    #Only admin
-    redirect_to root_path and return if !(admin?)
+    # Only admin
+    render_403 && return unless admin?
   end
 end
