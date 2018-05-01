@@ -29,20 +29,6 @@ class TweetPostsControllerTest < ActionDispatch::IntegrationTest
   test 'make new tweetpost(new)' do
     login_as_okaka
 
-    assert_difference '@okaka_project1.posts.count', 1 do
-      post note_tweet_posts_path(@okaka_project1), params: { post: {
-        type: 'TweetPost',
-        twitter_id: 'https://twitter.com/okaka_unitest/status/980710729052377088'
-      } }
-    end
-
-    assert_equal @okaka_project1.posts.last.twitter_id,
-                 '980710729052377088'
-  end
-
-  test 'make new tweetpost as others' do
-    login_as_okaka
-
     new_tweet_text = random_sentence
     assert_difference '@okaka_project1.posts.count', 1 do
       post note_tweet_posts_path(@okaka_project1), params: { post: {
@@ -52,7 +38,27 @@ class TweetPostsControllerTest < ActionDispatch::IntegrationTest
     end
 
     tweet_info = JSON.parse @okaka_project1.posts.last.text
-    assert_equal tweet_info['text'], new_tweet_text
+    assert tweet_info['text'].start_with? new_tweet_text
+  end
+
+  test 'make new tweetpost as others' do
+    new_tweet_text = random_sentence
+    assert_no_difference '@okaka_project1.posts.count' do
+      post note_tweet_posts_path(@okaka_project1), params: { post: {
+        type: 'TweetPost',
+        text: new_tweet_text
+      } }
+    end
+
+    login_as_noritama
+
+    new_tweet_text = random_sentence
+    assert_no_difference '@okaka_project1.posts.count' do
+      post note_tweet_posts_path(@okaka_project1), params: { post: {
+        type: 'TweetPost',
+        text: new_tweet_text
+      } }
+    end
   end
 
   test 'delete post' do
@@ -87,7 +93,7 @@ class TweetPostsControllerTest < ActionDispatch::IntegrationTest
 
     assert_difference '@okaka_project1.posts.count', -1 do
       delete post_path(new_tweetpost), params: { post: {
-          with_delete_tweet: true
+        with_delete_tweet: true
       } }
     end
 
@@ -111,7 +117,7 @@ class TweetPostsControllerTest < ActionDispatch::IntegrationTest
 
     assert_no_difference '@okaka_project1.posts.count' do
       delete post_path(@okaka_tweet_post1), params: { post: {
-          with_delete_tweet: true
+        with_delete_tweet: true
       } }
     end
 
