@@ -13,7 +13,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
 
   test 'make new note' do
     # logging in
-    login_user @okaka, 'okaka_token', 'okaka_secret'
+    login_as_okaka
 
     # creating a note
     assert_difference '@okaka.notes.count', 1 do
@@ -36,7 +36,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     end
 
     # logging in
-    login_user @okaka, 'okaka_token', 'okaka_secret'
+    login_as_okaka
 
     # creating a note of others
     assert_no_difference 'Note.count' do
@@ -50,7 +50,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
 
   test 'edit note' do
     # logging in
-    login_user @okaka, 'okaka_token', 'okaka_secret'
+    login_as_okaka
 
     # editing a note
     patch note_path(@okaka_project1), params: { project: {
@@ -79,7 +79,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     assert_equal edited_note, @okaka_project1
 
     # logging in
-    login_user @okaka, 'okaka_token', 'okaka_secret'
+    login_as_okaka
 
     # creating a note of others
     patch note_path(@noritama_project1), params: { project: {
