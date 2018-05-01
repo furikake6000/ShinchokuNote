@@ -8,6 +8,7 @@ okaka:
   thumb_url: https://pbs.twimg.com/profile_images/973547033922449414/LxbOtmM0.jpg
   desc: ""
   permission: admin
+  checked_notifications_at: 2018-05-01 00:00:00 +0900
 
 noritama:
   twitter_id: 973543911615430656
@@ -16,6 +17,7 @@ noritama:
   url: https://twitter.com/noritam_unitest
   thumb_url: https://abs.twimg.com/sticky/default_profile_images/default_profile.png
   desc: ""
+  checked_notifications_at: 2018-05-01 00:00:00 +0900
 
 noriwasa:
   twitter_id: 973544822802821121
@@ -24,3 +26,4 @@ noriwasa:
   url: https://twitter.com/noriwas_unitest
   thumb_url: https://abs.twimg.com/sticky/default_profile_images/default_profile.png
   desc: ""
+  checked_notifications_at: 2018-05-01 00:00:00 +0900

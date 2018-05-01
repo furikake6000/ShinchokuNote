@@ -15,7 +15,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_nil current_user
 
     # logging in
-    login_user @noritama, 'noritama_token', 'noritama_secret'
+    login_as_noritama
     assert logged_in?
     assert_equal current_user, @noritama
 
@@ -30,12 +30,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_not admin?
 
     # logging in not as admin
-    login_user @noritama, 'noritama_token', 'noritama_secret'
+    login_as_noritama
     assert_not admin?
     logout_user @noritama
 
     # logging in as admin
-    login_user @okaka, 'okaka_token', 'okaka_secret'
+    login_as_okaka
     assert admin?
     logout_user @okaka
 
@@ -49,12 +49,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_nil current_user
 
     # logging in with an account
-    login_user @noritama, 'noritama_token', 'noritama_secret'
+    login_as_noritama
     assert_equal master_user, @noritama
     assert_equal current_user, @noritama
 
     # logging in with second account
-    login_user @okaka, 'okaka_token', 'okaka_secret'
+    login_as_okaka
     assert_equal master_user, @noritama
     assert_equal current_user, @okaka
 
@@ -64,7 +64,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_equal current_user, @noritama
 
     # logging in with second account again
-    login_user @okaka, 'okaka_token', 'okaka_secret'
+    login_as_okaka
     # logging out with first account
     logout_user @noritama
     assert_nil master_user
@@ -76,11 +76,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get users_path
     assert_redirected_to root_path
     # Cant get index with logging in not as admin
-    login_user @noritama, 'noritama_token', 'noritama_secret'
+    login_as_noritama
     get users_path
     assert_redirected_to root_path
     # Get index with logging in as admin
-    login_user @okaka, 'okaka_token', 'okaka_secret'
+    login_as_okaka
     get users_path
     assert_response :success
   end
@@ -90,13 +90,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_nil master_user_token
     assert_nil master_user_secret
     # Token and secret with logging in
-    login_user @noritama, 'noritama_token', 'noritama_secret'
-    assert_equal master_user_token, 'noritama_token'
-    assert_equal master_user_secret, 'noritama_secret'
+    login_as_noritama
+    assert_equal master_user_token, Rails.application.secrets.noritama_token
+    assert_equal master_user_secret, Rails.application.secrets.noritama_secret
     # Token and secret with logging in with two accounts
-    login_user @okaka, 'okaka_token', 'okaka_secret'
-    assert_equal master_user_token, 'noritama_token'
-    assert_equal master_user_secret, 'noritama_secret'
+    login_as_okaka
+    assert_equal master_user_token, Rails.application.secrets.noritama_token
+    assert_equal master_user_secret, Rails.application.secrets.noritama_secret
   end
 
   test 'get current_user_token and secret' do
@@ -104,13 +104,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_nil current_user_token
     assert_nil current_user_secret
     # Token and secret with logging in
-    login_user @noritama, 'noritama_token', 'noritama_secret'
-    assert_equal current_user_token, 'noritama_token'
-    assert_equal current_user_secret, 'noritama_secret'
+    login_as_noritama
+    assert_equal current_user_token, Rails.application.secrets.noritama_token
+    assert_equal current_user_secret, Rails.application.secrets.noritama_secret
     # Token and secret with logging in with two accounts
-    login_user @okaka, 'okaka_token', 'okaka_secret'
-    assert_equal current_user_token, 'okaka_token'
-    assert_equal current_user_secret, 'okaka_secret'
+    login_as_okaka
+    assert_equal current_user_token, Rails.application.secrets.okaka_token
+    assert_equal current_user_secret, Rails.application.secrets.okaka_secret
   end
 
 =begin

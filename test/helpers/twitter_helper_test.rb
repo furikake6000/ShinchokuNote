@@ -20,13 +20,10 @@ class TwitterHelperTest < ActionDispatch::IntegrationTest
   end
 
   test 'client_new failure' do
-    # logging in (dummy token and secret)
-    login_user @okaka, 'okaka_token', 'okaka_secret'
-
     # try to get a tweet and assert error
     assert_raises Twitter::Error::Unauthorized do
-      client = client_new
-      client.status('964755775657721857')
+      # logging in (dummy token and secret)
+      login_user @okaka, 'okaka_token', 'okaka_secret'
     end
   end
 end
