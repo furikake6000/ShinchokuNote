@@ -9,6 +9,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @okaka = users(:okaka)
   end
 
+  test 'access users show' do
+    get users_path(@okaka.screen_name)
+    assert_response :success
+    assert_template :show
+  end
+
   test 'log in' do
     # Not logged in at first
     assert_not logged_in?
