@@ -11,6 +11,50 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     @noritama_project1 = notes(:noritama_project_1)
   end
 
+  test 'access note show' do
+    get note_path(@okaka_project1)
+    assert_response :success
+    assert_template :show
+
+    login_as_noritama
+    get note_path(@okaka_project1)
+    assert_response :success
+    assert_template :show
+
+    login_as_okaka
+    get note_path(@okaka_project1)
+    assert_response :success
+    assert_template :show
+  end
+
+  test 'access note edit' do
+    get edit_note_path(@okaka_project1)
+    assert_response 403
+
+    login_as_noritama
+    get edit_note_path(@okaka_project1)
+    assert_response 403
+
+    login_as_okaka
+    get edit_note_path(@okaka_project1)
+    assert_response :success
+    assert_template :edit
+  end
+
+  test 'access note new' do
+    get new_user_note_path(@okaka)
+    assert_response 403
+
+    login_as_noritama
+    get new_user_note_path(@okaka)
+    assert_response 403
+
+    login_as_okaka
+    get new_user_note_path(@okaka)
+    assert_response :success
+    assert_template :new
+  end
+
   test 'make new note' do
     # logging in
     login_as_okaka

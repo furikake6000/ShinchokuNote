@@ -10,9 +10,33 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'access users show' do
-    get users_path(@okaka.screen_name)
+    get user_path(@okaka.screen_name)
     assert_response :success
     assert_template :show
+
+    login_as_noritama
+    get user_path(@okaka.screen_name)
+    assert_response :success
+    assert_template :show
+
+    login_as_okaka
+    get user_path(@okaka.screen_name)
+    assert_response :success
+    assert_template :show
+  end
+
+  test 'access users edit' do
+    get edit_user_path(@okaka.screen_name)
+    assert_response 403
+
+    login_as_noritama
+    get edit_user_path(@okaka.screen_name)
+    assert_response 403
+
+    login_as_okaka
+    get edit_user_path(@okaka.screen_name)
+    assert_response :success
+    assert_template :edit
   end
 
   test 'log in' do
