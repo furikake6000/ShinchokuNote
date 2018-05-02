@@ -10,6 +10,33 @@
   border-bottom: medium dotted $color;
 }
 
+// Fonts
+
+body {
+  font-family: -apple-system, blinkMacSystemFont,
+               'Helvetica Neue',
+               'Segoe UI',
+               YuGothicM,
+               YuGothic,
+               Meiryo,
+               sans-serif;
+}
+
+/* Windows */
+@font-face {
+  font-family: YuGothicM;
+  font-weight: normal;
+  src: local('YuGothic-Medium'),
+       local('Yu Gothic Medium'),
+       local('YuGothic-Regular');
+}
+@font-face {
+  font-family: YuGothicM;
+  font-weight: bold;
+  src: local('YoGothic-Bold'),
+       local('Yu Gothic');
+}
+
 // Bootstrap settings
 
 .card-columns {
