@@ -16,7 +16,7 @@ body {
   font-family: -apple-system, blinkMacSystemFont,
                'Helvetica Neue',
                'Segoe UI',
-               YuGothicM,
+               'Yu Gothic',
                YuGothic,
                Meiryo,
                sans-serif;
@@ -24,17 +24,29 @@ body {
 
 /* Windows */
 @font-face {
-  font-family: YuGothicM;
-  font-weight: normal;
-  src: local('YuGothic-Medium'),
-       local('Yu Gothic Medium'),
-       local('YuGothic-Regular');
+  font-family: 'Yu Gothic';
+  src: local('Yu Gothic Medium');
+  font-weight: 100;
 }
 @font-face {
-  font-family: YuGothicM;
+  font-family: 'Yu Gothic';
+  src: local('Yu Gothic Medium');
+  font-weight: 200;
+}
+@font-face {
+  font-family: 'Yu Gothic';
+  src: local('Yu Gothic Medium');
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'Yu Gothic';
+  src: local('Yu Gothic Medium');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Yu Gothic';
+  src: local('Yu Gothic Bold');
   font-weight: bold;
-  src: local('YoGothic-Bold'),
-       local('Yu Gothic');
 }
 
 // Bootstrap settings
