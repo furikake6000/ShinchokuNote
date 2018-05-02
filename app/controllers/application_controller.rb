@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   private
 
   def check_logged_in
-    redirect_to root_path unless logged_in?
+    render_403 unless logged_in?
   end
 
   def load_user(paramname)

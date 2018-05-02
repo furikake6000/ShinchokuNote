@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_action :check_logged_in, except: %i[new show home login]
   before_action -> { load_user_as_me_or_admin :id },
                 only: %i[edit update destroy]
   before_action -> { load_user_as_me_or_admin :user_id }, only: :leave
@@ -7,7 +6,6 @@ class UsersController < ApplicationController
   before_action -> { load_newest_posts 10 }, only: :home
   before_action -> { load_watching_posts 10 }, only: :home
   before_action -> { load_notifications 99 }, only: :notifications
-  # before_action -> { load_twitter_friends_posts 10 }, only: :home
 
   def index
     # Only admin

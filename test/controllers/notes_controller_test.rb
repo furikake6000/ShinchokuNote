@@ -42,15 +42,15 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'access note new' do
-    get new_user_note_path(@okaka)
+    get new_user_note_path(@okaka.screen_name)
     assert_response 403
 
     login_as_noritama
-    get new_user_note_path(@okaka)
+    get new_user_note_path(@okaka.screen_name)
     assert_response 403
 
     login_as_okaka
-    get new_user_note_path(@okaka)
+    get new_user_note_path(@okaka.screen_name)
     assert_response :success
     assert_template :new
   end
