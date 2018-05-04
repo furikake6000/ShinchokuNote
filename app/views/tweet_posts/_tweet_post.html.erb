@@ -22,7 +22,7 @@
         <p class="mb-1 media-text-l"><%= excludelinks(tweet.full_text) %></p>
       <% end %>
       <% tweet.uris.each do |uri| %>
-        <% if uri.expanded_url.to_s.include? note_path(tweet_post.note) %>
+        <% unless uri.expanded_url.to_s.include?(note_path(tweet_post.note)) || (tweet_post.responded_comment && uri.expanded_url.to_s.include?(comment_path(tweet_post.responded_comment))) %>
           <p><%= link_to uri.expanded_url.to_s, uri.url.to_s, target: "_new" %></p>
         <% end %>
       <% end %>
