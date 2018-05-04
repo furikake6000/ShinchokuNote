@@ -67,9 +67,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    unless @comment.response_post
-      @comment.destroy
-    end
+    @comment.destroy if user_can_delete_comment?(@comment, current_user)
   end
 
   private

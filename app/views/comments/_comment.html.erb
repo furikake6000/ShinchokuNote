@@ -3,7 +3,7 @@
   <div class="bgstr"><%= fa_icon 'envelope-o' %></div>
 
   <div class="media-content">
-    <% unless comment.response_post %>
+    <% if user_can_delete_comment?(comment, current_user) %>
     <div class="media-righttop">
       <a href="" data-toggle="modal" data-target="#deleteComment<%= comment.id %>Modal">
         削除

@@ -42,4 +42,11 @@ module CommentsHelper
       note.user == user
     end
   end
+
+  # コメントの削除権限
+  def user_can_delete_comment?(comment, user)
+    return false if comment.response_post
+    return true if user == comment.from_user
+    false
+  end
 end

@@ -19,18 +19,20 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    note = @post.note
     if ActiveRecord::Type::Boolean.new.cast(
       params.dig(:post, :with_delete_tweet)
     )
       # Delete tweet
       client = client_new
       client.destroy_status(@post.twitter_id)
-      # Physical delete
+      # Logical delete
       @post.destroy
     else
       # Logical delete
       @post.destroy
     end
+    redirect_to note_path(note)
   end
 
   private
