@@ -22,4 +22,10 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  adapter: postgresql
+  encoding: utf8
+  host: 150.95.200.25
+  port: 5432
+  database: shinchokunote
+  username: postgres
+  password: <%= Rails.application.secrets.postgres_pass %>
