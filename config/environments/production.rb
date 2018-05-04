@@ -88,4 +88,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Log出力形式の変更
+  config.custom_logger = logger.new('public/custom_log/custom.log', 'daily')
 end
