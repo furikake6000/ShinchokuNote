@@ -54,3 +54,12 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
+
+# Nginxから見えるように設定
+# (参照：https://qiita.com/oggata/items/45c2adb26058cafc6427)
+app_path = File.expand_path('..', __dir__).to_s
+app_name = File.basename(app_path)
+home = ENV.fetch('HOME') { '/var/www' }
+pidfile "#{home}/run/#{app_name}.pid"
+bind "unix://#{home}/run/#{app_name}.sock"
+directory app_path
