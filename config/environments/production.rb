@@ -90,5 +90,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Log出力形式の変更
-  config.custom_logger = ActiveSupport::Logger.new('/log/custom.log', 'daily')
+  config.custom_logger = ActiveSupport::Logger.new('custom_log/custom.log', 'daily')
 end
