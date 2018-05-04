@@ -59,7 +59,7 @@ plugin :tmp_restart
 # (参照：https://qiita.com/oggata/items/45c2adb26058cafc6427)
 app_path = File.expand_path('..', __dir__).to_s
 app_name = File.basename(app_path)
-home = ENV.fetch('HOME') { '/var/www' }
+home = '/var/www'
 pidfile "#{home}/run/#{app_name}.pid"
 bind "unix://#{home}/run/#{app_name}.sock"
 directory app_path
