@@ -90,5 +90,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Log出力形式の変更
-  config.logger = ActiveSupport::Logger.new(config.log_path, 'daily')
+  config.logger = ActiveSupport::Logger.new('log/daily.log', 'daily')
 end
