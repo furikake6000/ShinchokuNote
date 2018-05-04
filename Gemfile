@@ -8,6 +8,7 @@ end
 # Basic set
 gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
+gem 'listen', '~>3.1'
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.2.0'
 gem 'sass-rails', '~> 5.0'
@@ -61,7 +62,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'listen', '~>3.1'
   gem 'spring', '~>2.0'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '~>3.5'
