@@ -45,6 +45,9 @@ gem 'enum_help', '~>0.0'
 # 論理削除を実装するparanoia
 gem 'paranoia', '~>2.4'
 
+# newrelic rpm
+gem 'newrelic_rpm'
+
 group :development, :test do
   gem 'byebug', '~>9.1', platforms: %i[mri mingw x64_mingw]
   gem 'capybara', '~> 2.13'
