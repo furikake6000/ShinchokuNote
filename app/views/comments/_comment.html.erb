@@ -17,7 +17,9 @@
       <div class="media-text-xl"><%= comment.text %></div>
     <% else %>
       <div class="media-text-l"><%= comment.text %></div>
+    <% end %>
 
+    <% if current_user?(comment.to_note.user) && !defined?(light) %>
       <div class="media-toolbox cf">
         <div id="toggle_comment_<%= comment.id %>_read_flag" class="tool <%= 'active' if comment.read_flag %>">
           <%= link_to fa_icon('check', text: '既読'), comment_path(comment, params: { comment: { read_flag: 'toggle' } }), method: :put, remote: true %>

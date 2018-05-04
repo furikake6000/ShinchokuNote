@@ -5,7 +5,7 @@
 <% if @comment.response_post %>
   <span class="text-muted"><%= fa_icon 'reply', text: 'このコメントに対する返信', class: 'mt-3' %></span>
   <%= render 'tweet_posts/tweet_post', {tweet_post: @comment.response_post, light: true, hide_response: true} %>
-<% else %>
+<% elsif current_user?(@comment.to_note.user) %>
   <span class="text-muted"><%= fa_icon 'reply', text: '返信する', class: 'mt-3' %></span>
   <%= render partial: 'tweet_posts/tweet_post_new_form', locals: {note: @comment.to_note, response_to: @comment} %>
 <% end %>
