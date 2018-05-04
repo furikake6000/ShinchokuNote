@@ -72,12 +72,15 @@ class TweetPostsController < ApplicationController
 
     # 投稿したツイートを元にPostを作成
     newpost = tweet_to_tweetpost(tweet, note)
+
+    # URLやタグを取り除き文章のみpostに収納
+    tweet_hash = tweet.to_hash
+    tweet_hash['text'] = params[:post][:text]
+    newpost.text = tweet_hash.to_json
+
     if params[:post][:response_to]
       # Response処理
       newpost.responded_comment = responded_comment
-      tweet_hash = tweet.to_hash
-      tweet_hash['text'] = params[:post][:text]
-      newpost.text = tweet_hash.to_json
 
       # responded_commentの既読処理はしておく
       responded_comment.read_flag = true
