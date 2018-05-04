@@ -77,7 +77,7 @@ end
 
 group :production do
   # Use postgresql on production mode
-  gem 'pg', '~>0.20.0'
+  gem 'pg', '~>1.0.0'
 end
 
 # Below gem is only for Windows
