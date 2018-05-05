@@ -316,13 +316,16 @@ a.comment-link{
       font-size: 1.5rem;
     }
     .media-text{
+      word-break : break-all;
       white-space: pre-wrap;
     }
     .media-text-l{
+      word-break : break-all;
       white-space: pre-wrap;
       font-size: 1.5rem;
     }
     .media-text-xl{
+      word-break : break-all;
       white-space: pre-wrap;
       font-size: 2.0rem;
     }
