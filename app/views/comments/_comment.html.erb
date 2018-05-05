@@ -12,7 +12,7 @@
     <% end %>
 
     <% if defined?(light) %>
-      <%= comment.text  %>
+      <div class="media-text"><%= comment.text %></div>
     <% elsif defined?(heavy) %>
       <div class="media-text-xl"><%= comment.text %></div>
     <% else %>

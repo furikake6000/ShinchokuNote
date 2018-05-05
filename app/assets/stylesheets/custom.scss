@@ -256,6 +256,7 @@ header{
   color: $gray-500;
   font-weight: bold;
   letter-spacing: 0.1em;
+  cursor: pointer;
 }
 #image-form-hidden{
   display: none;
@@ -314,10 +315,18 @@ a.comment-link{
       letter-spacing: 0.1em;
       font-size: 1.5rem;
     }
+    .media-text{
+      word-break : break-all;
+      white-space: pre-wrap;
+    }
     .media-text-l{
+      word-break : break-all;
+      white-space: pre-wrap;
       font-size: 1.5rem;
     }
     .media-text-xl{
+      word-break : break-all;
+      white-space: pre-wrap;
       font-size: 2.0rem;
     }
   }

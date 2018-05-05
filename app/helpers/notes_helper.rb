@@ -14,4 +14,9 @@ module NotesHelper
     user.notes.select { |p| p.type == 'RequestBox' }
   end
 
+  # おまかせパスにランダム文字列を付与したもの
+  def omakase_path_with_seed
+    omakase_path(random: 'shinchokunote'.chars.shuffle.join)
+  end
+
 end

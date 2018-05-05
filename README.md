@@ -2,37 +2,69 @@
 
 進捗ノートは、同人製作者のためのツールです。
 
-* 環境(Environments)
+## 環境(Environments)
 
-** Ruby 2.3.1
-** Rails 5.1.4
-** puma 3.7
-** nginx
++ Ruby 2.3.1
++ Rails 5.1.4
++ puma 3.7
++ nginx
 
-* クラス構成(Classes)
+## リリースノート(Release Notes)
+
+### ver 0.1.0
+
+2018/5/4
+(正式には4/29(進捗の日))
+ベータ版最初のリリース
+
+### ver 0.1.1
+
+2018/5/5
+
++ 画像投稿フォームにマウスを載せる際にカーソルが変わるように
++ 「おまかせ表示」をした際に一瞬他のページが見える現象の修正(キャッシュの無効化)
++ コメントや投稿の改行を正しく表示するように
++ コメントや投稿で長い英単語を打った場合にはみ出ない(改行される)ように
++ 通知ページの表示からその通知元のノートに飛べるようにリンクを設置
++ リリースノートを追加
+
+## クラス構成(Classes)
 
 詳細な構成はdocs/shinchokunote.astaをご覧ください。
-** Userクラス
+
+### Userクラス
+
 ユーザ情報を格納するクラスです。Userは複数のNoteを持ちます。
 
-** Noteクラス
+### Noteクラス
+
 情報をまとめるノートクラスです。基本的に抽象クラス扱いであり、ここから様々な種類のNoteが派生します。Postの投稿、Commentの受付、ShinchokuDodeskaの受付、ウォッチリストへの登録が可能です。
-*** Projectクラス < Note
+
+### Projectクラス < Note
+
 自分の進めているプロジェクトを表すクラスです。
-*** RequestBoxクラス < Note
+
+### RequestBoxクラス < Note
+
 コメントを受け付けるためのノートを表すクラスです。
 
-** Postクラス
+### Postクラス
+
 進捗報告などの投稿一つ一つを表すクラスです。
-*** TweetPostクラス < Post
+
+### TweetPostクラス < Post
+
 Twitterに投稿されたツイートをそのままPostとして扱うことができます。
 基本的に当サービスのPostはTweetPostです。
 
-** Commentクラス
++ Commentクラス
+
 Noteに対しコメントすることができます。
 
-** Shinchokudodeskaクラス
++ Shinchokudodeskaクラス
+
 Noteに対し「進捗どうですか」のアクションを行うことができます。
 
-** UserWatchesNoteクラス
++ UserWatchesNoteクラス
+
 ウォッチリスト用の多対多構造作成用のクラスです。
