@@ -47,6 +47,7 @@ module CommentsHelper
   def user_can_delete_comment?(comment, user)
     return false if comment.response_post
     return true if user == comment.from_user
+    return true if user.admin?
     false
   end
 end
