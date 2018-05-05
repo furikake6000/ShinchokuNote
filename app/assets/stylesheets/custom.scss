@@ -315,10 +315,15 @@ a.comment-link{
       letter-spacing: 0.1em;
       font-size: 1.5rem;
     }
+    .media-text{
+      white-space: pre-wrap;
+    }
     .media-text-l{
+      white-space: pre-wrap;
       font-size: 1.5rem;
     }
     .media-text-xl{
+      white-space: pre-wrap;
       font-size: 2.0rem;
     }
   }
