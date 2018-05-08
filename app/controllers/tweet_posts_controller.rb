@@ -75,7 +75,8 @@ class TweetPostsController < ApplicationController
 
     # URLやタグを取り除き文章のみpostに収納
     tweet_hash = tweet.to_hash
-    tweet_hash['text'] = params[:post][:text]
+    # 新規ツイートの場合はテキストは全文ではなくフォームに書かれた部分のみ
+    tweet_hash['text'] = params[:post][:text] if params[:post][:text]
     newpost.text = tweet_hash.to_json
 
     if params[:post][:response_to]
