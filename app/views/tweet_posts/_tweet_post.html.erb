@@ -28,13 +28,13 @@
       <% end %>
 
       <% if tweet.media.size == 1 %>
-      <%= image_tag(tweet.media[0].media_url.to_s, class: "d-block w-100") %>
+      <%= image_tag(tweet.media[0].media_url_https.to_s, class: "d-block w-100") %>
       <% elsif tweet.media.size >= 2 %>
       <div id="media-car-<%= tweet.id %>" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
           <% tweet.media.each_with_index do |media, i| %>
             <div class="carousel-item<%= ' active' if i==0 %>">
-              <%= image_tag(media.media_url.to_s, class: "d-block w-100") %>
+              <%= image_tag(media.media_url_https.to_s, class: "d-block w-100") %>
             </div>
           <% end %>
         </div>

@@ -23,6 +23,6 @@
 <% end %>
 
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'tweet_text_box'%>
-  <%= javascript_include_tag 'image_form_virtual'%>
+  <%= javascript_include_tag 'tweet_text_box', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'image_form_virtual', 'data-turbolinks-track': 'reload' %>
 <% end %> 

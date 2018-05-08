@@ -98,7 +98,7 @@ class UsersController < ApplicationController
 
   private
 
-  # Noteのパラメータを安全に取り出す
+  # Userのパラメータを安全に取り出す
   def users_params
     params.require(:user).permit(:desc)
   end
