@@ -3,12 +3,12 @@
               html: {method: 'POST'}) do |f| %>
   <%= f.hidden_field :type, value: "TweetPost" %>
   <% if defined?(response_to) %>
-    <%= f.hidden_field :response_to, value: response_to.id %>
+    <%= f.hidden_field :response_to, id: "tweet_respond_to", value: response_to.id %>
   <% end %>
   <div class="input-group">
     <%= f.text_area :text, placeholder: 'つぶやく内容', id: 'tweettext_form', class:'form-control' %>
   </div>
-  <div id="tweettext_count">0</div>
+  <div id="tweettext_count">0 / <%= defined?(response_to) ? 108 : 110 %></div>
   <div class="input-group mb-2">
     <div id="image_form_virtual">
       <div><%= fa_icon 'photo 2x' %></div>

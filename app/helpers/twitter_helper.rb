@@ -8,4 +8,8 @@ module TwitterHelper
       config.access_token_secret = current_user_secret
     end
   end
+
+  def tweet_url(tweet)
+    "https://twitter.com/i/web/status/#{tweet.id}"
+  end
 end
