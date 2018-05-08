@@ -33,17 +33,23 @@ class TweetPostsController < ApplicationController
         # 返信ありの場合
         responded_comment = Comment.find(params[:post][:response_to])
         # 返信先のコメントのテキスト、文字数の最大制限を求める
-        responded_comment_maxlen = 140 - 10 - params[:post][:text].length
+        # 文字数減少要素: URL, hashtag, コメントの改行, それぞれの間の空白、コメント先頭の'> ''
+        responded_comment_maxlen = 140 - 22 - 1 - 6 - 1 - 2 - 2 - params[:post][:text].length
         # 必要に応じて載せるコメントを切り貼りする
-        responded_comment_text = 
-          responded_comment.text.length > responded_comment_maxlen ?
-          '> ' + responded_comment.text[0..responded_comment_maxlen - 3] + '...' :
-          '> ' + responded_comment.text
-        # つぶやく文字列を決定
-        tweetstr = responded_comment_text + "\n" +
-                   params[:post][:text] + "\n" +
-                   comment_url(responded_comment, only_path: false) +
-                   ' #進捗ノート'
+        if responded_comment_maxlen < 0
+          tweetstr = params[:post][:text] + ' #進捗ノート ' + 
+                     comment_url(responded_comment, only_path: false)
+        else
+          responded_comment_text = 
+            responded_comment.text.length > responded_comment_maxlen ?
+            '> ' + responded_comment.text[0..responded_comment_maxlen - 3] + '...' :
+            '> ' + responded_comment.text
+
+          tweetstr = responded_comment_text + "\n\n" +
+                     params[:post][:text] + ' #進捗ノート ' + 
+                     comment_url(responded_comment, only_path: false)
+                     print(tweetstr)
+        end
         # 画像の有無を判別し投稿
         tweet = params[:post][:image] ?
                   client.update_with_media(
@@ -55,8 +61,10 @@ class TweetPostsController < ApplicationController
         # 返信なしの場合
         # つぶやく文字列を決定
         tweetstr = params[:post][:text] + "\n" +
-                   note_url(@note, only_path: false) +
-                   ' #進捗ノート'
+                   ' #進捗ノート' +
+                   note_url(@note, only_path: false)
+        
+                   print(tweetstr);
         # 画像の有無を判別し投稿
         tweet = params[:post][:image] ?
         client.update_with_media(
@@ -75,7 +83,8 @@ class TweetPostsController < ApplicationController
 
     # URLやタグを取り除き文章のみpostに収納
     tweet_hash = tweet.to_hash
-    tweet_hash['text'] = params[:post][:text]
+    # 新規ツイートの場合はテキストは全文ではなくフォームに書かれた部分のみ
+    tweet_hash['text'] = params[:post][:text] if params[:post][:text]
     newpost.text = tweet_hash.to_json
 
     if params[:post][:response_to]

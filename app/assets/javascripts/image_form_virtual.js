@@ -4,9 +4,9 @@ function disableEvent(e) {
 }
 
 $(document).on('turbolinks:load', function(){
-    let $virtualform = $('#image-form-virtual');
-    let $realform = $('#image-form-hidden');
-    let $preview = $('#image-form-preview');
+    let $virtualform = $('#image_form_virtual');
+    let $realform = $('#image_form_hidden');
+    let $preview = $('#image_form_preview');
 
     $virtualform.click(function(){
         $realform.trigger('click');
