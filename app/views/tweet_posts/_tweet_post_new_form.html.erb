@@ -6,8 +6,9 @@
     <%= f.hidden_field :response_to, value: response_to.id %>
   <% end %>
   <div class="input-group mb-2">
-    <%= f.text_area :text, placeholder: 'つぶやく内容', class:'form-control' %>
+    <%= f.text_area :text, placeholder: 'つぶやく内容', id: 'tweettext_form', class:'form-control' %>
   </div>
+  <div id="tweettext_count">0</div>
   <div class="input-group mb-2">
     <div id="image_form_virtual">
       <div><%= fa_icon 'photo 2x' %></div>
@@ -22,5 +23,6 @@
 <% end %>
 
 <% content_for :javascript do %>
+  <%= javascript_include_tag 'tweet_text_box'%>
   <%= javascript_include_tag 'image_form_virtual'%>
 <% end %> 

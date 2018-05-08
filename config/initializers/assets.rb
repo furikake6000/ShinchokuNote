@@ -15,6 +15,7 @@ Rails.application.config.assets.precompile += %w[
   image_form_virtual.js
   copy_to_clipboard.js
   show_comments_tab.js
+  tweet_text_box.js
 ]
 
 # Original Webfonts
