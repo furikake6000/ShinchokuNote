@@ -48,7 +48,6 @@ class TweetPostsController < ApplicationController
           tweetstr = responded_comment_text + "\n\n" +
                      params[:post][:text] + ' #進捗ノート ' + 
                      comment_url(responded_comment, only_path: false)
-                     print(tweetstr)
         end
         # 画像の有無を判別し投稿
         tweet = params[:post][:image] ?
@@ -61,10 +60,8 @@ class TweetPostsController < ApplicationController
         # 返信なしの場合
         # つぶやく文字列を決定
         tweetstr = params[:post][:text] + "\n" +
-                   ' #進捗ノート' +
+                   ' #進捗ノート ' +
                    note_url(@note, only_path: false)
-        
-                   print(tweetstr);
         # 画像の有無を判別し投稿
         tweet = params[:post][:image] ?
         client.update_with_media(
