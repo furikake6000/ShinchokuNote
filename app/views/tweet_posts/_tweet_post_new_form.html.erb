@@ -9,12 +9,12 @@
     <%= f.text_area :text, placeholder: 'つぶやく内容', class:'form-control' %>
   </div>
   <div class="input-group mb-2">
-    <div id="image-form-virtual">
+    <div id="image_form_virtual">
       <div><%= fa_icon 'photo 2x' %></div>
       <div>クリックで画像を選択</div>
-      <div id="image-form-preview"></div>
+      <div id="image_form_preview"></div>
     </div>
-    <%= f.file_field :image, id: "image-form-hidden", multiple: true %>
+    <%= f.file_field :image, id: "image_form_hidden", multiple: true %>
   </div>
   <div class="text-right">
     <%= f.submit "Twitterでつぶやく", class: "btn btn-primary" %>
@@ -22,5 +22,5 @@
 <% end %>
 
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'image-form-virtual'%>
+  <%= javascript_include_tag 'image_form_virtual'%>
 <% end %> 
