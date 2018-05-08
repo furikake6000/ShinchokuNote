@@ -245,8 +245,18 @@ header{
   }
 }
 
-// ImageForm
-#image-form-virtual{
+// New Tweet Form
+#tweettext_form{
+  height: 100px;
+}
+#tweettext_count{
+  float: right;
+  margin-right: 10px;
+  color: $primary;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+#image_form_virtual{
   width: 100%;
   padding: 20px;
   text-align: center;
@@ -258,10 +268,10 @@ header{
   letter-spacing: 0.1em;
   cursor: pointer;
 }
-#image-form-hidden{
+#image_form_hidden{
   display: none;
 }
-#image-form-preview{
+#image_form_preview{
   img{
     width: 25%;
     padding: 5px;
