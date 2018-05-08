@@ -61,7 +61,7 @@ class TweetPostsController < ApplicationController
         # 返信なしの場合
         # つぶやく文字列を決定
         tweetstr = params[:post][:text] + "\n" +
-                   ' #進捗ノート' +
+                   ' #進捗ノート ' +
                    note_url(@note, only_path: false)
         
                    print(tweetstr);
