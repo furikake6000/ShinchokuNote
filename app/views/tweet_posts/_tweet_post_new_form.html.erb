@@ -5,7 +5,7 @@
   <% if defined?(response_to) %>
     <%= f.hidden_field :response_to, value: response_to.id %>
   <% end %>
-  <div class="input-group mb-2">
+  <div class="input-group">
     <%= f.text_area :text, placeholder: 'つぶやく内容', id: 'tweettext_form', class:'form-control' %>
   </div>
   <div id="tweettext_count">0</div>
@@ -18,7 +18,7 @@
     <%= f.file_field :image, id: "image_form_hidden", multiple: true %>
   </div>
   <div class="text-right">
-    <%= f.submit "Twitterでつぶやく", class: "btn btn-primary" %>
+    <%= f.submit "Twitterでつぶやく", id: "tweet_submit", class: "btn btn-primary" %>
   </div>
 <% end %>
 

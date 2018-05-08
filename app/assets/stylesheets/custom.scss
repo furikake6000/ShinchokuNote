@@ -245,7 +245,17 @@ header{
   }
 }
 
-// ImageForm
+// New Tweet Form
+#tweettext_form{
+  height: 100px;
+}
+#tweettext_count{
+  float: right;
+  margin-right: 10px;
+  color: $primary;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
 #image_form_virtual{
   width: 100%;
   padding: 20px;
