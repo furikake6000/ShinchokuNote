@@ -1,0 +1,3 @@
+<%= link_to user_path(user.screen_name) do %>
+<%= image_tag user.thumb_url, alt: user.name, class: "mr-1 note-info-user-thumb rounded-circle", size: "32x32" unless user.thumb_url.blank? %>
+<% end %>

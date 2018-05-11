@@ -16,6 +16,15 @@
 
   <p class="mb-0"><%= @note.desc %></p>
 
+  <% unless @note.watching_users.empty? %>
+    <div class="watcherslist">
+      <h3><%= @note.watching_users.count %>人のウォッチャー</h3>
+      <% @note.watching_users.reverse.take(10).each do |u| %>
+        <%= render 'users/user_thumb', user: u %>
+      <% end %>
+    </div>
+  <% end %>
+
   <%= render 'comments/comment_form', note: @note if user_can_comment?(@note, current_user) && @note.type == 'RequestBox' %>
 
 </div>
