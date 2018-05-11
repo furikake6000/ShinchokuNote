@@ -9,7 +9,7 @@ $(document).on('turbolinks:load', function(){
         let textlen = $tweettext_form.val().length;
         $tweettext_count.text(textlen + " / " + maxtextlen);
 
-        if(textlen > maxtextlen){
+        if(textlen == 0 || textlen > maxtextlen){
             $tweet_submit.prop("disabled", true);
         }else{
             $tweet_submit.prop("disabled", false);
