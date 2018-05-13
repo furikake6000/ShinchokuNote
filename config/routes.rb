@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   get '/login', to: 'users#new'
   get '/logout', to: 'users#logout'
   get '/notifications', to: 'users#notifications'
+  post '/notifications', to: 'users#notifications_checked'
   get '/omakase', to: 'notes#omakase'
 
   # 固定ページ
