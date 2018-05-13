@@ -2,6 +2,8 @@
 
 <h1>通知</h1>
 
+<%= link_to '通知を確認済みにする', notifications_path, method: :post, class: 'btn btn-secondary btn-block mb-2', role: 'button' %>
+
 <div class="tray-light-withedge">
 
     <ul class="nav nav-tabs mb-3" id="notify_tab" role="tablist">
@@ -21,10 +23,22 @@
 
         <% end %>
 
+        <% if @notifications.empty? %>
+            <div class="text-center">
+                新着通知はありません
+            </div>
+        <% end %>
+
     </div>
     <div class="tab-pane fade" id="notify_comments" role="tabpanel" aria-labelledby="notify_comments_tab">
         
-        <%= render @to_me_comments, with_note_info: true %>
+        <%= render @recent_to_me_comments, with_note_info: true %>
+
+        <% if @recent_to_me_comments.empty? %>
+            <div class="text-center">
+                新着のコメントはありません
+            </div>
+        <% end %>
 
     </div>
     </div>

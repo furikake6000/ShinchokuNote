@@ -1,6 +1,9 @@
 class Comment < ApplicationRecord
   acts_as_paranoid
 
+  validates :text, presence: true
+  validates :to_note, presence: true
+
   enum anonimity: {
     secret: 0,
     open: 1

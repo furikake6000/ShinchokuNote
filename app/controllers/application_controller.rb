@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   private
 
   def check_logged_in
-    render_403 unless logged_in?
+    redirect_to root_path unless logged_in?
   end
 
   def load_user(paramname)
@@ -154,20 +154,7 @@ class ApplicationController < ActionController::Base
                           .limit(size)
   end
 
-  def load_unread_watching_posts(size)
-    @unread_posts_loaded_flag = true
-
-    return nil unless logged_in?
-
-    # note_idがwatching_noteであるpostを抽出
-    @unread_posts = Post.where(
-      'note_id IN (?) AND created_at > ?',
-      current_user.watching_notes.map(&:id),
-      current_user.checked_notifications_at
-    ).order('created_at DESC').limit(size)
-  end
-
-  def load_notifications(size)
+  def load_notifications
     return nil if @notifications_loaded_flag
 
     @notifications_loaded_flag = true
@@ -175,13 +162,10 @@ class ApplicationController < ActionController::Base
     return nil unless logged_in?
 
     # 自分のノートについたコメントを調べる
-    @to_me_comments = Comment.joins(:to_note)
-                             .where(notes: { user_id: current_user.id } )
-                             .order('created_at DESC')
-                             .limit(size)
-    @recent_to_me_comments = @to_me_comments.select do |c|
-      c.created_at > current_user.checked_notifications_at
-    end
+    @recent_to_me_comments = Comment.joins(:to_note)
+                                    .where(notes: { user_id: current_user.id })
+                                    .where('comments.created_at > ?', current_user.checked_notifications_at)
+                                    .order('created_at DESC')
 
     # 自分のノートに新規で付いた進捗どうですかを調べる
     @recent_shinchoku_dodeskas = ShinchokuDodeska.where(
@@ -198,7 +182,7 @@ class ApplicationController < ActionController::Base
     )
 
     @notifications = []
-    @to_me_comments.each do |c|
+    @recent_to_me_comments.each do |c|
       @notifications << {
         type: 'Comment',
         time: c.created_at,
@@ -227,17 +211,11 @@ class ApplicationController < ActionController::Base
 
   def notifications_num
     return 0 unless logged_in?
-    load_notifications 99 unless @notifications_loaded_flag
+    load_notifications unless @notifications_loaded_flag
     @recent_to_me_comments.size + @recent_shinchoku_dodeskas.size + @recent_watchlists.size
   end
 
-  # 未読投稿が何件あるかをカウントする
-  def unread_watching_post_num
-    load_unread_watching_posts 99 unless @unread_posts_loaded_flag
-    @unread_posts.size
-  end
-
-  # フォロー中のユーザを取得する
+  # フォロー中のユーザを取得する
   def load_twitter_friends
     client = client_new
     @twitter_friends = []

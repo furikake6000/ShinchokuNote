@@ -39,6 +39,19 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_template :edit
   end
 
+  test 'access notifications' do
+    get notifications_path
+    assert_redirected_to root_path
+
+    login_as_noritama
+    get notifications_path
+    assert_response :success
+    assert_template :notifications
+
+    post notifications_path
+    assert_redirected_to notifications_path
+  end
+
   test 'log in' do
     # Not logged in at first
     assert_not logged_in?

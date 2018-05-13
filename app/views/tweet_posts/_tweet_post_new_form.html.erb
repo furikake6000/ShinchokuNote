@@ -18,11 +18,11 @@
     <%= f.file_field :image, id: "image_form_hidden", multiple: true %>
   </div>
   <div class="text-right">
-    <%= f.submit "Twitterでつぶやく", id: "tweet_submit", class: "btn btn-primary" %>
+    <%= f.submit 'Twitterでつぶやく', id: 'tweet_submit', class: 'btn btn-primary', disabled: true %>
   </div>
 <% end %>
 
 <% content_for :javascript do %>
   <%= javascript_include_tag 'tweet_text_box', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'image_form_virtual', 'data-turbolinks-track': 'reload' %>
-<% end %> 
+<% end %>

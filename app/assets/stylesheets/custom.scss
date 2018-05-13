@@ -175,6 +175,8 @@ header{
   }
 }
 
+// User header(leftcol)
+
 .user-leftcol{
   .user-leftcol-name{
     font-size: 1.5rem;
@@ -183,6 +185,26 @@ header{
 
   hr{
     border-top: 5px dotted $gray-400;
+  }
+}
+
+// User partial
+
+.user-partial{
+  padding: 5px 0px;
+  border-bottom: 1px solid $gray-400;
+
+  .user-partial-thumb{
+    float: left;
+  }
+  .user-partial-body{
+    float: left;
+
+    .user-partial-name{
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: black;
+    }
   }
 }
 
