@@ -1,0 +1,8 @@
+<% provide(:title, "#{@note.name}のウォッチャー") %>
+
+<%= link_to "#{@note.name}に戻る", note_path(@note) %>
+
+<div class="tray-light-withedge">
+    <h3><%= @note.name %>のウォッチャー</h3>
+    <%= render @note.watching_users.reverse %>
+</div>

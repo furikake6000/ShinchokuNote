@@ -1,6 +1,7 @@
 class NotesController < ApplicationController
   before_action -> { load_user_as_me :user_id }, only: %i[new create]
   before_action -> { load_note :id }, only: %i[show]
+  before_action -> { load_note :note_id }, only: %i[watchers]
   before_action -> { load_comments }, only: %i[show]
   before_action -> { load_note_as_mine_or_admin :id },
                 only: %i[edit update destroy]
@@ -54,6 +55,8 @@ class NotesController < ApplicationController
     @note.destroy
     redirect_to root_path
   end
+
+  def watchers; end
 
   def omakase
     # Noteモデルからランダムに一件取得

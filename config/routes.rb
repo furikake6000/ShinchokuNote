@@ -23,6 +23,9 @@ Rails.application.routes.draw do
       resources :watchlists, only: %i[create destroy]
       post '/watchlists/toggle', to: 'watchlists#toggle'
 
+      # ウォッチャー一覧ページ
+      get '/watchers', to: 'notes#watchers'
+
       # 進捗どうですか
       resources :shinchoku_dodeskas, only: :create
     end

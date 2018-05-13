@@ -22,6 +22,7 @@
       <% @note.watching_users.reverse.take(10).each do |u| %>
         <%= render 'users/user_thumb', user: u %>
       <% end %>
+      <%= link_to 'すべて見る', note_watchers_path(@note) %>
     </div>
   <% end %>
 
