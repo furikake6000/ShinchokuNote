@@ -1,0 +1,10 @@
+<div class="user-partial cf">
+<%= image_tag user.thumb_url, alt: user.name, class: 'mr-1 rounded-circle user-partial-thumb', size: '64x64' unless user.thumb_url.blank? %>
+
+<div class="user-partial-body">
+<%= link_to user.name, user_path(user.screen_name), class: 'user-partial-name' %>
+
+<span><%= link_to fa_icon('twitter', text: '@' + user.screen_name), user.url, target:"_new" %></span>
+<p><%= user.desc %></p>
+</div>
+</div>
