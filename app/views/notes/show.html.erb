@@ -16,16 +16,6 @@
 
   <p class="mb-0"><%= @note.desc %></p>
 
-  <% unless @note.watching_users.empty? %>
-    <div class="watcherslist">
-      <h3><%= @note.watching_users.count %>人のウォッチャー</h3>
-      <% @note.watching_users.reverse.take(10).each do |u| %>
-        <%= render 'users/user_thumb', user: u %>
-      <% end %>
-      <%= link_to 'すべて見る', note_watchers_path(@note) %>
-    </div>
-  <% end %>
-
   <%= render 'comments/comment_form', note: @note if user_can_comment?(@note, current_user) && @note.type == 'RequestBox' %>
 
 </div>
@@ -61,3 +51,15 @@
 <%= render 'notes/shareform', note: @note %>
 
 <%= render 'notes/foot_toolbar', note: @note %>
+
+<% content_for :leftcol do %>
+  <% unless @note.watching_users.empty? %>
+    <div class="tray-light-withedge">
+      <h3><%= @note.watching_users.count %>人のウォッチャー</h3>
+      <% @note.watching_users.reverse.take(20).each do |u| %>
+        <%= render 'users/user_thumb', user: u %>
+      <% end %>
+      <%= link_to 'すべて見る', note_watchers_path(@note) %>
+    </div>
+  <% end %>
+<% end %>
