@@ -203,9 +203,21 @@ module UsersHelper
     user.thumb_url = get_fullsize_thumb_uri(auth.info.image)
     user.screen_name = auth.info.nickname
     user.name = auth.info.name
-    user.save
+    user.save!
 
     login_user(user, token, secret)
+  end
+
+  # ユーザの情報を更新
+  def user_info_update
+    client = client_new
+    user_twitter = client.user(current_user.twitter_id)
+
+    current_user.url = user_twitter.uri
+    current_user.thumb_url = user_twitter.profile_image_uri size: :original
+    current_user.screen_name = user_twitter.screen_name
+    current_user.name = user_twitter.name
+    current_user.save!
   end
 
   # Cookieに保存された認証情報が正しいものであるか
