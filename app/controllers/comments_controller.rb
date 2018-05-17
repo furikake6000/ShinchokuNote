@@ -67,7 +67,10 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    note = @comment.to_note
     @comment.destroy if user_can_delete_comment?(@comment, current_user)
+
+    redirect_to note_path(note)
   end
 
   private
