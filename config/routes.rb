@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 
   get '/auth/twitter/callback', to: 'users#login'
   get '/switch', to: 'users#switchuser'
+  get '/updateuser', to: 'users#updateuser'
   get '/login', to: 'users#new'
   get '/logout', to: 'users#logout'
   get '/notifications', to: 'users#notifications'

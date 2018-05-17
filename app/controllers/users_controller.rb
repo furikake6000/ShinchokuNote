@@ -88,6 +88,11 @@ class UsersController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def updateuser
+    user_info_update
+    redirect_back fallback_location: user_path(current_user.screen_name)
+  end
+
   def notifications
     # @notifications はbefore_actionですでに読み込んでいる
     return if notifications_num.zero?

@@ -211,10 +211,10 @@ module UsersHelper
   # ユーザの情報を更新
   def user_info_update
     client = client_new
-    user_twitter = client.user(current_user.twitter_id)
+    user_twitter = client.user(user_id: current_user.twitter_id)
 
     current_user.url = user_twitter.uri
-    current_user.thumb_url = user_twitter.profile_image_uri size: :original
+    current_user.thumb_url = user_twitter.profile_image_uri_https :original
     current_user.screen_name = user_twitter.screen_name
     current_user.name = user_twitter.name
     current_user.save!
