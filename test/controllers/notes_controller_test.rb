@@ -27,6 +27,22 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     assert_template :show
   end
 
+  test 'access note watchers' do
+    get note_watchers_path(@okaka_project1)
+    assert_response :success
+    assert_template :watchers
+
+    login_as_noritama
+    get note_watchers_path(@okaka_project1)
+    assert_response :success
+    assert_template :watchers
+
+    login_as_okaka
+    get note_watchers_path(@okaka_project1)
+    assert_response :success
+    assert_template :watchers
+  end
+
   test 'access note edit' do
     get edit_note_path(@okaka_project1)
     assert_response 403

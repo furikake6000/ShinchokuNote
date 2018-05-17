@@ -23,6 +23,9 @@ Rails.application.routes.draw do
       resources :watchlists, only: %i[create destroy]
       post '/watchlists/toggle', to: 'watchlists#toggle'
 
+      # ウォッチャー一覧ページ
+      get '/watchers', to: 'notes#watchers'
+
       # 進捗どうですか
       resources :shinchoku_dodeskas, only: :create
     end
@@ -37,6 +40,7 @@ Rails.application.routes.draw do
   get '/login', to: 'users#new'
   get '/logout', to: 'users#logout'
   get '/notifications', to: 'users#notifications'
+  post '/notifications', to: 'users#notifications_checked'
   get '/omakase', to: 'notes#omakase'
 
   # 固定ページ

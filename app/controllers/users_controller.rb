@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
+  before_action :check_logged_in, only: %i[notifications notifications_checked]
   before_action -> { load_user_as_me_or_admin :id },
                 only: %i[edit update destroy]
   before_action -> { load_user_as_me_or_admin :user_id }, only: :leave
   before_action -> { load_user :id }, only: :show
   before_action -> { load_newest_posts 10 }, only: :home
   before_action -> { load_watching_posts 10 }, only: :home
-  before_action -> { load_notifications 99 }, only: :notifications
+  before_action :load_notifications, only: :notifications
 
   def index
     # Only admin
@@ -79,7 +80,7 @@ class UsersController < ApplicationController
     # 未ログイン状態ならばstatic_pages#homeを描画
     render 'static_pages/home' unless logged_in?
 
-    load_notifications 99
+    load_notifications
   end
 
   def switchuser
@@ -96,9 +97,14 @@ class UsersController < ApplicationController
   def notifications
     # @notifications はbefore_actionですでに読み込んでいる
     return if notifications_num.zero?
+  end
 
+  def notifications_checked
+    # 通知チェック処理
     current_user.checked_notifications_at = Time.now
     current_user.save!
+
+    redirect_to notifications_path
   end
 
   private
