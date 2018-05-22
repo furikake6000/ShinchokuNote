@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :check_logged_in, only: %i[notifications notifications_checked]
+  before_action :check_logged_in, only: %i[notifications notifications_checked recommended_users]
   before_action -> { load_user_as_me_or_admin :id },
                 only: %i[edit update destroy]
   before_action -> { load_user_as_me_or_admin :user_id }, only: :leave
