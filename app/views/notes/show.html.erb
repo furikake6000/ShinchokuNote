@@ -55,7 +55,7 @@
 
 <% content_for :leftcol do %>
   <% unless @note.watching_users.empty? %>
-    <div class="tray-light-withedge">
+    <div class="tray-light-withedge-lightgray">
       <h3><%= @note.watching_users.count %>人のウォッチャー</h3>
       <% @note.watching_users.reverse.take(20).each do |u| %>
         <%= render 'users/user_thumb', user: u %>
