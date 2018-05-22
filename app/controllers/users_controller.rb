@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   before_action -> { load_newest_posts 10 }, only: :home
   before_action -> { load_watching_posts 10 }, only: :home
   before_action :load_notifications, only: :notifications
+  before_action :load_twitter_friends, only: :recommended_users
 
   def index
     # Only admin
@@ -106,6 +107,8 @@ class UsersController < ApplicationController
 
     redirect_to notifications_path
   end
+
+  def recommended_users; end
 
   private
 
