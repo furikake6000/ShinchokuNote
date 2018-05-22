@@ -26,7 +26,7 @@ class TweetPostsController < ApplicationController
     if params[:post][:twitter_id]
       # Get tweet
       tweet_id = params[:post][:twitter_id].split('/').last
-      tweet = client.status(tweet_id)
+      tweet = client.status(tweet_id, tweet_mode: 'extended')
       # flash
       flash[:success] = 'ツイートをノートに紐付けました！'
     elsif params[:post][:text]
@@ -53,11 +53,11 @@ class TweetPostsController < ApplicationController
         end
         # 画像の有無を判別し投稿
         tweet = params[:post][:image] ?
-                  client.update_with_media(
-                    tweetstr,
-                    params[:post][:image].map(&:tempfile)
-                  ) :
-                  client.update(tweetstr)
+          client.update_with_media(
+            tweetstr,
+            params[:post][:image].map(&:tempfile)
+          ) :
+          client.update(tweetstr)
       else
         # 返信なしの場合
         # つぶやく文字列を決定
@@ -66,12 +66,15 @@ class TweetPostsController < ApplicationController
                    note_url(@note, only_path: false)
         # 画像の有無を判別し投稿
         tweet = params[:post][:image] ?
-        client.update_with_media(
-          tweetstr,
-          params[:post][:image].map(&:tempfile)
-        ) :
-        client.update(tweetstr)
+          client.update_with_media(
+            tweetstr,
+            params[:post][:image].map(&:tempfile)
+          ) :
+          client.update(tweetstr)
       end
+
+      # もしツイートが切り捨てられていたらフルを持ってくる
+      tweet = client.status(tweet.id, tweet_mode: 'extended') if tweet.truncated?
 
       # flash
       flash[:success] = '新しくツイートを投稿しました！'
@@ -83,7 +86,9 @@ class TweetPostsController < ApplicationController
     # URLやタグを取り除き文章のみpostに収納
     tweet_hash = tweet.to_hash
     # 新規ツイートの場合はテキストは全文ではなくフォームに書かれた部分のみ
-    tweet_hash['text'] = params[:post][:text] if params[:post][:text]
+    # tweet_hash['text'] = params[:post][:text] if params[:post][:text]
+
+    # jsonにしてあとでtweetに復元できる形式で保存
     newpost.text = tweet_hash.to_json
 
     if params[:post][:response_to]

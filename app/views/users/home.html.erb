@@ -1,7 +1,8 @@
 <%= render 'users/user_leftcol', user: current_user %>
 
 <% content_for :rightcol do %>
-    <%= render 'notes/random_button', omakase: true %>
+    <%= render 'notes/random_button' %>
+    <%= render 'users/recommended_users_button'%>
 <% end %>
 
 <% unless @recent_to_me_comments.empty? %>

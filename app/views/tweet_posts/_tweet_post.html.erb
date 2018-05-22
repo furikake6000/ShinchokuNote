@@ -3,7 +3,7 @@
 <%= render 'notes/note_info', note: tweet_post.note, with_user_info: true if defined?(with_note_info) %>
 
 <% if tweet.retweeted_status.nil? %>
-<div class="media-box tweet mb-3">
+<div class="media-box tweet mb-3 <%= 'media-box-with-header' if defined?(with_note_info) %>">
   <div class="bgstr"><%= fa_icon 'comment-o' %></div>
   
   <div class="media-content">
@@ -17,9 +17,9 @@
 
     <div class="media-body">
       <% if defined?(light) %>
-        <p class="mb-1 media-text"><%= excludelinks(tweet.full_text) %></p>
+        <p class="mb-1 media-text"><%= origin_text(tweet) %></p>
       <% else %>
-        <p class="mb-1 media-text-l"><%= excludelinks(tweet.full_text) %></p>
+        <p class="mb-1 media-text-l"><%= origin_text(tweet) %></p>
       <% end %>
       <% tweet.uris.each do |uri| %>
         <% unless uri.expanded_url.to_s == tweet_url(tweet) || uri.expanded_url.to_s.include?(note_path(tweet_post.note)) || (tweet_post.responded_comment && uri.expanded_url.to_s.include?(comment_path(tweet_post.responded_comment))) %>
