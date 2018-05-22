@@ -327,6 +327,19 @@ a.comment-link{
   background-color: white;
   padding: 10px;
 
+  &.media-box-secondary{
+    border-color: adjust-hue($secondary, -10deg);
+    h5 a{
+      color: $secondary;
+    }
+    .bgstr{
+      color: transparentize($secondary, 0.8);
+    }
+    .media-toolbox >.tool.active >a{
+      color: $secondary;
+    }
+  }
+
   &.media-box-with-header{
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -391,32 +404,35 @@ a.comment-link{
     color: transparentize($primary, 0.8);
     transform: rotate(-30deg);
   }
-}
-.media-box-with-toolbox{
-  border-bottom-right-radius: 0px;
-}
-.media-toolbox{
-  margin-bottom: 5px;
-  .tool{
-  	float: left;
-    margin-right: 20px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: $gray-600;
-    a{
+
+  .media-box-with-toolbox{
+    border-bottom-right-radius: 0px;
+  }
+
+  .media-toolbox{
+    margin-bottom: 5px;
+    .tool{
+      float: left;
+      margin-right: 20px;
       text-decoration: none;
+      font-size: 0.9rem;
       font-weight: bold;
       color: $gray-600;
-    }
-
-    &.active{
       a{
-        color: $primary;
+        text-decoration: none;
+        font-weight: bold;
+        color: $gray-600;
+      }
+  
+      &.active{
+        a{
+          color: $primary;
+        }
       }
     }
   }
 }
+
 .note-info{
   position: relative;
   border-radius: 10px;
