@@ -232,8 +232,33 @@ header{
 }
 
 .tray-light-withedge{
-  @extend .tray-light;
+  @extend .tray;
+  background-color: white;
   border: medium solid darken($primary, 20);
+
+  h3{
+    @include chaptitle
+  }
+}
+
+.tray-light-withedge-secondary{
+  @extend .tray;
+  background-color: white;
+  border: medium solid darken($secondary, 20);
+
+  h3{
+    @include chaptitle($secondary);
+  }
+}
+
+.tray-light-withedge-lightgray{
+  @extend .tray;
+  background-color: white;
+  border: medium solid $gray-600;
+
+  h3{
+    @include chaptitle($gray-600);
+  }
 }
 
 .tray-primary{
