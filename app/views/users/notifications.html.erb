@@ -1,4 +1,6 @@
-<%= render 'users/user_leftcol', user: current_user %>
+<% content_for :leftcol do %>
+    <%= render 'users/user_panel', user: current_user %>
+<% end %>
 
 <h1>通知</h1>
 

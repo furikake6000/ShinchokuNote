@@ -1,11 +1,12 @@
 <% provide(:title, @note.name) %>
 
+<% content_for :leftcol do %>
+  <%= render 'users/user_panel', { user: @note.user } %>
+<% end %>
+
 <%= render 'notes/random_button' if @omakase %>
 
 <div class="tray-light-withedge">
-
-  <%= render 'users/user_leftcol', { user: @note.user } %>
-
   <h1>
     <%= @note.name %>
     <%= render 'projects/stagebadge', project: @note if @note.type == 'Project' %>
