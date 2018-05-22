@@ -115,6 +115,13 @@ label {
   letter-spacing: 0.1em;
 }
 
+.text-lightgray{
+  color: $gray-500 !important;
+}
+a.text-lightgray:hover{
+  color: $gray-600 !important;
+}
+
 // Primary settings
 
 html{
@@ -329,14 +336,33 @@ a.comment-link{
 
   &.media-box-secondary{
     border-color: adjust-hue($secondary, -10deg);
-    h5 a{
-      color: $secondary;
+    >.media-content{
+      >h5 >a{
+        color: $secondary;
+      }
+
+      >.media-toolbox >.tool.active >a{
+        color: $secondary;
+      }
     }
-    .bgstr{
+    >.bgstr{
       color: transparentize($secondary, 0.8);
     }
-    .media-toolbox >.tool.active >a{
-      color: $secondary;
+  }
+
+  &.media-box-lightgray{
+    border-color: $gray-500;
+    >.media-content{
+      >h5 >a{
+        color: $gray-500;
+      }
+
+      >.media-toolbox >.tool.active >a{
+        color: $gray-500;
+      }
+    }
+    >.bgstr{
+      color: transparentize($gray-500, 0.8);
     }
   }
 
@@ -346,55 +372,78 @@ a.comment-link{
     margin-top: -10px;
   }
 
-  .media-righttop{
+  >.media-righttop{
     margin-bottom: -15px;
     text-align: right;
     font-size: 1rem;
     font-weight: bold;
     color: $gray-600;
-    a{
+    >a{
       color: $gray-600;
     }
   }
 
-  .media-content{
+  >.media-content{
     font-size: 1.2rem;
     position: relative;
     z-index: 1;
 
-    h5{
+    >h5{
       font-weight: bold;
       letter-spacing: 0.1em;
       font-size: 1.5rem;
     }
-    .media-text{
+    >.media-text{
       word-break : break-all;
       white-space: pre-wrap;
     }
-    .media-text-l{
+    >.media-text-l{
       word-break : break-all;
       white-space: pre-wrap;
       font-size: 1.5rem;
     }
-    .media-text-xl{
+    >.media-text-xl{
       word-break : break-all;
       white-space: pre-wrap;
       font-size: 2.0rem;
     }
-  }
 
-  .media-footer{
-    position: relative;
-    border-top: 2px dotted $gray-600;
-    font-size: 0.9rem;
-    color: $gray-600;
-    .media-footer-right{
-      position: absolute;
-      right: 0px;
+    >.media-toolbox{
+      margin-bottom: 5px;
+      >.tool{
+        float: left;
+        margin-right: 20px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: bold;
+        color: $gray-600;
+        >a{
+          text-decoration: none;
+          font-weight: bold;
+          color: $gray-600;
+        }
+    
+        &.active{
+          >a{
+            color: $primary;
+          }
+        }
+      }
+    }
+
+    >.media-footer{
+      position: relative;
+      border-top: 2px dotted $gray-600;
+      font-size: 0.9rem;
+      color: $gray-600;
+      >.media-footer-right{
+        position: absolute;
+        right: 0px;
+      }
     }
   }
 
-  .bgstr{
+  >.bgstr{
     position: absolute;
     top: -50px;
     right: 0;
@@ -405,31 +454,8 @@ a.comment-link{
     transform: rotate(-30deg);
   }
 
-  .media-box-with-toolbox{
+  >.media-box-with-toolbox{
     border-bottom-right-radius: 0px;
-  }
-
-  .media-toolbox{
-    margin-bottom: 5px;
-    .tool{
-      float: left;
-      margin-right: 20px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: bold;
-      color: $gray-600;
-      a{
-        text-decoration: none;
-        font-weight: bold;
-        color: $gray-600;
-      }
-  
-      &.active{
-        a{
-          color: $primary;
-        }
-      }
-    }
   }
 }
 

@@ -9,7 +9,7 @@
     <hr>
 
     <div class="row">
-      <div class="col-12 text-center text-info">最近のノート</div>
+      <div class="col-12 text-center text-lightgray">最近のノート</div>
       <% user.notes.last(2).each do |n| %>
       <div class="col-12 col-sm-6 col-md-12 mb-2">
         <%= render n %>
