@@ -7,6 +7,15 @@
     <div><%= link_to fa_icon('twitter', text: '@' + user.screen_name), user.url, target:"_new" %></div>
     <div><%= user.desc %></div>
     <hr>
+
+    <div class="row">
+      <% user.notes.last(2).each do |n| %>
+      <div class="col-12 col-sm-6 col-md-12 mb-2">
+        <%= render n %>
+      </div>
+      <% end %>
+    </div>
+
     <%= link_to (current_user?(user) ? 'マイページ' : 'ユーザーページ'), user_path(user.screen_name), class: 'btn btn-primary btn-block' %>
   </div>
 </div>
