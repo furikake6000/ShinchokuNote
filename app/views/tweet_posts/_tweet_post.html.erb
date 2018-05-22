@@ -3,7 +3,7 @@
 <%= render 'notes/note_info', note: tweet_post.note, with_user_info: true if defined?(with_note_info) %>
 
 <% if tweet.retweeted_status.nil? %>
-<div class="media-box tweet mb-3">
+<div class="media-box tweet mb-3 <%= 'media-box-with-header' if defined?(with_note_info) %>">
   <div class="bgstr"><%= fa_icon 'comment-o' %></div>
   
   <div class="media-content">
