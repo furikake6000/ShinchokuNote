@@ -8,11 +8,9 @@
   
   <div class="media-content">
     <% if current_user?(tweet_post.note.user) %>
-    <div class="media-righttop">
-      <a href="" data-toggle="modal" data-target="#deletePost<%= tweet_post.id %>Modal">
-        削除
-      </a>
-    </div>
+    <button type="button" class="close" data-toggle="modal" data-target="#deletePost<%= tweet_post.id %>Modal">
+      <span aria-hidden="true">&times;</span>
+    </button>
     <% end %>
 
     <div class="media-body">
@@ -28,9 +26,9 @@
       <% end %>
 
       <% if tweet.media.size == 1 %>
-      <%= image_tag(tweet.media[0].media_url_https.to_s, class: "d-block w-100") %>
+      <%= image_tag(tweet.media[0].media_url_https.to_s, class: "d-block w-100 mb-2") %>
       <% elsif tweet.media.size >= 2 %>
-      <div id="media-car-<%= tweet.id %>" class="carousel slide" data-ride="carousel">
+      <div id="media-car-<%= tweet.id %>" class="carousel slide mb-2" data-ride="carousel">
         <div class="carousel-inner">
           <% tweet.media.each_with_index do |media, i| %>
             <div class="carousel-item<%= ' active' if i==0 %>">
