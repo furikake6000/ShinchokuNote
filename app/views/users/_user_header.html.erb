@@ -1,13 +1,16 @@
 <div class="user-header text-center mb-3">
-  <%= image_tag user.thumb_url, alt: user.name, class: "mr-1 user-header-thumb rounded-circle", size: "160x160" unless user.thumb_url.blank? %>
+  <div class="text-right">
+    <%= link_to 'ユーザ情報反映', updateuser_path, class: 'btn btn-info btn-sm', role: 'button' if current_user? user %>
+  </div>
+  <%= image_tag user.thumb_url, alt: user.name, class: "mr-1 user-header-thumb rounded-circle", size: '160x160' unless user.thumb_url.blank? %>
   <div class="user-header-body">
     <span class="user-header-name mr-3"><%= user.name %></span>
 
-    <span><%= link_to fa_icon('twitter', text: '@' + user.screen_name), user.url, target:"_new" %></span>
+    <span><%= link_to fa_icon('twitter', text: '@' + user.screen_name), user.url, target: '_new' %></span>
     <p><%= user.desc %></p>
     <% if current_user? user %>
-      <%= link_to '新規ページ作成', new_user_note_path(current_user.screen_name), class:'btn btn-primary', role:'button' %>
-      <%= link_to '設定', edit_user_path(current_user.screen_name), class:'btn btn-info', role:'button' %>
+      <%= link_to '新規ページ作成', new_user_note_path(current_user.screen_name), class: 'btn btn-primary', role: 'button' %>
+      <%= link_to '設定', edit_user_path(current_user.screen_name), class: 'btn btn-info', role: 'button' %>
     <% end %>
     <hr>
   </div>

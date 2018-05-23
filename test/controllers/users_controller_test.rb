@@ -52,6 +52,16 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to notifications_path
   end
 
+  test 'access recommended_users' do
+    get recommended_users_path
+    assert_redirected_to root_path
+
+    login_as_noritama
+    get recommended_users_path
+    assert_response :success
+    assert_template :recommended_users
+  end
+
   test 'log in' do
     # Not logged in at first
     assert_not logged_in?

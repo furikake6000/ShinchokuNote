@@ -12,4 +12,25 @@ module TwitterHelper
   def tweet_url(tweet)
     "https://twitter.com/i/web/status/#{tweet.id}"
   end
+
+  def origin_text(tweet)
+    # テキストの取得
+    tweet_h = tweet.to_h
+
+    basetext = ''
+    if tweet_h[:full_text] && !tweet_h[:full_text].empty?
+      basetext = tweet_h[:full_text]
+    else
+      basetext = tweet.text.dup
+    end
+
+    # 余分なハッシュタグの取り除き
+    basetext.gsub!(/#進捗ノート/, '')
+    # 余分なURLの取り除き
+    basetext.gsub!(URI.regexp(%w[http https]), '')
+    # 末尾空白文字の取り除き
+    basetext.strip!
+
+    basetext
+  end
 end

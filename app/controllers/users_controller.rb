@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :check_logged_in, only: %i[notifications notifications_checked]
+  before_action :check_logged_in, only: %i[notifications notifications_checked recommended_users]
   before_action -> { load_user_as_me_or_admin :id },
                 only: %i[edit update destroy]
   before_action -> { load_user_as_me_or_admin :user_id }, only: :leave
@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   before_action -> { load_newest_posts 10 }, only: :home
   before_action -> { load_watching_posts 10 }, only: :home
   before_action :load_notifications, only: :notifications
+  before_action :load_twitter_friends, only: %i[home recommended_users]
 
   def index
     # Only admin
@@ -89,6 +90,11 @@ class UsersController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def updateuser
+    user_info_update
+    redirect_back fallback_location: user_path(current_user.screen_name)
+  end
+
   def notifications
     # @notifications はbefore_actionですでに読み込んでいる
     return if notifications_num.zero?
@@ -101,6 +107,8 @@ class UsersController < ApplicationController
 
     redirect_to notifications_path
   end
+
+  def recommended_users; end
 
   private
 

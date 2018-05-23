@@ -1,11 +1,12 @@
 <% provide(:title, @note.name) %>
 
+<% content_for :leftcol do %>
+  <%= render 'users/user_panel', { user: @note.user } %>
+<% end %>
+
 <%= render 'notes/random_button' if @omakase %>
 
 <div class="tray-light-withedge">
-
-  <%= render 'users/user_leftcol', { user: @note.user } %>
-
   <h1>
     <%= @note.name %>
     <%= render 'projects/stagebadge', project: @note if @note.type == 'Project' %>
@@ -54,7 +55,7 @@
 
 <% content_for :leftcol do %>
   <% unless @note.watching_users.empty? %>
-    <div class="tray-light-withedge">
+    <div class="tray-light-withedge-lightgray">
       <h3><%= @note.watching_users.count %>人のウォッチャー</h3>
       <% @note.watching_users.reverse.take(20).each do |u| %>
         <%= render 'users/user_thumb', user: u %>
