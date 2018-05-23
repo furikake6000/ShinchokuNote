@@ -217,8 +217,10 @@ class ApplicationController < ActionController::Base
 
   # フォロー中のユーザを取得する
   def load_twitter_friends
-    client = client_new
     @twitter_friends = []
+    return unless logged_in?
+
+    client = client_new
     client.friend_ids.each_slice(1000) do |allfriends|
       @twitter_friends.concat(User.where("twitter_id IN (?)", allfriends.map(&:to_s)))
     end

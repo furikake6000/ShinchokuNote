@@ -14,5 +14,7 @@ fi
 # アセットの明示的プリコンパイル
 bundle exec rake assets:clobber RAILS_ENV=production RAILS_MASTER_KEY=$1
 bundle exec rake assets:precompile RAILS_ENV=production RAILS_MASTER_KEY=$1
+# db:migrate
+RAILS_ENV=production RAILS_MASTER_KEY=$1 rails db:migrate
 # サーバ起動
-rails s RAILS_ENV=production RAILS_MASTER_KEY=$1 RAILS_SERVE_STATIC_FILES=true &
+RAILS_ENV=production RAILS_MASTER_KEY=$1 RAILS_SERVE_STATIC_FILES=true rails s &
