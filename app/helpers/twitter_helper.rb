@@ -28,6 +28,8 @@ module TwitterHelper
     basetext.gsub!(/#進捗ノート/, '')
     # 余分なURLの取り除き
     basetext.gsub!(URI.regexp(%w[http https]), '')
+    # 末尾空白文字の取り除き
+    basetext.strip!
 
     basetext
   end

@@ -433,6 +433,11 @@ a.comment-link{
         white-space: pre-wrap;
         font-size: 2.0rem;
       }
+
+      >.media-link{
+        word-break : break-all;
+        white-space: pre-wrap;
+      }
     }
 
     >.media-toolbox{
