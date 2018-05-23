@@ -8,9 +8,6 @@
       <a class="nav-item nav-link" id="selectfromurl-tab" data-toggle="tab" href="#selectfromurl" role="tab" aria-controls="selectfromurl" aria-selected="false">
         URLから紐付け
       </a>
-      <a class="nav-item nav-link" id="selectfromlist-tab" data-toggle="tab" href="#selectfromlist" role="tab" aria-controls="selectfromlist" aria-selected="false">
-        リストから紐付け
-      </a>
     </div>
   </nav>
   <div class="tab-content post-form-content">
@@ -19,12 +16,6 @@
     </div>
     <div class="tab-pane fade" id="selectfromurl" role="tabpanel" aria-labelledby="selectfromurl-tab">
       <%= render partial: 'tweet_posts/tweet_post_url_form', locals: {note: note} %>
-    </div>
-    <div class="tab-pane fade" id="selectfromlist" role="tabpanel" aria-labelledby="selectfromlist-tab">
-      <div class="text-center">
-        未完成の機能です<br>
-        実装まで今しばらくお待ちください...
-      </div>
     </div>
   </div>
 </div>
