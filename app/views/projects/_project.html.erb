@@ -1,6 +1,6 @@
-<div class="media-box">
-  <div class="bgstr"><%= fa_icon 'file-text' %></div>
+<div class="media-box media-box-primary">
   <div class="media-content">
+    <div class="bgstr"><%= fa_icon 'file-text' %></div>
     <h5>
       <%= link_to project.name, note_path(project) %>
       <%= render(partial: 'projects/stagebadge', locals:{project: project}) %>

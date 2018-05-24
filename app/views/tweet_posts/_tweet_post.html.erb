@@ -1,12 +1,13 @@
 <% tweet = tweet_post.tweet %>
 
-<%= render 'notes/note_info', note: tweet_post.note, with_user_info: true if defined?(with_note_info) %>
-
 <% if tweet.retweeted_status.nil? %>
-<div class="media-box tweet mb-3 <%= 'media-box-with-header' if defined?(with_note_info) %>">
-  <div class="bgstr"><%= fa_icon 'comment-o' %></div>
+<div class="media-box <%= tweet_post.note.type == 'RequestBox' ? 'media-box-secondary' : 'media-box-primary' %> tweet mb-3">
+  
+
+  <%= render 'notes/note_info', note: tweet_post.note, with_user_info: true if defined?(with_note_info) %>
   
   <div class="media-content">
+    <div class="bgstr"><%= fa_icon 'comment-o' %></div>
     <% if current_user?(tweet_post.note.user) %>
     <button type="button" class="close" data-toggle="modal" data-target="#deletePost<%= tweet_post.id %>Modal">
       <span aria-hidden="true">&times;</span>

@@ -351,6 +351,28 @@ a.comment-link{
 }
 
 // Media-box
+@mixin media-box-coloring($color){
+  border-color: adjust-hue($color, -10deg);
+
+  >.note-info{
+    background-color: adjust-hue($color, -10deg);
+  }
+
+  >.media-content{
+    >.bgstr{
+      color: transparentize($color, 0.8);
+    }
+
+    >h5 >a{
+      color: $color;
+    }
+
+    >.media-toolbox >.tool.active >a{
+      color: darken($color, 10);
+    }
+  }
+}
+
 .media-box{
   position: relative;
   overflow: hidden;
@@ -359,42 +381,35 @@ a.comment-link{
   background-color: white;
   padding: 10px;
 
+  @include media-box-coloring($gray-500);
+
+  &.media-box-primary{
+    @include media-box-coloring($primary);
+  }
+
   &.media-box-secondary{
-    border-color: adjust-hue($secondary, -10deg);
-    >.media-content{
-      >h5 >a{
-        color: $secondary;
-      }
-
-      >.media-toolbox >.tool.active >a{
-        color: $secondary;
-      }
-    }
-    >.bgstr{
-      color: transparentize($secondary, 0.8);
-    }
+    @include media-box-coloring($secondary);
   }
 
-  &.media-box-lightgray{
-    border-color: $gray-500;
-    >.media-content{
-      >h5 >a{
-        color: $gray-500;
-      }
-
-      >.media-toolbox >.tool.active >a{
-        color: $gray-500;
-      }
+  >.note-info{
+    position: relative;
+    border-radius: 10px;
+    margin: -12px -12px 0px -12px;
+    padding: 10px 10px 5px 10px;
+    z-index: 10;
+    color: white;
+    a{
+      color: white;
     }
-    >.bgstr{
-      color: transparentize($gray-500, 0.8);
+    a:hover{
+      color: white;
     }
-  }
-
-  &.media-box-with-header{
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    margin-top: -10px;
+    img{
+      vertical-align: text-bottom;
+    }
+    .note-info-user-name{
+      font-weight: bold;
+    }
   }
 
   >.media-content{
@@ -402,20 +417,22 @@ a.comment-link{
     position: relative;
     z-index: 1;
 
+    >.bgstr{
+      position: absolute;
+      z-index: -1;
+      top: -80px;
+      right: -80px;
+      right: 0;
+      white-space: nowrap;
+      font-size: 10rem;
+      font-weight: bold;
+      transform: rotate(-30deg);
+    }
+
     >h5{
       font-weight: bold;
       letter-spacing: 0.1em;
       font-size: 1.5rem;
-    }
-
-    >.media-righttopa{
-      text-align: right;
-      font-size: 1rem;
-      font-weight: bold;
-      color: $gray-600;
-      >a{
-        color: $gray-600;
-      }
     }
 
     >.media-body{
@@ -448,17 +465,11 @@ a.comment-link{
         text-decoration: none;
         font-size: 0.9rem;
         font-weight: bold;
-        color: $gray-600;
+        color: $gray-500;
         >a{
           text-decoration: none;
           font-weight: bold;
-          color: $gray-600;
-        }
-    
-        &.active{
-          >a{
-            color: $primary;
-          }
+          color: $gray-500;
         }
       }
     }
@@ -475,40 +486,8 @@ a.comment-link{
     }
   }
 
-  >.bgstr{
-    position: absolute;
-    top: -50px;
-    right: 0;
-    white-space: nowrap;
-    font-size: 7rem;
-    font-weight: bold;
-    color: transparentize($primary, 0.8);
-    transform: rotate(-30deg);
-  }
-
   >.media-box-with-toolbox{
     border-bottom-right-radius: 0px;
-  }
-}
-
-.note-info{
-  position: relative;
-  border-radius: 10px;
-  background-color: adjust-hue($primary, -10deg);
-  padding: 10px 10px 5px 10px;
-  z-index: 10;
-  color: white;
-  a{
-    color: white;
-  }
-  a:hover{
-    color: white;
-  }
-  img{
-    vertical-align: text-bottom;
-  }
-  .note-info-user-name{
-    font-weight: bold;
   }
 }
 
