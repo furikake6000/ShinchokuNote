@@ -381,7 +381,7 @@ a.comment-link{
   background-color: white;
   padding: 10px;
 
-  @include media-box-coloring($gray-500);
+  @include media-box-coloring($gray-600);
 
   &.media-box-primary{
     @include media-box-coloring($primary);
