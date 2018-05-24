@@ -1,0 +1,38 @@
+<div class="tray-light-withedge">
+  <h1>
+    <%= request_box.name %>
+  </h1>
+  <% if current_users_note? request_box %>
+    <%= link_to '編集する', edit_note_path(request_box), class: 'btn btn-info btn-sm'  %>
+  <% end %>
+
+  <p class="mb-0"><%= request_box.desc %></p>
+
+  <%= render 'comments/comment_form', note: request_box if user_can_comment?(request_box, current_user) %>
+
+</div>
+
+<ul class="nav nav-pills nav-justified mb-3" id="pills_tab" role="tablist">
+<li class="nav-item">
+  <a class="nav-link active" id="posts_tab" data-toggle="pill" href="#posts" role="tab" aria-controls="posts" aria-selected="true">進捗</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" id="commentslist_tab" data-toggle="pill" href="#commentslist" role="tab" aria-controls="commentslist" aria-selected="false">コメント</a>
+</li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+<div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts_tab">
+
+  <%= render 'notes/posts', note: request_box %>
+
+</div>
+<div class="tab-pane fade" id="commentslist" role="tabpanel" aria-labelledby="commentslist_tab">
+
+  <%= render 'notes/comments', {note: request_box, comments: @comments} if user_can_see_comments?(request_box, current_user) %>
+
+</div>
+</div>
+
+<%= render 'notes/shareform', note: request_box %>
+
+<%= render 'notes/foot_toolbar', note: request_box %>
