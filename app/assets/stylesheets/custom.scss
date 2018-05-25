@@ -143,7 +143,15 @@ body{
 }
 
 h1{
-  @include chaptitle(darken($primary, 20), x-large)
+  @include chaptitle($gray-500, x-large);
+
+  &.h1-primary{
+    @include chaptitle($primary, x-large);
+  }
+
+  &.h1-secondary{
+    @include chaptitle($secondary, x-large);
+  }
 }
 
 header{
@@ -248,7 +256,17 @@ header{
 .tray-light-withedge{
   @extend .tray;
   background-color: white;
-  border: medium solid darken($primary, 20);
+  border: medium solid $gray-500;
+
+  h3{
+    @include chaptitle($gray-500);
+  }
+}
+
+.tray-light-withedge-primary{
+  @extend .tray;
+  background-color: white;
+  border: medium solid $primary;
 
   h3{
     @include chaptitle
@@ -258,20 +276,10 @@ header{
 .tray-light-withedge-secondary{
   @extend .tray;
   background-color: white;
-  border: medium solid darken($secondary, 20);
+  border: medium solid $secondary;
 
   h3{
     @include chaptitle($secondary);
-  }
-}
-
-.tray-light-withedge-lightgray{
-  @extend .tray;
-  background-color: white;
-  border: medium solid $gray-600;
-
-  h3{
-    @include chaptitle($gray-600);
   }
 }
 
