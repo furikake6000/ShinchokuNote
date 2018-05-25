@@ -85,6 +85,10 @@ body {
   &.nav-pills-secondary{
     @include nav-pills-coloring($secondary);
   }
+
+  &.nav-pills-info{
+    @include nav-pills-coloring($info);
+  }
 }
 
 .navbar-toggler,.nav-item, .nav-item > a{
@@ -392,10 +396,10 @@ a.comment-link{
 
 // Media-box
 @mixin media-box-coloring($color){
-  border-color: adjust-hue($color, -10deg);
+  border-color: $color;
 
   >.note-info{
-    background-color: adjust-hue($color, -10deg);
+    background-color: $color;
   }
 
   >.media-content{
