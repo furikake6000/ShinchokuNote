@@ -132,7 +132,14 @@ html{
 }
 
 body{
-  background-color: #F4E2D3;
+  background-color: #fff8f2;
+
+  &.body-bg-primary{
+    background-color: lighten($primary, 40);
+  }
+  &.body-bg-secondary{
+    background-color: lighten($secondary, 40);
+  }
 }
 
 h1{
@@ -140,8 +147,15 @@ h1{
 }
 
 header{
-  max-width: 750px;
-  margin: auto;
+  .headermenu{
+    max-width: 750px;
+    margin: auto;
+    padding: 5px;
+  }
+
+  margin-bottom: 20px;
+  background-color: white;
+  border-bottom: 2px solid $gray-300;
 }
 
 .singlecol{
