@@ -80,11 +80,7 @@ body {
 }
 
 .nav-pills {
-  @include nav-pills-coloring($info);
-
-  &.nav-pills-primary{
-    @include nav-pills-coloring($primary);
-  }
+  @include nav-pills-coloring($primary);
 
   &.nav-pills-secondary{
     @include nav-pills-coloring($secondary);
@@ -154,7 +150,7 @@ html{
 }
 
 body{
-  background-color: #f1e9ec;
+  background-color: $gray-100;
 
   &.body-bg-primary{
     background-color: lighten($primary, 40);

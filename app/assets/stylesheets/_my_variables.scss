@@ -62,10 +62,10 @@ $colors: map-merge((
   "gray-dark":  $gray-800
 ), $colors);
 
-$primary:       #C07C48 !default;
+$primary:       rgb(153, 95, 95) !default;
 $secondary:     #489EC0 !default;
-$success:       $green !default;
-$info:          rgb(161, 120, 120) !default;
+$success:       rgb(131, 180, 15) !default;
+$info:          rgb(119, 136, 145) !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
 $light:         $gray-100 !default;

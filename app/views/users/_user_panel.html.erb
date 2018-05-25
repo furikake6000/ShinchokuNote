@@ -17,7 +17,7 @@
       <% end %>
     </div>
 
-    <%= link_to (current_user?(user) ? 'マイページ' : 'ユーザーページ'), user_path(user.screen_name), class: 'btn btn-info btn-block' %>
+    <%= link_to (current_user?(user) ? 'マイページ' : 'ユーザーページ'), user_path(user.screen_name), class: 'btn btn-primary btn-block' %>
   </div>
 </div>
 <% end %>
