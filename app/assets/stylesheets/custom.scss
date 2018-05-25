@@ -423,7 +423,6 @@ a.comment-link{
   border-radius: 10px;
   border: 2px solid adjust-hue($primary, -10deg);
   background-color: white;
-  padding: 10px;
 
   @include media-box-coloring($gray-600);
 
@@ -438,7 +437,7 @@ a.comment-link{
   >.note-info{
     position: relative;
     border-radius: 10px;
-    margin: -12px -12px 0px -12px;
+    margin: -2px -2px 0px -2px;
     padding: 10px 10px 5px 10px;
     z-index: 10;
     color: white;
@@ -457,7 +456,8 @@ a.comment-link{
   }
 
   >.media-content{
-    font-size: 1.2rem;
+    margin: 15px;
+    font-size: 1rem;
     position: relative;
     z-index: 1;
 
@@ -476,7 +476,7 @@ a.comment-link{
     >h5{
       font-weight: bold;
       letter-spacing: 0.1em;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
     }
 
     >.media-body{
@@ -487,12 +487,12 @@ a.comment-link{
       >.media-text-l{
         word-break : break-all;
         white-space: pre-wrap;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
       }
       >.media-text-xl{
         word-break : break-all;
         white-space: pre-wrap;
-        font-size: 2.0rem;
+        font-size: 1.5rem;
       }
 
       >.media-link{
