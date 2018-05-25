@@ -1,10 +1,10 @@
 <% content_for :rightcol do %>
 
-<div class="tray-secondary-withedge">
+<div class="tray-<%= note_color(note) %>-withedge">
     <h3>このノートを共有</h3>
     <input id="share_url" type="text" value="<%= note_url(note) %>" readonly="readonly" class="form-control mb-2" />
-    <%= link_to fa_icon('twitter', text: 'ツイート'),twitter_intent_link(note.name, note_url(note)), class: 'btn btn-secondary mb-1', role:'button', target: :_new %>
-    <button onclick="copyShareUrlToClipboard()" id="share_button" class="btn btn-secondary mb-1">
+    <%= link_to fa_icon('twitter', text: 'ツイート'),twitter_intent_link(note.name, note_url(note)), class: "btn btn-#{note_color(note)} mb-1", role:'button', target: :_new %>
+    <button onclick="copyShareUrlToClipboard()" id="share_button" class="btn btn-<%= note_color(note) %> mb-1">
         <%= fa_icon 'share-alt', text: 'リンクをコピー', id: 'share_icon' %>
     </button>
 </div>

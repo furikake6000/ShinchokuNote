@@ -1,9 +1,8 @@
 <% tweet = tweet_post.tweet %>
 
 <% if tweet.retweeted_status.nil? %>
-<div class="media-box <%= tweet_post.note.type == 'RequestBox' ? 'media-box-secondary' : 'media-box-primary' %> tweet mb-3">
+<div class="media-box media-box-<%= note_color(tweet_post.note) %> tweet mb-3">
   
-
   <%= render 'notes/note_info', note: tweet_post.note, with_user_info: true if defined?(with_note_info) %>
   
   <div class="media-content">

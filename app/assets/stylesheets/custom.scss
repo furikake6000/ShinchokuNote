@@ -69,6 +69,28 @@ body {
   }
 }
 
+@mixin nav-pills-coloring($color){
+  .nav-link {
+    color: $color;
+    &.active {
+      color: white;
+      background-color: $color;
+    }
+  }
+}
+
+.nav-pills {
+  @include nav-pills-coloring($info);
+
+  &.nav-pills-primary{
+    @include nav-pills-coloring($primary);
+  }
+
+  &.nav-pills-secondary{
+    @include nav-pills-coloring($secondary);
+  }
+}
+
 .navbar-toggler,.nav-item, .nav-item > a{
   color: $primary;
 
@@ -132,7 +154,7 @@ html{
 }
 
 body{
-  background-color: #eeeff0;
+  background-color: #f1e9ec;
 
   &.body-bg-primary{
     background-color: lighten($primary, 40);
