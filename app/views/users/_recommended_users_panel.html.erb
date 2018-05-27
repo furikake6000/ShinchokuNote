@@ -1,7 +1,8 @@
-<div class="tray-light-withedge-lightgray">
+<div class="tray-light-withedge">
     <h3>ユーザーを見つける</h3>
-    <% @twitter_friends.take(20).each do |u| %>
-        <%= render 'users/user_thumb', user: u %>
-    <% end %>
-    <%= link_to 'すべて見る', recommended_users_path %>
+    <%# @twitter_friends.take(20).each do |u| %>
+        <%#= render 'users/user_thumb', user: u %>
+    <%# end %>
+    <p>※現在一時的にホーム画面でのおすすめユーザー一覧の表示を停止しています。「すべて見る」からご覧ください。</p>
+    <%= link_to 'すべて見る', recommended_users_path, class: 'btn btn-info btn-block' %>
 </div>
