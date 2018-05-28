@@ -261,19 +261,40 @@ header{
 }
 
 // Note timeline
-.note-timeline{
-  border-left: solid 1.5rem $primary;
-  margin-top: 1rem;
-  padding-left: 1rem;
+@mixin note-timeline-coloring($color){
+  border-color: $color;
+  &::before{
+    border-bottom-color: $color;
+  }
 }
-.note-timeline::before{
-  content: "";
-  position: relative;
-  top: -2.25rem;
-  left: -3.25rem;
-  border-bottom: 1.5rem solid $primary;
-  border-left: 1.5rem solid transparent;
-  border-right: 1.5rem solid transparent;
+
+.note-timeline{
+  border-left-style: solid;
+  border-left-width: 1.5rem;
+  margin-top: 2rem;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+
+  @include note-timeline-coloring($primary);
+
+  &.note-timeline-secondary{
+    @include note-timeline-coloring($secondary);
+  }
+
+  &.note-timeline-info{
+    @include note-timeline-coloring($info);
+  }
+
+  &::before{
+    content: "";
+    position: relative;
+    top: -2.25rem;
+    left: -3.25rem;
+    border-bottom-style: solid;
+    border-bottom-width: 1.5rem;
+    border-left: 1.5rem solid transparent;
+    border-right: 1.5rem solid transparent;
+  }
 }
 
 // Trays
@@ -414,6 +435,10 @@ a.comment-link{
 @mixin media-box-coloring($color){
   border-color: $color;
 
+  &.media-box-baloon::after{
+    border-right-color: $color;
+  }
+
   >.note-info{
     background-color: $color;
   }
@@ -435,12 +460,37 @@ a.comment-link{
 
 .media-box{
   position: relative;
-  overflow: hidden;
   border-radius: 10px;
-  border: 2px solid adjust-hue($primary, -10deg);
+  border-width: 2px;
+  border-style: solid;
   background-color: white;
 
   @include media-box-coloring($gray-600);
+
+  &.media-box-baloon{
+    &::before{
+      content: "";
+      position: absolute;
+      top: 30px;
+      left: -24px;
+      margin-top: -12px;
+      border: 12px solid transparent;
+      border-right: 12px solid #FFF;
+      z-index: 2;
+    }
+    
+    &::after{
+      content: "";
+      position: absolute;
+      top: 30px;
+      left: -29px;
+      margin-top: -14px;
+      border: 14px solid transparent;
+      border-right-width: 14px;
+      border-right-style: solid;
+      z-index: 1;
+    }
+  }
 
   &.media-box-primary{
     @include media-box-coloring($primary);
@@ -472,7 +522,8 @@ a.comment-link{
   }
 
   >.media-content{
-    margin: 15px;
+    overflow: hidden;
+    padding: 15px;
     font-size: 1rem;
     position: relative;
     z-index: 1;

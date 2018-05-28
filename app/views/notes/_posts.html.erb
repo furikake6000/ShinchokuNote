@@ -1,1 +1,3 @@
-<%= render note.posts.order('updated_at DESC') %>
+<div class="note-timeline note-timeline-<%= note_color(note) %>">
+    <%= render note.posts.order('updated_at DESC'), baloon: true %>
+</div>

@@ -1,7 +1,7 @@
 <% tweet = tweet_post.tweet %>
 
 <% if tweet.retweeted_status.nil? %>
-<div class="media-box media-box-<%= note_color(tweet_post.note) %> tweet mb-3">
+<div class="media-box media-box-<%= note_color(tweet_post.note) %> <%= 'media-box-baloon' if defined?(baloon) %> tweet mb-3">
   
   <%= render 'notes/note_info', note: tweet_post.note, with_user_info: true if defined?(with_note_info) %>
   
