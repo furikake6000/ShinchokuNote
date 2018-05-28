@@ -1,7 +1,7 @@
-<div id="comments_container" class="tray-primary-withedge">
+<div id="comments_container" class="tray-<%= note_color(note) %>-withedge">
   <h3><%= "#{comments.size}件のコメント" %></h3>
 
-  <ul class="nav nav-pills nav-fill nav-justified mb-2" id="comments_menu_tab">
+  <ul class="nav nav-pills nav-pills-<%= note_color(note) %> nav-fill nav-justified mb-2" id="comments_menu_tab">
     <li class="nav-item">
       <%= link_to '未読', note_comments_path(note, params: { comments_filter: 'unread' }), id:'comments_unread_tab', class: 'nav-link active', remote: true %>
     </li>

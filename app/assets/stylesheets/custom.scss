@@ -418,9 +418,6 @@ header{
 #comments_container{
   ul li a{
     color: white;
-    &.active{
-      background-color: darken($primary, 10);
-    }
   }
 }
 
