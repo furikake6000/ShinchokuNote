@@ -80,7 +80,11 @@ body {
 }
 
 .nav-pills {
-  @include nav-pills-coloring($primary);
+  @include nav-pills-coloring($gray-500);
+
+  &.nav-pills-primary{
+    @include nav-pills-coloring($primary);
+  }
 
   &.nav-pills-secondary{
     @include nav-pills-coloring($secondary);
@@ -88,6 +92,10 @@ body {
 
   &.nav-pills-info{
     @include nav-pills-coloring($info);
+  }
+
+  &.nav-pills-lightgray{
+    @include nav-pills-coloring($gray-500);
   }
 }
 
@@ -243,8 +251,6 @@ header{
 // User partial
 
 .user-partial{
-  padding: 5px 0px;
-  border-bottom: 1px solid $gray-400;
 
   .user-partial-thumb{
     float: left;
@@ -275,12 +281,13 @@ header{
   padding-left: 1rem;
   padding-bottom: 1rem;
 
-  @include note-timeline-coloring($primary);
-
+  @include note-timeline-coloring($gray-500);
+  &.note-timeline-primary{
+    @include note-timeline-coloring($primary);
+  }
   &.note-timeline-secondary{
     @include note-timeline-coloring($secondary);
   }
-
   &.note-timeline-info{
     @include note-timeline-coloring($info);
   }
@@ -308,7 +315,7 @@ header{
   @extend .tray;
   background-color: white;
   h3{
-    @include chaptitle
+    @include chaptitle($gray-500);
   }
 }
 
@@ -462,7 +469,7 @@ a.comment-link{
   border-style: solid;
   background-color: white;
 
-  @include media-box-coloring($gray-600);
+  @include media-box-coloring($gray-500);
 
   &.media-box-baloon{
     &::before{
@@ -492,9 +499,11 @@ a.comment-link{
   &.media-box-primary{
     @include media-box-coloring($primary);
   }
-
   &.media-box-secondary{
     @include media-box-coloring($secondary);
+  }
+  &.media-box-info{
+    @include media-box-coloring($info);
   }
 
   >.note-info{
