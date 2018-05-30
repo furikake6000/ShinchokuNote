@@ -269,8 +269,18 @@ header{
 // Note timeline
 @mixin note-timeline-coloring($color){
   border-color: $color;
+
   &::before{
     border-bottom-color: $color;
+  }
+
+  > .note-timeline-date{
+    background-color: $color;
+    color: white;
+
+    > .note-timeline-month-eng{
+      color: lighten($color, 30);
+    }
   }
 }
 
@@ -278,8 +288,8 @@ header{
   border-left-style: solid;
   border-left-width: 1.5rem;
   margin-top: 2rem;
+  margin-bottom: 1rem;
   padding-left: 1rem;
-  padding-bottom: 1rem;
 
   @include note-timeline-coloring($gray-500);
   &.note-timeline-primary{
@@ -301,6 +311,34 @@ header{
     border-bottom-width: 1.5rem;
     border-left: 1.5rem solid transparent;
     border-right: 1.5rem solid transparent;
+  }
+
+  > .note-timeline-date{
+    position: relative;
+    width: 75%;
+    height: 4.8rem;
+    border-radius: 0 2.4rem 2.4rem 0;
+    margin-left: -1rem;
+
+    > .note-timeline-year{
+      position: absolute;
+      bottom: -0.9rem;
+      left: 3rem;
+      font-size: 2.4rem;
+    }
+    > .note-timeline-month{
+      position: absolute;
+      font-weight: bold;
+      bottom: -1.8rem;
+      left: -0.6rem;
+      font-size: 4.8rem;
+    }
+    > .note-timeline-month-eng{
+      position: absolute;
+      bottom: 1.8rem;
+      left: 2.5rem;
+      font-size: 1.8rem;
+    }
   }
 }
 
