@@ -1,4 +1,4 @@
-<% provide :body_bg, (@comment.to_note.type == 'RequestBox' ? 'body-bg-secondary' : 'body-bg-primary') %>
+<% provide :body_bg, "body-bg-#{note_color(@comment.to_note)}" %>
 
 <% provide(:title, "#{@comment.to_note.name}のコメント") %>
 

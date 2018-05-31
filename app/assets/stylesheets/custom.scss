@@ -433,7 +433,6 @@ header{
 #tweettext_count{
   float: right;
   margin-right: 10px;
-  color: $primary;
   font-size: 1.2rem;
   font-weight: bold;
 }
@@ -531,7 +530,7 @@ a.comment-link{
       z-index: 1;
     }
   }
-  
+
   @include media-box-coloring($gray-600);
 
   &.media-box-primary{
