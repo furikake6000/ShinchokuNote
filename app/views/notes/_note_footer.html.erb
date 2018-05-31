@@ -1,5 +1,5 @@
 <div class="media-toolbox cf">
-  <div id="toggle_note_<%= note.id %>_watchlisted" class="tool <%= 'active' if note.watchlisted_by?(current_user) %>">
+  <div class="toggle_note_<%= note.id %>_watchlisted tool <%= 'active' if note.watchlisted_by?(current_user) %>">
     <% if logged_in? %>
       <%= link_to fa_icon('star', text: note.watching_users.count ), note_watchlists_toggle_path(note), method: :post, remote: true %>
     <% else %>
@@ -9,7 +9,7 @@
   <div class="tool">
     <%= fa_icon 'envelope-o', text: note.comments.count %>
   </div>
-  <div id="post_note_<%= note.id %>_shinchoku_dodeska" class="tool <%= 'active' if posted_shinchoku_dodeska_today?(note, current_user) %>">
+  <div class="post_note_<%= note.id %>_shinchoku_dodeska tool <%= 'active' if posted_shinchoku_dodeska_today?(note, current_user) %>">
     <%= link_to note_shinchoku_dodeskas_path(note), method: :post, remote: true do %>
       <span class="icon-shinchokunote"></span> <%= note.shinchoku_dodeskas.count %>
     <% end %>

@@ -1,12 +1,12 @@
 <% tweet = tweet_post.tweet %>
 
-<%= render 'notes/note_info', note: tweet_post.note, with_user_info: true if defined?(with_note_info) %>
-
 <% if tweet.retweeted_status.nil? %>
-<div class="media-box tweet mb-3 <%= 'media-box-with-header' if defined?(with_note_info) %>">
-  <div class="bgstr"><%= fa_icon 'comment-o' %></div>
+<div class="media-box media-box-<%= note_color(tweet_post.note) %> <%= 'media-box-baloon' if defined?(baloon) %> tweet mb-3">
+  
+  <%= render 'notes/note_info', note: tweet_post.note, with_user_info: true if defined?(with_note_info) %>
   
   <div class="media-content">
+    <div class="bgstr"><%= fa_icon 'comment-o' %></div>
     <% if current_user?(tweet_post.note.user) %>
     <button type="button" class="close" data-toggle="modal" data-target="#deletePost<%= tweet_post.id %>Modal">
       <span aria-hidden="true">&times;</span>
@@ -49,7 +49,7 @@
       <% end %>
     </div>
     <div class="media-footer">
-      <span><%= smart_time_to_str(tweet.created_at) %></span>
+      <span><%= smart_time_to_str(tweet_post.created_at) %></span>
       <span><%= link_to 'ツイート', tweet_url(tweet) %></span>
     </div>
 

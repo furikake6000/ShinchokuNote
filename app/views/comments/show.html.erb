@@ -1,3 +1,5 @@
+<% provide :body_bg, "body-bg-#{note_color(@comment.to_note)}" %>
+
 <% provide(:title, "#{@comment.to_note.name}のコメント") %>
 
 <%= link_to "#{@comment.to_note.name}に戻る", note_path(@comment.to_note) %>

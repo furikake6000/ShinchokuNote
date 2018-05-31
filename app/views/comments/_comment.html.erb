@@ -1,13 +1,12 @@
 <%= render 'notes/note_info', note: comment.to_note if defined?(with_note_info) %>
 <div class="media-box comment mb-3">
-  <div class="bgstr"><%= fa_icon 'envelope-o' %></div>
-
   <div class="media-content">
+    <div class="bgstr"><%= fa_icon 'envelope-o' %></div>
     <% if user_can_delete_comment?(comment, current_user) %>
     <div class="media-righttop">
-      <a href="" data-toggle="modal" data-target="#deleteComment<%= comment.id %>Modal">
-        削除
-      </a>
+      <button type="button" class="close" data-toggle="modal" data-target="#deleteComment<%= comment.id %>Modal">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
     <% end %>
 

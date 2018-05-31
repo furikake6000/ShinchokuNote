@@ -19,4 +19,9 @@ module NotesHelper
     omakase_path(random: 'shinchokunote'.chars.shuffle.join)
   end
 
+  # Noteからその色の名前を取得する
+  def note_color(note)
+    note.type == 'RequestBox' ? 'secondary' : 'primary'
+  end
+
 end

@@ -69,6 +69,36 @@ body {
   }
 }
 
+@mixin nav-pills-coloring($color){
+  .nav-link {
+    color: $color;
+    &.active {
+      color: white;
+      background-color: $color;
+    }
+  }
+}
+
+.nav-pills {
+  @include nav-pills-coloring($gray-500);
+
+  &.nav-pills-primary{
+    @include nav-pills-coloring($primary);
+  }
+
+  &.nav-pills-secondary{
+    @include nav-pills-coloring($secondary);
+  }
+
+  &.nav-pills-info{
+    @include nav-pills-coloring($info);
+  }
+
+  &.nav-pills-lightgray{
+    @include nav-pills-coloring($gray-500);
+  }
+}
+
 .navbar-toggler,.nav-item, .nav-item > a{
   color: $primary;
 
@@ -132,16 +162,38 @@ html{
 }
 
 body{
-  background-color: #F4E2D3;
+  background-color: $gray-100;
+
+  &.body-bg-primary{
+    background-color: lighten($primary, 40);
+  }
+  &.body-bg-secondary{
+    background-color: lighten($secondary, 40);
+  }
 }
 
 h1{
-  @include chaptitle(darken($primary, 20), x-large)
+  @include chaptitle($gray-500, x-large);
+
+  &.h1-primary{
+    @include chaptitle($primary, x-large);
+  }
+
+  &.h1-secondary{
+    @include chaptitle($secondary, x-large);
+  }
 }
 
 header{
-  max-width: 750px;
-  margin: auto;
+  .headermenu{
+    max-width: 750px;
+    margin: auto;
+    padding: 5px;
+  }
+
+  margin-bottom: 20px;
+  background-color: white;
+  border-bottom: 2px solid $gray-300;
 }
 
 .singlecol{
@@ -156,6 +208,9 @@ header{
 }
 .large-text{
   font-size: 1.2rem;
+}
+.bold-text{
+  font-weight: bold;
 }
 
 // Logo
@@ -199,8 +254,6 @@ header{
 // User partial
 
 .user-partial{
-  padding: 5px 0px;
-  border-bottom: 1px solid $gray-400;
 
   .user-partial-thumb{
     float: left;
@@ -216,6 +269,166 @@ header{
   }
 }
 
+// Note index
+@mixin note-index-coloring($color){
+  >.note-index-monthly{
+    background-color: $color;
+    color: white;
+
+    &:hover{
+      background-color: darken($color, 10);
+      transition-duration: 0.5s;
+    }
+  }
+}
+
+.note-index{
+  @include note-index-coloring($gray-500);
+  &.note-index-primary{
+    @include note-index-coloring($primary);
+  }
+  &.note-index-secondary{
+    @include note-index-coloring($secondary);
+  }
+  &.note-index-info{
+    @include note-index-coloring($info);
+  }
+
+  >.note-index-monthly{
+    display: inline-block;
+    position: relative;
+    width: 4.5rem;
+    height: 3rem;
+
+    > .note-index-year{
+      position: absolute;
+      top: 1.6rem;
+      left: 1.8rem;
+      font-size: 1.2rem;
+    }
+    > .note-index-month{
+      position: absolute;
+      font-weight: bold;
+      top: -1rem;
+      font-size: 2.4rem;
+    }
+  }
+}
+
+// Note timeline
+@mixin note-timeline-coloring($color){
+  border-color: $color;
+
+  &::before{
+    border-bottom-color: $color;
+  }
+
+  > .note-timeline-date{
+    background-color: $color;
+    color: white;
+
+    > .note-timeline-month-eng{
+      color: lighten($color, 30);
+    }
+  }
+
+  > .note-timeline-date-sm{
+    background-color: $color;
+    color: white;
+
+    > .note-timeline-month-eng{
+      color: lighten($color, 30);
+    }
+  }
+}
+
+.note-timeline{
+  border-left-style: solid;
+  border-left-width: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+
+  @include note-timeline-coloring($gray-500);
+  &.note-timeline-primary{
+    @include note-timeline-coloring($primary);
+  }
+  &.note-timeline-secondary{
+    @include note-timeline-coloring($secondary);
+  }
+  &.note-timeline-info{
+    @include note-timeline-coloring($info);
+  }
+
+  &::before{
+    content: "";
+    position: relative;
+    top: -2.25rem;
+    left: -3.25rem;
+    border-bottom-style: solid;
+    border-bottom-width: 1.5rem;
+    border-left: 1.5rem solid transparent;
+    border-right: 1.5rem solid transparent;
+  }
+
+  > .note-timeline-date{
+    position: relative;
+    width: 75%;
+    height: 4.8rem;
+    border-radius: 0 2.4rem 2.4rem 0;
+    margin-left: -1rem;
+
+    > .note-timeline-year{
+      position: absolute;
+      bottom: -0.9rem;
+      left: 3.6rem;
+      font-size: 2.4rem;
+    }
+    > .note-timeline-month{
+      position: absolute;
+      width: 5rem;
+      text-align: right;
+      font-weight: bold;
+      bottom: -1.8rem;
+      left: -2rem;
+      font-size: 4.8rem;
+      letter-spacing: -0.4rem;
+    }
+    > .note-timeline-month-eng{
+      position: absolute;
+      bottom: 1.8rem;
+      left: 3.4rem;
+      font-size: 1.8rem;
+    }
+  }
+
+  > .note-timeline-date-sm{
+    position: relative;
+    width: 50%;
+    height: 2.4rem;
+    border-radius: 0 2.4rem 2.4rem 0;
+    margin-left: -1rem;
+    margin-bottom: 1rem;
+
+    > .note-timeline-year{
+      position: absolute;
+      bottom: -0.5rem;
+      left: 2rem;
+      font-size: 1.8rem;
+    }
+    > .note-timeline-month{
+      position: absolute;
+      width: 3rem;
+      text-align: right;
+      font-weight: bold;
+      bottom: -0.75rem;
+      left: -1.8rem;
+      font-size: 2.4rem;
+      letter-spacing: -0.4rem;
+    }
+  }
+}
+
 // Trays
 .tray{
   border-radius: 20px;
@@ -227,14 +440,24 @@ header{
   @extend .tray;
   background-color: white;
   h3{
-    @include chaptitle
+    @include chaptitle($gray-500);
   }
 }
 
 .tray-light-withedge{
   @extend .tray;
   background-color: white;
-  border: medium solid darken($primary, 20);
+  border: medium solid $gray-500;
+
+  h3{
+    @include chaptitle($gray-500);
+  }
+}
+
+.tray-light-withedge-primary{
+  @extend .tray;
+  background-color: white;
+  border: medium solid $primary;
 
   h3{
     @include chaptitle
@@ -244,20 +467,10 @@ header{
 .tray-light-withedge-secondary{
   @extend .tray;
   background-color: white;
-  border: medium solid darken($secondary, 20);
+  border: medium solid $secondary;
 
   h3{
     @include chaptitle($secondary);
-  }
-}
-
-.tray-light-withedge-lightgray{
-  @extend .tray;
-  background-color: white;
-  border: medium solid $gray-600;
-
-  h3{
-    @include chaptitle($gray-600);
   }
 }
 
@@ -307,7 +520,6 @@ header{
 #tweettext_count{
   float: right;
   margin-right: 10px;
-  color: $primary;
   font-size: 1.2rem;
   font-weight: bold;
 }
@@ -337,9 +549,6 @@ header{
 #comments_container{
   ul li a{
     color: white;
-    &.active{
-      background-color: darken($primary, 10);
-    }
   }
 }
 
@@ -351,71 +560,120 @@ a.comment-link{
 }
 
 // Media-box
-.media-box{
-  position: relative;
-  overflow: hidden;
-  border-radius: 10px;
-  border: 2px solid adjust-hue($primary, -10deg);
-  background-color: white;
-  padding: 10px;
+@mixin media-box-coloring($color){
+  border-color: $color;
 
-  &.media-box-secondary{
-    border-color: adjust-hue($secondary, -10deg);
-    >.media-content{
-      >h5 >a{
-        color: $secondary;
-      }
-
-      >.media-toolbox >.tool.active >a{
-        color: $secondary;
-      }
-    }
-    >.bgstr{
-      color: transparentize($secondary, 0.8);
-    }
+  &.media-box-baloon::after{
+    border-right-color: $color;
   }
 
-  &.media-box-lightgray{
-    border-color: $gray-500;
-    >.media-content{
-      >h5 >a{
-        color: $gray-500;
-      }
-
-      >.media-toolbox >.tool.active >a{
-        color: $gray-500;
-      }
-    }
-    >.bgstr{
-      color: transparentize($gray-500, 0.8);
-    }
-  }
-
-  &.media-box-with-header{
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    margin-top: -10px;
+  >.note-info{
+    background-color: $color;
   }
 
   >.media-content{
-    font-size: 1.2rem;
+    >.bgstr{
+      color: transparentize($color, 0.8);
+    }
+
+    >h5 >a{
+      color: $color;
+    }
+
+    >.media-toolbox >.tool.active >a{
+      color: darken($color, 10);
+    }
+  }
+}
+
+.media-box{
+  position: relative;
+  border-radius: 10px;
+  border-width: 2px;
+  border-style: solid;
+  background-color: white;
+
+  &.media-box-baloon{
+    &::before{
+      content: "";
+      position: absolute;
+      top: 30px;
+      left: -24px;
+      margin-top: -12px;
+      border: 12px solid transparent;
+      border-right: 12px solid #FFF;
+      z-index: 2;
+    }
+    
+    &::after{
+      content: "";
+      position: absolute;
+      top: 30px;
+      left: -29px;
+      margin-top: -14px;
+      border: 14px solid transparent;
+      border-right-width: 14px;
+      border-right-style: solid;
+      z-index: 1;
+    }
+  }
+
+  @include media-box-coloring($gray-600);
+
+  &.media-box-primary{
+    @include media-box-coloring($primary);
+  }
+  &.media-box-secondary{
+    @include media-box-coloring($secondary);
+  }
+  &.media-box-info{
+    @include media-box-coloring($info);
+  }
+
+  >.note-info{
+    position: relative;
+    border-radius: 10px;
+    margin: -2px -2px 0px -2px;
+    padding: 10px 10px 5px 10px;
+    z-index: 10;
+    color: white;
+    a{
+      color: white;
+    }
+    a:hover{
+      color: white;
+    }
+    img{
+      vertical-align: text-bottom;
+    }
+    .note-info-user-name{
+      font-weight: bold;
+    }
+  }
+
+  >.media-content{
+    overflow: hidden;
+    padding: 15px;
+    font-size: 1rem;
     position: relative;
     z-index: 1;
+
+    >.bgstr{
+      position: absolute;
+      z-index: -1;
+      top: -80px;
+      right: -80px;
+      right: 0;
+      white-space: nowrap;
+      font-size: 10rem;
+      font-weight: bold;
+      transform: rotate(-30deg);
+    }
 
     >h5{
       font-weight: bold;
       letter-spacing: 0.1em;
-      font-size: 1.5rem;
-    }
-
-    >.media-righttopa{
-      text-align: right;
-      font-size: 1rem;
-      font-weight: bold;
-      color: $gray-600;
-      >a{
-        color: $gray-600;
-      }
+      font-size: 1.3rem;
     }
 
     >.media-body{
@@ -426,12 +684,12 @@ a.comment-link{
       >.media-text-l{
         word-break : break-all;
         white-space: pre-wrap;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
       }
       >.media-text-xl{
         word-break : break-all;
         white-space: pre-wrap;
-        font-size: 2.0rem;
+        font-size: 1.5rem;
       }
 
       >.media-link{
@@ -448,17 +706,11 @@ a.comment-link{
         text-decoration: none;
         font-size: 0.9rem;
         font-weight: bold;
-        color: $gray-600;
+        color: $gray-500;
         >a{
           text-decoration: none;
           font-weight: bold;
-          color: $gray-600;
-        }
-    
-        &.active{
-          >a{
-            color: $primary;
-          }
+          color: $gray-500;
         }
       }
     }
@@ -475,40 +727,8 @@ a.comment-link{
     }
   }
 
-  >.bgstr{
-    position: absolute;
-    top: -50px;
-    right: 0;
-    white-space: nowrap;
-    font-size: 7rem;
-    font-weight: bold;
-    color: transparentize($primary, 0.8);
-    transform: rotate(-30deg);
-  }
-
   >.media-box-with-toolbox{
     border-bottom-right-radius: 0px;
-  }
-}
-
-.note-info{
-  position: relative;
-  border-radius: 10px;
-  background-color: adjust-hue($primary, -10deg);
-  padding: 10px 10px 5px 10px;
-  z-index: 10;
-  color: white;
-  a{
-    color: white;
-  }
-  a:hover{
-    color: white;
-  }
-  img{
-    vertical-align: text-bottom;
-  }
-  .note-info-user-name{
-    font-weight: bold;
   }
 }
 

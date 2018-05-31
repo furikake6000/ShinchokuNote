@@ -16,7 +16,7 @@
       <p class="text-muted small-text">※投稿者を公開したい場合はログインしてください。</p>
     <% end %>
     <div class="input-group">
-      <button type="button" id="comment_submit" class="btn btn-primary" data-toggle="modal" data-target="#commentConfirm" disabled=true>
+      <button type="button" id="comment_submit" class="btn <%= note.type == 'RequestBox' ? 'btn-secondary' : 'btn-primary' %>" data-toggle="modal" data-target="#commentConfirm" disabled=true>
         コメントする
       </button>
     </div>
