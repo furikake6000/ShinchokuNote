@@ -274,6 +274,11 @@ header{
   >.note-index-monthly{
     background-color: $color;
     color: white;
+
+    &:hover{
+      background-color: darken($color, 10);
+      transition-duration: 0.5s;
+    }
   }
 }
 
