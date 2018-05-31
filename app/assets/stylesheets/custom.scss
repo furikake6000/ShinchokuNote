@@ -507,8 +507,6 @@ a.comment-link{
   border-style: solid;
   background-color: white;
 
-  @include media-box-coloring($gray-500);
-
   &.media-box-baloon{
     &::before{
       content: "";
@@ -533,6 +531,8 @@ a.comment-link{
       z-index: 1;
     }
   }
+  
+  @include media-box-coloring($gray-600);
 
   &.media-box-primary{
     @include media-box-coloring($primary);
