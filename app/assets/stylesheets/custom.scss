@@ -209,6 +209,9 @@ header{
 .large-text{
   font-size: 1.2rem;
 }
+.bold-text{
+  font-weight: bold;
+}
 
 // Logo
 
@@ -266,6 +269,47 @@ header{
   }
 }
 
+// Note index
+@mixin note-index-coloring($color){
+  >.note-index-monthly{
+    background-color: $color;
+    color: white;
+  }
+}
+
+.note-index{
+  @include note-index-coloring($gray-500);
+  &.note-index-primary{
+    @include note-index-coloring($primary);
+  }
+  &.note-index-secondary{
+    @include note-index-coloring($secondary);
+  }
+  &.note-index-info{
+    @include note-index-coloring($info);
+  }
+
+  >.note-index-monthly{
+    display: inline-block;
+    position: relative;
+    width: 4.5rem;
+    height: 3rem;
+
+    > .note-index-year{
+      position: absolute;
+      top: 1.6rem;
+      left: 1.8rem;
+      font-size: 1.2rem;
+    }
+    > .note-index-month{
+      position: absolute;
+      font-weight: bold;
+      top: -1rem;
+      font-size: 2.4rem;
+    }
+  }
+}
+
 // Note timeline
 @mixin note-timeline-coloring($color){
   border-color: $color;
@@ -275,6 +319,15 @@ header{
   }
 
   > .note-timeline-date{
+    background-color: $color;
+    color: white;
+
+    > .note-timeline-month-eng{
+      color: lighten($color, 30);
+    }
+  }
+
+  > .note-timeline-date-sm{
     background-color: $color;
     color: white;
 
@@ -323,21 +376,50 @@ header{
     > .note-timeline-year{
       position: absolute;
       bottom: -0.9rem;
-      left: 3rem;
+      left: 3.6rem;
       font-size: 2.4rem;
     }
     > .note-timeline-month{
       position: absolute;
+      width: 5rem;
+      text-align: right;
       font-weight: bold;
       bottom: -1.8rem;
-      left: -0.6rem;
+      left: -2rem;
       font-size: 4.8rem;
+      letter-spacing: -0.4rem;
     }
     > .note-timeline-month-eng{
       position: absolute;
       bottom: 1.8rem;
-      left: 2.5rem;
+      left: 3.4rem;
       font-size: 1.8rem;
+    }
+  }
+
+  > .note-timeline-date-sm{
+    position: relative;
+    width: 50%;
+    height: 2.4rem;
+    border-radius: 0 2.4rem 2.4rem 0;
+    margin-left: -1rem;
+    margin-bottom: 1rem;
+
+    > .note-timeline-year{
+      position: absolute;
+      bottom: -0.5rem;
+      left: 2rem;
+      font-size: 1.8rem;
+    }
+    > .note-timeline-month{
+      position: absolute;
+      width: 3rem;
+      text-align: right;
+      font-weight: bold;
+      bottom: -0.75rem;
+      left: -1.8rem;
+      font-size: 2.4rem;
+      letter-spacing: -0.4rem;
     }
   }
 }
