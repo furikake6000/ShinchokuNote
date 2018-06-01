@@ -7,6 +7,7 @@
 
 .dropmenu:hover {
   .dropmenu-content {
+    border: 1px solid $gray-400;
     visibility: visible;
     opacity: 1;
     height: auto;
@@ -14,6 +15,7 @@
 }
 
 .dropmenu-content {
+  border-radius: 5px;
   background-color: white;
   visibility: hidden;
   opacity: 0;
