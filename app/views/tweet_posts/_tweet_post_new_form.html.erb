@@ -8,7 +8,7 @@
   <div class="input-group">
     <%= f.text_area :text, placeholder: 'つぶやく内容', id: 'tweettext_form', class:'form-control' %>
   </div>
-  <div id="tweettext_count">0 / <%= defined?(response_to) ? 108 : 110 %></div>
+  <div id="tweettext_count" class="text-<%= note_color(note) %>">0 / <%= defined?(response_to) ? 108 : 110 %></div>
   <div class="input-group mb-2">
     <div id="image_form_virtual">
       <div><%= fa_icon 'photo 2x' %></div>
@@ -18,7 +18,7 @@
     <%= f.file_field :image, id: "image_form_hidden", multiple: true %>
   </div>
   <div class="text-right">
-    <%= f.submit 'Twitterでつぶやく', id: 'tweet_submit', class: 'btn btn-primary', disabled: true %>
+    <%= f.submit 'Twitterでつぶやく', id: 'tweet_submit', class: "btn btn-#{note_color(note)}", disabled: true %>
   </div>
 <% end %>
 
