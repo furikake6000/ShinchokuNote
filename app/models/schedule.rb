@@ -5,4 +5,7 @@ class Schedule < Post
     undone: 0,
     done: 1
   }, _suffix: true
+
+  validates :status, presence: true
+  validates :scheduled_time, presence: true
 end

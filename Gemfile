@@ -12,6 +12,7 @@ gem 'listen', '~>3.1'
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.2.0'
 gem 'sass-rails', '~> 5.0'
+gem 'slim', '~> 3.0'
 gem 'therubyracer', '~> 0.12.3'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
@@ -48,6 +49,10 @@ gem 'paranoia', '~>2.4'
 
 # newrelic rpm
 gem 'newrelic_rpm'
+
+# datetimepicker
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 
 group :development, :test do
   gem 'byebug', '~>9.1', platforms: %i[mri mingw x64_mingw]

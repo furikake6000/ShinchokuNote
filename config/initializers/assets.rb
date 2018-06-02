@@ -17,6 +17,7 @@ Rails.application.config.assets.precompile += %w[
   show_comments_tab.js
   tweet_text_box.js
   comment_text_box.js
+  datetimepicker.js
 ]
 
 # Original Webfonts

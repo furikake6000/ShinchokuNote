@@ -1,0 +1,21 @@
+= form_for \
+    [note.becomes(Note), Post.new],
+    url: note_tweet_posts_path(note),
+    html: {method: 'POST'} do |f|
+
+    = f.hidden_field :type, value: 'Schedule'
+    = f.label :desc, 'スケジュール タイトル', class: 'mb-0'
+    .input-group
+        = f.text_field :text,
+            id: 'scheduletext_form',
+            class: 'form-control'
+    = f.label :desc, '目標日', class: 'mb-0'
+    .input-group.date.date-picker
+    
+    .text-right
+        = f.submit 'スケジュールの作成',
+            id: 'schedule_submit',
+            class: "btn btn-#{note_color note}"
+
+- content_for :javascript do
+    = javascript_include_tag 'datetimepicker', 'data-turbolinks-track': 'reload'
