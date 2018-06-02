@@ -7,5 +7,5 @@ class Schedule < Post
   }, _suffix: true
 
   validates :status, presence: true
-  validates :scheduled_time, presence: true
+  validates :scheduled_at, presence: true
 end

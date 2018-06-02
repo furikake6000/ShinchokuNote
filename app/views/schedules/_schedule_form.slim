@@ -1,6 +1,6 @@
 = form_for \
     [note.becomes(Note), Post.new],
-    url: note_tweet_posts_path(note),
+    url: note_schedules_path(note),
     html: {method: 'POST'} do |f|
 
     = f.hidden_field :type, value: 'Schedule'
@@ -11,6 +11,10 @@
             class: 'form-control'
     = f.label :desc, '目標日', class: 'mb-0'
     .input-group.date.date-picker
+        = f.text_field :scheduled_at,
+            hidden: true,
+            id: 'scheduletext_form',
+            class: 'form-control'
     
     .text-right
         = f.submit 'スケジュールの作成',
