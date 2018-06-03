@@ -1,11 +1,11 @@
-<% note.posts.group_by { |p| p.created_at.year }.reverse_each do |y, y_posts| %>
-    <% y_posts.group_by { |p| p.created_at.month }.reverse_each do |m, m_posts| %>
+<% note.posts.group_by { |p| p.sort_condition_date.year }.reverse_each do |y, y_posts| %>
+    <% y_posts.group_by { |p| p.sort_condition_date.month }.reverse_each do |m, m_posts| %>
         <div id="note-timeline-<%= y %>-<%= m %>" class="note-timeline note-timeline-<%= note_color(note) %>">
             <div class="note-timeline-date-sm">
                 <div class="note-timeline-month"><%= m %></div>
                 <div class="note-timeline-year">/<%= y %></div>
             </div>
-            <%= render m_posts.sort_by(&:updated_at).reverse, baloon: true %>
+            <%= render m_posts.sort_by { |p| p.sort_condition_date }.reverse, baloon: true %>
             <div class="note-timeline-date cf">
                 <div class="note-timeline-month"><%= m %></div>
                 <div class="note-timeline-year">/ <%= y %></div>

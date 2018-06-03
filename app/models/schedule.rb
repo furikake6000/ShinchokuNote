@@ -9,4 +9,8 @@ class Schedule < Post
   validates :text, presence: true
   validates :status, presence: true
   validates :scheduled_at, presence: true
+
+  def sort_condition_date
+    scheduled_at
+  end
 end
