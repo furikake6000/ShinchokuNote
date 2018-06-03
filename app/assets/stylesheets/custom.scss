@@ -671,6 +671,12 @@ a.comment-link{
   &.media-box-info-dark{
     @include media-box-coloring-dark($info);
   }
+  &.media-box-success-dark{
+    @include media-box-coloring-dark($success);
+  }
+  &.media-box-danger-dark{
+    @include media-box-coloring-dark($danger);
+  }
 
   >.note-info{
     position: relative;
