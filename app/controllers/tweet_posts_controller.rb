@@ -38,11 +38,11 @@ class TweetPostsController < ApplicationController
         # 文字数減少要素: URL, hashtag, コメントの改行, それぞれの間の空白、コメント先頭の'> ''
         responded_comment_maxlen = 140 - 22 - 1 - 6 - 1 - 2 - 2 - params[:post][:text].length
         # 必要に応じて載せるコメントを切り貼りする
-        if responded_comment_maxlen < 0
+        if responded_comment_maxlen < 2
           tweetstr = params[:post][:text] + ' #進捗ノート ' + 
                      comment_url(responded_comment, only_path: false)
         else
-          responded_comment_text = 
+          responded_comment_text =
             responded_comment.text.length > responded_comment_maxlen ?
             '> ' + responded_comment.text[0..responded_comment_maxlen - 3] + '...' :
             '> ' + responded_comment.text
@@ -87,6 +87,7 @@ class TweetPostsController < ApplicationController
     tweet_hash = tweet.to_hash
     # 新規ツイートの場合はテキストは全文ではなくフォームに書かれた部分のみ
     tweet_hash['text'] = params[:post][:text] if params[:post][:text]
+    tweet_hash['full_text'] = params[:post][:text] if params[:post][:text]
 
     # jsonにしてあとでtweetに復元できる形式で保存
     newpost.text = tweet_hash.to_json
