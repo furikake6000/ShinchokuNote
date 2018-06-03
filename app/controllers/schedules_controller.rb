@@ -5,7 +5,7 @@ class SchedulesController < ApplicationController
     render_400 && return \
       if params[:post][:scheduled_at].nil? && params[:post][:text].empty?
 
-    params[:post][:scheduled_at] = DateTime.parse(params[:post][:scheduled_at])
+    params[:post][:scheduled_at] = DateTime.strptime(params[:post][:scheduled_at], "%Y/%m/%d %H:%M%z")
     params[:post][:status] = Schedule.statuses[:undone]
 
     @schedule = @note.posts.new(schedule_params)

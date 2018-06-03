@@ -1,8 +1,9 @@
-.media-box.mb-3 class="media-box-note_color#{(schedule.note)}"
+.media-box.mb-3 class="media-box-#{note_color(schedule.note)}-dark"
     .media-content
         .bgstr 
             = fa_icon 'clock-o'
-        .media-body
-            .media-text.mb-1 
+        .media-body.text-center
+            .media-text-xl.bold-text.mb-1 
                 = schedule.text
-                = schedule.scheduled_at
+            .media-text.bold-text.mb-1
+                = smart_time_to_str(schedule.scheduled_at)
