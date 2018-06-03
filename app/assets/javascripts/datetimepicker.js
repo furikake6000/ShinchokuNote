@@ -1,4 +1,4 @@
-$(function(){
+$(document).on('turbolinks:load', function(){
     $('.date-picker').datetimepicker({
         inline: true,
         showTodayButton: true,

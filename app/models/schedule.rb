@@ -6,6 +6,7 @@ class Schedule < Post
     done: 1
   }, _suffix: true
 
+  validates :text, presence: true
   validates :status, presence: true
   validates :scheduled_at, presence: true
 end

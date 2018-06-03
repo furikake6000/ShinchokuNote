@@ -2,20 +2,23 @@ class SchedulesController < ApplicationController
   before_action -> { load_note_as_mine :note_id }, only: %i[create]
 
   def create
-    render_400 && return if params[:post][:scheduled_at].nil? && params[:post][:text].empty?
+    render_400 && return \
+      if params[:post][:scheduled_at].nil? && params[:post][:text].empty?
 
     params[:post][:scheduled_at] = DateTime.parse(params[:post][:scheduled_at])
     params[:post][:status] = Schedule.statuses[:undone]
 
     @schedule = @note.posts.new(schedule_params)
-    
+
     if @schedule.save
-      # 保存成功
-      redirect_to note_path(@note)
+      # 成功メッセージ
+      flash[:success] = '新しいスケジュールを登録しました。'
     else
-      # やりなおし
-      render 'notes/show'
+      # やりなおしメッセージ
+      flash[:danger] = 'スケジュールの登録に失敗しました。パラメータが合っているか確認してください。'
     end
+
+    redirect_to note_path(@note)
   end
 
   private

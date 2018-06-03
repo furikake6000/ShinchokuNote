@@ -19,7 +19,9 @@
     .text-right
         = f.submit 'スケジュールの作成',
             id: 'schedule_submit',
-            class: "btn btn-#{note_color note}"
+            class: "btn btn-#{note_color note}",
+            disabled: true
 
 - content_for :javascript do
     = javascript_include_tag 'datetimepicker', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'schedule_text_box', 'data-turbolinks-track': 'reload'
