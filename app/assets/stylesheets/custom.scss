@@ -1,4 +1,5 @@
 @import "my_bootstrap";
+@import 'bootstrap-datetimepicker';
 
 // Variables and Mixins
 
@@ -152,6 +153,10 @@ a.text-lightgray:hover{
   color: $gray-600 !important;
 }
 
+.bootstrap-datetimepicker-widget{
+  margin: auto;
+}
+
 // Primary settings
 
 html{
@@ -211,6 +216,10 @@ header{
 }
 .bold-text{
   font-weight: bold;
+}
+
+.clickable{
+  cursor: pointer;
 }
 
 // Logo
@@ -562,6 +571,7 @@ a.comment-link{
 // Media-box
 @mixin media-box-coloring($color){
   border-color: $color;
+  background-color: white;
 
   &.media-box-baloon::after{
     border-right-color: $color;
@@ -586,12 +596,35 @@ a.comment-link{
   }
 }
 
+@mixin media-box-coloring-dark($color){
+  background-color: lighten($color, 5);
+  border-width: 0;
+  color: white;
+
+  >.note-info{
+    background-color: $color;
+  }
+
+  >.media-content{
+    >.bgstr{
+      color: transparentize(white, 0.5);
+    }
+
+    >h5 >a{
+      color: white;
+    }
+
+    >.media-toolbox >.tool.active >a{
+      color: darken($color, 10);
+    }
+  }
+}
+
 .media-box{
   position: relative;
   border-radius: 10px;
   border-width: 2px;
   border-style: solid;
-  background-color: white;
 
   &.media-box-baloon{
     &::before{
@@ -628,6 +661,21 @@ a.comment-link{
   }
   &.media-box-info{
     @include media-box-coloring($info);
+  }
+  &.media-box-primary-dark{
+    @include media-box-coloring-dark(adjust-hue($primary, 10));
+  }
+  &.media-box-secondary-dark{
+    @include media-box-coloring-dark($secondary);
+  }
+  &.media-box-info-dark{
+    @include media-box-coloring-dark($info);
+  }
+  &.media-box-success-dark{
+    @include media-box-coloring-dark($success);
+  }
+  &.media-box-danger-dark{
+    @include media-box-coloring-dark($danger);
   }
 
   >.note-info{

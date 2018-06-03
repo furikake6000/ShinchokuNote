@@ -6,7 +6,7 @@
   <%= render 'notes/note_info', note: tweet_post.note, with_user_info: true if defined?(with_note_info) %>
   
   <div class="media-content">
-    <div class="bgstr"><%= fa_icon 'comment-o' %></div>
+    <div class="bgstr"><span class="icon-shinchokunote"></span></div>
     <% if current_user?(tweet_post.note.user) %>
     <button type="button" class="close" data-toggle="modal" data-target="#deletePost<%= tweet_post.id %>Modal">
       <span aria-hidden="true">&times;</span>

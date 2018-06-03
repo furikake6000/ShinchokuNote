@@ -143,15 +143,15 @@ class ApplicationController < ActionController::Base
   end
 
   def load_newest_posts(size)
-    @newest_posts = Post.order('created_at DESC').limit(size)
+    @newest_posts = TweetPost.order('created_at DESC').limit(size)
   end
 
   def load_watching_posts(size)
     return nil unless logged_in?
     # note_idがwatching_noteであるpostを抽出
-    @watching_posts = Post.where('note_id IN (?)', current_user.watching_notes.map(&:id))
-                          .order('created_at DESC')
-                          .limit(size)
+    @watching_posts = TweetPost.where('note_id IN (?)', current_user.watching_notes.map(&:id))
+                               .order('created_at DESC')
+                               .limit(size)
   end
 
   def load_notifications

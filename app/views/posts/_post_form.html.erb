@@ -1,21 +1,31 @@
-<div class="post-form control-panel">
-  <h3>新しく進捗を報告する</h3>
-  <nav>
-    <div class="nav nav-pills nav-pills-primary post-form-tab mb-2" role="tablist">
-      <a class="nav-item nav-link active" id="makenew-tab" data-toggle="tab" href="#makenew" role="tab" aria-controls="makenew" aria-selected="true">
-        新規作成
-      </a>
-      <a class="nav-item nav-link" id="selectfromurl-tab" data-toggle="tab" href="#selectfromurl" role="tab" aria-controls="selectfromurl" aria-selected="false">
-        URLから紐付け
-      </a>
+<div class="control-panel accordion">
+  <a data-toggle="collapse" data-target="#tweetpost_form" aria-expanded="true" aria-controls="tweetpost_form">
+    <h3 class="clickable"><%= fa_icon 'plus-square-o', text: '新しく進捗を報告する' %></h3>
+  </a>
+  <div id="tweetpost_form" class="collapse show mb-3">
+    <nav>
+      <div class="nav nav-pills nav-pills-primary post-form-tab mb-2" role="tablist">
+        <a class="nav-item nav-link active" id="makenew-tab" data-toggle="tab" href="#makenew" role="tab" aria-controls="makenew" aria-selected="true">
+          新規作成
+        </a>
+        <a class="nav-item nav-link" id="selectfromurl-tab" data-toggle="tab" href="#selectfromurl" role="tab" aria-controls="selectfromurl" aria-selected="false">
+          URLから紐付け
+        </a>
+      </div>
+    </nav>
+    <div class="tab-content post-form-content">
+      <div class="tab-pane fade show active" id="makenew" role="tabpanel" aria-labelledby="makenew-tab">
+        <%= render 'tweet_posts/tweet_post_new_form', note: note %>
+      </div>
+      <div class="tab-pane fade" id="selectfromurl" role="tabpanel" aria-labelledby="selectfromurl-tab">
+        <%= render 'tweet_posts/tweet_post_url_form', note: note %>
+      </div>
     </div>
-  </nav>
-  <div class="tab-content post-form-content">
-    <div class="tab-pane fade show active" id="makenew" role="tabpanel" aria-labelledby="makenew-tab">
-      <%= render partial: 'tweet_posts/tweet_post_new_form', locals: {note: note} %>
-    </div>
-    <div class="tab-pane fade" id="selectfromurl" role="tabpanel" aria-labelledby="selectfromurl-tab">
-      <%= render partial: 'tweet_posts/tweet_post_url_form', locals: {note: note} %>
-    </div>
+  </div>
+  <a data-toggle="collapse" data-target="#schedule_form" aria-expanded="false" aria-controls="schedule_form">
+    <h3 class="clickable"><%= fa_icon 'plus-square-o', text: 'スケジュールを追加する' %></h3>
+  </a>
+  <div id="schedule_form" class="collapse">
+    <%= render 'schedules/schedule_form', note: note %>
   </div>
 </div>

@@ -16,8 +16,10 @@ Rails.application.routes.draw do
         resources :comments, only: :index
       end
 
-      # Post派生クラスTwitterPostはcreateのみ許可
+      # Post派生クラスTwitterPost
       resources :tweet_posts, only: :create
+      # Post派生クラスSchedule
+      resources :schedules, only: %i[create update]
 
       # ノートに対しWatchlist#Createができる
       resources :watchlists, only: %i[create destroy]

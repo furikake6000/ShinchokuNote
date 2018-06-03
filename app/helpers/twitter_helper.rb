@@ -25,7 +25,7 @@ module TwitterHelper
     end
 
     # 余分なハッシュタグの取り除き
-    basetext.gsub!(/#進捗ノート/, '')
+    basetext.gsub!(/#進捗ノート\s/, '')
     # 余分なURLの取り除き
     basetext.gsub!(URI.regexp(%w[http https]), '')
     # 末尾空白文字の取り除き

@@ -12,7 +12,10 @@
 //
 //= require rails-ujs
 //= require jquery
+//= require moment
+//= require moment/ja
 //= require bootstrap
 //= require bootstrap-sprockets
+//= require bootstrap-datetimepicker
 //= require turbolinks
 //= require components

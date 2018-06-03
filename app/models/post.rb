@@ -2,7 +2,8 @@ class Post < ApplicationRecord
   acts_as_paranoid
 
   enum type: {
-    TweetPost: 'TweetPost'
+    TweetPost: 'TweetPost',
+    Schedule: 'Schedule'
   }
 
   belongs_to :note
