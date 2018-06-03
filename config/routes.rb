@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       # Post派生クラスTwitterPost
       resources :tweet_posts, only: :create
       # Post派生クラスSchedule
-      resources :schedules, only: :create
+      resources :schedules, only: %i[create update]
 
       # ノートに対しWatchlist#Createができる
       resources :watchlists, only: %i[create destroy]

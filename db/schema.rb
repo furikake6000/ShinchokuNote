@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 2018_06_02_083123) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "scheduled_at"
-    t.string "status"
+    t.integer "status"
     t.index ["deleted_at"], name: "index_posts_on_deleted_at"
     t.index ["note_id"], name: "index_posts_on_note_id"
   end

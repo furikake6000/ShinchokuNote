@@ -2,8 +2,29 @@
     .media-content
         .bgstr 
             = fa_icon 'clock-o'
+        - if current_user? schedule.note.user
+            = link_to '完了する',
+                schedule_path(schedule, post: { status: Schedule.statuses[:done] }),
+                method: :patch,
+                class: 'btn btn-success btn-sm'
+            button.close type="button" data-toggle="modal" data-target="#deletePost#{schedule.id}Modal"
+                span aria-hidden="true" &times;
         .media-body.text-center
             .media-text-xl.bold-text.mb-1 
                 = schedule.text
             .media-text.bold-text.mb-1
                 = smart_time_to_str(schedule.scheduled_at)
+
+.modal.fade id="deletePost#{schedule.id}Modal" tabindex="-1" role="dialog" aria-labelledby="deletePost#{schedule.id}Modal" aria-hidden="true"
+    .modal-dialog role="document"
+        .modal-content
+            .modal-header
+                h5.modal-title id="deletePost#{schedule.id}Modal" スケジュールを削除します
+                button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    span aria-hidden="true" &times;
+            .modal-body
+                p スケジュール「#{schedule.text}」を削除します。
+                p.text-danger.font-weight-bold 復元はできません。本当によろしいですか？
+            .modal-footer
+                button type="button" class="btn btn-info" data-dismiss="modal" キャンセル
+                = link_to '削除する', post_path(schedule), method: :delete, class: 'btn btn-danger'
