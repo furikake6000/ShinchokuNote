@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   validates :twitter_id, presence: true
   validates :twitter_id, uniqueness: true
+  validates :screen_name, presence: true
 
   has_many :notes,
            dependent: :destroy

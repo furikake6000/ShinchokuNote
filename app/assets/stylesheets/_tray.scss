@@ -1,0 +1,69 @@
+.tray{
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+  
+.tray-light{
+    @extend .tray;
+    background-color: white;
+    h3{
+        @include chaptitle($gray-500);
+    }
+}
+  
+.tray-light-withedge{
+    @extend .tray;
+    background-color: white;
+    border: medium solid $gray-500;
+  
+    h3{
+        @include chaptitle($gray-500);
+    }
+}
+  
+.tray-light-withedge-primary{
+    @extend .tray;
+    background-color: white;
+    border: medium solid $primary;
+  
+    h3{
+        @include chaptitle
+    }
+}
+  
+.tray-light-withedge-secondary{
+    @extend .tray;
+    background-color: white;
+    border: medium solid $secondary;
+  
+    h3{
+        @include chaptitle($secondary);
+    }
+}
+  
+.tray-primary{
+    @extend .tray;
+    background-color: lighten($primary, 10);
+    h3{
+        @include chaptitle(white)
+    }
+}
+  
+.tray-primary-withedge{
+    @extend .tray-primary;
+    border: medium solid white;
+}
+  
+.tray-secondary{
+    @extend .tray;
+    background-color: lighten($secondary, 10);
+    h3{
+        @include chaptitle(white)
+    }
+}
+  
+.tray-secondary-withedge{
+    @extend .tray-secondary;
+    border: medium solid white;
+}
