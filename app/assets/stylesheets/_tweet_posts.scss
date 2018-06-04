@@ -1,0 +1,31 @@
+// New Tweet Form
+#tweettext_form{
+    height: 100px;
+}
+#tweettext_count{
+    float: right;
+    margin-right: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+#image_form_virtual{
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    vertical-align: middle;
+    border: medium dashed $gray-500;
+    border-radius: 10px;
+    color: $gray-500;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+}
+#image_form_hidden{
+    display: none;
+}
+#image_form_preview{
+    img{
+        width: 25%;
+        padding: 5px;
+    }
+}

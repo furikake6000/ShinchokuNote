@@ -1,0 +1,159 @@
+// Note index
+@mixin note-index-coloring($color){
+    >.note-index-monthly{
+        background-color: $color;
+        color: white;
+    
+        &:hover{
+            background-color: darken($color, 10);
+            transition-duration: 0.5s;
+        }
+    }
+}
+  
+.note-index{
+    @include note-index-coloring($gray-500);
+    &.note-index-primary{
+        @include note-index-coloring($primary);
+    }
+    &.note-index-secondary{
+        @include note-index-coloring($secondary);
+    }
+    &.note-index-info{
+        @include note-index-coloring($info);
+    }
+  
+    >.note-index-monthly{
+        display: inline-block;
+        position: relative;
+        width: 4.5rem;
+        height: 3rem;
+    
+        > .note-index-year{
+            position: absolute;
+            top: 1.6rem;
+            left: 1.8rem;
+            font-size: 1.2rem;
+        }
+        > .note-index-month{
+            position: absolute;
+            font-weight: bold;
+            top: -1rem;
+            font-size: 2.4rem;
+        }
+    }
+}
+  
+// Note timeline
+@mixin note-timeline-coloring($color){
+    border-color: $color;
+  
+    &::before{
+        border-bottom-color: $color;
+    }
+  
+    > .note-timeline-date{
+        background-color: $color;
+        color: white;
+    
+        > .note-timeline-month-eng{
+            color: lighten($color, 30);
+        }
+    }
+  
+    > .note-timeline-date-sm{
+        background-color: $color;
+        color: white;
+    
+        > .note-timeline-month-eng{
+            color: lighten($color, 30);
+        }
+    }
+}
+  
+.note-timeline{
+    border-left-style: solid;
+    border-left-width: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+  
+    @include note-timeline-coloring($gray-500);
+    &.note-timeline-primary{
+        @include note-timeline-coloring($primary);
+    }
+    &.note-timeline-secondary{
+        @include note-timeline-coloring($secondary);
+    }
+    &.note-timeline-info{
+        @include note-timeline-coloring($info);
+    }
+  
+    &::before{
+        content: "";
+        position: relative;
+        top: -2.25rem;
+        left: -3.25rem;
+        border-bottom-style: solid;
+        border-bottom-width: 1.5rem;
+        border-left: 1.5rem solid transparent;
+        border-right: 1.5rem solid transparent;
+    }
+  
+    > .note-timeline-date{
+        position: relative;
+        width: 75%;
+        height: 4.8rem;
+        border-radius: 0 2.4rem 2.4rem 0;
+        margin-left: -1rem;
+    
+        > .note-timeline-year{
+            position: absolute;
+            bottom: -0.9rem;
+            left: 3.6rem;
+            font-size: 2.4rem;
+        }
+        > .note-timeline-month{
+            position: absolute;
+            width: 5rem;
+            text-align: right;
+            font-weight: bold;
+            bottom: -1.8rem;
+            left: -2rem;
+            font-size: 4.8rem;
+            letter-spacing: -0.4rem;
+        }
+        > .note-timeline-month-eng{
+            position: absolute;
+            bottom: 1.8rem;
+            left: 3.4rem;
+            font-size: 1.8rem;
+        }
+    }
+  
+    > .note-timeline-date-sm{
+        position: relative;
+        width: 50%;
+        height: 2.4rem;
+        border-radius: 0 2.4rem 2.4rem 0;
+        margin-left: -1rem;
+        margin-bottom: 1rem;
+    
+        > .note-timeline-year{
+            position: absolute;
+            bottom: -0.5rem;
+            left: 2rem;
+            font-size: 1.8rem;
+        }
+        > .note-timeline-month{
+            position: absolute;
+            width: 3rem;
+            text-align: right;
+            font-weight: bold;
+            bottom: -0.75rem;
+            left: -1.8rem;
+            font-size: 2.4rem;
+            letter-spacing: -0.4rem;
+        }
+    }
+}
