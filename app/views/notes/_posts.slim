@@ -1,0 +1,16 @@
+- note.posts.group_by { |p| p.sort_condition_date.year }.sort.reverse_each do |y, y_posts|
+    - y_posts.group_by { |p| p.sort_condition_date.month }.sort.reverse_each do |m, m_posts|
+        .note-timeline id="note-timeline-#{y}-#{m}" class="note-timeline-#{note_color(note)}"
+            .note-timeline-date-sm
+                .note-timeline-month
+                    = m
+                .note-timeline-year
+                    = "/ #{y}"
+            = render m_posts.sort_by { |p| p.sort_condition_date }.reverse, baloon: true
+            .note-timeline-date.cf
+                .note-timeline-month
+                    = m
+                .note-timeline-year
+                    = "/ #{y}"
+                .note-timeline-month-eng
+                    = Date::MONTHNAMES[m]
