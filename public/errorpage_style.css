@@ -3,20 +3,26 @@ html{
 }
 
 body{
-  background-color: #F4E2D3;
+  background-color: #f8f9fa;
 }
 
-header {
+header{
+  margin-bottom: 20px;
+  background-color: white;
+  border-bottom: 2px solid #dee2e6;
+}
+header .headermenu{
   max-width: 750px;
   margin: auto;
+  padding: 5px;
 }
 
 h1{
   font-weight: bold;
   font-size: 1.2rem;
   letter-spacing: 0.2em;
-  color: #C07C48;
-  border-bottom: medium dotted #C07C48;
+  color: #adb5bd;
+  border-bottom: medium dotted #adb5bd;
 }
 
 .container {
@@ -28,4 +34,5 @@ h1{
   border-radius: 20px;
   padding: 20px;
   margin-bottom: 20px;
+  border: medium solid #adb5bd;
 }
