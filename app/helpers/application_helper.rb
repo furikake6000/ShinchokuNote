@@ -11,6 +11,15 @@ module ApplicationHelper
     end
   end
 
+  # yieldの中身があったら描画、なかったらdefaultを描画
+  def yield_or_default(y, default)
+    if y.empty?
+      default
+    else
+      y
+    end
+  end
+
   # 暗号化
   def encrypt_data(data, password, salt)
     key = RbNaCl::Hash.sha256(password)[0..31]
