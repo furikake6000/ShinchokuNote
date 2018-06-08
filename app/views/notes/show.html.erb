@@ -1,4 +1,6 @@
-<% provide(:title, @note.name) %>
+<% provide :title, @note.name %>
+<% provide :ogp_twitter_account, @note.user.screen_name %>
+<% provide :ogp_desc, @note.desc %>
 
 <% content_for :leftcol do %>
   <%= render 'users/user_panel', { user: @note.user } %>

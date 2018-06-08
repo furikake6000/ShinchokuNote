@@ -1,4 +1,6 @@
-<% provide(:title, "#{@user.name}の設定") %>
+<% provide :title, "#{@user.name}の設定" %>
+<% provide :ogp_twitter_account, @user.screen_name %>
+<% provide :ogp_desc, @user.desc %>
 
 <h1><%= @user.name %>の設定</h1>
 

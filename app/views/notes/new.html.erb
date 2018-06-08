@@ -1,4 +1,6 @@
-<% provide(:title, "#{@user.name}の新規ノート作成") %>
+<% provide :title, "#{@user.name}の新規ノート作成" %>
+<% provide :ogp_twitter_account, @user.screen_name %>
+<% provide :ogp_desc, @user.desc %>
 
 <h1>新規ページ作成</h1>
 

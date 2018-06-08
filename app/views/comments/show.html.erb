@@ -1,6 +1,7 @@
 <% provide :body_bg, "body-bg-#{note_color(@comment.to_note)}" %>
-
-<% provide(:title, "#{@comment.to_note.name}のコメント") %>
+<% provide :title, "#{@comment.to_note.name}のコメント" %>
+<% provide :ogp_twitter_account, @comment.to_note.user.screen_name %>
+<% provide :ogp_desc, @comment.text %>
 
 <%= link_to "#{@comment.to_note.name}に戻る", note_path(@comment.to_note) %>
 <%= render 'comments/comment', {comment: @comment, heavy: true, hide_response: true} %>

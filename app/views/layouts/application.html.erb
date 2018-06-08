@@ -2,14 +2,14 @@
 <html>
   <head>
     <%= render 'layouts/gtag' %>
-    <title><%= full_title(yield(:title)) %></title>
+    <title><%= full_title yield(:title) %></title>
     <%= csrf_meta_tags %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
 
     <meta name="twitter:card" content="<%= yield_or_default yield(:ogp_twitter_cardtype), 'summary' %>">
     <meta name="twitter:site" content="@<%= yield_or_default yield(:ogp_twitter_account), 'shinchokunote' %>">
     <meta property="og:url" content="<%= request.url %>">
-    <meta property="og:title" content="<%= yield_or_default yield(:ogp_title), '進捗ノート' %>">
+    <meta property="og:title" content="<%= yield_or_default yield(:title), '進捗ノート' %>">
     <meta property="og:description" content="<%= yield_or_default yield(:ogp_desc), 'みんなに進捗を見せて、アドバイスをもらおう。' %>">
     <meta property="og:image" content="<%= yield_or_default yield(:ogp_image), (root_url + 'favicon.ico') %>">
 
