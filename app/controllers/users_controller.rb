@@ -4,8 +4,8 @@ class UsersController < ApplicationController
                 only: %i[edit update destroy]
   before_action -> { load_user_as_me_or_admin :user_id }, only: :leave
   before_action -> { load_user :id }, only: :show
-  before_action -> { load_newest_posts 10 }, only: :home
-  before_action -> { load_watching_posts 10 }, only: :home
+  before_action -> { load_newest_posts 30 }, only: :home
+  before_action -> { load_watching_posts 30 }, only: :home
   before_action :load_notifications, only: :notifications
   before_action :load_twitter_friends, only: %i[recommended_users]
 
