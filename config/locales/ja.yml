@@ -18,6 +18,11 @@ ja:
       type:
         RequestBox: リクエストボックス
         Project: プロジェクト
+      view_stance:
+        only_me: 自分のみ
+        only_follower: フォロワーさんのみ
+        only_signed: 匿名ユーザー以外
+        everyone: 全体公開
       comment_receive_stance:
         only_me: 自分のみ
         only_follower: フォロワーさんのみ
