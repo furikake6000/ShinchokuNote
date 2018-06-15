@@ -143,7 +143,10 @@ class ApplicationController < ActionController::Base
   end
 
   def load_newest_posts(size)
-    @newest_posts = TweetPost.order('created_at DESC').limit(size)
+    @newest_posts = TweetPost.joins(:note)
+                             .where(notes: { shared_to_public: true, view_stance: 'everyone' })
+                             .order('created_at DESC')
+                             .limit(size)
   end
 
   def load_watching_posts(size)
