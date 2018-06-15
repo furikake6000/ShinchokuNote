@@ -6,6 +6,7 @@ module ErrorHandlingHelper
     respond_to do |format|
       format.html { render file: Rails.root.join('public/404.html'), status: 404, layout: false }
       format.xml { render xml: 'Not Found', status: 404 }
+      format.js { render js: '', status: 404 }
       format.json { render json: 'Not Found', status: 404 }
     end
   end
@@ -15,6 +16,7 @@ module ErrorHandlingHelper
     respond_to do |format|
       format.html { render file: Rails.root.join('public/403.html'), status: 403, layout: false }
       format.xml { render xml: 'Forbidden', status: 403 }
+      format.js { render js: '', status: 403 }
       format.json { render json: 'Forbidden', status: 403 }
     end
   end
@@ -24,6 +26,7 @@ module ErrorHandlingHelper
     respond_to do |format|
       format.html { render file: Rails.root.join('public/401.html'), status: 401, layout: false }
       format.xml { render xml: 'Unauthorized', status: 401 }
+      format.js { render js: '', status: 401 }
       format.json { render json: 'Unauthorized', status: 401 }
     end
   end
@@ -33,6 +36,7 @@ module ErrorHandlingHelper
     respond_to do |format|
       format.html { render file: Rails.root.join('public/400.html'), status: 400, layout: false }
       format.xml { render xml: 'Unauthorized', status: 400 }
+      format.js { render js: '', status: 400 }
       format.json { render json: 'Unauthorized', status: 400 }
     end
   end
@@ -42,6 +46,7 @@ module ErrorHandlingHelper
     respond_to do |format|
       format.html { render file: Rails.root.join('public/500.html'), status: 500, layout: false }
       format.xml { render xml: 'Internal Error', status: 500 }
+      format.js { render js: '', status: 500 }
       format.json { render json: 'Internal Error', status: 500 }
     end
   end

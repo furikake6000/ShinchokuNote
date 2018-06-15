@@ -26,7 +26,7 @@ module NotesHelper
 
   # 閲覧権限の確認
   def user_can_see?(note, user)
-    case note.comment_receive_stance
+    case note.view_stance
     when 'everyone'
       # "Everyone"ならば誰でもOK
       true

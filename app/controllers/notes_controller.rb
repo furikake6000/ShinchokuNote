@@ -16,6 +16,7 @@ class NotesController < ApplicationController
   end
 
   def show
+    render_403 unless user_can_see? @note, current_user
     # before_actionですでに@noteは取得済
     @omakase = true if params[:omakase]
   end

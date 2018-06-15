@@ -27,22 +27,27 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     get note_path(@okaka_project1)
     assert_response :success
     assert_template :show
+    logout_user @noriwasa
 
     # followed
     login_as_noritama
     get note_path(@okaka_project1)
     assert_response :success
     assert_template :show
+    logout_user @noritama
 
     # author
     login_as_okaka
     get note_path(@okaka_project1)
     assert_response :success
     assert_template :show
+    logout_user @okaka
 
     # view stance: only_signed
     @okaka_project1.only_signed_view_stance!
     @okaka_project1.save!
+
+    assert_nil current_user
 
     # not logged in
     get note_path(@okaka_project1)
@@ -53,18 +58,23 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     get note_path(@okaka_project1)
     assert_response :success
     assert_template :show
+    logout_user @noriwasa
 
     # followed
     login_as_noritama
     get note_path(@okaka_project1)
     assert_response :success
     assert_template :show
+    logout_user @noritama
 
     # author
     login_as_okaka
     get note_path(@okaka_project1)
     assert_response :success
     assert_template :show
+    logout_user @okaka
+
+    assert_nil current_user
 
     # view stance: only_follower
     @okaka_project1.only_follower_view_stance!
@@ -78,18 +88,23 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     login_as_noriwasa
     get note_path(@okaka_project1)
     assert_response 403
+    logout_user @noriwasa
 
     # followed
     login_as_noritama
     get note_path(@okaka_project1)
     assert_response :success
     assert_template :show
+    logout_user @noritama
 
     # author
     login_as_okaka
     get note_path(@okaka_project1)
     assert_response :success
     assert_template :show
+    logout_user @okaka
+
+    assert_nil current_user
 
     # view stance: only_me
     @okaka_project1.only_me_view_stance!
@@ -103,17 +118,20 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     login_as_noriwasa
     get note_path(@okaka_project1)
     assert_response 403
+    logout_user @noriwasa
 
     # followed
     login_as_noritama
     get note_path(@okaka_project1)
     assert_response 403
+    logout_user @noritama
 
     # author
     login_as_okaka
     get note_path(@okaka_project1)
     assert_response :success
     assert_template :show
+    logout_user @okaka
   end
 
   test 'access note watchers' do
