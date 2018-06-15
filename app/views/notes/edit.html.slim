@@ -1,0 +1,57 @@
+- provide :title, "#{@note.name}の編集"
+- provide :ogp_twitter_account, @note.user.screen_name
+- provide :ogp_desc, @note.desc
+- provide :body_bg, "body-bg-#{note_color(@note)}"
+
+h1 ページ編集
+
+= form_for @note, url: {action: :update} do |f|
+
+  = f.hidden_field :type, value: @note.type
+
+  = f.label :name, 'ページの名称', class: 'mb-0'
+  .input-group.mb-3
+    = f.text_field :name, class: 'form-control'
+
+  = f.label :desc, 'ページの説明文', class: 'mb-0'
+  .input-group.mb-3
+    = f.text_area :desc, class: 'form-control'
+
+  - if @note.type == 'Project'
+  = f.label :stage, '現状', class: 'mb-0'
+  .input-group.mb-3
+    = f.select :stage, Project.stages_i18n.invert, {}, class: 'form-control'
+
+  = f.label :view_stance, '公開範囲', class: 'mb-0'
+  .input-group
+    = f.select :view_stance, Note.view_stances_i18n.invert, {}, class: 'form-control'
+  
+  .form-check.mb-3
+    = f.check_box :shared_to_public
+    = f.label :shared_to_public, '「みんなの進捗」「おまかせ表示」に出るようにする'
+
+  = f.label :comment_receive_stance, 'コメント受信範囲', class: 'mb-0'
+  .input-group.mb-3
+    = f.select :comment_receive_stance, Note.comment_receive_stances_i18n.invert, {}, class: 'form-control'
+
+  = f.label :comment_share_stance, 'コメント公開範囲', class: 'mb-0'
+  .input-group.mb-3
+    = f.select :comment_share_stance, Note.comment_share_stances_i18n.invert, {}, class: 'form-control'
+
+  = f.submit "保存", class: "btn btn-#{note_color(@note)} mb-3"
+
+button type="button" class="btn btn-danger mb-3" data-toggle="modal" data-target="#deleteNoteModal" ページを削除する
+
+.modal.fade id="deleteNoteModal" tabindex="-1" role="dialog" aria-labelledby="deleteNoteModal" aria-hidden="true"
+  .modal-dialog role="document"
+    .modal-content
+      .modal-header
+        h5.modal-title id="deleteNoteModal" ページを削除します
+        button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true" &times;
+      .modal-body
+        p ページ「#{@note.name}」を削除します。
+        p.text-danger.font-weight-bold 復元はできません。本当によろしいですか？
+      .modal-footer
+        button type="button" class="btn btn-info" data-dismiss="modal" キャンセル
+        = link_to '削除する', note_path(@note), method: :delete, class: 'btn btn-danger'
