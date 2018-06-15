@@ -61,7 +61,9 @@ class NotesController < ApplicationController
   def omakase
     # Noteモデルからランダムに一件取得
     # (参考: https://easyramble.com/get-record-randomly-with-active-record.html)
-    @note = Note.where('id >= ?', rand(0..Note.last.id)).first
+    while @note.nil? do
+      @note = Note.where(shared_to_public: true, view_stance: 'everyone').where('id >= ?', rand(0..Note.last.id)).first
+    end
     redirect_to note_path(@note, omakase: true)
   end
 
@@ -73,6 +75,7 @@ class NotesController < ApplicationController
     notetype ||= :note
     params.require(notetype).permit(
       :name, :desc, :tags, :stage,
+      :view_stance, :shared_to_public,
       :comment_share_stance,
       :comment_receive_stance,
       :thumb_info
