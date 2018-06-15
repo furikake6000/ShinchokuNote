@@ -22,7 +22,7 @@ ja:
         only_me: 自分のみ
         only_follower: フォロワーさんのみ
         only_signed: 匿名ユーザー以外
-        everyone: 全体公開
+        everyone: だれでも
       comment_receive_stance:
         only_me: 自分のみ
         only_follower: フォロワーさんのみ

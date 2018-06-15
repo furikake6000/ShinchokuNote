@@ -1,6 +1,7 @@
 <% provide :title, "#{@note.name}の編集" %>
 <% provide :ogp_twitter_account, @note.user.screen_name %>
 <% provide :ogp_desc, @note.desc %>
+<% provide :body_bg, "body-bg-#{note_color(@note)}" %>
 
 <h1>ページ編集</h1>
 
@@ -25,6 +26,15 @@
   </div>
   <% end %>
 
+  <%= f.label :view_stance, '公開範囲', class: 'mb-0' %>
+  <div class="input-group">
+    <%= f.select :view_stance, Note.view_stances_i18n.invert, {}, class: 'form-control' %>
+  </div>
+  
+  <div class="form-check mb-3">
+    <%= f.check_box :shared_to_public %>「みんなの進捗」「おまかせ表示」に出るようにする
+  </div>
+
   <%= f.label :comment_receive_stance, 'コメント受信範囲', class: 'mb-0' %>
   <div class="input-group mb-3">
     <%= f.select :comment_receive_stance, Note.comment_receive_stances_i18n.invert, {}, class: 'form-control' %>
@@ -35,7 +45,7 @@
     <%= f.select :comment_share_stance, Note.comment_share_stances_i18n.invert, {}, class: 'form-control' %>
   </div>
 
-  <%= f.submit "保存", class: "btn btn-primary mb-3" %>
+  <%= f.submit "保存", class: "btn btn-#{note_color(@note)} mb-3" %>
 
 <% end %>
 
