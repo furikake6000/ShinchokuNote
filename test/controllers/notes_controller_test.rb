@@ -6,21 +6,110 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @okaka = users(:okaka)
-    @noritama = users(:noritama)
+    @noritama = users(:noritama)  # Noritama follows okaka
+    @noriwasa = users(:noriwasa)  # Noriwasa doesn't follow okaka
     @okaka_project1 = notes(:okaka_project_1)
     @noritama_project1 = notes(:noritama_project_1)
   end
 
   test 'access note show' do
+    # view stance: everyone
+    @okaka_project1.everyone_view_stance!
+    @okaka_project1.save!
+
+    # not logged in
     get note_path(@okaka_project1)
     assert_response :success
     assert_template :show
 
+    # unfollowed
+    login_as_noriwasa
+    get note_path(@okaka_project1)
+    assert_response :success
+    assert_template :show
+
+    # followed
     login_as_noritama
     get note_path(@okaka_project1)
     assert_response :success
     assert_template :show
 
+    # author
+    login_as_okaka
+    get note_path(@okaka_project1)
+    assert_response :success
+    assert_template :show
+
+    # view stance: only_signed
+    @okaka_project1.only_signed_view_stance!
+    @okaka_project1.save!
+
+    # not logged in
+    get note_path(@okaka_project1)
+    assert_response 403
+
+    # unfollowed
+    login_as_noriwasa
+    get note_path(@okaka_project1)
+    assert_response :success
+    assert_template :show
+
+    # followed
+    login_as_noritama
+    get note_path(@okaka_project1)
+    assert_response :success
+    assert_template :show
+
+    # author
+    login_as_okaka
+    get note_path(@okaka_project1)
+    assert_response :success
+    assert_template :show
+
+    # view stance: only_follower
+    @okaka_project1.only_follower_view_stance!
+    @okaka_project1.save!
+
+    # not logged in
+    get note_path(@okaka_project1)
+    assert_response 403
+
+    # unfollowed
+    login_as_noriwasa
+    get note_path(@okaka_project1)
+    assert_response 403
+
+    # followed
+    login_as_noritama
+    get note_path(@okaka_project1)
+    assert_response :success
+    assert_template :show
+
+    # author
+    login_as_okaka
+    get note_path(@okaka_project1)
+    assert_response :success
+    assert_template :show
+
+    # view stance: only_me
+    @okaka_project1.only_me_view_stance!
+    @okaka_project1.save!
+
+    # not logged in
+    get note_path(@okaka_project1)
+    assert_response 403
+
+    # unfollowed
+    login_as_noriwasa
+    get note_path(@okaka_project1)
+    assert_response 403
+
+    # followed
+    login_as_noritama
+    get note_path(@okaka_project1)
+    assert_response 403
+
+    # author
     login_as_okaka
     get note_path(@okaka_project1)
     assert_response :success

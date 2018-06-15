@@ -6,12 +6,10 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @okaka = users(:okaka)
-    @noritama = users(:noritama)
-    @noriwasa = users(:noriwasa)
+    @noritama = users(:noritama)  # Noritama follows okaka
+    @noriwasa = users(:noriwasa)  # Noriwasa doesn't follow okaka
     @okaka_project1 = notes(:okaka_project_1)
     @noritama_project1 = notes(:noritama_project_1)
-    # Noritama follows okaka
-    # Noriwasa doesn't follow okaka
     @okaka_comment1 = comments(:okaka_to_noritama_comment_1)
     @noritama_comment1 = comments(:noritama_to_okaka_comment_1)
   end
