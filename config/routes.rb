@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # トップページ
   root 'users#home'
 
-  # リソース：ユーザ
+  # リソース：ユーザー
   # Shallowによりindex, new, createはuserから指定可能
   resources :users, except: %i[create destroy], shallow: true do
     # リソース：ノート
@@ -52,5 +52,5 @@ Rails.application.routes.draw do
   get '/manage', to: 'static_pages#manage'
   get '/beta', to: 'static_pages#beta'
 
-  # ユーザ関連
+  # ユーザー関連
 end

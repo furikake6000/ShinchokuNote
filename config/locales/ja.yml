@@ -26,12 +26,12 @@ ja:
       comment_receive_stance:
         only_me: 自分のみ
         only_follower: フォロワーさんのみ
-        only_signed: 匿名ユーザ以外
+        only_signed: 匿名ユーザー以外
         everyone: だれでも
       comment_share_stance:
         only_me: 自分のみ
         only_follower: フォロワーさんのみ
-        only_signed: 匿名ユーザ以外
+        only_signed: 匿名ユーザー以外
         everyone: だれでも
     project:
       stage:

@@ -214,7 +214,7 @@ class ApplicationController < ActionController::Base
     @recent_to_me_comments.size + @recent_shinchoku_dodeskas.size + @recent_watchlists.size
   end
 
-  # フォロー中のユーザを取得する
+  # フォロー中のユーザーを取得する
   def load_twitter_friends
     @twitter_friends = []
     return unless logged_in?
@@ -226,7 +226,7 @@ class ApplicationController < ActionController::Base
     @twitter_friends
   end
 
-  # フォロー中のユーザのポストを取得する
+  # フォロー中のユーザーのポストを取得する
   def load_twitter_friends_posts(size)
     load_twitter_friends if @twitter_friends.nil?
     # Twitter friendsのnotesのpostsを結合したlist

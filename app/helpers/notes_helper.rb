@@ -4,12 +4,12 @@ module NotesHelper
     logged_in? && note.user == current_user
   end
 
-  # 特定ユーザのプロジェクトのみ取得
+  # 特定ユーザーのプロジェクトのみ取得
   def projects_of(user)
     user.notes.select { |p| p.type == 'Project' }
   end
 
-  # 特定ユーザのリクエストボックスのみ取得
+  # 特定ユーザーのリクエストボックスのみ取得
   def request_boxes_of(user)
     user.notes.select { |p| p.type == 'RequestBox' }
   end

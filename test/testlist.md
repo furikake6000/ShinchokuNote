@@ -49,7 +49,7 @@
 ### CommentsControllerTest
 
 - [x] make new comment(everyone): コメント受付スタンス「誰でも」で未ログイン、フォロー外、フォロー内、自分自身でコメントする。すべて正しく動作することを確認する
-- [x] make new comment(only_signed): コメント受付スタンス「ログインユーザのみ」で(ry
+- [x] make new comment(only_signed): コメント受付スタンス「ログインユーザーのみ」で(ry
 - [x] make new comment(only_follower): コメント受付スタンス「フォロワーのみ」で(ry
 - [x] make new comment(only_me): コメント受付スタンス「自分のみ」で(ry
 
@@ -73,7 +73,7 @@
 
 ### NoteTest
 
-- [x] invalid note uniqueness: 同ユーザが同じ名前のNoteを保存しようとして一意性の確認
+- [x] invalid note uniqueness: 同ユーザーが同じ名前のNoteを保存しようとして一意性の確認
 - [x] invalid note no_type: typeのないNoteがinvalidであることを確認
 - [x] invalid note wrong_type: 存在しないtype「'Undefined'」のNoteがinvalidであることを確認
 
