@@ -5,7 +5,7 @@ module ApplicationHelper
   # ページのtitleを提供する
   def full_title(page_title)
     if page_title.empty?
-      '捗ノート'
+      '進捗ノート'
     else
       page_title + ' | 進捗ノート'
     end
