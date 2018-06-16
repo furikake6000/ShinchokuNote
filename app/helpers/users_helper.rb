@@ -167,10 +167,10 @@ module UsersHelper
   # マスタユーザに付随するグループを取得
   def user_group_info
     # まだ情報が登録されていなければ空のHashを返す
-    return {} if master_user.nil? || master_user.user_group_info.nil?
+    return {} if master_user.nil? || master_user.linked_users_info.nil?
     # パスワードはOAuthシークレット
     pass = master_user_secret
-    json = decrypt_data(master_user.user_group_info,
+    json = decrypt_data(master_user.linked_users_info,
                         pass,
                         master_user.salt)
     JSON.parse(json)
@@ -181,7 +181,7 @@ module UsersHelper
     # パスワードはOAuthシークレット
     pass = master_user_secret
     json = JSON.generate(group_info)
-    master_user.user_group_info =
+    master_user.linked_users_info =
       encrypt_data(json, pass, master_user.salt).force_encoding('UTF-8')
     master_user.save!
   end
