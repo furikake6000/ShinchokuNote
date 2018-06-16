@@ -68,7 +68,7 @@ module NotesHelper
     end
   end
 
-  # コメントの権利があるかどうか判定
+  # コメントを見る権利があるかどうか判定
   def user_can_see_comments?(note, user)
     case note.comment_share_stance
     when 'everyone'
@@ -89,5 +89,4 @@ module NotesHelper
       note.user == user
     end
   end
-
 end

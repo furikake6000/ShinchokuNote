@@ -53,6 +53,7 @@ class CommentsController < ApplicationController
   end
 
   def show
+    render_403 unless user_can_see_comment? @comment, current_user
     # @commentの取得はbefore_actionで完了している
   end
 

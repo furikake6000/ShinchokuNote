@@ -8,4 +8,18 @@ module CommentsHelper
     return true if user.admin?
     false
   end
+
+  # コメントを見る権利があるかどうか判定
+  def user_can_see_comment?(comment, user)
+    # 送信者は閲覧可能
+    return true if current_user == comment.from_user
+
+    if comment.response_post.nil?
+      # 未返信の場合、コメントの閲覧設定が反映される
+      user_can_see_comments? comment.to_note, user
+    else
+      # 返信済みの場合、ノートの閲覧設定が反映される
+      user_can_see? comment.to_note, user
+    end
+  end
 end

@@ -95,10 +95,6 @@ class ApplicationController < ActionController::Base
 
     # 存在しない場合は404
     render_404 && return if @comment.nil?
-    # Commentsのアクセス制限
-    render_403 && return \
-      unless user_can_see_comments?(@comment.to_note, current_user) ||
-             current_user == @comment.from_user
   end
 
   def load_comment_from_me(paramname)
