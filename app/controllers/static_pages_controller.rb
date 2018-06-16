@@ -14,5 +14,7 @@ class StaticPagesController < ApplicationController
   def manage
     # Only admin
     render_403 && return unless admin?
+
+    @users = User.paginate(page: params[:page], per_page: 30)
   end
 end

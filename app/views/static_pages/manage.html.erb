@@ -12,5 +12,9 @@ Adminのみ閲覧可
 <div class="tray-light-withedge">
     <h3>ユーザーリスト</h3>
 
-    <%= render User.all %>
+    <%= will_paginate @users %>
+
+    <%= render @users %>
+
+    <%= will_paginate @users %>
 </div>
