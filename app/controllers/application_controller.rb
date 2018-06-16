@@ -95,10 +95,6 @@ class ApplicationController < ActionController::Base
 
     # 存在しない場合は404
     render_404 && return if @comment.nil?
-    # Commentsのアクセス制限
-    render_403 && return \
-      unless user_can_see_comments?(@comment.to_note, current_user) ||
-             current_user == @comment.from_user
   end
 
   def load_comment_from_me(paramname)
@@ -143,7 +139,10 @@ class ApplicationController < ActionController::Base
   end
 
   def load_newest_posts(size)
-    @newest_posts = TweetPost.order('created_at DESC').limit(size)
+    @newest_posts = TweetPost.joins(:note)
+                             .where(notes: { shared_to_public: true, view_stance: 'everyone' })
+                             .order('created_at DESC')
+                             .limit(size)
   end
 
   def load_watching_posts(size)
@@ -215,7 +214,7 @@ class ApplicationController < ActionController::Base
     @recent_to_me_comments.size + @recent_shinchoku_dodeskas.size + @recent_watchlists.size
   end
 
-  # フォロー中のユーザを取得する
+  # フォロー中のユーザーを取得する
   def load_twitter_friends
     @twitter_friends = []
     return unless logged_in?
@@ -227,7 +226,7 @@ class ApplicationController < ActionController::Base
     @twitter_friends
   end
 
-  # フォロー中のユーザのポストを取得する
+  # フォロー中のユーザーのポストを取得する
   def load_twitter_friends_posts(size)
     load_twitter_friends if @twitter_friends.nil?
     # Twitter friendsのnotesのpostsを結合したlist

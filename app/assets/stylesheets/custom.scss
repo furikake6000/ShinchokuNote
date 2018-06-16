@@ -125,12 +125,6 @@ body {
   }
 }
 
-label {
-  color: darken($primary, 20);
-  font-weight: bold;
-  letter-spacing: 0.1em;
-}
-
 .badge{
   letter-spacing: 0px;
   font-size: 60%;
@@ -168,24 +162,21 @@ html{
 
 body{
   background-color: $gray-100;
+  h1{
+    @include chaptitle($gray-500, x-large);
+  }
 
   &.body-bg-primary{
     background-color: lighten($primary, 40);
+    h1{
+      @include chaptitle($primary, x-large);
+    }
   }
   &.body-bg-secondary{
     background-color: lighten($secondary, 40);
-  }
-}
-
-h1{
-  @include chaptitle($gray-500, x-large);
-
-  &.h1-primary{
-    @include chaptitle($primary, x-large);
-  }
-
-  &.h1-secondary{
-    @include chaptitle($secondary, x-large);
+    h1{
+      @include chaptitle($secondary, x-large);
+    }
   }
 }
 

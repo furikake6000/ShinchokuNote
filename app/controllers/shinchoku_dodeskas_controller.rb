@@ -4,8 +4,17 @@ class ShinchokuDodeskasController < ApplicationController
   before_action -> { load_note :note_id }, only: %i[create toggle]
 
   def create
+    # 権限確認
+    unless user_can_see? @note, current_user
+      render_403
+      return
+    end
+
     # 一日二回の投稿はできない
-    return if posted_shinchoku_dodeska_today?(@note, current_user)
+    if posted_shinchoku_dodeska_today?(@note, current_user)
+      render_403
+      return
+    end
 
     @shinchoku_dodeska = ShinchokuDodeska.new
     if logged_in?

@@ -86,7 +86,7 @@ class UsersController < ApplicationController
 
   def switchuser
     change_current_user_id(params[:id])
-    flash[:success] = 'ユーザを切り替えました'
+    flash[:success] = 'ユーザーを切り替えました'
     redirect_back(fallback_location: root_path)
   end
 

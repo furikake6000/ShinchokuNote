@@ -3,14 +3,18 @@ Adminのみ閲覧可
 
 <div class="tray-light-withedge">
     <h3>現在のサービスステータス</h3>
-    <p><%= "ユーザ数: #{User.all.size}" %></p>
+    <p><%= "ユーザー数: #{User.all.size}" %></p>
     <p><%= "ノート数: #{Note.all.size}" %></p>
     <p><%= "コメント数: #{Comment.all.size}" %></p>
     <p class="mb-0"><%= "進捗どうですか数: #{ShinchokuDodeska.all.size}" %></p>
 </div>
 
 <div class="tray-light-withedge">
-    <h3>ユーザリスト</h3>
+    <h3>ユーザーリスト</h3>
 
-    <%= render User.all %>
+    <%= will_paginate @users %>
+
+    <%= render @users %>
+
+    <%= will_paginate @users %>
 </div>

@@ -31,15 +31,19 @@ class TweetPostsController < ApplicationController
       flash[:success] = 'ツイートをノートに紐付けました！'
     elsif params[:post][:text]
       # Post new tweet
+
+      # 前処理: *を∗に置換する
+      posttext = params[:post][:text].tr('*', '∗')
+
       if params[:post][:response_to]
         # 返信ありの場合
         responded_comment = Comment.find(params[:post][:response_to])
         # 返信先のコメントのテキスト、文字数の最大制限を求める
         # 文字数減少要素: URL, hashtag, コメントの改行, それぞれの間の空白、コメント先頭の'> ''
-        responded_comment_maxlen = 140 - 22 - 1 - 6 - 1 - 2 - 2 - params[:post][:text].length
+        responded_comment_maxlen = 140 - 22 - 1 - 6 - 1 - 2 - 2 - posttext.length
         # 必要に応じて載せるコメントを切り貼りする
         if responded_comment_maxlen < 2
-          tweetstr = params[:post][:text] + ' #進捗ノート ' + 
+          tweetstr = posttext + ' #進捗ノート ' + 
                      comment_url(responded_comment, only_path: false)
         else
           responded_comment_text =
@@ -48,7 +52,7 @@ class TweetPostsController < ApplicationController
             '> ' + responded_comment.text
 
           tweetstr = responded_comment_text + "\n\n" +
-                     params[:post][:text] + ' #進捗ノート ' + 
+                     posttext + ' #進捗ノート ' +
                      comment_url(responded_comment, only_path: false)
         end
         # 画像の有無を判別し投稿
@@ -61,7 +65,7 @@ class TweetPostsController < ApplicationController
       else
         # 返信なしの場合
         # つぶやく文字列を決定
-        tweetstr = params[:post][:text] + "\n" +
+        tweetstr = posttext + "\n" +
                    ' #進捗ノート ' +
                    note_url(@note, only_path: false)
         # 画像の有無を判別し投稿
@@ -86,8 +90,8 @@ class TweetPostsController < ApplicationController
     # URLやタグを取り除き文章のみpostに収納
     tweet_hash = tweet.to_hash
     # 新規ツイートの場合はテキストは全文ではなくフォームに書かれた部分のみ
-    tweet_hash['text'] = params[:post][:text] if params[:post][:text]
-    tweet_hash['full_text'] = params[:post][:text] if params[:post][:text]
+    tweet_hash['text'] = posttext if posttext
+    tweet_hash['full_text'] = posttext if posttext
 
     # jsonにしてあとでtweetに復元できる形式で保存
     newpost.text = tweet_hash.to_json

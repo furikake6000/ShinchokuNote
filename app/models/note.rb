@@ -5,6 +5,12 @@ class Note < ApplicationRecord
     RequestBox: 'RequestBox',
     Project: 'Project'
   }
+  enum view_stance: {
+    only_me: 0,
+    only_follower: 1,
+    only_signed: 2,
+    everyone: 10
+  }, _suffix: true
   enum comment_receive_stance: {
     only_me: 0,
     only_follower: 1,
