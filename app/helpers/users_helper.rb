@@ -10,9 +10,9 @@ module UsersHelper
   def login_user(user, token, secret)
     if logged_in? && user.twitter_id != master_user_id
       # ログインしていたら　マスタユーザのグループリストを更新
-      group_info = user_group_info
-      group_info[user.twitter_id] = { 'token' => token, 'secret' => secret }
-      user_group_info_set(group_info)
+      linked_info = linked_users_info
+      linked_info[user.twitter_id] = { 'token' => token, 'secret' => secret }
+      linked_users_set(linked_info)
     else
       # ログインしていなかったら　userをマスタユーザに指定
       set_master_user(user, token, secret)
@@ -34,9 +34,9 @@ module UsersHelper
       deletecookie(:masteruserinfo)
     else
       # そのユーザだけ連携解除
-      userinfo = user_group_info
+      userinfo = linked_users_info
       userinfo.delete(user.twitter_id)
-      user_group_info_set(userinfo)
+      linked_users_set(userinfo)
       change_current_user(master_user)
     end
     # ログイン情報が変化するため、キャッシュを削除
@@ -46,7 +46,7 @@ module UsersHelper
   # 現在ログインしているユーザのidを全て取得する
   def logged_in_user_ids
     return [] if master_user.nil?
-    loggedinuserids = user_group_info.keys
+    loggedinuserids = linked_users_info.keys
     loggedinuserids.push(master_user_id)
     loggedinuserids
   end
@@ -88,8 +88,8 @@ module UsersHelper
 
   # カレントユーザのinfoを取得する
   def current_user_info
-    # user_group_infoになければmaster_user_info
-    user_group_info[current_user_id] || master_user_info[current_user_id] || {}
+    # linked_users_infoになければmaster_user_info
+    linked_users_info[current_user_id] || master_user_info[current_user_id] || {}
   end
 
   # カレントユーザのtokenを取得する
@@ -165,7 +165,7 @@ module UsersHelper
   end
 
   # マスタユーザに付随するグループを取得
-  def user_group_info
+  def linked_users_info
     # まだ情報が登録されていなければ空のHashを返す
     return {} if master_user.nil? || master_user.linked_users_info.nil?
     # パスワードはOAuthシークレット
@@ -177,10 +177,10 @@ module UsersHelper
   end
 
   # マスタユーザに付随するグループを設定
-  def user_group_info_set(group_info)
+  def linked_users_set(info)
     # パスワードはOAuthシークレット
     pass = master_user_secret
-    json = JSON.generate(group_info)
+    json = JSON.generate(info)
     master_user.linked_users_info =
       encrypt_data(json, pass, master_user.salt).force_encoding('UTF-8')
     master_user.save!
