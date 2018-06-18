@@ -19,6 +19,10 @@
                     schedule_path(schedule, post: { status: Schedule.statuses[:done] }),
                     method: :patch,
                     class: "btn btn-#{schedulecolor} btn-sm"
+            = link_to fa_icon('pencil', text: ''),
+                edit_schedule_path(schedule),
+                class: "btn btn-#{schedulecolor} btn-sm ml-1"
+
             button.close type="button" data-toggle="modal" data-target="#deletePost#{schedule.id}Modal"
                 span aria-hidden="true" &times;
         .media-body.text-center
