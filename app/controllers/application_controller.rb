@@ -22,6 +22,10 @@ class ApplicationController < ActionController::Base
     redirect_to root_path unless logged_in?
   end
 
+  def only_admin
+    render_403 && return unless admin?
+  end
+
   def load_user(paramname)
     @user = User.find_by(screen_name: params[paramname].to_s)
     # find_byの場合見つからなくても404を吐いてくれない
@@ -138,6 +142,13 @@ class ApplicationController < ActionController::Base
   def load_shinchoku_dodeska_from_me(paramname)
     load_shinchoku_dodeska paramname
     render_403 && return unless current_user == @shinchoku_dodeska.from_user
+  end
+
+  def load_announce(paramname)
+    @announce = Announce.find(params[paramname])
+
+    # 存在しない場合は404
+    render_404 && return if @announce.nil?
   end
 
   def load_newest_posts(size)
