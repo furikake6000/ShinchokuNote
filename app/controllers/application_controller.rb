@@ -162,7 +162,10 @@ class ApplicationController < ActionController::Base
 
     # 自分のノートについたコメントを調べる
     @recent_to_me_comments = Comment.joins(:to_note)
-                                    .where(notes: { user_id: current_user.id })
+                                    .where(
+                                      comments: { read_flag: false, muted: false }, 
+                                      notes: { user_id: current_user.id }
+                                    )
                                     .where('comments.created_at > ?', current_user.checked_notifications_at)
                                     .order('created_at DESC')
 
