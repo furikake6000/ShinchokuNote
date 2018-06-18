@@ -22,12 +22,11 @@ class SchedulesController < ApplicationController
     redirect_to note_path(@note)
   end
 
-  def edit;end
+  def edit
+    @post.scheduled_at = @post.scheduled_at.localtime
+  end
 
   def update
-    unless params[:post][:status]
-      params[:post][:status] = params[:post][:status].to_i
-    end
     unless @post.update_attributes(schedule_updatable_params)
       # 更新失敗
       flash[:danger] = 'スケジュールの更新に失敗しました。'

@@ -14,6 +14,7 @@ h1 ページ編集
     = f.label :scheduled_at, '目標日', class: 'mb-0'
     .input-group.date.date-picker
         = f.text_field :scheduled_at,
+            hidden: true,
             id: 'scheduletext_form',
             class: 'form-control'
     
