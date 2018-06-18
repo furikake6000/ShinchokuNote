@@ -19,8 +19,8 @@
           <li class="nav-item">
             <%= link_to notifications_path, class: 'nav-link' do %>
               <%= fa_icon('bell', text: '通知') %>
-              <% if notifications_num != 0 %>
-                <span class="badge badge-danger navbar-badge"><%= notifications_num %></span>
+              <% if newest_notifications_count != 0 %>
+                <span class="badge badge-danger navbar-badge"><%= newest_notifications_count %></span>
               <% end %>
             <% end %>
           </li>
