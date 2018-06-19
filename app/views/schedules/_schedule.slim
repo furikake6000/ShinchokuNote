@@ -11,12 +11,12 @@
         - if current_user? schedule.note.user
             - if schedule.done_status?
                 = link_to fa_icon('clock-o', text: '未完了とする'),
-                    schedule_path(schedule, post: { status: Schedule.statuses[:undone] }),
+                    schedule_path(schedule, post: { status: 'undone' }),
                     method: :patch,
                     class: "btn btn-#{schedulecolor} btn-sm"
             - else
                 = link_to fa_icon('check-circle', text: '完了する'),
-                    schedule_path(schedule, post: { status: Schedule.statuses[:done] }),
+                    schedule_path(schedule, post: { status: 'done' }),
                     method: :patch,
                     class: "btn btn-#{schedulecolor} btn-sm"
             = link_to fa_icon('pencil', text: ''),
