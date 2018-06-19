@@ -30,4 +30,10 @@ class AnnouncesController < ApplicationController
     @announce.destroy
     redirect_to manage_path
   end
+
+  private
+
+  def announces_params
+    params.require(:announce).permit(:text, :title)
+  end
 end
