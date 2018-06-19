@@ -7,6 +7,8 @@
     <%= render 'users/recommended_users_panel'%>
 <% end %>
 
+<%= render 'announces/recent_announces_box', announces: @announces %>
+
 <% unless newest_comments_count == 0 %>
   <div class="alert alert-success" role="alert">
     <%= newest_comments_count %>件のコメントが新しく届いています！
