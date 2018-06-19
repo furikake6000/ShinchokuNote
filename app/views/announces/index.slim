@@ -1,0 +1,11 @@
+- provide :title, 'お知らせ一覧'
+- provide :ogp_desc, 'メンテナンス告知、アップデート情報などお知らせします'
+- provide :body_bg, "body-bg-secondary"
+
+h1 お知らせ一覧
+
+= will_paginate @announces, renderer: BootstrapPagination::Rails
+
+= render @announces
+
+= will_paginate @announces, renderer: BootstrapPagination::Rails
