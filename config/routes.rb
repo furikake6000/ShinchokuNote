@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   end
 
   # リソース:アナウンス
-  resources :announces, only: %i[index create update destroy]
+  resources :announces, only: %i[index create update show destroy]
 
   get '/auth/twitter/callback', to: 'users#login'
   get '/switch', to: 'users#switchuser'
