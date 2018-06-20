@@ -10,7 +10,7 @@
                     <%= link_to user.name, user_path(user.screen_name), class: 'user-partial-name' %>
 
                     <span><%= link_to fa_icon('twitter', text: '@' + user.screen_name), user.url, target:'_new', class: 'text-lightgray' %></span>
-                    <p><%= user.desc %></p>
+                    <p class="pre-text"><%= replace_url_to_link(h(user.desc)).html_safe %></p>
                 </div>
             </div>
             <div class="col-12 text-center text-lightgray">最近のノート</div>
