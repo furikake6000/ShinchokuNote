@@ -1,6 +1,7 @@
 module ApplicationHelper
   # RbNaClを使用して対象鍵暗号を施す
   require 'rbnacl'
+  require 'uri'
 
   # ページのtitleを提供する
   def full_title(page_title)
@@ -104,5 +105,15 @@ module ApplicationHelper
   # Twitterインテントリンク
   def twitter_intent_link(text, url)
     "https://twitter.com/share?text=#{CGI.escape(text)}&url=#{url}&hashtags=進捗ノート"
+  end
+
+  # URLを認識して置換
+  # (参考: https://qiita.com/satoken0417/items/df4098a122d05d69a3e6 )
+  def replace_url_to_link(text)
+    URI.extract(text, ['http', 'https']).uniq.each do |url|
+      link = "<a href=#{url}>#{url}</a>"
+      text.gsub! url, link
+    end
+    text
   end
 end

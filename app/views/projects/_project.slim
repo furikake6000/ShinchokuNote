@@ -6,6 +6,6 @@
             = link_to project.name, note_path(project)
             = render 'projects/stagebadge', project: project
         .media-body
-            .media-text #{project.desc}
+            .media-text #{replace_url_to_link(h(project.desc)).html_safe}
 
         = render 'notes/note_footer', note: project

@@ -5,6 +5,6 @@
         h5
             = link_to request_box.name, note_path(request_box)
         .media-body
-            .media-text #{request_box.desc}
+            .media-text #{replace_url_to_link(h(request_box.desc)).html_safe}
 
         = render 'notes/note_footer', note: request_box
