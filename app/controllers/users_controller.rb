@@ -81,7 +81,7 @@ class UsersController < ApplicationController
     # 未ログイン状態ならばstatic_pages#homeを描画
     render 'static_pages/home' unless logged_in?
 
-    @announces = Announce.where('created_at > ?', Time.now.days_ago(3))
+    @announces = Announce.where('created_at > ?', Time.now.yesterday)
   end
 
   def switchuser

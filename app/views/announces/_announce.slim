@@ -8,3 +8,8 @@
         .media-body
             .media-text
                 = announce.text
+            - if admin?
+                = link_to 'お知らせを消去する',
+                    announce_path(announce),
+                    method: :delete,
+                    class: 'btn btn-sm btn-danger'
