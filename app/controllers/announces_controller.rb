@@ -1,9 +1,9 @@
 class AnnouncesController < ApplicationController
   before_action :only_admin, only: %i[create update destroy]
-  before_action :load_announce, only: %i[update destroy]
+  before_action -> { load_announce :id }, only: %i[update show destroy]
 
   def index
-
+    @announces = Announce.paginate(page: params[:page])
   end
 
   def create
@@ -26,8 +26,16 @@ class AnnouncesController < ApplicationController
     redirect_to manage_path
   end
 
+  def show; end
+
   def destroy
     @announce.destroy
     redirect_to manage_path
+  end
+
+  private
+
+  def announces_params
+    params.require(:announce).permit(:text, :title)
   end
 end

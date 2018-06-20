@@ -1,0 +1,15 @@
+.media-box.media-box-secondary.mb-3
+    .media-content
+        .bgstr
+            = fa_icon 'info'
+        .text-info #{smart_time_to_str( announce.created_at )}
+        h5
+            = link_to announce.title, announce_path(announce)
+        .media-body
+            .media-text
+                = announce.text
+            - if admin?
+                = link_to 'お知らせを消去する',
+                    announce_path(announce),
+                    method: :delete,
+                    class: 'btn btn-sm btn-danger'

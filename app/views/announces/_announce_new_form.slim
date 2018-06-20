@@ -1,0 +1,8 @@
+= form_for Announce.new do |f|
+    = f.label :title, 'タイトル'
+    .input-group.mb-3
+        = f.text_field :title, class: 'form-control'
+    = f.label :text, 'テキスト'
+    .input-group.mb-3
+        = f.text_area :text, class: 'form-control'
+    = f.submit '作成', class: 'btn btn-primary mb-3'

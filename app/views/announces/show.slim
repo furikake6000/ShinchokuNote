@@ -1,0 +1,15 @@
+- provide :title, @announce.title
+- provide :ogp_desc, @announce.text
+- provide :body_bg, "body-bg-secondary"
+
+= link_to 'お知らせ一覧に戻る', announces_path
+
+.media-box.media-box-secondary.mb-3
+    .media-content
+        .bgstr
+            = fa_icon 'info'
+        .text-info.mb-3 #{smart_time_to_str( @announce.created_at )}
+        h1.mb-3 #{@announce.title}
+        .media-body.mb-3
+            .media-text
+                = @announce.text
