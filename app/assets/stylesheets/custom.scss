@@ -52,6 +52,10 @@ body {
 
 // Bootstrap settings
 
+textarea {
+  height: 150px;
+}
+
 .card-columns {
   @include media-breakpoint-only(md) {
     column-count: 2;
