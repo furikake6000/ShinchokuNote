@@ -7,7 +7,7 @@
     <span class="user-header-name mr-3"><%= user.name %></span>
 
     <span><%= link_to fa_icon('twitter', text: '@' + user.screen_name), user.url, target: '_new' %></span>
-    <p><%= user.desc %></p>
+    <p class="pre-text"><%= replace_url_to_link(h(user.desc)).html_safe %></p>
     <% if current_user? user %>
       <%= link_to '新規ページ作成', new_user_note_path(current_user.screen_name), class: 'btn btn-primary', role: 'button' %>
       <%= link_to '設定', edit_user_path(current_user.screen_name), class: 'btn btn-info', role: 'button' %>

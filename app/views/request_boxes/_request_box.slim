@@ -1,0 +1,10 @@
+.media-box.media-box-secondary
+    .media-content
+        .bgstr
+            = fa_icon 'envelope'
+        h5
+            = link_to request_box.name, note_path(request_box)
+        .media-body
+            .media-text #{replace_url_to_link(h(request_box.desc)).html_safe}
+
+        = render 'notes/note_footer', note: request_box

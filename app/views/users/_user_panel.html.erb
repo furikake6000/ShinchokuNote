@@ -5,7 +5,7 @@
     <div class="user-leftcol-name"><%= user.name %></div>
 
     <div><%= link_to fa_icon('twitter', text: '@' + user.screen_name), user.url, target:"_new" %></div>
-    <div><%= user.desc %></div>
+    <div class="pre-text"><%= replace_url_to_link(h(user.desc)).html_safe %></div>
     <hr>
 
     <div class="row">

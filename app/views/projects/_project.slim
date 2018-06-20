@@ -1,0 +1,11 @@
+.media-box.media-box-primary
+    .media-content
+        .bgstr
+            = fa_icon 'file-text'
+        h5
+            = link_to project.name, note_path(project)
+            = render 'projects/stagebadge', project: project
+        .media-body
+            .media-text #{replace_url_to_link(h(project.desc)).html_safe}
+
+        = render 'notes/note_footer', note: project
