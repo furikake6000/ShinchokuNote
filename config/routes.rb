@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       # Post派生クラスTwitterPost
       resources :tweet_posts, only: :create
       # Post派生クラスSchedule
-      resources :schedules, only: %i[create update]
+      resources :schedules, only: %i[create edit update]
 
       # ノートに対しWatchlist#Createができる
       resources :watchlists, only: %i[create destroy]
@@ -35,6 +35,9 @@ Rails.application.routes.draw do
     # 削除メニュー
     # get '/leave', to: 'users#leave'
   end
+
+  # リソース:アナウンス
+  resources :announces, only: %i[index create update show destroy]
 
   get '/auth/twitter/callback', to: 'users#login'
   get '/switch', to: 'users#switchuser'

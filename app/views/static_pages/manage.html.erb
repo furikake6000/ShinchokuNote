@@ -10,11 +10,16 @@ Adminのみ閲覧可
 </div>
 
 <div class="tray-light-withedge">
+    <h3>新規アナウンス作成</h3>
+    <%= render 'announces/announce_new_form' %>
+</div>
+
+<div class="tray-light-withedge">
     <h3>ユーザーリスト</h3>
 
-    <%= will_paginate @users %>
+    <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
 
     <%= render @users %>
 
-    <%= will_paginate @users %>
+    <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
 </div>

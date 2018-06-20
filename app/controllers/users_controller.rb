@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   before_action -> { load_newest_posts 30 }, only: :home
   before_action -> { load_watching_posts 30 }, only: :home
   before_action :load_notifications, only: :notifications
-  before_action :load_twitter_friends, only: %i[recommended_users]
+  before_action :load_twitter_friends, only: :recommended_users
 
   def index
     # Only admin
@@ -81,7 +81,7 @@ class UsersController < ApplicationController
     # 未ログイン状態ならばstatic_pages#homeを描画
     render 'static_pages/home' unless logged_in?
 
-    load_notifications
+    @announces = Announce.where('created_at > ?', Time.now.yesterday)
   end
 
   def switchuser
@@ -97,7 +97,10 @@ class UsersController < ApplicationController
 
   def notifications
     # @notifications はbefore_actionですでに読み込んでいる
-    return if notifications_num.zero?
+    current_user.saw_notifications_at = Time.now
+    current_user.save!
+
+    return if @notifications.empty?
   end
 
   def notifications_checked

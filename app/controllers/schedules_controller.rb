@@ -1,6 +1,6 @@
 class SchedulesController < ApplicationController
   before_action -> { load_note_as_mine :note_id }, only: %i[create]
-  before_action -> { load_post_as_mine :id }, only: %i[update destroy]
+  before_action -> { load_post_as_mine :id }, only: %i[edit update destroy]
 
   def create
     render_400 && return \
@@ -22,8 +22,11 @@ class SchedulesController < ApplicationController
     redirect_to note_path(@note)
   end
 
+  def edit
+    @post.scheduled_at = @post.scheduled_at.localtime
+  end
+
   def update
-    params[:post][:status] = params[:post][:status].to_i
     unless @post.update_attributes(schedule_updatable_params)
       # 更新失敗
       flash[:danger] = 'スケジュールの更新に失敗しました。'
@@ -38,6 +41,6 @@ class SchedulesController < ApplicationController
   end
 
   def schedule_updatable_params
-    params.require(:post).permit(:status)
+    params.require(:post).permit(:text, :scheduled_at, :status)
   end
 end

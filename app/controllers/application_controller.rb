@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  helper_method :unread_watching_post_num, :notifications_num
+  helper_method :unread_watching_post_num, 
+                :newest_notifications_count, 
+                :newest_comments_count
 
   include UsersHelper
   include TwitterHelper
@@ -18,6 +20,10 @@ class ApplicationController < ActionController::Base
 
   def check_logged_in
     redirect_to root_path unless logged_in?
+  end
+
+  def only_admin
+    render_403 && return unless admin?
   end
 
   def load_user(paramname)
@@ -138,6 +144,13 @@ class ApplicationController < ActionController::Base
     render_403 && return unless current_user == @shinchoku_dodeska.from_user
   end
 
+  def load_announce(paramname)
+    @announce = Announce.find(params[paramname])
+
+    # 存在しない場合は404
+    render_404 && return if @announce.nil?
+  end
+
   def load_newest_posts(size)
     @newest_posts = TweetPost.joins(:note)
                              .where(notes: { shared_to_public: true, view_stance: 'everyone' })
@@ -154,15 +167,20 @@ class ApplicationController < ActionController::Base
   end
 
   def load_notifications
-    return nil if @notifications_loaded_flag
-
-    @notifications_loaded_flag = true
+    return @notifications if @notifications
 
     return nil unless logged_in?
 
     # 自分のノートについたコメントを調べる
     @recent_to_me_comments = Comment.joins(:to_note)
-                                    .where(notes: { user_id: current_user.id })
+                                    .where(
+                                      comments: {
+                                        read_flag: false, muted: false 
+                                      }, 
+                                      notes: {
+                                        user_id: current_user.id 
+                                      }
+                                    )
                                     .where('comments.created_at > ?', current_user.checked_notifications_at)
                                     .order('created_at DESC')
 
@@ -208,10 +226,41 @@ class ApplicationController < ActionController::Base
     @notifications.sort_by! { |v| v[:time] }.reverse!
   end
 
-  def notifications_num
+  def newest_notifications_count
     return 0 unless logged_in?
-    load_notifications unless @notifications_loaded_flag
-    @recent_to_me_comments.size + @recent_shinchoku_dodeskas.size + @recent_watchlists.size
+    return @newest_notifications_count if @newest_notifications_count
+    
+    newest_comments_count unless @newest_comments_count
+    newest_shinchoku_dodeskas_count = ShinchokuDodeska.where(
+      'to_note_id IN (?) AND created_at > ?',
+      current_user.notes.map(&:id),
+      current_user.notify_from
+    ).count
+    newest_watchlists_count = Watchlist.where(
+      'to_note_id IN (?) AND created_at > ?',
+      current_user.notes.map(&:id),
+      current_user.notify_from
+    ).count
+
+    @newest_notifications_count = @newest_comments_count +
+                                  newest_shinchoku_dodeskas_count +
+                                  newest_watchlists_count
+  end
+
+  def newest_comments_count
+    return 0 unless logged_in?
+    return @newest_comments_count if @newest_comments_count
+    @newest_comments_count = Comment.joins(:to_note)
+    .where(
+      comments: {
+        read_flag: false, muted: false 
+      }, 
+      notes: {
+        user_id: current_user.id
+      }
+    )
+    .where('comments.created_at > ?', current_user.notify_from)
+    .count
   end
 
   # フォロー中のユーザーを取得する

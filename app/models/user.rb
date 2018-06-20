@@ -34,9 +34,16 @@ class User < ApplicationRecord
     # ハッシュ化はencrypt関数がやってくれる
   end
 
+  # 「最新情報」を持ってくるときに基準となる時間
+  def notify_from
+    # saw_notifications_atがnilの場合はchecked_notifications_at
+    self.saw_notifications_at || self.checked_notifications_at
+  end
+  
   private
   # 初期化
   def set_default_value
     self.checked_notifications_at = Time.now
+    self.saw_notifications_at = Time.now
   end
 end

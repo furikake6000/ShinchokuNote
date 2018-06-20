@@ -14,7 +14,11 @@
         >.bgstr{
             color: transparentize($color, 0.8);
         }
-  
+
+        >h5 {
+            color: darken($color, 20);
+        }
+
         >h5 >a{
             color: $color;
         }

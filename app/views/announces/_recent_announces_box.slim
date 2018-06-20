@@ -1,0 +1,8 @@
+- unless announces.empty?
+    .tray-secondary-withedge.mb-3
+        h3 最新のお知らせがあります
+        - announces.each do |a|
+            ul
+                li.text-white
+                    = link_to a.title, announce_path(a), class: 'text-white'
+        = link_to 'お知らせ一覧を見る', announces_path, class: 'btn btn-secondary btn-sm'
