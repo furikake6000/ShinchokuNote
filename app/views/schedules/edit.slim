@@ -3,7 +3,7 @@
 - provide :ogp_desc, @post.text
 - provide :body_bg, "body-bg-#{note_color(@post.note)}"
 
-h1 ページ編集
+h1 スケジュール編集
 
 = form_for @post.becomes(Post), url: { action: :update } do |f|
     = f.label :text, 'スケジュール タイトル', class: 'mb-0'
