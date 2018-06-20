@@ -8,7 +8,7 @@
     <%= link_to '編集する', edit_note_path(request_box), class: 'btn btn-info btn-sm'  %>
   <% end %>
 
-  <p class="mb-0"><%= request_box.desc %></p>
+  <p class="mt-2 mb-0 pre-text"><%= request_box.desc %></p>
 
   <%= render 'comments/comment_form', note: request_box if user_can_comment?(request_box, current_user) %>
 
