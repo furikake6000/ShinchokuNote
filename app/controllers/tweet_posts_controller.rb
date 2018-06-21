@@ -43,13 +43,14 @@ class TweetPostsController < ApplicationController
         responded_comment_maxlen = 140 - 22 - 1 - 6 - 1 - 2 - 2 - posttext.length
         # 必要に応じて載せるコメントを切り貼りする
         if responded_comment_maxlen < 2
-          tweetstr = posttext + ' #進捗ノート ' + 
+          tweetstr = posttext + ' #進捗ノート ' +
                      comment_url(responded_comment, only_path: false)
         else
           responded_comment_text =
             responded_comment.text.length > responded_comment_maxlen ?
             '> ' + responded_comment.text[0..responded_comment_maxlen - 3] + '...' :
             '> ' + responded_comment.text
+          responded_comment_text.tr!('*', '∗')
 
           tweetstr = responded_comment_text + "\n\n" +
                      posttext + ' #進捗ノート ' +
