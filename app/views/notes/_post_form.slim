@@ -1,0 +1,55 @@
+.control-panel.accordion
+    a (
+        data-toggle="collapse"
+        data-target="#tweetpost_form"
+        aria-expanded="true"
+        aria-controls="tweetpost_form"
+    )
+
+        h3.clickable
+            = fa_icon 'plus-square-o', text: '新しく進捗を報告する'
+    
+    #tweetpost_form.collapse.show.mb-3
+
+        nav
+            .nav.nav-tabs.nav-tabs-primary.post-form-tab.mb-2 role="tablist"
+
+                a#makenew-tab.nav-item.nav-link.active (
+                    href="#makenew"
+                    role="tab"
+                    data-toggle="tab"
+                    aria-controls="makenew"
+                    aria-selected="true"
+                ) 新規投稿
+
+                a#selectfromurl-tab.nav-item.nav-link (
+                    href="#selectfromurl"
+                    role="tab"
+                    data-toggle="tab"
+                    aria-controls="selectfromurl"
+                    aria-selected="false"
+                ) URLでリンク
+        
+        .tab-content.post-from-content
+
+            #makenew.tab-pane.fade.show.active (
+                role="tabpanel"
+                aria-labelledby="makenew-tab"
+            )
+                = render 'tweet_posts/tweet_post_new_form', note: note
+
+            #selectfromurl.tab-pane.fade (
+                role="tabpanel"
+                aria-labelledby="selectfromurl-tab"
+            )
+                = render 'tweet_posts/tweet_post_url_form', note: note
+    a (
+        data-toggle="collapse"
+        data-target="#schedule_form"
+        aria-expanded="false"
+        aria-controls="schedule_form"
+    )
+        h3.clickable
+            = fa_icon 'plus-square-o', text: 'スケジュールを追加する'
+        #schedule_form.collapse
+            = render 'schedules/schedule_form', note: note
