@@ -16,8 +16,6 @@ class TweetPostsController < ApplicationController
     end
   end
 
-  private
-
   # paramsからtweetを取得
   def tweetpost_from_params(note)
     client = client_new
