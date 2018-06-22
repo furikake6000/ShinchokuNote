@@ -1,15 +1,15 @@
 .control-panel.accordion
     a (
         data-toggle="collapse"
-        data-target="#tweetpost_form"
+        data-target="#post_form"
         aria-expanded="true"
-        aria-controls="tweetpost_form"
+        aria-controls="post_form"
     )
 
         h3.clickable
             = fa_icon 'plus-square-o', text: '新しく進捗を報告する'
     
-    #tweetpost_form.collapse.show.mb-3
+    #post_form.collapse.show.mb-3
 
         nav
             .nav.nav-tabs.nav-tabs-primary.post-form-tab.mb-2 role="tablist"
@@ -36,7 +36,7 @@
                 role="tabpanel"
                 aria-labelledby="makenew-tab"
             )
-                = render 'tweet_posts/tweet_post_new_form', note: note
+                = render 'posts/post_new_form', note: note
 
             #selectfromurl.tab-pane.fade (
                 role="tabpanel"
