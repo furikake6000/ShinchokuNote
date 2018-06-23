@@ -1,1 +1,6 @@
-h1 #{@keyword}の検索結果
+- if @keyword.empty?
+    h1 検索結果
+    p キーワードが指定されていません！
+- else
+    h1 #{@keyword}の検索結果
+    = render @notes
