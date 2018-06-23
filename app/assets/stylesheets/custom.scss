@@ -109,7 +109,7 @@ textarea {
 }
 
 .navright {
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     margin-left: auto;
     float: right;
   }
@@ -182,9 +182,15 @@ body{
 
 header{
   .headermenu{
-    max-width: 750px;
+    max-width: 970px;
     margin: auto;
     padding: 5px;
+  }
+
+  .header-search-form{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
   }
 
   margin-bottom: 20px;

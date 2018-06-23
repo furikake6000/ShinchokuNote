@@ -1,5 +1,5 @@
 header
-    nav.navbar.navbar-expand-md.headermenu
+    nav.navbar.navbar-expand-lg.headermenu
 
         / ロゴ
         = link_to image_tag('titlelogo.svg', height: '48', class: 'd-inline-block'),
@@ -23,6 +23,11 @@ header
             .navright
                 ul.navbar-nav.mr-auto
 
+                    form.header-search-form.mr-lg-3
+                        .input-group
+                            input.form-control type="search" placeholder="進捗を探すのだ" aria-label="Search"
+                            button.btn.btn-outline-primary.ml-2 type="submit" 検索
+
                     li.nav-item
                         = link_to fa_icon('gift', text: 'おまかせ表示'),
                             omakase_path_with_seed,
@@ -30,21 +35,24 @@ header
                     
                     - if logged_in?
 
-                        li.nav-item
-                            = link_to notifications_path, class: 'nav-link' do
-                                = fa_icon 'bell', text: '通知'
-                                - if newest_notifications_count != 0
-                                    span.badge.badge-danger.navbar-badge
-                                        = newest_notifications_count
-
                         li.nav-item.dropmenu ontouchstart=""
                             .nav-link
                                 = fa_icon 'user', text: current_user.screen_name
+                                - if newest_notifications_count != 0
+                                    span.badge.badge-danger.navbar-badge
+                                        = fa_icon 'bell', text: newest_notifications_count
+
                             .dropmenu-content
 
                                 = link_to 'マイページ',
                                     user_path(current_user.screen_name),
                                     class: 'dropdown-item'
+
+                                = link_to notifications_path, class: 'dropdown-item' do
+                                    = fa_icon 'bell', text: '通知'
+                                    - if newest_notifications_count != 0
+                                        span.badge.badge-danger.navbar-badge
+                                            = newest_notifications_count
 
                                 = link_to '設定',
                                     edit_user_path(current_user.screen_name),
@@ -66,7 +74,8 @@ header
                                 = link_to 'ログアウト',
                                     logout_path,
                                     class: 'dropdown-item'
+
                     - else
+
                         li.nav-item
                             = link_to 'ログイン/新規登録', new_user_path, class: 'nav-link'
-
