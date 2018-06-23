@@ -68,10 +68,6 @@ textarea {
 .navbar {
   font-size: large;
   font-weight: bold;
-
-  .navbar-badge{
-    margin-left: -5px;
-  }
 }
 
 @mixin nav-pills-coloring($color){

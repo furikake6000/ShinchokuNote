@@ -1,0 +1,72 @@
+header
+    nav.navbar.navbar-expand-md.headermenu
+
+        / ロゴ
+        = link_to image_tag('titlelogo.svg', height: '48', class: 'd-inline-block'),
+            root_path,
+            class: 'navbar-brand'
+
+        / ベータ版の表示
+        = link_to image_tag('beta.png', height: '40'), beta_path
+
+        button.navbar-toggler (
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbar_toggler"
+            aria-controls="navbar_toggler"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            )
+            = fa_icon 'bars lg'
+        
+        #navbar_toggler.collapse.navbar-collapse
+            .navright
+                ul.navbar-nav.mr-auto
+
+                    li.nav-item
+                        = link_to fa_icon('gift', text: 'おまかせ表示'),
+                            omakase_path_with_seed,
+                            class: 'nav-link'
+                    
+                    - if logged_in?
+
+                        li.nav-item
+                            = link_to notifications_path, class: 'nav-link' do
+                                = fa_icon 'bell', text: '通知'
+                                - if newest_notifications_count != 0
+                                    span.badge.badge-danger.navbar-badge
+                                        = newest_notifications_count
+
+                        li.nav-item.dropmenu ontouchstart=""
+                            .nav-link
+                                = fa_icon 'user', text: current_user.screen_name
+                            .dropmenu-content
+
+                                = link_to 'マイページ',
+                                    user_path(current_user.screen_name),
+                                    class: 'dropdown-item'
+
+                                = link_to '設定',
+                                    edit_user_path(current_user.screen_name),
+                                    class: 'dropdown-item'
+
+                                hr/
+
+                                - logged_in_users.each do |u|
+                                    = link_to "#{u.screen_name}に切替",
+                                        "/switch?id=#{u.twitter_id}",
+                                        class: 'dropdown-item' if u != current_user
+
+                                = link_to fa_icon('user-plus', text: 'アカウント追加'),
+                                    new_user_path(force_login: true),
+                                    class: 'dropdown-item'
+
+                                hr/
+
+                                = link_to 'ログアウト',
+                                    logout_path,
+                                    class: 'dropdown-item'
+                    - else
+                        li.nav-item
+                            = link_to 'ログイン/新規登録', new_user_path, class: 'nav-link'
+
