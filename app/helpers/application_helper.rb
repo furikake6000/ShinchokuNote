@@ -116,4 +116,10 @@ module ApplicationHelper
     end
     text
   end
+
+  # SQLのLIKE句使用時のエスケープ
+  # (参考: https://www.rubydoc.info/github/jeremyevans/sequel/master/Sequel/Dataset:escape_like)
+  def escape_like(string)
+    string.gsub(/[\\%_]/) { |m| "\\#{m}" }
+  end
 end

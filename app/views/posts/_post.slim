@@ -1,0 +1,60 @@
+.media-box.tweet.mb-3 class="media-box-#{note_color post.note} #{'media-box-baloon' if defined?(baloon)}"
+
+    / ノート情報を表示するか否か
+    = render 'notes/note_info',
+        note: post.note,
+        with_user_info: true \
+        if defined? with_note_info
+    
+    .media-content
+        .bgstr
+            span.icon-shinchokunote
+
+        - if current_user? post.note.user
+
+        button.close(
+            type="button"
+            data-toggle="modal"
+            data-target="#deletePost#{post.id}Modal"
+        )
+            span aria-hidden="true" &times;
+        
+        .media-body
+            - if defined? light
+                p.mb-1 class="#{defined?(light) ? 'media-text' : 'media-text-l'}"
+                    = post.text
+
+    .media-footer
+        span
+            = smart_time_to_str tweet_post.created_at
+
+.modal.fade(
+    id="deletePost#{post.id}Modal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="deletePost#{post.id}Modal"
+    aria-hidden="true"
+)
+    .modal-dialog role="document"
+        .modal-content
+            .modal-header
+                h5.modal-title 投稿を削除します
+                button.close(
+                    type="button"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                )
+                    span aria-hidden="true" &times;
+            .modal-body
+                p 投稿「#{post.text}」を削除します。
+                p.text-danger.font-weight-bold 復元はできません。本当によろしいですか？
+            .modal-footer
+                button(
+                    type="button"
+                    class="btn btn-info"
+                    data-dismiss="modal"
+                ) キャンセル
+                = link_to '削除する', 
+                    post_path(tweet_post),
+                    method: :delete,
+                    class: 'btn btn-danger'

@@ -1,0 +1,17 @@
+- if @keyword.empty?
+    h1 検索結果
+    p キーワードが指定されていません！
+- else
+    h1 #{@keyword}の検索結果
+
+    - if @notes.empty?
+        p キーワード「#{@keyword}」に該当するノートは見つかりませんでした。
+        p 単語を変えて再検索してみてください！
+    - else
+        p #{@notecount}件 見つかりました
+
+        = will_paginate @notes, renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer
+
+        = render @notes, with_user_info: true
+
+        = will_paginate @notes, renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer

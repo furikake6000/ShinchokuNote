@@ -15,7 +15,7 @@ Rails.application.config.assets.precompile += %w[
   image_form_virtual.js
   copy_to_clipboard.js
   show_comments_tab.js
-  tweet_text_box.js
+  post_text_box.js
   schedule_text_box.js
   comment_text_box.js
   datetimepicker.js

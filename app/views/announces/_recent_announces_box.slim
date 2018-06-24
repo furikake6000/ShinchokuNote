@@ -4,5 +4,5 @@
         - announces.each do |a|
             ul
                 li.text-white
-                    = link_to a.title, announce_path(a), class: 'text-white'
+                    = link_to "#{a.title} (#{smart_time_to_str a.created_at})", announce_path(a), class: 'text-white'
         = link_to 'お知らせ一覧を見る', announces_path, class: 'btn btn-secondary btn-sm'
