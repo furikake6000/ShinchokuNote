@@ -26,6 +26,13 @@
         .media-footer
             span
                 = smart_time_to_str plain_post.created_at
+        
+                
+        / コメントへの返信である場合にコメントを表示する
+        - if !defined?(hide_response) && plain_post.responded_comment
+            span.text-muted
+                = fa_icon 'reply', text: '以下のコメントへの返信です', class: 'mt-3'
+            = render 'comments/comment', {comment: plain_post.responded_comment, light: true, hide_response: true}
 
 .modal.fade(
     id="deletePost#{plain_post.id}Modal"

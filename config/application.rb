@@ -15,6 +15,6 @@ module ShinchokuNote
     config.i18n.default_locale = :ja
 
     # Setting for sqlite3 in test env
-    Rails.application.config.active_record.sqlite3.represent_boolean_as_integer = true
+    Rails.application.config.active_record.sqlite3.represent_boolean_as_integer = false
   end
 end
