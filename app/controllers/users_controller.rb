@@ -82,6 +82,7 @@ class UsersController < ApplicationController
     render 'static_pages/home' unless logged_in?
 
     @announces = Announce.where('created_at > ?', Time.now.yesterday)
+                         .order('created_at DESC')
   end
 
   def switchuser

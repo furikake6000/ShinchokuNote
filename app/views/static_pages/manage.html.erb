@@ -17,9 +17,9 @@ Adminのみ閲覧可
 <div class="tray-light-withedge">
     <h3>ユーザーリスト</h3>
 
-    <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+    <%= will_paginate @users, renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer %>
 
     <%= render @users %>
 
-    <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+    <%= will_paginate @users, renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer %>
 </div>

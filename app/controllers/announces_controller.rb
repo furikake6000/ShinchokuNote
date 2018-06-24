@@ -3,7 +3,7 @@ class AnnouncesController < ApplicationController
   before_action -> { load_announce :id }, only: %i[update show destroy]
 
   def index
-    @announces = Announce.paginate(page: params[:page])
+    @announces = Announce.order('created_at DESC').paginate(page: params[:page])
   end
 
   def create

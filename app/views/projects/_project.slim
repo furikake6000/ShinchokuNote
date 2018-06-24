@@ -5,6 +5,13 @@
         h5
             = link_to project.name, note_path(project)
             = render 'projects/stagebadge', project: project
+    
+        - if defined? with_user_info
+            div.bold-text.ml-2.mb-3
+                span.mr-1 by
+                = render 'users/user_thumb', user: project.user
+                = link_to project.user.name, user_path(project.user.screen_name)
+
         .media-body
             .media-text #{replace_url_to_link(h(project.desc)).html_safe}
 

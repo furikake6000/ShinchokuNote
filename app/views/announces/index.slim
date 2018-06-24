@@ -4,8 +4,8 @@
 
 h1 お知らせ一覧
 
-= will_paginate @announces, renderer: BootstrapPagination::Rails
+= will_paginate @announces, renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer
 
 = render @announces
 
-= will_paginate @announces, renderer: BootstrapPagination::Rails
+= will_paginate @announces, renderer: WillPaginate::ActionView::Bootstrap4LinkRenderer
