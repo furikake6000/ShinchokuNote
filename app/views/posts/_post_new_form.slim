@@ -1,0 +1,42 @@
+= form_for([note.becomes(Note), Post.new],
+    url: note_posts_path(note),
+    html: {method: 'POST'} ) do |f|
+    
+    - if defined? response_to
+        = f.hidden_field :response_to,
+            id: 'respond_to',
+            value: response_to.id
+
+    .input-group
+        = f.text_area :text,
+            placeholder: 'つぶやく内容',
+            id: 'text_form',
+            class: 'form-control'
+
+    #text_count class="text-#{note_color note}" 0 / #{(defined?(response_to) ? 108 : 110)}
+    
+    .input-group.mb-2
+        #image_form_virtual
+            div
+                =fa_icon 'photo 2x'
+            div クリックで画像を選択
+            #image_form_preview
+        = f.file_field :image,
+            id: 'image_form_hidden',
+            multiple: true
+    .text-right
+        = f.submit '進捗報告',
+            id: 'post_submit',
+            class: "btn btn-#{note_color note} mr-3",
+            disabled: true
+        = f.submit 'Twitterで進捗報告',
+            name: 'post_with_tweet',
+            id: 'tweet_submit',
+            class: "btn btn-#{note_color note}",
+            disabled: true
+
+- content_for :javascript do
+    = javascript_include_tag 'post_text_box',
+        'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'image_form_virtual',
+        'data-turbolinks-track': 'reload'

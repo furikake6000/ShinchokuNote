@@ -1,4 +1,4 @@
-.text-center.note-index class="note-index-#{note_color(note)}"
+.text-center.note-index.mb-3 class="note-index-#{note_color(note)}"
     p.small-text.bold-text.mb-0 月メニュー
     - note.posts.group_by { |p| p.sort_condition_date.year }.sort.reverse_each do |y, y_posts|
         - y_posts.group_by { |p| p.sort_condition_date.month }.sort.reverse_each do |m, m_posts|

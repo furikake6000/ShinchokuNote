@@ -3,7 +3,8 @@ class Post < ApplicationRecord
 
   enum type: {
     TweetPost: 'TweetPost',
-    Schedule: 'Schedule'
+    Schedule: 'Schedule',
+    PlainPost: 'PlainPost'
   }
 
   belongs_to :note
@@ -13,4 +14,8 @@ class Post < ApplicationRecord
           dependent: :nullify
 
   validates :type, presence: true
+
+  def sort_condition_date
+    created_at
+  end
 end

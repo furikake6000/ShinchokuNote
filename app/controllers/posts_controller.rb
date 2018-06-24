@@ -8,7 +8,19 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = @note.posts.new(posts_params)
+    if params[:post_with_tweet]
+      # ツイート投稿あり
+      render_400 && return \
+        if params[:post][:twitter_id].nil? && params[:post][:text].empty?
+      
+      @post = tweetpost_from_params(@note)
+      
+    else
+      # ツイート投稿なし
+      @post = @note.posts.new(posts_params)
+      @post.type = 'PlainPost'
+    end
+
     if @post.save
       # 保存成功
       redirect_to note_path(@note)

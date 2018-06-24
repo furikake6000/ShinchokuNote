@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     # リソース：ノート
     resources :notes, shallow: true do
       # リソース:投稿
-      resources :posts, only: %i[index destroy]
+      resources :posts, only: %i[index create destroy]
 
       # リソース:コメント
       resources :comments, only: %i[create show update destroy]
@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   # リソース:アナウンス
   resources :announces, only: %i[index create update show destroy]
 
+  get '/search', to: 'search#search'
   get '/auth/twitter/callback', to: 'users#login'
   get '/switch', to: 'users#switchuser'
   get '/updateuser', to: 'users#updateuser'
