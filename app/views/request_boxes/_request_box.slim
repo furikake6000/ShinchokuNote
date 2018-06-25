@@ -1,17 +1,12 @@
 .media-box.media-box-secondary
+
+    = render 'users/user_info', user: request_box.user if defined? with_user_info
+
     .media-content
         .bgstr
             = fa_icon 'envelope'
         h5
             = link_to request_box.name, note_path(request_box)
-
-        - if defined? with_user_info
-            div.bold-text.ml-2.mb-3
-                span.mr-1 by
-                = render 'users/user_thumb', user: request_box.user
-                = link_to request_box.user.name,
-                    user_path(request_box.user.screen_name),
-                    class: 'text-secondary'
 
         .media-body
             .media-text #{replace_url_to_link(h(request_box.desc)).html_safe}

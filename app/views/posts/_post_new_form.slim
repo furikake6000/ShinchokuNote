@@ -15,7 +15,7 @@
 
     #text_count class="text-#{note_color note}" 0 / #{(defined?(response_to) ? 108 : 110)}
     
-    .input-group.mb-2
+    .input-group
         #image_form_virtual
             div
                 =fa_icon 'photo 2x'
@@ -24,6 +24,7 @@
         = f.file_field :image,
             id: 'image_form_hidden',
             multiple: true
+    .text-info.small-text.mb-2 ※現在ツイートなしの進捗報告は画像投稿に対応しておりません...(実装中)
     .text-right
         = f.submit '進捗報告',
             id: 'post_submit',

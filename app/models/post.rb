@@ -7,7 +7,7 @@ class Post < ApplicationRecord
     PlainPost: 'PlainPost'
   }
 
-  belongs_to :note
+  belongs_to :note, touch: true
   has_one :responded_comment,
           class_name: 'Comment',
           foreign_key: 'response_id',

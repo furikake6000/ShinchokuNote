@@ -1,0 +1,4 @@
+.note-info
+    = render 'users/user_thumb', user: user
+    span.note-info-user-name.mr-3
+        = link_to user.name, user_path(user.screen_name)

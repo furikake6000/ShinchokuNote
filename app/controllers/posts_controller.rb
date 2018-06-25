@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+
   before_action -> { load_note :note_id }, only: %i[index]
   before_action -> { load_note_as_mine :note_id }, only: %i[create]
   before_action -> { load_post_as_mine :id }, only: %i[destroy]
@@ -12,12 +13,21 @@ class PostsController < ApplicationController
       # ツイート投稿あり
       render_400 && return \
         if params[:post][:twitter_id].nil? && params[:post][:text].empty?
-      
+
       @post = tweetpost_from_params(@note)
-      
+
     else
       # ツイート投稿なし
       @post = @note.posts.new(posts_params)
+      # 返信ありの場合
+      if params[:post][:response_to]
+        # Response処理
+        responded_comment = Comment.find(params[:post][:response_to])
+        @post.responded_comment = responded_comment
+  
+        # responded_commentの既読処理はしておく
+        responded_comment.read_flag = true
+      end
       @post.type = 'PlainPost'
     end
 

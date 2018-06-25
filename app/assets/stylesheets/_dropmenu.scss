@@ -28,4 +28,14 @@
   z-index: 1;
   -webkit-transition: all .2s ease;
   transition: all .2s ease;
+
+  a.dropdown-item{
+    color: $gray-700;
+    font-weight: bold;
+  }
+
+  a.dropdown-item:hover{
+    background-color: lighten($primary, 20);
+    color: darken($primary, 20);
+  }
 }
