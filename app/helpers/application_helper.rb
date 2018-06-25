@@ -111,7 +111,9 @@ module ApplicationHelper
   # (参考: https://qiita.com/satoken0417/items/df4098a122d05d69a3e6 )
   def replace_url_to_link(text)
     URI.extract(text, ['http', 'https']).uniq.each do |url|
-      link = "<a href=#{url}>#{url}</a>"
+      limit_strsize = 30
+      show_url = url.size > limit_strsize ? url[0..(limit_strsize - 1)] + '...' : url
+      link = "<a href=#{url}>#{show_url}</a>"
       text.gsub! url, link
     end
     text
