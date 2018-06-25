@@ -1,0 +1,20 @@
+.tray-light-withedge
+    h3 このユーザのノート一覧を共有
+    input#share_url.form-control.mb-2 (
+        type="text"
+        value="#{user_url(user.screen_name)}"
+        readonly="readonly"
+        )
+    = link_to fa_icon('twitter', text: 'ツイート'),
+        twitter_intent_link("#{user.name}のノート一覧", user_url(user.screen_name)),
+        class: "btn btn-info",
+        role:'button',
+        target: :_new
+    
+    button#share_butto.btn.btn-info.ml-2 onclick="copyShareUrlToClipboard()"
+        = fa_icon 'share-alt',
+            text: 'リンクをコピー',
+            id: 'share_icon'
+
+- content_for :javascript do
+    = javascript_include_tag 'copy_to_clipboard'
