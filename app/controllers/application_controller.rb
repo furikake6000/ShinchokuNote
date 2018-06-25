@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
     end
 
     # Commentsのフィルター機能
-    params['comments_filter'] = params['comments_filter'] || 'all'
+    params['comments_filter'] ||= 'unread'
     case params['comments_filter']
     when 'all' then
       @comments = @note.comments
