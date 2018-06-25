@@ -54,6 +54,9 @@ gem 'newrelic_rpm'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 
+# fixing security vulnerabilities
+gem 'sprockets', '~> 3.7.2'
+
 group :development, :test do
   gem 'byebug', '~>9.1', platforms: %i[mri mingw x64_mingw]
   gem 'capybara', '~> 2.13'
