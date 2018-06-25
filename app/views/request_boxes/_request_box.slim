@@ -9,6 +9,6 @@
             = link_to request_box.name, note_path(request_box)
 
         .media-body
-            .media-text #{replace_url_to_link(h(request_box.desc)).html_safe}
+            .media-text #{limit_text(replace_url_to_link(h(request_box.desc)).html_safe, 140)}
 
         = render 'notes/note_footer', note: request_box
