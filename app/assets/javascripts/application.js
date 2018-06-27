@@ -19,3 +19,4 @@
 //= require bootstrap-datetimepicker
 //= require turbolinks
 //= require components
+//= require serviceworker-companion

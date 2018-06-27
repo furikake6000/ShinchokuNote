@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_18_135517) do
+ActiveRecord::Schema.define(version: 2018_06_27_065301) do
 
   create_table "announces", force: :cascade do |t|
     t.string "text"
@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(version: 2018_06_18_135517) do
     t.index ["from_user_id"], name: "index_comments_on_from_user_id"
     t.index ["response_id"], name: "index_comments_on_response_id"
     t.index ["to_note_id"], name: "index_comments_on_to_note_id"
+  end
+
+  create_table "devices", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "endpoint"
+    t.string "p256dh"
+    t.string "auth"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "notes", force: :cascade do |t|
