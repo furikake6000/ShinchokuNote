@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
     end
 
     # Commentsのフィルター機能
-    params['comments_filter'] = params['comments_filter'] || 'all'
+    params['comments_filter'] ||= 'unread'
     case params['comments_filter']
     when 'all' then
       @comments = @note.comments
@@ -161,9 +161,11 @@ class ApplicationController < ActionController::Base
   def load_watching_posts(size)
     return nil unless logged_in?
     # note_idがwatching_noteであるpostを抽出
-    @watching_posts = TweetPost.where('note_id IN (?)', current_user.watching_notes.map(&:id))
-                               .order('created_at DESC')
-                               .limit(size)
+    allowed_types = ['TweetPost', 'PlainPost']
+    @watching_posts = Post.where('type IN (?)', allowed_types.join(', '))
+                          .where('note_id IN (?)', current_user.watching_notes.map(&:id))
+                          .order('created_at DESC')
+                          .limit(size)
   end
 
   def load_notifications

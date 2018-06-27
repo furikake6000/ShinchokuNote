@@ -107,11 +107,19 @@ module ApplicationHelper
     "https://twitter.com/share?text=#{CGI.escape(text)}&url=#{url}&hashtags=進捗ノート"
   end
 
+  # 文字数が一定以上だったら(...)で省略する
+  def limit_text(text, maxlen)
+    # 変換後の文字数がmaxlenとなるように
+    text.size > maxlen ? 
+      text[0..(maxlen - 4)] + '...' :
+      text
+  end
+
   # URLを認識して置換
   # (参考: https://qiita.com/satoken0417/items/df4098a122d05d69a3e6 )
   def replace_url_to_link(text)
     URI.extract(text, ['http', 'https']).uniq.each do |url|
-      link = "<a href=#{url}>#{url}</a>"
+      link = "<a href=#{url}>#{limit_text url, 24}</a>"
       text.gsub! url, link
     end
     text
