@@ -57,6 +57,10 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 # fixing security vulnerabilities
 gem 'sprockets', '~> 3.7.2'
 
+# webpush notification
+gem 'serviceworker-rails'
+gem 'webpush'
+
 group :development, :test do
   gem 'byebug', '~>9.1', platforms: %i[mri mingw x64_mingw]
   gem 'capybara', '~> 2.13'
