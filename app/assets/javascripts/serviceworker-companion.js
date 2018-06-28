@@ -14,7 +14,7 @@ if (navigator.serviceWorker) {
 // 参考: (https://www.lanches.co.jp/blog/6723)
 var subscribeSuccess = function(subscription){
   params = {
-    subscription: subscription.toJSON();
+    subscription: subscription.toJSON()
   }
   
   $.ajax({

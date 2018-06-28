@@ -11,6 +11,10 @@ class DevicesController < ApplicationController
   private
 
   def device_params
-    params.require(:subscription).permit(%i(endpoint p256dh auth))
+    p1 = params.require(:subscription).permit(:endpoint)
+    p2 = params.require(:subscription)
+               .require(:keys)
+               .permit(:p256dh, :auth)
+    p1.merge p2
   end
 end
