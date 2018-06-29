@@ -1,21 +1,31 @@
 class WebpushService
   # 参考: (https://www.lanches.co.jp/blog/6723)
 
-  def initialize(user_id: nil)
-    @user_id = user_id
+  def initialize(user: nil)
+    @user = user
   end
 
-  def webpush(message)
+  def webpush(text, title: '進捗ノート', target_url: '/')
     devices.each do |device|
-      webpush_to_device device, message
+      webpush_to_device device,
+                        text,
+                        title: title,
+                        target_url: target_url
     end
   end
 
   private
 
-  def webpush_to_device(device, message)
+  def webpush_to_device(device, text, title: '進捗ノート', target_url: '/')
+    message = {
+      icon: '/icon.png',
+      title: title,
+      body: text,
+      target_url: target_url
+    }
+
     Webpush.payload_send(
-      message: message,
+      message: message.to_json,
       endpoint: device.endpoint,
       p256dh: device.p256dh,
       auth: device.auth,
@@ -28,6 +38,6 @@ class WebpushService
   end
 
   def devices
-    @user_id.present? ? Device.where(user_id: @user_id) : Device.all
+    @user.present? ? Device.where(user: @user) : Device.all
   end
 end

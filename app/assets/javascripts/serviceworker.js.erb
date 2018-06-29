@@ -39,18 +39,23 @@ self.addEventListener('fetch', onFetch);
 
 // プッシュ通知を受け取った時の処理
 self.addEventListener('push', function(event){
-  var title = (event.data && event.data.text()) || '進捗ノートからの通知';
+  console.log(event);
+  var json = event.data ? event.data.json() 
+          : {
+              "title" : "進捗ノート",
+              "body" : "進捗ノートからの通知です"
+            };
   var data = {
-    body: "",
+    body: json.body,
     tag: "notification",
-    icon: '/icon.png',
+    icon: json.icon,
     vibrate: [800], // ミリ秒単位で振動と休止の時間を交互に任意の回数だけ配列に格納
     data: {
-      link_to: '/'
+      link_to: json.target_url
     }
   };
 
-  event.waitUntil(self.registration.showNotification(title, data));
+  event.waitUntil(self.registration.showNotification(json.title, data));
 });
 
 // 通知をクリックした時の処理
