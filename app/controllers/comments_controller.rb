@@ -46,11 +46,13 @@ class CommentsController < ApplicationController
       flash[:success] = 'コメントを投稿しました。'
 
       # Notification
-      WebpushService.new(user: @note.user)
-                    .webpush(
-                      @comment.text,
-                      title: "#{@note.name}へのコメント"
-                    )
+      if @note.user.comment_webpush_enabled
+        WebpushService.new(user: @note.user)
+                      .webpush(
+                        @comment.text,
+                        title: "#{@note.name}へのコメント"
+                      )
+      end
 
       redirect_to note_path(@note)
     else

@@ -28,15 +28,17 @@ class ShinchokuDodeskasController < ApplicationController
     @shinchoku_dodeska.save!
 
     # Notification
-    newest_shinchoku_dodeska_to_note_count =
-      ShinchokuDodeska.where(to_note: @note)
-                      .where('created_at > ?', @note.user.notify_from)
-                      .count
-    WebpushService.new(user: @note.user)
-                  .webpush(
-                    "#{@note.name}に「進捗どうですか？」が届きました",
-                    title: "#{newest_shinchoku_dodeska_to_note_count}件の新しい「進捗どうですか？」"
-                  )
+    if @note.user.comment_webpush_enabled
+      newest_shinchoku_dodeska_to_note_count =
+        ShinchokuDodeska.where(to_note: @note)
+                        .where('created_at > ?', @note.user.notify_from)
+                        .count
+      WebpushService.new(user: @note.user)
+                    .webpush(
+                      "#{@note.name}に「進捗どうですか？」が届きました",
+                      title: "#{newest_shinchoku_dodeska_to_note_count}件の新しい「進捗どうですか？」"
+                    )
+    end
 
     respond_to do |format|
       format.html
