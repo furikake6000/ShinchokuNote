@@ -231,22 +231,22 @@ class ApplicationController < ActionController::Base
   def newest_notifications_count
     return 0 unless logged_in?
     return @newest_notifications_count if @newest_notifications_count
-    
+
     newest_comments_count unless @newest_comments_count
-    newest_shinchoku_dodeskas_count = ShinchokuDodeska.where(
+    @newest_shinchoku_dodeskas_count = ShinchokuDodeska.where(
       'to_note_id IN (?) AND created_at > ?',
       current_user.notes.map(&:id),
       current_user.notify_from
     ).count
-    newest_watchlists_count = Watchlist.where(
+    @newest_watchlists_count = Watchlist.where(
       'to_note_id IN (?) AND created_at > ?',
       current_user.notes.map(&:id),
       current_user.notify_from
     ).count
 
     @newest_notifications_count = @newest_comments_count +
-                                  newest_shinchoku_dodeskas_count +
-                                  newest_watchlists_count
+                                  @newest_shinchoku_dodeskas_count +
+                                  @newest_watchlists_count
   end
 
   def newest_comments_count

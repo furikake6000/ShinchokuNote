@@ -44,6 +44,14 @@ class CommentsController < ApplicationController
     if @comment.save
       # 保存成功
       flash[:success] = 'コメントを投稿しました。'
+
+      # Notification
+      WebpushService.new(user: @note.user)
+                    .webpush(
+                      @comment.text,
+                      title: "#{@note.name}へのコメント"
+                    )
+
       redirect_to note_path(@note)
     else
       # やりなおし
