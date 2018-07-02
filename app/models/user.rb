@@ -21,6 +21,8 @@ class User < ApplicationRecord
 
   has_many :watching_notes,
            through: :watchlists
+  
+  has_many :devices, dependent: :destroy
 
   # adminかどうかを返す
   def admin?

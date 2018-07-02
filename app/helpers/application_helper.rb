@@ -130,4 +130,13 @@ module ApplicationHelper
   def escape_like(string)
     string.gsub(/[\\%_]/) { |m| "\\#{m}" }
   end
+
+  # Webpushで使用する、service workerのvapid_public_keyをjsから呼び出す
+  def vapid_public_key
+    Rails.application.credentials.vapid[:public_key]
+  end
+
+  def vapid_public_key_base64
+    Base64.urlsafe_decode64(vapid_public_key).bytes
+  end
 end

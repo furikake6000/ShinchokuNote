@@ -38,6 +38,15 @@ ActiveRecord::Schema.define(version: 2018_06_30_125139) do
     t.index ["to_note_id"], name: "index_comments_on_to_note_id"
   end
 
+  create_table "devices", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "endpoint"
+    t.string "p256dh"
+    t.string "auth"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "notes", force: :cascade do |t|
     t.string "name"
     t.string "desc"
