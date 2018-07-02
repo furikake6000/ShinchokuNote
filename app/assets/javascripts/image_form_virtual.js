@@ -1,4 +1,6 @@
 $(document).on('turbolinks:load', function(){
+    const MAX_IMAGE_SIZE = ((2 ** 10) ** 2);
+
     let $virtualform = $('#image_form_virtual');
     let $realform = $('#image_form_hidden');
     let $clickandselect = $('#image_form_click_and_select');
@@ -42,9 +44,8 @@ $(document).on('turbolinks:load', function(){
                     image.onload = function(e){
                         let redratio = Math.min(
                             1.0, 
-                            (2 ** 10 ** 2) / (image.width * image.height)
+                            (MAX_IMAGE_SIZE / (image.width * image.height))
                         );
-                        console.log((2 ** 10 ** 2) / (image.width * image.height));
                         $canvas.attr({
                             width: image.width * redratio,
                             height: image.height * redratio
