@@ -3,12 +3,22 @@
 
 // Variables and Mixins
 
-@mixin chaptitle($color: darken($primary, 20), $font-size: 1.2rem, $letter-spacing: 0.2em){
+@mixin chaptitle($color: darken($primary, 20), $font-size: 1.2rem){
   font-weight: bold;
   font-size: $font-size;
-  letter-spacing: $letter-spacing;
+  letter-spacing: 0.1em;
   color: $color;
   border-bottom: medium dotted $color;
+}
+
+@mixin subtitle($color, $font-size: 1.2rem){
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: $font-size;
+  letter-spacing: 0.1em;
+  color: white;
+  background-color: $color;
+  border-radius: 1000px 0px 0px 1000px;
 }
 
 // Fonts
@@ -166,16 +176,28 @@ body{
     @include chaptitle($gray-500, x-large);
   }
 
+  h2{
+    @include subtitle($gray-500, large)
+  }
+
   &.body-bg-primary{
     background-color: lighten($primary, 40);
     h1{
       @include chaptitle($primary, x-large);
+    }
+
+    h2{
+      @include subtitle($primary, large)
     }
   }
   &.body-bg-secondary{
     background-color: lighten($secondary, 40);
     h1{
       @include chaptitle($secondary, x-large);
+    }
+
+    h2{
+      @include subtitle($secondary, large)
     }
   }
 }

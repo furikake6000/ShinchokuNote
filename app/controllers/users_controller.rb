@@ -118,6 +118,6 @@ class UsersController < ApplicationController
 
   # Userのパラメータを安全に取り出す
   def users_params
-    params.require(:user).permit(:desc)
+    params.require(:user).permit(:desc, :comment_webpush_enabled, :shinchoku_dodeska_webpush_enabled)
   end
 end

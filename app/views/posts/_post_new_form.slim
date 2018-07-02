@@ -17,9 +17,10 @@
     
     .input-group
         #image_form_virtual
-            div
-                =fa_icon 'photo 2x'
-            div クリックで画像を選択
+            #image_form_click_and_select
+                div
+                    =fa_icon 'photo 2x'
+                div クリックで画像を選択
             #image_form_preview
         = f.file_field :image,
             id: 'image_form_hidden',
@@ -29,12 +30,15 @@
         = f.submit '進捗報告',
             id: 'post_submit',
             class: "btn btn-#{note_color note} mr-3",
-            disabled: true
+            disabled: true,
+            accept: 'image/*'
         = f.submit 'Twitterで進捗報告',
             name: 'post_with_tweet',
             id: 'tweet_submit',
             class: "btn btn-#{note_color note}",
             disabled: true
+
+= render 'posts/image_edit_modal'
 
 - content_for :javascript do
     = javascript_include_tag 'post_text_box',
