@@ -16,6 +16,35 @@ $(document).on('turbolinks:load', function(){
         e.stopPropagation();
     }
 
+    function loadImageToEditorModal($img){
+        // Set editing <img> id to 'editingimage' attr
+        $canvas.attr('editingimage', $img.attr('id'));
+        let ctx = $canvas[0].getContext('2d');
+        let image = new Image();
+        image.src = $img.attr('src');
+        image.onload = function(e){
+            let redratio = Math.min(
+                1.0, 
+                (MAX_IMAGE_SIZE / (image.width * image.height))
+            );
+            $canvas.attr({
+                width: image.width * redratio,
+                height: image.height * redratio
+            });
+            ctx.drawImage(image, 
+                0, 0, 
+                image.width * redratio, image.height * redratio
+            );
+        }
+    }
+
+    function confirmImageFromEditorModal(){
+        // Confirm edited image
+        let dataURI = $canvas[0].toDataURL();
+        let $pendingimage = $('#' + $canvas.attr('editingimage'));
+        $pendingimage.attr('src', dataURI);
+    }
+
     function loadImages(images){
         $.each(images, function(){
             let reader = new FileReader();
@@ -35,26 +64,7 @@ $(document).on('turbolinks:load', function(){
                 // Make the click trigger of <img> tags
                 $pendingimage.click(function(e){
                     // Set the image of canvas
-
-                    // Set editing <img> id to 'editingimage' attr
-                    $canvas.attr('editingimage', $pendingimage.attr('id'));
-                    let ctx = $canvas[0].getContext('2d');
-                    let image = new Image();
-                    image.src = $pendingimage.attr('src');
-                    image.onload = function(e){
-                        let redratio = Math.min(
-                            1.0, 
-                            (MAX_IMAGE_SIZE / (image.width * image.height))
-                        );
-                        $canvas.attr({
-                            width: image.width * redratio,
-                            height: image.height * redratio
-                        });
-                        ctx.drawImage(image, 
-                            0, 0, 
-                            image.width * redratio, image.height * redratio
-                        );
-                    }
+                    loadImageToEditorModal($pendingimage);
                     $imageeditmodal.modal('toggle');
                 });
             }
@@ -73,12 +83,7 @@ $(document).on('turbolinks:load', function(){
         $realform.trigger('click');
     })
 
-    $editconfirm.click(function(){
-        // Confirm edited image
-        let dataURI = $canvas[0].toDataURL();
-        let $pendingimage = $('#' + $canvas.attr('editingimage'));
-        $pendingimage.attr('src', dataURI);
-    })
+    $editconfirm.click(confirmImageFromEditorModal);
 
     $virtualform.on({
         'dragenter': disableEvent,
