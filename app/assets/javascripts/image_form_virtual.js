@@ -16,7 +16,7 @@ $(document).on('turbolinks:load', function(){
         e.stopPropagation();
     }
 
-    function loadImageToEditorModal($img){
+    function loadImageToEditorModal($img, load_and_confirm = true){
         // Set editing <img> id to 'editingimage' attr
         $canvas.attr('editingimage', $img.attr('id'));
         let ctx = $canvas[0].getContext('2d');
@@ -35,6 +35,9 @@ $(document).on('turbolinks:load', function(){
                 0, 0, 
                 image.width * redratio, image.height * redratio
             );
+            if(load_and_confirm){
+                confirmImageFromEditorModal();
+            }
         }
     }
 
@@ -67,6 +70,9 @@ $(document).on('turbolinks:load', function(){
                     loadImageToEditorModal($pendingimage);
                     $imageeditmodal.modal('toggle');
                 });
+
+                // Once load it on canvas to scale it (for large images)
+                loadImageToEditorModal($pendingimage, true);
             }
             reader.readAsDataURL(this);
         })
