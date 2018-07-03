@@ -25,7 +25,7 @@ $(document).on('turbolinks:load', function(){
         image.onload = function(e){
             let redratio = Math.min(
                 1.0, 
-                (MAX_IMAGE_SIZE / (image.width * image.height))
+                Math.sqrt(MAX_IMAGE_SIZE / (image.width * image.height))
             );
             $canvas.attr({
                 width: image.width * redratio,
