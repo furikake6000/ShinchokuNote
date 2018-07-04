@@ -6,7 +6,8 @@ $(document).on('turbolinks:load', function(){
     let $clickandselect = $('#image_form_click_and_select');
     let $preview = $('#image_form_preview');
     let $editconfirm = $('#edit_confirm_button');
-    let $canvas = $("#image_edit_canvas");
+    let $canvas = $('#image_edit_canvas');
+    let $canvas_ui = $('#image_edit_ui_canvas');
     let $imageeditmodal = $('#image_edit_modal');
     let imagecount = 0;
     let $pendingimages = {};
@@ -28,6 +29,10 @@ $(document).on('turbolinks:load', function(){
                 Math.sqrt(MAX_IMAGE_SIZE / (image.width * image.height))
             );
             $canvas.attr({
+                width: image.width * redratio,
+                height: image.height * redratio
+            });
+            $canvas_ui.attr({
                 width: image.width * redratio,
                 height: image.height * redratio
             });

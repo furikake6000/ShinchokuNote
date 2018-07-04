@@ -1,3 +1,14 @@
+// ImageEditDialog
+.canvas-wrapper{
+    position: relative;
+}
+
 #image_edit_canvas{
+    width: 100%;
+}
+
+#image_edit_ui_canvas{
+    width: 100%;
+    position: absolute;
     cursor: crosshair;
 }

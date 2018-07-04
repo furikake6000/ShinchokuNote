@@ -15,7 +15,15 @@
                 )
                     span aria-hidden="true" &times;
             .modal-body
-                canvas#image_edit_canvas
+                .canvas-wrapper
+                    canvas#image_edit_ui_canvas
+                    canvas#image_edit_canvas
+                button(
+                    type="button"
+                    id="trim_button"
+                    class="btn btn-success"
+                )
+                    =fa_icon 'crop', text: 'トリミング'
             .modal-footer
                 button(
                     type="button"
