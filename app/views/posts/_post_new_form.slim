@@ -1,7 +1,7 @@
 = form_for([note.becomes(Note), Post.new],
     url: note_posts_path(note),
     html: {method: 'POST'} ) do |f|
-    
+
     - if defined? response_to
         = f.hidden_field :response_to,
             id: 'respond_to',
@@ -14,7 +14,7 @@
             class: 'form-control'
 
     #text_count class="text-#{note_color note}" 0 / #{(defined?(response_to) ? 108 : 110)}
-    
+
     .input-group
         #image_form_virtual
             #image_form_click_and_select

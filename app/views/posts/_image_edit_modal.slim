@@ -28,3 +28,7 @@
                     class="btn btn-success"
                     data-dismiss="modal"
                 ) 適用する
+
+- content_for :javascript do
+    = javascript_include_tag 'image_edit_modal',
+        'data-turbolinks-track': 'reload'
