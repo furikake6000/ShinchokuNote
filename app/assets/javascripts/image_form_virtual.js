@@ -90,8 +90,37 @@ $(document).on('turbolinks:load', function(){
         loadImages(images);
     }
 
+    // Ref: (https://stackoverflow.com/a/15754051)
+    function dataURItoBlob(dataURI) {
+        var byteString = atob(dataURI.split(',')[1]);
+        var ab = new ArrayBuffer(byteString.length);
+        var ia = new Uint8Array(ab);
+        for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ab]);
+    }
+
+    // Ref: (https://stackoverflow.com/a/29390393)
+    function blobToFile(theBlob, fileName){
+        //A Blob() is almost a File() - it's just missing the two properties below which we will add
+        theBlob.lastModifiedDate = new Date();
+        theBlob.name = fileName;
+        return theBlob;
+    }
+
+    function dataURItoFile(dataURI, fileName){
+        let blob = dataURItoBlob(dataURI);
+        let file = blobToFile(blob, fileName);
+        file.type = "image/png";
+        return file;
+    }
+
     $clickandselect.click(function(){
-        $realform.trigger('click');
+        $('<input type="file" accept="image/*">').on('change', function(e) {
+            let images = e.target.files;
+            loadImages(images);
+        })[0].click();
     })
 
     $editconfirm.click(confirmImageFromEditorModal);
@@ -103,16 +132,14 @@ $(document).on('turbolinks:load', function(){
         'drop': pendFile
     });
 
-    $realform.on('change', function(e){
-        let images = e.target.files;
-        
-        loadImages(images);
-    })
-
     $('#new_post').submit(function(){
-        console.log(data);
-        console.log("Data posted!");
+        let newvalue = [];
 
-        return false;
+        $.each($pendingimages, function(i, $pendingimage){
+            new_file = dataURItoFile($pendingimage[0].src);
+            newvalue.push($pendingimage[0].src);
+        });
+
+        $realform.val(newvalue);
     })
 })

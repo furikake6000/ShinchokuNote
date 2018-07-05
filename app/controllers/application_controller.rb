@@ -11,6 +11,9 @@ class ApplicationController < ActionController::Base
   include CommentsHelper
   include ErrorHandlingHelper
 
+  require 'tempfile'
+  require 'open-uri'
+
   # rescue_from Exception, with: :render_500
   # rescue_from ActionController::RoutingError, with: :render_404
   # rescue_from ActiveRecord::RecordNotFound,   with: :render_404
@@ -305,6 +308,15 @@ class ApplicationController < ActionController::Base
       # 前処理: *を∗に置換する
       posttext = params[:post][:text].tr('*', '∗')
 
+      # 前処理: imageの読み取り
+      # imageはblob形式で飛んでくる
+      image_files = []
+      params[:post][:image].split(/(?<==),/).each do |image_uri|
+        image_files.push convert_data_url_to_image(image_uri)
+        p image_files
+      end
+      p image_files
+
       if params[:post][:response_to]
         # 返信ありの場合
         responded_comment = Comment.find(params[:post][:response_to])
@@ -327,10 +339,10 @@ class ApplicationController < ActionController::Base
                       comment_url(responded_comment, only_path: false)
         end
         # 画像の有無を判別し投稿
-        tweet = params[:post][:image] ?
+        tweet = image_files ?
           client.update_with_media(
             tweetstr,
-            params[:post][:image].map(&:tempfile)
+            image_files
           ) :
           client.update(tweetstr)
       else
@@ -340,10 +352,11 @@ class ApplicationController < ActionController::Base
                     ' #進捗ノート ' +
                     note_url(@note, only_path: false)
         # 画像の有無を判別し投稿
-        tweet = params[:post][:image] ?
+        p image_files
+        tweet = image_files ?
           client.update_with_media(
             tweetstr,
-            params[:post][:image].map(&:tempfile)
+            image_files
           ) :
           client.update(tweetstr)
       end
@@ -385,6 +398,34 @@ class ApplicationController < ActionController::Base
     tweetpost.text = tweet.to_json
     # 作成したTweetPostを返す
     tweetpost
+  end
+
+  private
+  # dataURLからimage fileへの変換
+  # 参考: (http://www.roughslate.com/convert-data-url-into-image-file-in-ruby-on-rails/)
+  def convert_data_url_to_image(data_url)
+    split_data = splitBase64(data_url)
+    imageDataString = split_data[:data]
+    imageDataBinary = Base64.decode64(imageDataString)
+    tmpfile = Tempfile.open{ |f|
+      f.binmode
+      f.write imageDataBinary
+      f.rewind
+      f
+    }
+    return tmpfile
+  end
+  def splitBase64(uri)
+    if uri.match(%r{^data:(.*?);(.*?),(.*)$})
+      return {
+        type: $1, # "image/png"
+        encoder: $2, # "base64"
+        data: $3, # data string
+        extension: $1.split('/')[1] # "png"
+      }
+      
+    end
+   
   end
 end
 
