@@ -310,12 +310,7 @@ class ApplicationController < ActionController::Base
 
       # 前処理: imageの読み取り
       # imageはblob形式で飛んでくる
-      image_files = []
-      params[:post][:image].split(/(?<==),/).each do |image_uri|
-        image_files.push convert_data_url_to_image(image_uri)
-        p image_files
-      end
-      p image_files
+      dataURLs = params[:post][:image].split(/(?<==),/) if params[:post][:image]
 
       if params[:post][:response_to]
         # 返信ありの場合
@@ -339,11 +334,8 @@ class ApplicationController < ActionController::Base
                       comment_url(responded_comment, only_path: false)
         end
         # 画像の有無を判別し投稿
-        tweet = image_files ?
-          client.update_with_media(
-            tweetstr,
-            image_files
-          ) :
+        tweet = dataURLs ?
+          update_with_media_dataurl(client, tweetstr, dataURLs, []) :
           client.update(tweetstr)
       else
         # 返信なしの場合
@@ -352,12 +344,8 @@ class ApplicationController < ActionController::Base
                     ' #進捗ノート ' +
                     note_url(@note, only_path: false)
         # 画像の有無を判別し投稿
-        p image_files
-        tweet = image_files ?
-          client.update_with_media(
-            tweetstr,
-            image_files
-          ) :
+        tweet = dataURLs ?
+          update_with_media_dataurl(client, tweetstr, dataURLs, []) :
           client.update(tweetstr)
       end
 
@@ -401,19 +389,30 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  # 再帰関数で画像投稿を行う
+  def update_with_media_dataurl(client, tweetstr, dataURLs, pictures)
+    if dataURLs.empty?
+      client.update_with_media tweetstr, pictures
+    else
+      dataURL = dataURLs.shift
+      imageDataBinary = convert_data_url_to_binary dataURL
+      Tempfile.create('TwFig') { |f|
+        f.binmode
+        f.write imageDataBinary
+        f.rewind
+        pictures.push f
+        # 再帰
+        update_with_media_dataurl client, tweetstr, dataURLs, pictures
+      }
+    end
+  end
+
   # dataURLからimage fileへの変換
   # 参考: (http://www.roughslate.com/convert-data-url-into-image-file-in-ruby-on-rails/)
-  def convert_data_url_to_image(data_url)
+  def convert_data_url_to_binary(data_url)
     split_data = splitBase64(data_url)
     imageDataString = split_data[:data]
     imageDataBinary = Base64.decode64(imageDataString)
-    tmpfile = Tempfile.open{ |f|
-      f.binmode
-      f.write imageDataBinary
-      f.rewind
-      f
-    }
-    return tmpfile
   end
   def splitBase64(uri)
     if uri.match(%r{^data:(.*?);(.*?),(.*)$})
