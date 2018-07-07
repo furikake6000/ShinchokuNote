@@ -94,10 +94,12 @@ $(document).on('turbolinks:load', function(){
 
     $trim_button.click(function(e){
         if(start_pos && end_pos){
-            let rect_width = end_pos.X() - start_pos.X();
-            let rect_height = end_pos.Y() - start_pos.Y();
+            let rect_x = Math.min(start_pos.X(), end_pos.X());
+            let rect_y = Math.min(start_pos.Y(), end_pos.Y());
+            let rect_width = Math.abs(end_pos.X() - start_pos.X());
+            let rect_height = Math.abs(end_pos.Y() - start_pos.Y());
             
-            let trim_img = ctx.getImageData(start_pos.X(), start_pos.Y(), rect_width, rect_height);
+            let trim_img = ctx.getImageData(rect_x, rect_y, rect_width, rect_height);
 
             $canvas.attr({
                 width: rect_width,
