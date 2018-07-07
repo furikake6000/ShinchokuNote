@@ -11,6 +11,9 @@ class ApplicationController < ActionController::Base
   include CommentsHelper
   include ErrorHandlingHelper
 
+  require 'tempfile'
+  require 'open-uri'
+
   # rescue_from Exception, with: :render_500
   # rescue_from ActionController::RoutingError, with: :render_404
   # rescue_from ActiveRecord::RecordNotFound,   with: :render_404
@@ -75,7 +78,7 @@ class ApplicationController < ActionController::Base
     end
 
     # Commentsのフィルター機能
-    params['comments_filter'] = params['comments_filter'] || 'all'
+    params['comments_filter'] ||= 'unread'
     case params['comments_filter']
     when 'all' then
       @comments = @note.comments
@@ -161,9 +164,11 @@ class ApplicationController < ActionController::Base
   def load_watching_posts(size)
     return nil unless logged_in?
     # note_idがwatching_noteであるpostを抽出
-    @watching_posts = TweetPost.where('note_id IN (?)', current_user.watching_notes.map(&:id))
-                               .order('created_at DESC')
-                               .limit(size)
+    allowed_types = ['TweetPost', 'PlainPost']
+    @watching_posts = Post.where('type IN (?)', allowed_types.join(', '))
+                          .where('note_id IN (?)', current_user.watching_notes.map(&:id))
+                          .order('created_at DESC')
+                          .limit(size)
   end
 
   def load_notifications
@@ -229,22 +234,22 @@ class ApplicationController < ActionController::Base
   def newest_notifications_count
     return 0 unless logged_in?
     return @newest_notifications_count if @newest_notifications_count
-    
+
     newest_comments_count unless @newest_comments_count
-    newest_shinchoku_dodeskas_count = ShinchokuDodeska.where(
+    @newest_shinchoku_dodeskas_count = ShinchokuDodeska.where(
       'to_note_id IN (?) AND created_at > ?',
       current_user.notes.map(&:id),
       current_user.notify_from
     ).count
-    newest_watchlists_count = Watchlist.where(
+    @newest_watchlists_count = Watchlist.where(
       'to_note_id IN (?) AND created_at > ?',
       current_user.notes.map(&:id),
       current_user.notify_from
     ).count
 
     @newest_notifications_count = @newest_comments_count +
-                                  newest_shinchoku_dodeskas_count +
-                                  newest_watchlists_count
+                                  @newest_shinchoku_dodeskas_count +
+                                  @newest_watchlists_count
   end
 
   def newest_comments_count
@@ -303,6 +308,10 @@ class ApplicationController < ActionController::Base
       # 前処理: *を∗に置換する
       posttext = params[:post][:text].tr('*', '∗')
 
+      # 前処理: imageの読み取り
+      # imageはblob形式で飛んでくる
+      dataURLs = params[:post][:image].split(/(?<==),/) if params[:post][:image]
+
       if params[:post][:response_to]
         # 返信ありの場合
         responded_comment = Comment.find(params[:post][:response_to])
@@ -325,11 +334,8 @@ class ApplicationController < ActionController::Base
                       comment_url(responded_comment, only_path: false)
         end
         # 画像の有無を判別し投稿
-        tweet = params[:post][:image] ?
-          client.update_with_media(
-            tweetstr,
-            params[:post][:image].map(&:tempfile)
-          ) :
+        tweet = dataURLs ?
+          update_with_media_dataurl(client, tweetstr, dataURLs, []) :
           client.update(tweetstr)
       else
         # 返信なしの場合
@@ -338,11 +344,8 @@ class ApplicationController < ActionController::Base
                     ' #進捗ノート ' +
                     note_url(@note, only_path: false)
         # 画像の有無を判別し投稿
-        tweet = params[:post][:image] ?
-          client.update_with_media(
-            tweetstr,
-            params[:post][:image].map(&:tempfile)
-          ) :
+        tweet = dataURLs ?
+          update_with_media_dataurl(client, tweetstr, dataURLs, []) :
           client.update(tweetstr)
       end
 
@@ -383,6 +386,45 @@ class ApplicationController < ActionController::Base
     tweetpost.text = tweet.to_json
     # 作成したTweetPostを返す
     tweetpost
+  end
+
+  private
+  # 再帰関数で画像投稿を行う
+  def update_with_media_dataurl(client, tweetstr, dataURLs, pictures)
+    if dataURLs.empty?
+      client.update_with_media tweetstr, pictures
+    else
+      dataURL = dataURLs.shift
+      imageDataBinary = convert_data_url_to_binary dataURL
+      Tempfile.create('TwFig') { |f|
+        f.binmode
+        f.write imageDataBinary
+        f.rewind
+        pictures.push f
+        # 再帰
+        update_with_media_dataurl client, tweetstr, dataURLs, pictures
+      }
+    end
+  end
+
+  # dataURLからimage fileへの変換
+  # 参考: (http://www.roughslate.com/convert-data-url-into-image-file-in-ruby-on-rails/)
+  def convert_data_url_to_binary(data_url)
+    split_data = splitBase64(data_url)
+    imageDataString = split_data[:data]
+    imageDataBinary = Base64.decode64(imageDataString)
+  end
+  def splitBase64(uri)
+    if uri.match(%r{^data:(.*?);(.*?),(.*)$})
+      return {
+        type: $1, # "image/png"
+        encoder: $2, # "base64"
+        data: $3, # data string
+        extension: $1.split('/')[1] # "png"
+      }
+      
+    end
+   
   end
 end
 

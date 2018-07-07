@@ -1,0 +1,42 @@
+.modal.fade(
+    id="image_edit_modal"
+    tabindex="-1"
+    aria-labelledby="image_edit_modal"
+    aria-hidden="true"
+)
+    .modal-dialog.modal-lg role="document"
+        .modal-content
+            .modal-header
+                h5.modal-title 画像編集ダイアログ
+                button.close(
+                    type="button"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                )
+                    span aria-hidden="true" &times;
+            .modal-body
+                .canvas-wrapper
+                    canvas#image_edit_ui_canvas
+                    canvas#image_edit_canvas
+                button(
+                    type="button"
+                    id="trim_button"
+                    class="btn btn-success"
+                )
+                    =fa_icon 'crop', text: 'トリミング'
+            .modal-footer
+                button(
+                    type="button"
+                    class="btn btn-info"
+                    data-dismiss="modal"
+                ) キャンセル
+                button(
+                    type="button"
+                    id="edit_confirm_button"
+                    class="btn btn-success"
+                    data-dismiss="modal"
+                ) 適用する
+
+- content_for :javascript do
+    = javascript_include_tag 'image_edit_modal',
+        'data-turbolinks-track': 'reload'

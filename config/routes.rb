@@ -39,6 +39,9 @@ Rails.application.routes.draw do
   # リソース:アナウンス
   resources :announces, only: %i[index create update show destroy]
 
+  # リソース:デバイス(Webpushに使用)
+  resources :devices, only: [:create]
+
   get '/search', to: 'search#search'
   get '/auth/twitter/callback', to: 'users#login'
   get '/switch', to: 'users#switchuser'

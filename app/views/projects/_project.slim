@@ -9,8 +9,9 @@
         h5
             = link_to project.name, note_path(project)
             = render 'projects/stagebadge', project: project
+            = render 'notes/viewstancebadge', note: project
     
         .media-body
-            .media-text #{replace_url_to_link(h(project.desc)).html_safe}
+            .media-text #{limit_text(replace_url_to_link(h(project.desc)).html_safe, 140)}
 
         = render 'notes/note_footer', note: project

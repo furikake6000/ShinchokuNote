@@ -107,13 +107,19 @@ module ApplicationHelper
     "https://twitter.com/share?text=#{CGI.escape(text)}&url=#{url}&hashtags=進捗ノート"
   end
 
+  # 文字数が一定以上だったら(...)で省略する
+  def limit_text(text, maxlen)
+    # 変換後の文字数がmaxlenとなるように
+    text.size > maxlen ? 
+      text[0..(maxlen - 4)] + '...' :
+      text
+  end
+
   # URLを認識して置換
   # (参考: https://qiita.com/satoken0417/items/df4098a122d05d69a3e6 )
   def replace_url_to_link(text)
     URI.extract(text, ['http', 'https']).uniq.each do |url|
-      limit_strsize = 30
-      show_url = url.size > limit_strsize ? url[0..(limit_strsize - 1)] + '...' : url
-      link = "<a href=#{url}>#{show_url}</a>"
+      link = "<a href=#{url}>#{limit_text url, 24}</a>"
       text.gsub! url, link
     end
     text
@@ -123,5 +129,14 @@ module ApplicationHelper
   # (参考: https://www.rubydoc.info/github/jeremyevans/sequel/master/Sequel/Dataset:escape_like)
   def escape_like(string)
     string.gsub(/[\\%_]/) { |m| "\\#{m}" }
+  end
+
+  # Webpushで使用する、service workerのvapid_public_keyをjsから呼び出す
+  def vapid_public_key
+    Rails.application.credentials.vapid[:public_key]
+  end
+
+  def vapid_public_key_base64
+    Base64.urlsafe_decode64(vapid_public_key).bytes
   end
 end

@@ -28,4 +28,4 @@ production:
   port: 5432
   database: shinchokunote
   username: postgres
-  password: <%= Rails.application.secrets.postgres_pass %>
+  password: <%= Rails.application.credentials.postgres_pass %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_18_135517) do
+ActiveRecord::Schema.define(version: 2018_06_30_125139) do
 
   create_table "announces", force: :cascade do |t|
     t.string "text"
@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(version: 2018_06_18_135517) do
     t.index ["from_user_id"], name: "index_comments_on_from_user_id"
     t.index ["response_id"], name: "index_comments_on_response_id"
     t.index ["to_note_id"], name: "index_comments_on_to_note_id"
+  end
+
+  create_table "devices", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "endpoint"
+    t.string "p256dh"
+    t.string "auth"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "notes", force: :cascade do |t|
@@ -100,6 +109,8 @@ ActiveRecord::Schema.define(version: 2018_06_18_135517) do
     t.datetime "checked_notifications_at"
     t.binary "linked_users_info"
     t.datetime "saw_notifications_at"
+    t.boolean "comment_webpush_enabled", default: true
+    t.boolean "shinchoku_dodeska_webpush_enabled", default: true
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["twitter_id"], name: "index_users_on_twitter_id", unique: true
   end

@@ -91,4 +91,7 @@ Rails.application.configure do
 
   # Log出力形式の変更
   config.logger = ActiveSupport::Logger.new('log/daily.log', 'daily')
+
+  # Be sure to set master_key
+  config.require_master_key = true
 end

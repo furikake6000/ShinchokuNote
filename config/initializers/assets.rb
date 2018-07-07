@@ -20,8 +20,10 @@ Rails.application.config.assets.precompile += %w[
   comment_text_box.js
   datetimepicker.js
   tweet_text_box.js
+  image_edit_modal.js
 ]
 
 # Original Webfonts
 Rails.application.config.assets.paths <<
   Rails.root.join('app', 'assets', 'fonts')
+Rails.configuration.assets.precompile += %w[serviceworker.js manifest.json]

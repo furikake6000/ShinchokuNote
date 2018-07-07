@@ -15,20 +15,20 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   def login_as_okaka
     login_user @okaka,
-               Rails.application.secrets.okaka_token,
-               Rails.application.secrets.okaka_secret
+               Rails.application.credentials.twitter_test_fixture[:okaka_token],
+               Rails.application.credentials.twitter_test_fixture[:okaka_secret]
   end
 
   def login_as_noritama
     login_user @noritama,
-               Rails.application.secrets.noritama_token,
-               Rails.application.secrets.noritama_secret
+               Rails.application.credentials.twitter_test_fixture[:noritama_token],
+               Rails.application.credentials.twitter_test_fixture[:noritama_secret]
   end
 
   def login_as_noriwasa
     login_user @noriwasa,
-               Rails.application.secrets.noriwasa_token,
-               Rails.application.secrets.noriwasa_secret
+               Rails.application.credentials.twitter_test_fixture[:noriwasa_token],
+               Rails.application.credentials.twitter_test_fixture[:noriwasa_secret]
   end
 
   # ApplicationHelperモジュールの書き換え
