@@ -165,7 +165,7 @@ class ApplicationController < ActionController::Base
     return nil unless logged_in?
     # note_idがwatching_noteであるpostを抽出
     allowed_types = ['TweetPost', 'PlainPost']
-    @watching_posts = Post.where('type IN (?)', allowed_types.join(', '))
+    @watching_posts = Post.where('type IN (?)', allowed_types)
                           .where('note_id IN (?)', current_user.watching_notes.map(&:id))
                           .order('created_at DESC')
                           .limit(size)
