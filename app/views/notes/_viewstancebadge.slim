@@ -1,0 +1,3 @@
+- unless note.everyone_view_stance?
+    .badge class="badge-#{note_color note}"
+        = fa_icon 'lock', text: note.view_stance_i18n

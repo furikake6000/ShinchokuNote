@@ -5,6 +5,7 @@
 <h1>
   <%= @note.name %>
   <%= render 'projects/stagebadge', project: @note %>
+  <%= render 'notes/viewstancebadge', note: @note %>
 </h1>
 <%= link_to '編集する', edit_note_path(@note)  %>
 <p><%= @note.desc %></p>
