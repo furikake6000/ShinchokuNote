@@ -389,7 +389,7 @@ class ApplicationController < ActionController::Base
   end
 
   # 再帰関数で画像投稿を行う
-  private_class_method def update_with_media_dataurl(client, tweetstr, data_urls, pictures)
+  def update_with_media_dataurl(client, tweetstr, data_urls, pictures)
     if data_urls.empty?
       client.update_with_media tweetstr, pictures
     else
@@ -415,7 +415,7 @@ class ApplicationController < ActionController::Base
 
   # data_urlからimage fileへの変換
   # 参考: (http://www.roughslate.com/convert-data-url-into-image-file-in-ruby-on-rails/)
-  private_class_method def convert_data_url_to_binary(data_url)
+  def convert_data_url_to_binary(data_url)
     split_data = split_base64(data_url)
     return nil if split_data.nil?
 
