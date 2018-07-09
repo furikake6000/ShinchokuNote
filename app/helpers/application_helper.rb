@@ -69,6 +69,18 @@ module ApplicationHelper
     end
   end
 
+  # イイカンジに働いてくれるDate->Str変換器
+  def smart_date_to_str(time)
+    time_c = time.dup
+    if time.year == Time.now.year
+      # 月日を表示
+      I18n.l(time_c.localtime, format: :date)
+    else
+      # 年月日を表示
+      I18n.l(time_c.localtime, format: :year_date)
+    end
+  end
+
   # cookie取得
   def getcookie(tag)
     cookies.signed[tag]

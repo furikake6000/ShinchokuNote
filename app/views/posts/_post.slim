@@ -10,14 +10,14 @@
         .bgstr
             span.icon-shinchokunote
 
+        / 投稿削除ボタン
         - if current_user? post.note.user
-
-        button.close(
-            type="button"
-            data-toggle="modal"
-            data-target="#deletePost#{post.id}Modal"
-        )
-            span aria-hidden="true" &times;
+            button.close(
+                type="button"
+                data-toggle="modal"
+                data-target="#deletePost#{post.id}Modal"
+            )
+                span aria-hidden="true" &times;
         
         .media-body
             - if defined? light
@@ -34,33 +34,35 @@
         = fa_icon 'reply', text: '以下のコメントへの返信です', class: 'mt-3'
       = render 'comments/comment', {comment: post.responded_comment, light: true, hide_response: true}
 
-.modal.fade(
-    id="deletePost#{post.id}Modal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="deletePost#{post.id}Modal"
-    aria-hidden="true"
-)
-    .modal-dialog role="document"
-        .modal-content
-            .modal-header
-                h5.modal-title 投稿を削除します
-                button.close(
-                    type="button"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                )
-                    span aria-hidden="true" &times;
-            .modal-body
-                p 投稿「#{post.text}」を削除します。
-                p.text-danger.font-weight-bold 復元はできません。本当によろしいですか？
-            .modal-footer
-                button(
-                    type="button"
-                    class="btn btn-info"
-                    data-dismiss="modal"
-                ) キャンセル
-                = link_to '削除する', 
-                    post_path(tweet_post),
-                    method: :delete,
-                    class: 'btn btn-danger'
+/ 投稿削除モーダル
+- if current_user? post.note.user
+    .modal.fade(
+        id="deletePost#{post.id}Modal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="deletePost#{post.id}Modal"
+        aria-hidden="true"
+    )
+        .modal-dialog role="document"
+            .modal-content
+                .modal-header
+                    h5.modal-title 投稿を削除します
+                    button.close(
+                        type="button"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                    )
+                        span aria-hidden="true" &times;
+                .modal-body
+                    p 投稿「#{post.text}」を削除します。
+                    p.text-danger.font-weight-bold 復元はできません。本当によろしいですか？
+                .modal-footer
+                    button(
+                        type="button"
+                        class="btn btn-info"
+                        data-dismiss="modal"
+                    ) キャンセル
+                    = link_to '削除する', 
+                        post_path(tweet_post),
+                        method: :delete,
+                        class: 'btn btn-danger'

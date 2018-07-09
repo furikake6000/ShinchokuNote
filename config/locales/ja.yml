@@ -2,17 +2,19 @@ ja:
   hello: 'こんにちは'
   date:
     formats:
-      default: "%Y/%m/%d"
-      long: "%Y年%m月%d日(%a)"
-      short: "%m/%d"
+      default: "%Y/%-m/%d"
+      long: "%Y年%-m月%d日(%a)"
+      short: "%-m/%d"
   time:
     formats:
-      default: "%Y/%m/%d %H:%M:%S"
-      long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
-      short: "%y/%m/%d %H:%M"
-      year_date_hour_min: "%Y年%m月%d日 %H:%M"
-      date_hour_min: "%m月%d日 %H:%M"
+      default: "%Y/%-m/%d %H:%M:%S"
+      long: "%Y年%-m月%d日(%a) %H時%M分%S秒 %z"
+      short: "%y/%-m/%d %H:%M"
+      year_date_hour_min: "%Y年%-m月%d日 %H:%M"
+      date_hour_min: "%-m月%d日 %H:%M"
       hour_min: "%H:%M"
+      year_date: "%Y年%-m月%d日"
+      date: "%-m月%d日"
   enums:
     note:
       type:

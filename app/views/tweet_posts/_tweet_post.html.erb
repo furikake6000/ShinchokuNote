@@ -65,6 +65,7 @@
 <%= render partial: 'layouts/tweet', locals:{tweet: tweet.retweeted_status} %>
 <% end %>
 
+<% if current_user?(tweet_post.note.user) %>
 <div class="modal fade" id="deletePost<%= tweet_post.id %>Modal" tabindex="-1" role="dialog" aria-labelledby="deletePost<%= tweet_post.id %>Modal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -86,3 +87,4 @@
     </div>
   </div>
 </div>
+<% end %>

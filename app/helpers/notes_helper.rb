@@ -89,4 +89,9 @@ module NotesHelper
       note.user == user
     end
   end
+
+  # ノート作成から現在までの日数
+  def how_many_days_since_made(note)
+    (Time.now.to_date - note.created_at.to_date).to_i
+  end
 end
