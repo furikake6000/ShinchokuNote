@@ -1,5 +1,6 @@
 $(document).on('turbolinks:load', function(){
-    const MAX_IMAGE_SIZE = ((2 ** 10) ** 2);
+    // Max size of image(5MB)
+    const MAX_IMAGE_SIZE = ((2 ** 10) ** 2) * 5;
 
     let $virtualform = $('#image_form_virtual');
     let $realform = $('#image_form_hidden');
