@@ -1,0 +1,45 @@
+#comments_container class="tray-#{note_color(note)}-withedge"
+    h3
+        = "#{comments.size}件のコメント"
+    
+    ul#comments_menu_tab.nav.nav-pills.nav-fill.nav-justified.mb-2(
+        class="nav-pills-#{note_color(note)}"
+    )
+        li.nav-item
+            = link_to '未読',
+                note_comments_path( \
+                    note,
+                    params: { comments_filter: 'unread' } \
+                ),
+                id:'comments_unread_tab',
+                class: 'nav-link active',
+                remote: true
+        li.nav-item
+            = link_to '既読',
+                note_comments_path( \
+                    note,
+                    params: { comments_filter: 'read' } \
+                ),
+                id:'comments_read_tab',
+                class: 'nav-link',
+                remote: true
+        li.nav-item
+            = link_to 'すべて',
+                note_comments_path( \
+                    note,
+                    params: { comments_filter: 'all' } \
+                ),
+                id:'comments_all_tab',
+                class: 'nav-link',
+                remote: true
+        li.nav-item
+            = link_to 'お気に入り',
+                note_comments_path( \
+                    note,
+                    params: { comments_filter: 'favored' } \
+                ),
+                id:'comments_favored_tab',
+                class: 'nav-link',
+                remote: true
+    #comments
+        = render comments
