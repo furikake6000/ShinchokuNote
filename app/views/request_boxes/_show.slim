@@ -1,0 +1,57 @@
+- provide :body_bg, 'body-bg-secondary'
+
+.tray-light-withedge-secondary
+    h1
+        = request_box.name
+        = render 'notes/viewstancebadge', note: request_box
+    
+    - if current_users_note? request_box
+        = link_to '編集する',
+            edit_note_path(request_box),
+            class: 'btn btn-info btn-sm'
+    
+    p.mt-2.mb-0.pre-text
+        = replace_url_to_link(h(request_box.desc)).html_safe
+    
+    - if user_can_comment? request_box, current_user
+        h3.mt-3 コメント
+        = render 'comments/comment_form', note: request_box
+
+ul#pills_tab.nav.nav-pills.nav-pills-secondary.nav-justified.mb-3 (
+    role="tablist"
+)
+    li.nav-item
+        a#posts_tab.nav-link.active (
+            data-toggle="pill"
+            href="#posts"
+            role="tab"
+            aria-controls="posts"
+            aria-selected="true"
+        ) 進捗
+    li.nav-item
+        a#commentslist_tab.nav-link (
+            data-toggle="pill"
+            href="#commentslist"
+            role="tab"
+            aria-controls="commentslist"
+            aria-selected="false"
+        ) コメント
+
+.tab-content
+    #posts.tab-pane.fade.show.active(
+        role="tabpanel"
+        aria-labelledby="posts_tab"
+    )
+        = render 'notes/note_monthly_index', note: request_box
+        = render 'notes/posts', note: request_box
+    #commentslist.tab-pane.fade(
+        role="tabpanel"
+        aria-labelledby="commentslist_tab"
+    )
+        = render 'notes/comments', { \
+            note: request_box,
+            comments: @comments \
+        } if user_can_see_comments?(request_box, current_user)
+
+= render 'notes/shareform', note: request_box
+= render 'notes/foot_toolbar', note: request_box
