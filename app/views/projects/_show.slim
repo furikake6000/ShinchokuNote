@@ -13,6 +13,8 @@
     
     p.mt-2.mb-0.pre-text
         = replace_url_to_link(h(project.desc)).html_safe
+    
+    = render 'notes/howlongsincemade', note: project
 
 ul#pills_tab.nav.nav-pills.nav-pills-primary.nav-justified.mb-3 (
     role="tablist"
@@ -42,6 +44,7 @@ ul#pills_tab.nav.nav-pills.nav-pills-primary.nav-justified.mb-3 (
         = render 'notes/note_monthly_index', note: project
         = render 'notes/post_form', note: project \
             if current_users_note?(project)
+        
         = render 'notes/posts', note: project
     #commentslist.tab-pane.fade(
         role="tabpanel"

@@ -16,6 +16,8 @@
     - if user_can_comment? request_box, current_user
         h3.mt-3 コメント
         = render 'comments/comment_form', note: request_box
+    
+    = render 'notes/howlongsincemade', note: request_box
 
 ul#pills_tab.nav.nav-pills.nav-pills-secondary.nav-justified.mb-3 (
     role="tablist"
