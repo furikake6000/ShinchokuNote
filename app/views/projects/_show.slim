@@ -1,0 +1,60 @@
+- provide :body_bg, 'body-bg-primary'
+
+.tray-light-withedge-primary
+    h1
+        = project.name
+        = render 'projects/stagebadge', project: project
+        = render 'notes/viewstancebadge', note: project
+    
+    - if current_users_note? project
+        = link_to '編集する',
+            edit_note_path(project),
+            class: 'btn btn-info btn-sm'
+    
+    p.mt-2.mb-0.pre-text
+        = replace_url_to_link(h(project.desc)).html_safe
+
+ul#pills_tab.nav.nav-pills.nav-pills-primary.nav-justified.mb-3 (
+    role="tablist"
+)
+    li.nav-item
+        a#posts_tab.nav-link.active (
+            data-toggle="pill"
+            href="#posts"
+            role="tab"
+            aria-controls="posts"
+            aria-selected="true"
+        ) 進捗
+    li.nav-item
+        a#commentslist_tab.nav-link (
+            data-toggle="pill"
+            href="#commentslist"
+            role="tab"
+            aria-controls="commentslist"
+            aria-selected="false"
+        ) コメント
+
+.tab-content
+    #posts.tab-pane.fade.show.active(
+        role="tabpanel"
+        aria-labelledby="posts_tab"
+    )
+        = render 'notes/note_monthly_index', note: project
+        = render 'notes/post_form', note: project \
+            if current_users_note?(project)
+        = render 'notes/posts', note: project
+    #commentslist.tab-pane.fade(
+        role="tabpanel"
+        aria-labelledby="commentslist_tab"
+    )
+        - if user_can_comment? project, current_user
+            #comment-form.comment-form.control-panel
+                h3 コメント
+                = render 'comments/comment_form', note: project
+        = render 'notes/comments', { \
+            note: project,
+            comments: @comments \
+        } if user_can_see_comments?(project, current_user)
+
+= render 'notes/shareform', note: project
+= render 'notes/foot_toolbar', note: project
