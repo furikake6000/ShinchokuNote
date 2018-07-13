@@ -1,4 +1,19 @@
-var Point = class{
+// Point class
+function Point(x, y){
+    this.x = x;
+    this.y = y;
+}
+Point.prototype = {
+    X: function(){
+        return this.x;
+    },
+
+    Y: function(){
+        return this.y;
+    }
+}
+// Better way but not working on IE
+/*class Point{
     constructor(x, y){
         this.x = x;
         this.y = y;
@@ -11,7 +26,7 @@ var Point = class{
     Y(){
         return this.y;
     }
-}
+}*/
 
 $(document).on('turbolinks:load', function(){
     let $canvas = $('#image_edit_canvas');
