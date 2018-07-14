@@ -1,6 +1,7 @@
 $(document).on('turbolinks:load', function(){
-    // Max size of image(5MB)
-    const MAX_IMAGE_SIZE = ((2 ** 10) ** 2) * 5;
+    // Max size of image(3MB)
+    let MAX_IMAGE_SIZE = 1024 * 1024 * 3;  // IE doesn't allow const
+    
 
     let $virtualform = $('#image_form_virtual');
     let $realform = $('#image_form_hidden');
@@ -18,7 +19,7 @@ $(document).on('turbolinks:load', function(){
         e.stopPropagation();
     }
 
-    function loadImageToEditorModal($img, load_and_confirm = true){
+    function loadImageToEditorModal($img, load_and_confirm){
         // Set editing <img> id to 'editingimage' attr
         $canvas.attr('editingimage', $img.attr('id'));
         let ctx = $canvas[0].getContext('2d');
