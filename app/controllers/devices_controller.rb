@@ -1,4 +1,5 @@
 class DevicesController < ApplicationController
+  protect_from_forgery except: [:create]
   # 参考:(https://www.lanches.co.jp/blog/6723)
 
   def create
