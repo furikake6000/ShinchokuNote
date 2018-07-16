@@ -18,7 +18,7 @@ class NotesController < ApplicationController
   def show
     render_403 unless user_can_see? @note, current_user
     # before_actionですでに@noteは取得済
-    @omakase = true if params[:omakase]
+    @omakase = params[:omakase]
   end
 
   def create
@@ -62,8 +62,17 @@ class NotesController < ApplicationController
   def omakase
     # Noteモデルからランダムに一件取得
     # (参考: https://easyramble.com/get-record-randomly-with-active-record.html)
-    while @note.nil? do
-      @note = Note.where(shared_to_public: true, view_stance: 'everyone').where('id >= ?', rand(0..Note.last.id)).first
+    count = 0
+    while @note.nil?
+      @note = Note.where(shared_to_public: true, view_stance: 'everyone')
+                  .where('id >= ?', rand(0..Note.last.id))
+                  .first
+      count += 1
+
+      next unless count > 10
+      # 無限ループ防衛機構
+      redirect_to root_path
+      return
     end
     redirect_to note_path(@note, omakase: true)
   end
