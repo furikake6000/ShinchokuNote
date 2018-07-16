@@ -7,10 +7,14 @@ class WebpushService
 
   def webpush(text, title: '進捗ノート', target_url: '/')
     devices.each do |device|
-      webpush_to_device device,
-                        text,
-                        title: title,
-                        target_url: target_url
+      begin
+        webpush_to_device device,
+                          text,
+                          title: title,
+                          target_url: target_url
+      rescue Webpush::InvalidSubscription
+        # 送信先が正常でなかった
+      end
     end
   end
 

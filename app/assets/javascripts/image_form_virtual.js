@@ -2,7 +2,6 @@ $(document).on('turbolinks:load', function(){
     // Max size of image(3MB)
     let MAX_IMAGE_SIZE = 1024 * 1024 * 3;  // IE doesn't allow const
     
-
     let $virtualform = $('#image_form_virtual');
     let $realform = $('#image_form_hidden');
     let $clickandselect = $('#image_form_click_and_select');
