@@ -47,7 +47,9 @@ class ApplicationController < ActionController::Base
   end
 
   def load_note(paramname)
-    @note = Note.find(params[paramname])
+    # noteでの404エラーが頻発する対策として404じゃなくルートに飛ぶように
+    @note = Note.find_by(id: params[paramname])
+    redirect_to root_path if @note.nil?
   end
 
   def load_note_as_mine(paramname)
