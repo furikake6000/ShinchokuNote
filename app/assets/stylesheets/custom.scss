@@ -357,6 +357,12 @@ header{
   }
 }
 
+// notification
+.notification{
+  border-bottom: 1px solid $gray-400;
+  padding: 10px 0 10px 0;
+}
+
 // footer
 .footer{
   padding-bottom: 100px;
