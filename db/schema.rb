@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_30_125139) do
+ActiveRecord::Schema.define(version: 2018_07_20_052113) do
 
   create_table "announces", force: :cascade do |t|
     t.string "text"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2018_06_30_125139) do
     t.datetime "updated_at", null: false
     t.datetime "scheduled_at"
     t.integer "status"
+    t.datetime "finished_at"
     t.index ["deleted_at"], name: "index_posts_on_deleted_at"
     t.index ["note_id"], name: "index_posts_on_note_id"
   end
