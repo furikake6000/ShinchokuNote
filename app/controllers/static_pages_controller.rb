@@ -12,6 +12,8 @@ class StaticPagesController < ApplicationController
 
   def beta; end
 
+  def help; end
+
   def manage
     @users = User.paginate(page: params[:page], per_page: 30)
   end
