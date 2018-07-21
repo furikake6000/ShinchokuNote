@@ -1,49 +1,77 @@
-#v-pills-tab.nav.flex-column.nav-pills(
-    role="tablist"
-    aria-orientation="vertical"
-    )
-    a#v-pills-home-tab.nav-link.active(
-        data-toggle="pill"
-        href="#v-pills-home"
-        role="tab"
-        aria-controls="v-pills-home"
-        aria-selected="true"
-        ) Home
-    a#v-pills-profile-tab.nav-link(
-        data-toggle="pill"
-        href="#v-pills-profile"
-        role="tab"
-        aria-controls="v-pills-profile"
-        aria-selected="false"
-        ) Profile
-    a#v-pills-messages-tab.nav-link(
-        data-toggle="pill"
-        href="#v-pills-messages"
-        role="tab"
-        aria-controls="v-pills-messages"
-        aria-selected="false"
-        ) Messages
-    a#v-pills-settings-tab.nav-link(
-        data-toggle="pill"
-        href="#v-pills-settings"
-        role="tab"
-        aria-controls="v-pills-settings"
-        aria-selected="false"
-        ) Settings
-#v-pills-tabContent.tab-content
-    #v-pills-home.tab-pane.fade.show.active(
-        role="tabpanel"
-        aria-labelledby="v-pills-home-tab"
-        ) ...
-    #v-pills-profile.tab-pane.fade.show.active(
-        role="tabpanel"
-        aria-labelledby="v-pills-profile-tab"
-        ) ...
-    #v-pills-messages.tab-pane.fade.show.active(
-        role="tabpanel"
-        aria-labelledby="v-pills-messages-tab"
-        ) ...
-    #v-pills-settings.tab-pane.fade.show.active(
-        role="tabpanel"
-        aria-labelledby="v-pills-settings-tab"
-        ) ...
+h1 ヘルプ
+
+.row
+    .leftcol.col-sm-4
+        #help-tab.nav.flex-column.nav-pills(
+            role="tablist"
+            aria-orientation="vertical"
+            )
+            a#help-shinchokunote-tab.nav-link.active(
+                data-toggle="pill"
+                href="#help-shinchokunote"
+                role="tab"
+                aria-controls="help-shinchokunote"
+                aria-selected="true"
+                ) 進捗ノートとは？
+            a#help-note-tab.nav-link(
+                data-toggle="pill"
+                href="#help-note"
+                role="tab"
+                aria-controls="help-note"
+                aria-selected="false"
+                ) ノートを作る
+            a#v-pills-messages-tab.nav-link(
+                data-toggle="pill"
+                href="#v-pills-messages"
+                role="tab"
+                aria-controls="v-pills-messages"
+                aria-selected="false"
+                ) Messages
+            a#v-pills-settings-tab.nav-link(
+                data-toggle="pill"
+                href="#v-pills-settings"
+                role="tab"
+                aria-controls="v-pills-settings"
+                aria-selected="false"
+                ) Settings
+    .maincol.col-sm-8
+        #help-content.tab-content
+            #help-shinchokunote.tab-pane.fade.show.active(
+                role="tabpanel"
+                aria-labelledby="help-shinchokunote-tab"
+                )
+                    = image_tag 'titlelogo.svg', class:'w-100 mt-3 mb-3'
+                    .tray-light-withedge
+                        h2.mt-3.mb-4 進捗ノートとは？
+                        p あなたの作っているもの、頑張っていること...それを手軽に記録するのが『進捗ノート』です。それは例えば同人誌であったり、ゲーム制作であったり、作曲であったり...あるいは毎日の朝のジョギングや、読書記録でもいいのです。
+                        p 記録した進捗はみんなに公開されます。みんなから『進捗どうですか』をもらったり、アドバイスを受けたりできます。
+            #help-note.tab-pane.fade.active(
+                role="tabpanel"
+                aria-labelledby="help-note-tab"
+                )
+                    .tray-light-withedge
+                        h2.mt-3.mb-4 ノートを作る
+                        p #{logged_in? ? link_to('マイページ', user_path(current_user.screen_name)) : 'マイページ'}から「ノート新規作成」をクリックすることで新しいノートが作成できます。
+                        p ノートには「プロジェクト」と「リクエストボックス」の2種類があります。
+                        h3.mt-4 プロジェクト
+                        p 「プロジェクト」はあなたが取り組んでいることを記録・発表するものです。
+                        p 進捗を好きなときに投稿することができます。『進捗どうですか』やコメントをもらうことができ、ウォッチリストに登録されることもあります。
+                        h3.mt-4 リクエストボックス
+                        p 「リクエストボックス」は自ら進捗を投稿するのではなく、フォロワーさんや見知らぬ誰か、あるいは自分自身で送られた『リクエスト』に答えていくものです。
+                        p プロジェクトと同様に『進捗どうですか』やウォッチリストへの登録が可能です。
+                        h3.mt-4 アクセス権限の設定
+                        p 「このプロジェクトは自分以外には見られたくない」「フォロワーさん以外からのコメントは受け付けない」といった場合、作成時にアクセス権限の設定が可能です。
+                        p 設定項目は「ノート閲覧権限」「コメントする権限」「コメント閲覧権限」で、以下のとおりに設定できます。
+                        ul
+                            li だれでも ... 誰でも閲覧/投稿が可能です。
+                            li 要ログイン ... 非ログイン状態での閲覧/匿名投稿ができなくなります。
+                            li フォロワーさん ... あなたのフォロワーさんのみが閲覧/投稿できます。
+                            li 自分のみ ... 自分のみが閲覧/投稿できます。
+            #v-pills-messages.tab-pane.fade.active(
+                role="tabpanel"
+                aria-labelledby="v-pills-messages-tab"
+                ) ...
+            #v-pills-settings.tab-pane.fade.active(
+                role="tabpanel"
+                aria-labelledby="v-pills-settings-tab"
+                ) ...
