@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%= render 'layouts/head' %>
+    </head>
+
+    <body class="<%= yield :body_bg %>">
+        <%= render 'layouts/header' %>
+        <div class="container" onclick="">
+            <%= render 'layouts/flashes' %>
+            <%= yield %>
+            <%= render 'layouts/debug_info' if Rails.env.development? %>
+        </div>
+        <%= render 'layouts/footer' %>
+        <%= yield :foot_toolbar %>
+        <%= render 'users/login_modal' unless logged_in? %>
+        <%= yield :modals %>
+
+        <%= render 'layouts/debug_info' if Rails.env.development? %>
+    </body>
+</html>
