@@ -256,23 +256,6 @@ header{
   content: "\e900";
 }
 
-// User
-@import "users";
-
-// Note
-@import "notes";
-
-// Comment
-@import "comments";
-
-// Media-box
-@import "media_box";
-
-// Tweetpost
-@import "posts";
-
-// Trays
-@import "tray";
 
 // Controll panel
 .control-panel{
@@ -372,6 +355,27 @@ header{
     border-top: 5px dotted white;
   }
 }
+
+// User
+@import "users";
+
+// Note
+@import "notes";
+
+// Comment
+@import "comments";
+
+// Media-box
+@import "media_box";
+
+// Tweetpost
+@import "posts";
+
+// Trays
+@import "tray";
+
+// Help
+@import "help";
 
 // dropmenu
 @import "dropmenu";

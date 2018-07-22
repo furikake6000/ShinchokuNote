@@ -1,0 +1,23 @@
+#help_tab{
+    font-weight: bold;
+}
+
+#help_content{
+    h2{
+        font-size: 1.8rem;
+        padding: 10px 5px 10px 25px;
+        position: relative;
+
+        &::after{
+            content: "?";
+            color: transparentize(white, 0.5);
+            top: -35px;
+            right: 5px;
+            white-space: nowrap;
+            position: absolute;
+            font-size: 6rem;
+            font-weight: bold;
+            transform: rotate(-30deg);
+        }
+    }
+}
