@@ -2,52 +2,38 @@ h1 ヘルプ
 
 .row
     .leftcol.col-sm-4
-        #help-tab.nav.flex-column.nav-pills(
+        #help_tab.nav.flex-column.nav-pills(
             role="tablist"
             aria-orientation="vertical"
             )
-            a#help-shinchokunote-tab.nav-link.active(
+            a#help_shinchokunote_tab.nav-link.active(
                 data-toggle="pill"
-                href="#help-shinchokunote"
+                href="#help_shinchokunote"
                 role="tab"
-                aria-controls="help-shinchokunote"
+                aria-controls="help_shinchokunote"
                 aria-selected="true"
                 ) 進捗ノートとは？
-            a#help-note-tab.nav-link(
+            a#help_note_tab.nav-link(
                 data-toggle="pill"
-                href="#help-note"
+                href="#help_note"
                 role="tab"
-                aria-controls="help-note"
+                aria-controls="help_note"
                 aria-selected="false"
                 ) ノートを作る
-            a#v-pills-messages-tab.nav-link(
-                data-toggle="pill"
-                href="#v-pills-messages"
-                role="tab"
-                aria-controls="v-pills-messages"
-                aria-selected="false"
-                ) Messages
-            a#v-pills-settings-tab.nav-link(
-                data-toggle="pill"
-                href="#v-pills-settings"
-                role="tab"
-                aria-controls="v-pills-settings"
-                aria-selected="false"
-                ) Settings
     .maincol.col-sm-8
-        #help-content.tab-content
-            #help-shinchokunote.tab-pane.fade.show.active(
+        #help_content.tab-content
+            #help_shinchokunote.tab-pane.fade.show.active(
                 role="tabpanel"
-                aria-labelledby="help-shinchokunote-tab"
+                aria-labelledby="help_shinchokunote_tab"
                 )
                     = image_tag 'titlelogo.svg', class:'w-100 mt-3 mb-3'
                     .tray-light-withedge
                         h2.mt-3.mb-4 進捗ノートとは？
                         p あなたの作っているもの、頑張っていること...それを手軽に記録するのが『進捗ノート』です。それは例えば同人誌であったり、ゲーム制作であったり、作曲であったり...あるいは毎日の朝のジョギングや、読書記録でもいいのです。
                         p 記録した進捗はみんなに公開されます。みんなから『進捗どうですか』をもらったり、アドバイスを受けたりできます。
-            #help-note.tab-pane.fade.active(
+            #help_note.tab-pane.fade.active(
                 role="tabpanel"
-                aria-labelledby="help-note-tab"
+                aria-labelledby="help_note_tab"
                 )
                     .tray-light-withedge
                         h2.mt-3.mb-4 ノートを作る
@@ -67,11 +53,3 @@ h1 ヘルプ
                             li 要ログイン ... 非ログイン状態での閲覧/匿名投稿ができなくなります。
                             li フォロワーさん ... あなたのフォロワーさんのみが閲覧/投稿できます。
                             li 自分のみ ... 自分のみが閲覧/投稿できます。
-            #v-pills-messages.tab-pane.fade.active(
-                role="tabpanel"
-                aria-labelledby="v-pills-messages-tab"
-                ) ...
-            #v-pills-settings.tab-pane.fade.active(
-                role="tabpanel"
-                aria-labelledby="v-pills-settings-tab"
-                ) ...
