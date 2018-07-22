@@ -2,7 +2,7 @@ h1 ヘルプ
 
 .row
     .leftcol.col-sm-4
-        #help_tab.nav.flex-column.nav-pills(
+        #help_tab.nav.flex-column.nav-pills.mb-3(
             role="tablist"
             aria-orientation="vertical"
             )
@@ -19,26 +19,54 @@ h1 ヘルプ
                 role="tab"
                 aria-controls="help_note"
                 aria-selected="false"
-                ) ノートを作る
+                ) ノートを作りたい
+            a#help_post_tab.nav-link(
+                data-toggle="pill"
+                href="#help_post"
+                role="tab"
+                aria-controls="help_post"
+                aria-selected="false"
+                ) 進捗を報告したい
+            a#help_watch_tab.nav-link(
+                data-toggle="pill"
+                href="#help_watch"
+                role="tab"
+                aria-controls="help_watch"
+                aria-selected="false"
+                ) みんなの進捗を見てみたい
+            a#help_mention_tab.nav-link(
+                data-toggle="pill"
+                href="#help_mention"
+                role="tab"
+                aria-controls="help_mention"
+                aria-selected="false"
+                ) 『進捗どうですか』やコメントを送りたい
     .maincol.col-sm-8
         #help_content.tab-content
             #help_shinchokunote.tab-pane.fade.show.active(
                 role="tabpanel"
                 aria-labelledby="help_shinchokunote_tab"
                 )
-                    = image_tag 'titlelogo.svg', class:'w-100 mt-3 mb-3'
+                    .text-center
+                        = image_tag 'titlelogo.svg',
+                            width: '80%',
+                            class:'mt-3 mb-3'
                     .tray-light-withedge
                         h2.mt-3.mb-4 進捗ノートとは？
                         p あなたの作っているもの、頑張っていること...それを手軽に記録するのが『進捗ノート』です。それは例えば同人誌であったり、ゲーム制作であったり、作曲であったり...あるいは毎日の朝のジョギングや、読書記録でもいいのです。
                         p 記録した進捗はみんなに公開されます。みんなから『進捗どうですか』をもらったり、アドバイスを受けたりできます。
-            #help_note.tab-pane.fade.active(
+            #help_note.tab-pane.fade(
                 role="tabpanel"
                 aria-labelledby="help_note_tab"
                 )
                     .tray-light-withedge
-                        h2.mt-3.mb-4 ノートを作る
+                        h2.mt-3.mb-4 ノートを作りたい
                         p #{logged_in? ? link_to('マイページ', user_path(current_user.screen_name)) : 'マイページ'}から「ノート新規作成」をクリックすることで新しいノートが作成できます。
                         p ノートには「プロジェクト」と「リクエストボックス」の2種類があります。
+                        .text-center
+                            = image_tag 'help/note',
+                                width: '50%',
+                                class:'text-center mt-3 mb-3'
                         h3.mt-4 プロジェクト
                         p 「プロジェクト」はあなたが取り組んでいることを記録・発表するものです。
                         p 進捗を好きなときに投稿することができます。『進捗どうですか』やコメントをもらうことができ、ウォッチリストに登録されることもあります。
@@ -46,10 +74,33 @@ h1 ヘルプ
                         p 「リクエストボックス」は自ら進捗を投稿するのではなく、フォロワーさんや見知らぬ誰か、あるいは自分自身で送られた『リクエスト』に答えていくものです。
                         p プロジェクトと同様に『進捗どうですか』やウォッチリストへの登録が可能です。
                         h3.mt-4 アクセス権限の設定
-                        p 「このプロジェクトは自分以外には見られたくない」「フォロワーさん以外からのコメントは受け付けない」といった場合、作成時にアクセス権限の設定が可能です。
+                        .text-center
+                            = image_tag 'help/note_stance',
+                                width: '50%',
+                                class:'text-center mt-3 mb-3'
+                        p 「このプロジェクトは自分以外には見られたくない」「フォロワーさん以外からのコメントは受け付けない」といった場合、作成時にアクセス権限の設定が可能です(作成後は設定画面から変更できます)。
                         p 設定項目は「ノート閲覧権限」「コメントする権限」「コメント閲覧権限」で、以下のとおりに設定できます。
                         ul
                             li だれでも ... 誰でも閲覧/投稿が可能です。
                             li 要ログイン ... 非ログイン状態での閲覧/匿名投稿ができなくなります。
                             li フォロワーさん ... あなたのフォロワーさんのみが閲覧/投稿できます。
                             li 自分のみ ... 自分のみが閲覧/投稿できます。
+            #help_post.tab-pane.fade(
+                role="tabpanel"
+                aria-labelledby="help_post_tab"
+                )
+                    .tray-light-withedge
+                        h2.mt-3.mb-4 進捗を報告したい
+                        p ノートを作成すると進捗報告ができるようになります。
+            #help_watch.tab-pane.fade(
+                role="tabpanel"
+                aria-labelledby="help_watch_tab"
+                )
+                    .tray-light-withedge
+                        h2.mt-3.mb-4 みんなの進捗を見てみたい
+            #help_mention.tab-pane.fade(
+                role="tabpanel"
+                aria-labelledby="help_mention_tab"
+                )
+                    .tray-light-withedge
+                        h2.mt-3.mb-4 『進捗どうですか』やコメントを送りたい
