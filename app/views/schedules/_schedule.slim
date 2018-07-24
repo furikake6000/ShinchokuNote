@@ -32,7 +32,7 @@
                 = fa_icon('clock-o', text: smart_time_to_str(schedule.scheduled_at) + ' まで')
             - if schedule.done_status?
                 .media-text.bold-text.mb-1
-                    = fa_icon('check-circle', text: smart_time_to_str(schedule.updated_at) + ' 完了')
+                    = fa_icon('check-circle', text: smart_time_to_str(schedule.finished_date) + ' 完了')
             
 
 .modal.fade id="deletePost#{schedule.id}Modal" tabindex="-1" role="dialog" aria-labelledby="deletePost#{schedule.id}Modal" aria-hidden="true"

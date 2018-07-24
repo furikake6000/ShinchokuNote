@@ -14,7 +14,7 @@
         = replace_url_to_link(h(request_box.desc)).html_safe
     
     - if user_can_comment? request_box, current_user
-        h3.mt-3 コメント
+        h3.mt-3 リクエスト
         = render 'comments/comment_form', note: request_box
     
     = render 'notes/howlongsincemade', note: request_box

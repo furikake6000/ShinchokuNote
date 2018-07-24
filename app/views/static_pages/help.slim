@@ -1,0 +1,209 @@
+- provide :title, 'ヘルプ'
+
+h1 ヘルプ
+
+.row
+    .leftcol.col-sm-4
+        #help_tab.nav.flex-column.nav-pills.mb-3(
+            role="tablist"
+            aria-orientation="vertical"
+            )
+            a#help_shinchokunote_tab.nav-link.active(
+                data-toggle="pill"
+                href="#help_shinchokunote"
+                role="tab"
+                aria-controls="help_shinchokunote"
+                aria-selected="true"
+                ) 進捗ノートとは？
+            a#help_note_tab.nav-link(
+                data-toggle="pill"
+                href="#help_note"
+                role="tab"
+                aria-controls="help_note"
+                aria-selected="false"
+                ) ノートを作りたい
+            a#help_post_tab.nav-link(
+                data-toggle="pill"
+                href="#help_post"
+                role="tab"
+                aria-controls="help_post"
+                aria-selected="false"
+                ) 進捗を報告したい
+            a#help_schedule_tab.nav-link(
+                data-toggle="pill"
+                href="#help_schedule"
+                role="tab"
+                aria-controls="help_schedule"
+                aria-selected="false"
+                ) スケジュールを立てたい
+            a#help_watch_tab.nav-link(
+                data-toggle="pill"
+                href="#help_watch"
+                role="tab"
+                aria-controls="help_watch"
+                aria-selected="false"
+                ) みんなの進捗を見てみたい
+            a#help_mention_tab.nav-link(
+                data-toggle="pill"
+                href="#help_mention"
+                role="tab"
+                aria-controls="help_mention"
+                aria-selected="false"
+                ) 『進捗どうですか』やコメントを送りたい
+            a#help_watchlist_tab.nav-link(
+                data-toggle="pill"
+                href="#help_watchlist"
+                role="tab"
+                aria-controls="help_watchlist"
+                aria-selected="false"
+                ) 気に入ったノートをウォッチリストに登録したい
+            
+            = link_to 'よくある質問はこちら',
+                faq_path,
+                class: 'btn btn-secondary btn-block mt-3'
+
+    .maincol.col-sm-8
+        #help_content.tab-content
+            #help_shinchokunote.tab-pane.fade.show.active(
+                role="tabpanel"
+                aria-labelledby="help_shinchokunote_tab"
+                )
+                    .text-center
+                        = image_tag 'titlelogo.svg',
+                            width: '80%',
+                            class:'mt-3 mb-3'
+                    .tray-light-withedge
+                        h2.mt-3.mb-4 進捗ノートとは？
+                        .text-center
+                            = image_tag 'shinchoku_promo.png',
+                                width: '80%',
+                                class:'mt-3 mb-3'
+                        p あなたの作っているもの、頑張っていること...それを手軽に記録するのが『進捗ノート』です。それは例えば同人誌であったり、ゲーム制作であったり、作曲であったり...あるいは毎日の朝のジョギングや、読書記録でもいいのです。
+                        p 記録した進捗はみんなに公開されます。みんなから『進捗どうですか』をもらったり、アドバイスを受けたりできます。
+            
+            #help_note.tab-pane.fade(
+                role="tabpanel"
+                aria-labelledby="help_note_tab"
+                )
+                    .tray-light-withedge
+                        h2.mt-3.mb-4 ノートを作りたい
+                        p #{logged_in? ? link_to('マイページ', user_path(current_user.screen_name)) : 'マイページ'}から「ノート新規作成」をクリックすることで新しいノートが作成できます。
+                        p ノートには「プロジェクト」と「リクエストボックス」の2種類があります。
+                        .text-center
+                            = image_tag 'help/note',
+                                width: '50%',
+                                class:'text-center mt-3 mb-3'
+                        h3.mt-4 プロジェクト
+                        p 「プロジェクト」はあなたが取り組んでいることを記録・発表するものです。
+                        p 進捗を好きなときに投稿することができます。『進捗どうですか』やコメントをもらうことができ、ウォッチリストに登録されることもあります。
+                        h3.mt-4 リクエストボックス
+                        p 「リクエストボックス」は自ら進捗を投稿するのではなく、フォロワーさんや見知らぬ誰か、あるいは自分自身で送られた『リクエスト』に答えていくものです。
+                        p プロジェクトと同様に『進捗どうですか』やウォッチリストへの登録が可能です。
+                        h3.mt-4 アクセス権限の設定
+                        .text-center
+                            = image_tag 'help/note_stance',
+                                width: '50%',
+                                class:'text-center mt-3 mb-3'
+                        p 「このプロジェクトは自分以外には見られたくない」「フォロワーさん以外からのコメントは受け付けない」といった場合、作成時にアクセス権限の設定が可能です(作成後は設定画面から変更できます)。
+                        p 設定項目は「ノート閲覧権限」「コメントする権限」「コメント閲覧権限」で、以下のとおりに設定できます。
+                        ul
+                            li だれでも ... 誰でも閲覧/投稿が可能です。
+                            li 要ログイン ... 非ログイン状態での閲覧/匿名投稿ができなくなります。
+                            li フォロワーさん ... あなたのフォロワーさんのみが閲覧/投稿できます。
+                            li 自分のみ ... 自分のみが閲覧/投稿できます。
+            
+            #help_post.tab-pane.fade(
+                role="tabpanel"
+                aria-labelledby="help_post_tab"
+                )
+                    .tray-light-withedge
+                        h2.mt-3.mb-4 進捗を報告したい
+                        p プロジェクトを作成すると、そのプロジェクトのページから進捗報告ができるようになります。
+                        .text-center
+                            = image_tag 'help/post_new',
+                                width: '80%',
+                                class:'text-center mt-3 mb-3'
+                        ol type="1"
+                            li 本文テキストです。
+                            li 画像選択フォームです。ここに画像をドロップする(PC)か、クリック(タップ)して選択すると画像を添付できます。
+                            li このボタンを押すと投稿されます。こちらは投稿してもツイートはされません。(※こちらのボタンから投稿された場合、添付画像は無効となります(いずれ対応予定))
+                            li こちらのボタンから投稿すると、Twitterにて自動で共有されます。
+                        p 投稿した進捗はTwitterで共有される(④のボタンで投稿した時のみ)他、ノートの公開設定を『だれでも』にし、『「みんなの進捗」「おまかせ表示」に出るようにする』をチェックしている場合、トップページの「みんなの進捗」にて公開されます。
+            
+            #help_schedule.tab-pane.fade(
+                role="tabpanel"
+                aria-labelledby="help_schedule_tab"
+                )
+                    .tray-light-withedge
+                        h2.mt-3.mb-4 スケジュールを立てたい
+                        p 投稿フォームの下にある「スケジュールを追加する」をクリックするとスケジュールの追加ができます。
+                        .text-center
+                            = image_tag 'help/schedule',
+                                width: '80%',
+                                class:'text-center mt-3 mb-3'
+                        p スケジュールを登録すると、下の進捗一覧にスケジュールが表示されます。左上の「完了する」ボタンを押すと完了扱いにすることができ、完了した日時が記録されます。その隣の#{fa_icon 'edit'}ボタンを押すとタイトル・期日の編集が可能です。
+                        p 「未完了」「完了済み」「期日を過ぎた」でスケジュールは色分けされています。
+                        .text-center
+                            = image_tag 'help/schedule_types',
+                                width: '80%',
+                                class:'text-center mt-3 mb-3'
+
+            #help_watch.tab-pane.fade(
+                role="tabpanel"
+                aria-labelledby="help_watch_tab"
+                )
+                    .tray-light-withedge
+                        h2.mt-3.mb-4 みんなの進捗を見てみたい
+                        p 自分の興味のあるノートを探してみましょう！いろんな探し方があります...
+                        .text-center
+                            = image_tag 'help/watch',
+                                width: '80%',
+                                class:'text-center mt-3 mb-3'
+                        ol type="1"
+
+                        h3.mt-4 ① 検索
+                        p ノートタイトルの部分検索ができます。ジャンルでの検索や名前がわかっているプロジェクトの検索にお使いください。
+                        h3.mt-4 ② ウォッチリストタイムライン
+                        p 『ウォッチリスト』に登録したノートに投稿された最新の進捗が表示されます。
+                        p 気になっていたあのプロジェクトも見逃さない！
+                        h3.mt-4 ③ みんなの進捗
+                        p 世界中の最新の進捗が表示されます！今まで知らなかったあなた好みのプロジェクトを発掘しましょう！
+                        p (ノート公開設定で『だれでも閲覧可能』かつ『「みんなの進捗」「おまかせ表示」に出るようにする』を選択したプロジェクトのみが表示されます。)
+                        h3.mt-4 ④ おまかせ表示
+                        p 完全にランダムに、すべてのノートからひとつ選んで表示します。ポンポンとボタンを押せば次々に見られるので、じっくりと一つ一つ見ていきたい方はこちら！
+                        p (ノート公開設定で『だれでも閲覧可能』かつ『「みんなの進捗」「おまかせ表示」に出るようにする』を選択したプロジェクトのみが表示されます。)
+                        h3.mt-4 ⑤ ユーザーを見つける
+                        p あなたがTwitterでフォローしている人の一覧とそのノート一覧を見ることができます。普段から仲良しのあの人に進捗どうですかを贈りましょう！
+
+            #help_mention.tab-pane.fade(
+                role="tabpanel"
+                aria-labelledby="help_mention_tab"
+                )
+                    .tray-light-withedge
+                        h2.mt-3.mb-4 『進捗どうですか』やコメントを送りたい
+                        p 他のユーザーさんを応援したいときは、『進捗どうですか』やコメントを贈りましょう！
+                        .text-center
+                            = image_tag 'help/mention',
+                                width: '80%',
+                                class:'text-center mt-3 mb-3'
+                        h3.mt-4 ① コメントフォーム
+                        p コメントフォームに好きなコメントを書き入れ「コメントする」を押すと相手に届きます。応援やアドバイス、リクエストを贈りましょう！
+                        p 未ログイン状態で進捗どうですか、コメントをすることも可能です
+                        p.text-danger (※未ログイン状態では匿名表示となりますが、アクセスデータは記録されております。ユーザーさんや他の方を中傷するコメントはお控えください。)
+                        h3.mt-4 ②③ 『進捗どうですか』ボタン
+                        p ノートページ下部のバー、およびノートの小表示の「進」ボタンを押すと『進捗どうですか』を贈ることができます。
+                        p 単純に進捗が知りたいとき、ねぎらいたいとき、「あなたの作品に期待しているよ」と伝えるときなど、積極的に押していきましょう！
+
+            #help_watchlist.tab-pane.fade(
+                role="tabpanel"
+                aria-labelledby="help_watchlist_tab"
+                )
+                    .tray-light-withedge
+                        h2.mt-3.mb-4 ノートをウォッチリストに登録したい
+                        p 気に入ったノートがあれば、『ウォッチリスト』に登録することで投稿をすぐに見られるようになります。
+                        .text-center
+                            = image_tag 'help/watchlist',
+                                width: '80%',
+                                class:'text-center mt-3 mb-3'
+                        p ウォッチリストに登録されたノートの投稿はトップページの『ウォッチリスト』に表示されます。再度押すことで登録が解除されます。
+                        

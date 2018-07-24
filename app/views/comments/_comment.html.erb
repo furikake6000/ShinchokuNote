@@ -1,5 +1,6 @@
-<%= render 'notes/note_info', note: comment.to_note if defined?(with_note_info) %>
 <div class="media-box comment mb-3">
+  <%= render 'notes/note_info', note: comment.to_note if defined?(with_note_info) %>
+  
   <div class="media-content">
     <div class="bgstr"><%= fa_icon 'envelope-o' %></div>
     <% if user_can_delete_comment?(comment, current_user) %>

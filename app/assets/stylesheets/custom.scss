@@ -256,23 +256,6 @@ header{
   content: "\e900";
 }
 
-// User
-@import "users";
-
-// Note
-@import "notes";
-
-// Comment
-@import "comments";
-
-// Media-box
-@import "media_box";
-
-// Tweetpost
-@import "posts";
-
-// Trays
-@import "tray";
 
 // Controll panel
 .control-panel{
@@ -357,6 +340,12 @@ header{
   }
 }
 
+// notification
+.notification{
+  border-bottom: 1px solid $gray-400;
+  padding: 10px 0 10px 0;
+}
+
 // footer
 .footer{
   padding-bottom: 100px;
@@ -366,6 +355,27 @@ header{
     border-top: 5px dotted white;
   }
 }
+
+// User
+@import "users";
+
+// Note
+@import "notes";
+
+// Comment
+@import "comments";
+
+// Media-box
+@import "media_box";
+
+// Tweetpost
+@import "posts";
+
+// Trays
+@import "tray";
+
+// Help
+@import "helpandfaq";
 
 // dropmenu
 @import "dropmenu";

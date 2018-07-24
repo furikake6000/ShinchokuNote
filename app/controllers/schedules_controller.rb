@@ -27,7 +27,12 @@ class SchedulesController < ApplicationController
   end
 
   def update
-    unless @post.update_attributes(schedule_updatable_params)
+    attrs = schedule_updatable_params
+
+    # 完了時刻を刻印
+    attrs['finished_at'] = Time.now if attrs['status'] && attrs['status'] == 'done'
+
+    unless @post.update_attributes(attrs)
       # 更新失敗
       flash[:danger] = 'スケジュールの更新に失敗しました。'
     end
