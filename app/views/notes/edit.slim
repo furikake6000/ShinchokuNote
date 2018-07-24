@@ -9,6 +9,8 @@ h1 ページ編集
 
   = f.hidden_field :type, value: @note.type
 
+  h2 基本設定
+
   = f.label :name, 'ページの名称', class: 'mb-0'
   .input-group.mb-3
     = f.text_field :name, class: 'form-control'
@@ -21,6 +23,8 @@ h1 ページ編集
   = f.label :stage, '現状', class: 'mb-0'
   .input-group.mb-3
     = f.select :stage, Project.stages_i18n.invert, {}, class: 'form-control'
+
+  h2 権限設定
 
   = f.label :view_stance, '公開範囲', class: 'mb-0'
   .input-group
