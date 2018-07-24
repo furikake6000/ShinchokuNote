@@ -90,7 +90,7 @@ h1 ヘルプ
                         p #{logged_in? ? link_to('マイページ', user_path(current_user.screen_name)) : 'マイページ'}から「ノート新規作成」をクリックすることで新しいノートが作成できます。
                         p ノートには「プロジェクト」と「リクエストボックス」の2種類があります。
                         .text-center
-                            = image_tag 'help/note',
+                            = image_tag 'help/note.png',
                                 width: '50%',
                                 class:'text-center mt-3 mb-3'
                         h3.mt-4 プロジェクト
@@ -101,7 +101,7 @@ h1 ヘルプ
                         p プロジェクトと同様に『進捗どうですか』やウォッチリストへの登録が可能です。
                         h3.mt-4 アクセス権限の設定
                         .text-center
-                            = image_tag 'help/note_stance',
+                            = image_tag 'help/note_stance.png',
                                 width: '50%',
                                 class:'text-center mt-3 mb-3'
                         p 「このプロジェクトは自分以外には見られたくない」「フォロワーさん以外からのコメントは受け付けない」といった場合、作成時にアクセス権限の設定が可能です(作成後は設定画面から変更できます)。
@@ -120,7 +120,7 @@ h1 ヘルプ
                         h2.mt-3.mb-4 進捗を報告したい
                         p プロジェクトを作成すると、そのプロジェクトのページから進捗報告ができるようになります。
                         .text-center
-                            = image_tag 'help/post_new',
+                            = image_tag 'help/post_new.png',
                                 width: '80%',
                                 class:'text-center mt-3 mb-3'
                         ol type="1"
@@ -138,13 +138,13 @@ h1 ヘルプ
                         h2.mt-3.mb-4 スケジュールを立てたい
                         p 投稿フォームの下にある「スケジュールを追加する」をクリックするとスケジュールの追加ができます。
                         .text-center
-                            = image_tag 'help/schedule',
+                            = image_tag 'help/schedule.png',
                                 width: '80%',
                                 class:'text-center mt-3 mb-3'
                         p スケジュールを登録すると、下の進捗一覧にスケジュールが表示されます。左上の「完了する」ボタンを押すと完了扱いにすることができ、完了した日時が記録されます。その隣の#{fa_icon 'edit'}ボタンを押すとタイトル・期日の編集が可能です。
                         p 「未完了」「完了済み」「期日を過ぎた」でスケジュールは色分けされています。
                         .text-center
-                            = image_tag 'help/schedule_types',
+                            = image_tag 'help/schedule_types.png',
                                 width: '80%',
                                 class:'text-center mt-3 mb-3'
 
@@ -156,7 +156,7 @@ h1 ヘルプ
                         h2.mt-3.mb-4 みんなの進捗を見てみたい
                         p 自分の興味のあるノートを探してみましょう！いろんな探し方があります...
                         .text-center
-                            = image_tag 'help/watch',
+                            = image_tag 'help/watch.png',
                                 width: '80%',
                                 class:'text-center mt-3 mb-3'
                         ol type="1"
@@ -183,7 +183,7 @@ h1 ヘルプ
                         h2.mt-3.mb-4 『進捗どうですか』やコメントを送りたい
                         p 他のユーザーさんを応援したいときは、『進捗どうですか』やコメントを贈りましょう！
                         .text-center
-                            = image_tag 'help/mention',
+                            = image_tag 'help/mention.png',
                                 width: '80%',
                                 class:'text-center mt-3 mb-3'
                         h3.mt-4 ① コメントフォーム
@@ -202,7 +202,7 @@ h1 ヘルプ
                         h2.mt-3.mb-4 ノートをウォッチリストに登録したい
                         p 気に入ったノートがあれば、『ウォッチリスト』に登録することで投稿をすぐに見られるようになります。
                         .text-center
-                            = image_tag 'help/watchlist',
+                            = image_tag 'help/watchlist.png',
                                 width: '80%',
                                 class:'text-center mt-3 mb-3'
                         p ウォッチリストに登録されたノートの投稿はトップページの『ウォッチリスト』に表示されます。再度押すことで登録が解除されます。
