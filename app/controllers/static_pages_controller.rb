@@ -2,7 +2,7 @@ class StaticPagesController < ApplicationController
   before_action :only_admin, only: :manage
   before_action -> { load_newest_posts 99 }, only: :home
 
-  layout 'simple', only: :help
+  layout 'simple', only: %i[help faq]
 
   def home
     @users = logged_in_users
