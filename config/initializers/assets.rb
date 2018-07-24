@@ -26,4 +26,6 @@ Rails.application.config.assets.precompile += %w[
 # Original Webfonts
 Rails.application.config.assets.paths <<
   Rails.root.join('app', 'assets', 'fonts')
+Rails.application.config.assets.paths <<
+  Rails.root.join('app', 'assets', 'images', 'help')
 Rails.configuration.assets.precompile += %w[serviceworker.js manifest.json]
