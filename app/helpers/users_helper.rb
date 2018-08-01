@@ -170,10 +170,18 @@ module UsersHelper
     return {} if master_user.nil? || master_user.linked_users_info.nil?
     # パスワードはOAuthシークレット
     pass = master_user_secret
-    json = decrypt_data(master_user.linked_users_info,
-                        pass,
-                        master_user.salt)
-    JSON.parse(json)
+    begin
+      json = decrypt_data(master_user.linked_users_info,
+                          pass,
+                          master_user.salt)
+      JSON.parse(json)
+    rescue RbNaCl::CryptoError
+      flash[:warning] = 'アカウント連携データが読み込めませんでした。' \
+                        '「他アカウントへの切り替え」メニューが表示されません(それ以外の機能は問題なくご使用できます。)'
+      master_user.linked_users_info = nil
+      master_user.save!
+      return {}
+    end
   end
 
   # マスタユーザーに付随するグループを設定
