@@ -61,6 +61,9 @@ gem 'sprockets', '~> 3.7.2'
 gem 'serviceworker-rails'
 gem 'webpush'
 
+# Google Cloud Storage
+gem 'google-cloud-storage', '~> 1.3', require: false
+
 group :development, :test do
   gem 'byebug', '~>9.1', platforms: %i[mri mingw x64_mingw]
   gem 'capybara', '~> 2.13'
