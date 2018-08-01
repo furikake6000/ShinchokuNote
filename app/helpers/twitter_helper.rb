@@ -2,13 +2,16 @@ module TwitterHelper
   def client_new
     # Twitter APIのセットアップ
     Twitter::REST::Client.new do |config|
-      if Rails.env == 'production'
-        config.consumer_key = Rails.application.credentials.twitter[:key]
-        config.consumer_secret = Rails.application.credentials.twitter[:secret]
-      else
-        config.consumer_key = Rails.application.credentials.twitter_dev[:key]
-        config.consumer_secret = Rails.application.credentials.twitter_dev[:secret]
-      end
+      #if Rails.env == 'production'
+      #  config.consumer_key = Rails.application.credentials.twitter[:key]
+      #  config.consumer_secret = Rails.application.credentials.twitter[:secret]
+      #else
+      #  config.consumer_key = Rails.application.credentials.twitter_dev[:key]
+      #  config.consumer_secret = Rails.application.credentials.twitter_dev[:secret]
+      #end
+      config.consumer_key = Rails.application.credentials.twitter[:key]
+      config.consumer_secret = Rails.application.credentials.twitter[:secret]
+
       config.access_token = current_user_token
       config.access_token_secret = current_user_secret
     end
