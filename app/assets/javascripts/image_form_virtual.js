@@ -2,6 +2,7 @@ $(document).on('turbolinks:load', function(){
     // Max size of image(3MB)
     let MAX_IMAGE_SIZE = 1024 * 1024 * 1.5;  // IE doesn't allow const
     
+    let $postform = $('#new_post');
     let $virtualform = $('#image_form_virtual');
     let $realform = $('#image_form_hidden');
     let $clickandselect = $('#image_form_click_and_select');
@@ -133,14 +134,40 @@ $(document).on('turbolinks:load', function(){
         'drop': pendFile
     });
 
-    $('#new_post').submit(function(){
-        let newvalue = [];
+    $postform.submit(function(e){
+        /*let newvalue = [];
 
         $.each($pendingimages, function(i, $pendingimage){
             new_file = dataURItoFile($pendingimage[0].src);
             newvalue.push($pendingimage[0].src);
         });
 
-        $realform.val(newvalue);
+        $realform.val(newvalue);*/
+
+        disableEvent(e);
+
+        // Reading all infomations from form
+        let fd = new FormData($postform[0]);
+
+        // Appending image files
+        /*$.each($pendingimages, function(i, $pimage){
+            if(i > 3) return false; // Break if more then 4 images appended
+            fd.append('image' + i, dataURItoFile($pimage[0].src));
+        });*/
+
+        let newvalue = [];
+
+        $.each($pendingimages, function(i, $pendingimage){
+            new_file = dataURItoBlob($pendingimage[0].src);
+            newvalue.push(new_file);
+        });
+
+        fd.append('post[image]', newvalue);
+
+        console.log("Entry lists:");
+        for(var pair of fd.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+        
     })
 })

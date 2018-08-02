@@ -24,7 +24,7 @@ class PostsController < ApplicationController
         # Response処理
         responded_comment = Comment.find(params[:post][:response_to])
         @post.responded_comment = responded_comment
-  
+
         # responded_commentの既読処理はしておく
         responded_comment.read_flag = true
       end
