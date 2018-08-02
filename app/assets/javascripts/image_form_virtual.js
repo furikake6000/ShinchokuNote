@@ -135,39 +135,35 @@ $(document).on('turbolinks:load', function(){
     });
 
     $postform.submit(function(e){
-        /*let newvalue = [];
-
-        $.each($pendingimages, function(i, $pendingimage){
-            new_file = dataURItoFile($pendingimage[0].src);
-            newvalue.push($pendingimage[0].src);
-        });
-
-        $realform.val(newvalue);*/
-
         disableEvent(e);
 
         // Reading all infomations from form
         let fd = new FormData($postform[0]);
 
+        // Appending submit information
+        let $clickedbutton = $(this).find("input[type=submit]:focus");
+        fd.append($clickedbutton[0].name, true);
+
         // Appending image files
-        /*$.each($pendingimages, function(i, $pimage){
-            if(i > 3) return false; // Break if more then 4 images appended
-            fd.append('image' + i, dataURItoFile($pimage[0].src));
-        });*/
-
         let newvalue = [];
-
-        $.each($pendingimages, function(i, $pendingimage){
-            new_file = dataURItoBlob($pendingimage[0].src);
+        $.each($pendingimages, function(i, $pimage){
+            new_file = dataURItoBlob($pimage[0].src);
             newvalue.push(new_file);
         });
-
         fd.append('post[image]', newvalue);
 
         console.log("Entry lists:");
         for(var pair of fd.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
-        
+
+        $.ajax({
+            type: $postform[0].method,
+            url: $postform[0].action,
+            data: fd,
+            processData: false,
+            contentType: false,
+            dataType: 'json'
+          })
     })
 })
