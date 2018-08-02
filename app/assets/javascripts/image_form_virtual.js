@@ -147,10 +147,8 @@ $(document).on('turbolinks:load', function(){
         // Appending image files
         let newvalue = [];
         $.each($pendingimages, function(i, $pimage){
-            new_file = dataURItoBlob($pimage[0].src);
-            newvalue.push(new_file);
+            fd.append('post[image][' + i + ']', dataURItoBlob($pimage[0].src));
         });
-        fd.append('post[image]', newvalue);
 
         console.log("Entry lists:");
         for(var pair of fd.entries()) {
