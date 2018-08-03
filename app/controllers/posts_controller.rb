@@ -29,7 +29,7 @@ class PostsController < ApplicationController
         responded_comment.read_flag = true
       end
       params[:post][:image].each do |i|
-        @post.media.attach(i)
+        @post.media.attach(i[1])
       end
       @post.type = 'PlainPost'
     end

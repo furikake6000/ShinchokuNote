@@ -35,3 +35,6 @@ config/master.key
 
 # Ignore generated erd file
 erd.pdf
+
+# Ignore storage folders
+/storage/*

@@ -131,8 +131,8 @@ ActiveRecord::Schema.define(version: 2018_08_01_111056) do
     t.datetime "checked_notifications_at"
     t.binary "linked_users_info"
     t.datetime "saw_notifications_at"
-    t.boolean "comment_webpush_enabled"
-    t.boolean "shinchoku_dodeska_webpush_enabled"
+    t.boolean "comment_webpush_enabled", default: true
+    t.boolean "shinchoku_dodeska_webpush_enabled", default: true
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["twitter_id"], name: "index_users_on_twitter_id", unique: true
   end
