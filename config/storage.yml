@@ -5,11 +5,6 @@ local:
 test:
   service: Disk
   root: <%= Rails.root.join("tmp/storage") %>
- 
-amazon:
-  service: S3
-  access_key_id: ""
-  secret_access_key: ""
 
 google:
   service: GCS
@@ -25,5 +20,5 @@ google:
     auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
     client_x509_cert_url: "<%= Rails.application.credentials.gcs[:client_x509_cert_url] %>"
   }
-  project: "<%= Rails.application.credentials.gcs[:project] %>"
-  bucket: "<%= Rails.application.credentials.gcs[:bucket] %>"
+  project: <%= Rails.application.credentials.gcs[:project] %>
+  bucket: <%= Rails.application.credentials.gcs[:bucket] %>
