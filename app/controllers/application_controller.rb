@@ -310,10 +310,6 @@ class ApplicationController < ActionController::Base
       # 前処理: *を∗に置換する
       posttext = params[:post][:text].tr('*', '∗')
 
-      # 前処理: imageの読み取り
-      # imageはblob形式で飛んでくる
-      data_urls = params[:post][:image].split(/(?<==),/) if params[:post][:image]
-
       if params[:post][:response_to]
         # 返信ありの場合
         responded_comment = Comment.find(params[:post][:response_to])
@@ -335,20 +331,24 @@ class ApplicationController < ActionController::Base
                       posttext + ' #進捗ノート ' +
                       comment_url(responded_comment, only_path: false)
         end
-        # 画像の有無を判別し投稿
-        tweet = data_urls ?
-          update_with_media_dataurl(client, tweetstr, data_urls, []) :
-          client.update(tweetstr)
       else
         # 返信なしの場合
         # つぶやく文字列を決定
         tweetstr = posttext + "\n" +
                     ' #進捗ノート ' +
                     note_url(@note, only_path: false)
-        # 画像の有無を判別し投稿
-        tweet = data_urls ?
-          update_with_media_dataurl(client, tweetstr, data_urls, []) :
-          client.update(tweetstr)
+      end
+
+      # 前処理: imageの読み取り
+      # imageはblob形式で飛んでくる
+      # data_urls = params[:post][:image].split(/(?<==),/) if params[:post][:image]
+      media = params[:post][:image].values.map(&:tempfile)
+
+      # 画像の有無を判別し投稿
+      if media
+        tweet = client.update_with_media(tweetstr, media)
+      else
+        tweet = client.update(tweetstr)
       end
 
       # もしツイートが切り捨てられていたらフルを持ってくる
