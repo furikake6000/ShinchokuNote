@@ -333,6 +333,7 @@ header{
     table-layout: fixed;
     li{
       display: table-cell;
+      position: relative;
       vertical-align: middle;
 
       a{
@@ -400,6 +401,9 @@ header{
 
 // Help
 @import "helpandfaq";
+
+// balloon
+@import "balloon";
 
 // dropmenu
 @import "dropmenu";
