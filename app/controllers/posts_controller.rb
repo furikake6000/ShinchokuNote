@@ -28,8 +28,10 @@ class PostsController < ApplicationController
         # responded_commentの既読処理はしておく
         responded_comment.read_flag = true
       end
-      params[:post][:image].each do |i|
-        @post.media.attach(i[1])
+      if params[:post][:image]
+        params[:post][:image].each do |i|
+          @post.media.attach(i[1])
+        end
       end
       @post.type = 'PlainPost'
     end
