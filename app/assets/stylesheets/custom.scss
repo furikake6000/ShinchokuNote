@@ -335,23 +335,24 @@ header{
       display: table-cell;
       vertical-align: middle;
 
-      &.active{
-        a{
-          color: $red;
-        }
-      }
-
       a{
         font-size: 2.1rem;
-        color: $gray-400;
+        color: $gray-500;
         
       }
   
       a:hover{
         text-decoration: none;
-        color: $gray-600;
-        &.active{
-          color: darken($red, 20);
+        color: $gray-700;
+      }
+
+      &.active{
+        a{
+          color: $red;
+        }
+
+        a:hover{
+          color: darken($red, 10);
         }
       }
     }
