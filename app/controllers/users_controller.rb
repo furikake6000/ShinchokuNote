@@ -51,6 +51,7 @@ class UsersController < ApplicationController
   def destroy
     logout_user(@user)
     @user.destroy
+    redirect_to root_path
   end
 
   def login
