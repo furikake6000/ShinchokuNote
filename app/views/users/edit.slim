@@ -20,4 +20,21 @@ h1 #{@user.name}の設定
         = f.check_box :shinchoku_dodeska_webpush_enabled
         = f.label :shinchoku_dodeska_webpush_enabled, '「進捗どうですか」が届いた時'
     
-    = f.submit '保存する', class: 'btn btn-primary mb-3'
+    = f.submit '保存する', class: 'btn btn-info mb-3'
+
+button type="button" class="btn btn-danger mb-3" data-toggle="modal" data-target="#deleteUserModal" 進捗ノートから退会する
+
+.modal.fade id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModal" aria-hidden="true"
+  .modal-dialog role="document"
+    .modal-content
+      .modal-header
+        h5.modal-title id="deleteUserModal" 進捗ノートからの退会
+        button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true" &times;
+      .modal-body
+        p 進捗ノートからあなたのユーザーアカウント(@#{@user.screen_name})を削除します。
+        p 削除後は削除前に作成したノート・投稿は見えなくなりますが、再度登録することで復元し、見えるようになります。
+        p 本当に退会しますか？
+      .modal-footer
+        button type="button" class="btn btn-info" data-dismiss="modal" キャンセル
+        = link_to '退会する', user_path(@user.screen_name), method: :delete, class: 'btn btn-danger'
