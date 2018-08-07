@@ -70,6 +70,9 @@
 - [x] invalid user uniqueness: okakaを保存した後にokakaのvalidationを確認して一意性の確認
 - [x] invalid user no_twitter_id: twitter_idのないUserがinvalidであることを確認
 - [x] admin and nonadmin: okakaとnoritamaのadmin?を確認
+- [ ] delete user: userを削除した後、そのuserのnote, post, commentがfindできないことを確認
+- [ ] restore user: userを削除した後restoreし、そのuserのnote, post, commentがfindできることを確認
+- [ ] restore user(deleted note): userのnoteを削除した後userを削除、restoreし、noteがfindできないことを確認
 
 ### NoteTest
 
