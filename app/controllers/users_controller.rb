@@ -59,11 +59,20 @@ class UsersController < ApplicationController
     auth = request.env['omniauth.auth']
     # ログインか新規登録かのチェック
     if User.find_by(twitter_id: auth.uid).nil?
-      # 新規登録時の挙動
-      unless MYCONF['allow_user_register']
-        # 新規登録不可の場合、そのせつを出力
-        render 'static_pages/register_denyed'
-        return
+      # ユーザーが存在していない
+      user = User.with_deleted.find_by(twitter_id: auth.uid)
+      if user.nil?
+        # 新規登録時の挙動
+        unless MYCONF['allow_user_register']
+          # 新規登録不可の場合、そのせつを出力
+          render 'static_pages/register_denyed'
+          return
+        end
+      else
+        # ユーザーが一度退会し、再度登録した時の挙動
+        # データの復元
+        user.restore(recursive: true)
+        flash[:success] = '一度退会済みのユーザーです。過去のユーザーデータを復元しました。'
       end
     end
     twitter_login(auth)
