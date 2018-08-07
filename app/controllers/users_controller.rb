@@ -68,15 +68,17 @@ class UsersController < ApplicationController
           render 'static_pages/register_denyed'
           return
         end
+        flash[:success] = "はじめまして、@#{auth[:info][:nickname]}さん！"
       else
         # ユーザーが一度退会し、再度登録した時の挙動
         # データの復元
         user.restore(recursive: true)
-        flash[:success] = '一度退会済みのユーザーです。過去のユーザーデータを復元しました。'
+        flash[:success] = "一度退会済みのユーザーです。過去のユーザーデータを復元しました。おひさしぶりです、@#{auth[:info][:nickname]}さん！"
       end
+    else
+      flash[:success] = "こんにちは、@#{auth[:info][:nickname]}さん！"
     end
     twitter_login(auth)
-    flash[:success] = 'ログインしました'
     redirect_to root_path
   end
 
