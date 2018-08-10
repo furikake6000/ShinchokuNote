@@ -339,10 +339,10 @@ class ApplicationController < ActionController::Base
                     note_url(@note, only_path: false)
       end
 
-      # 前処理: imageの読み取り
-      # imageはblob形式で飛んでくる
-      # data_urls = params[:post][:image].split(/(?<==),/) if params[:post][:image]
-      media = params[:post][:image].values.map(&:tempfile)
+      # imageの読み取り
+      if params[:post][:image]
+        media = params[:post][:image].values.map(&:tempfile)
+      end
 
       # 画像の有無を判別し投稿
       if media
