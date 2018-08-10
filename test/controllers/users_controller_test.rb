@@ -173,6 +173,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       delete user_path(@okaka.screen_name)
     end
     # automatically logged out when deleting myself
+    assert_redirected_to(root_path)
+    assert_not logged_in?
     assert_nil current_user
     # could not find user deleted
     assert_nil User.find_by(screen_name: @okaka.screen_name)
