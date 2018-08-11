@@ -41,25 +41,33 @@ class UserTest < ActiveSupport::TestCase
     assert_not @from_okaka_comment1.deleted?
     assert_not @to_okaka_comment1.deleted?
 
+    assert User.find_by(screen_name: @okaka.screen_name)
+    assert Project.find(@okaka_project1.id)
+    assert Post.find(@okaka_tweetpost1.id)
+    assert Post.find(@okaka_post1.id)
+    assert Post.find(@okaka_schedule1.id)
+    assert Comment.find(@from_okaka_comment1.id)
+    assert Comment.find(@to_okaka_comment1.id)
+
     @okaka.destroy
 
-    assert @okaka.deleted?
-    assert @okaka_project1.deleted?
-    assert @okaka_tweetpost1.deleted?
-    assert @okaka_post1.deleted?
-    assert @okaka_schedule1.deleted?
-    assert @from_okaka_comment1.deleted?
-    assert @to_okaka_comment1.deleted?
+    assert_nil User.find_by(screen_name: @okaka.screen_name)
+    assert_raises(ActiveRecord::RecordNotFound) { Project.find(@okaka_project1.id) }
+    assert_raises(ActiveRecord::RecordNotFound) { Post.find(@okaka_tweetpost1.id) }
+    assert_raises(ActiveRecord::RecordNotFound) { Post.find(@okaka_post1.id) }
+    assert_raises(ActiveRecord::RecordNotFound) { Post.find(@okaka_schedule1.id) }
+    assert_raises(ActiveRecord::RecordNotFound) { Comment.find(@from_okaka_comment1.id) }
+    assert_raises(ActiveRecord::RecordNotFound) { Comment.find(@to_okaka_comment1.id) }
 
     @okaka.restore(recursive: true)
 
-    assert_not @okaka.deleted?
-    assert_not @okaka_project1.deleted?
-    assert_not @okaka_tweetpost1.deleted?
-    assert_not @okaka_post1.deleted?
-    assert_not @okaka_schedule1.deleted?
-    assert_not @from_okaka_comment1.deleted?
-    assert_not @to_okaka_comment1.deleted?
+    assert User.find_by(screen_name: @okaka.screen_name)
+    assert Project.find(@okaka_project1.id)
+    assert Post.find(@okaka_tweetpost1.id)
+    assert Post.find(@okaka_post1.id)
+    assert Post.find(@okaka_schedule1.id)
+    assert Comment.find(@from_okaka_comment1.id)
+    assert Comment.find(@to_okaka_comment1.id)
   end
 
   test 'delete and restore user(deleted note)' do
