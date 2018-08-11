@@ -8,6 +8,9 @@ module UsersHelper
 
   # ユーザーを指定してログイン
   def login_user(user, token, secret)
+    # そもそもそのユーザーでログインしていたなら無視
+    return if logged_in_as? user
+
     if logged_in? && user.twitter_id != master_user_id
       # ログインしていたら　マスタユーザーのグループリストを更新
       linked_info = linked_users_info
@@ -17,8 +20,6 @@ module UsersHelper
       # ログインしていなかったら　userをマスタユーザーに指定
       set_master_user(user, token, secret)
     end
-    # ログイン情報が変化するため、キャッシュを削除
-    destroy_caches
     # 選択ユーザー(カレントユーザー)を変更
     change_current_user(user)
 
@@ -28,6 +29,9 @@ module UsersHelper
 
   # ユーザーを指定してログアウト
   def logout_user(user)
+    # そもそもそのユーザーでログインしていなかったなら無視
+    return unless logged_in_as? user
+
     if user == master_user
       # マスタユーザーならば、全ユーザーログアウト
       deletecookie(:currentuserid)
@@ -39,13 +43,11 @@ module UsersHelper
       linked_users_set(userinfo)
       change_current_user(master_user)
     end
-    # ログイン情報が変化するため、キャッシュを削除
-    destroy_caches
   end
 
   # 現在ログインしているユーザーのidを全て取得する
   def logged_in_user_ids
-    return [] if master_user.nil?
+    return [] if master_user_id.nil?
     loggedinuserids = linked_users_info.keys
     loggedinuserids.push(master_user_id)
     loggedinuserids
@@ -53,17 +55,21 @@ module UsersHelper
 
   # 現在ログインしているユーザーを全て取得する
   def logged_in_users
-    return @logged_in_users unless @logged_in_users.nil?
-    @logged_in_users = []
+    logged_in_users = []
     logged_in_user_ids.each do |id|
-      @logged_in_users.push(User.find_by(twitter_id: id))
+      logged_in_users.push(User.find_by(twitter_id: id))
     end
-    @logged_in_users
+    logged_in_users
   end
 
   # ログインしているかどうかを返す
   def logged_in?
-    !(current_user.nil? || master_user.nil?)
+    current_user
+  end
+
+  # 特定のユーザーとしてログインしているかどうかを返す
+  def logged_in_as? user
+    logged_in_user_ids.include? user.twitter_id
   end
 
   # カレントユーザー関係
@@ -77,8 +83,7 @@ module UsersHelper
   # カレントユーザーを取得する
   def current_user
     return nil if current_user_id.nil?
-    @current_user ||=
-      logged_in_users.find { |u| u.twitter_id == current_user_id }
+    logged_in_users.find { |u| u.twitter_id == current_user_id }
   end
 
   # 該当ユーザーがcurrent_userか否か調べる
@@ -131,7 +136,7 @@ module UsersHelper
     hash = JSON.parse(getcookie(:masteruserinfo))
     # マスタユーザーのデータは唯一である（そうでない場合をはじく）
     return {} if hash.size != 1
-    # 最後キャッシュに保存して返す
+
     hash
   end
 
@@ -143,8 +148,7 @@ module UsersHelper
   # マスタユーザーを取得する
   def master_user
     return nil if master_user_id.nil?
-    @master_user ||= logged_in_users.find { |u| u.twitter_id == master_user_id }
-    @master_user ||= User.find_by(twitter_id: master_user_id)
+    User.find_by(twitter_id: master_user_id)
   end
 
   # マスタユーザーのtokenを取得する
@@ -189,9 +193,9 @@ module UsersHelper
     # パスワードはOAuthシークレット
     pass = master_user_secret
     json = JSON.generate(info)
-    master_user.linked_users_info =
-      encrypt_data(json, pass, master_user.salt).force_encoding('UTF-8')
-    master_user.save!
+    m = master_user
+    m.linked_users_info = encrypt_data(json, pass, master_user.salt).force_encoding('UTF-8')
+    m.save!
   end
 
   # その他の関数
@@ -235,13 +239,6 @@ module UsersHelper
     client = client_new
     user_of_me = client.verify_credentials
     user_of_me.id.to_s == current_user.twitter_id
-  end
-
-  # ログイン状態が変化した場合などに、キャッシュ破棄のために呼び出す
-  def destroy_caches
-    @current_user = nil
-    @master_user = nil
-    @logged_in_users = nil
   end
 end
 
