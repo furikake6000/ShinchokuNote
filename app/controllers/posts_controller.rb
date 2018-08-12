@@ -36,12 +36,16 @@ class PostsController < ApplicationController
       @post.type = 'PlainPost'
     end
 
-    if @post.save
-      # 保存成功
-      redirect_to note_path(@note)
-    else
-      # やりなおし
-      render 'notes/show'
+    respond_to do |format|
+      if @post.save
+        # 保存成功
+        format.html { redirect_to note_path(@note) }
+        format.js { render json: {}, status: :created }
+      else
+        # やりなおし
+        format.html { render 'notes/show' }
+        format.js { render json: {}, status: :internal_server_error }
+      end
     end
   end
 

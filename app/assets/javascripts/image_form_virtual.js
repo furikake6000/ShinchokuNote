@@ -150,11 +150,6 @@ $(document).on('turbolinks:load', function(){
             fd.append('post[image][' + i + ']', dataURItoBlob($pimage[0].src));
         });
 
-        console.log("Entry lists:");
-        for(var pair of fd.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]); 
-        }
-
         $.ajax({
             type: $postform[0].method,
             url: $postform[0].action,
@@ -162,6 +157,11 @@ $(document).on('turbolinks:load', function(){
             processData: false,
             contentType: false,
             dataType: 'json'
-          })
+        }).done(function(data, status, xhr) {
+            // If succeed, reload
+            location.reload();
+        }).fail(function(xhr, status, error) {
+            console.log("Post#Create : " + status + " Error detected.");
+        });
     })
 })
