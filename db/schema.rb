@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_01_111056) do
+ActiveRecord::Schema.define(version: 2018_08_12_121903) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2018_08_01_111056) do
     t.datetime "updated_at", null: false
     t.integer "view_stance", default: 10
     t.boolean "shared_to_public", default: true
+    t.integer "rating", default: 0
     t.index ["deleted_at"], name: "index_notes_on_deleted_at"
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
@@ -131,8 +132,8 @@ ActiveRecord::Schema.define(version: 2018_08_01_111056) do
     t.datetime "checked_notifications_at"
     t.binary "linked_users_info"
     t.datetime "saw_notifications_at"
-    t.boolean "comment_webpush_enabled", default: true
-    t.boolean "shinchoku_dodeska_webpush_enabled", default: true
+    t.boolean "comment_webpush_enabled"
+    t.boolean "shinchoku_dodeska_webpush_enabled"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["twitter_id"], name: "index_users_on_twitter_id", unique: true
   end
