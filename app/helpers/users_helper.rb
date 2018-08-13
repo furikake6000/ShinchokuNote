@@ -11,6 +11,10 @@ module UsersHelper
     # そもそもそのユーザーでログインしていたなら無視
     return if logged_in_as? user
 
+    # キャッシュの削除
+    @current_user = nil
+    @master_user = nil
+
     if logged_in? && user.twitter_id != master_user_id
       # ログインしていたら　マスタユーザーのグループリストを更新
       linked_info = linked_users_info
@@ -31,6 +35,10 @@ module UsersHelper
   def logout_user(user)
     # そもそもそのユーザーでログインしていなかったなら無視
     return unless logged_in_as? user
+
+    # キャッシュの削除
+    @current_user = nil
+    @master_user = nil
 
     if user == master_user
       # マスタユーザーならば、全ユーザーログアウト
@@ -64,7 +72,7 @@ module UsersHelper
 
   # ログインしているかどうかを返す
   def logged_in?
-    current_user
+    current_user_id.present?
   end
 
   # 特定のユーザーとしてログインしているかどうかを返す
@@ -82,8 +90,8 @@ module UsersHelper
 
   # カレントユーザーを取得する
   def current_user
-    return nil if current_user_id.nil?
-    logged_in_users.find { |u| u.twitter_id == current_user_id }
+    return nil unless logged_in?
+    @current_user ||= logged_in_users.find { |u| u.twitter_id == current_user_id }
   end
 
   # 該当ユーザーがcurrent_userか否か調べる
@@ -148,7 +156,7 @@ module UsersHelper
   # マスタユーザーを取得する
   def master_user
     return nil if master_user_id.nil?
-    User.find_by(twitter_id: master_user_id)
+    @master_user ||= User.find_by(twitter_id: master_user_id)
   end
 
   # マスタユーザーのtokenを取得する
