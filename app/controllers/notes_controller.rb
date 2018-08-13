@@ -64,17 +64,33 @@ class NotesController < ApplicationController
     # (参考: https://easyramble.com/get-record-randomly-with-active-record.html)
     count = 0
     while @note.nil?
-      @note = Note.where(shared_to_public: true, view_stance: 'everyone')
-                  .where('id >= ?', rand(0..Note.last.id))
-                  .first
+      # 年齢制限の有無によって変更
+      if params[:rating] == 'nolimit'
+        @note = Note.where(
+          shared_to_public: true,
+          view_stance: 'everyone'
+        )
+        .where('id >= ?', rand(0..Note.last.id))
+        .first
+      else
+        @note = Note.where(
+          shared_to_public: true,
+          view_stance: 'everyone'
+        )
+        .where(rating: 'everyone')
+        .where('id >= ?', rand(0..Note.last.id))
+        .first
+      end
       count += 1
 
       next unless count > 10
       # 無限ループ防衛機構
+      alert[:warning] = '条件に合致するノートが見つかりませんでした。条件を変えてお試しください。'
       redirect_to root_path
       return
     end
-    redirect_to note_path(@note, omakase: true)
+
+    redirect_to note_path(@note, omakase: true, rating: params[:rating])
   end
 
   private

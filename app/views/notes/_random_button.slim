@@ -1,0 +1,7 @@
+= form_tag omakase_path_with_seed, method: 'get' do
+    = button_tag type: 'submit', class: 'btn btn-success btn-block mb-3' do
+        h4 おまかせ表示
+        p すべてのノートからランダムで選びます
+        .form-check.small-text
+            = check_box_tag 'rating', 'nolimit', (params[:rating] == 'nolimit'), class: 'form-check-input'
+            = label :rating, 'R18のコンテンツを含む'
