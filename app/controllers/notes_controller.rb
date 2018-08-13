@@ -88,7 +88,7 @@ class NotesController < ApplicationController
       :view_stance, :shared_to_public,
       :comment_share_stance,
       :comment_receive_stance,
-      :thumb_info
+      :thumb_info, :rating
     )
   end
 end

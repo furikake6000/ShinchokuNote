@@ -24,6 +24,14 @@ h1 ページ編集
   .input-group.mb-3
     = f.select :stage, Project.stages_i18n.invert, {}, class: 'form-control'
 
+  .alert.alert-warning role="alert" 
+    strong 18歳未満の方にセンシティブとなりうる作品は、必ず以下の「R18」に設定をお願いします。
+  = f.label :rating, '年齢制限', class: 'mb-1'
+  - Note.ratings_i18n.invert.each do |r|
+    .radio-inline
+      = f.radio_button :rating, r[1]
+      = f.label :rating, r[0]
+
   h2 権限設定
 
   = f.label :view_stance, '公開範囲', class: 'mb-0'
