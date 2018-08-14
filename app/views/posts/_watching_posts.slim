@@ -1,0 +1,6 @@
+- if @watching_posts.empty?
+    p.text-center |
+        まだウォッチリストに登録されたノートがありません。
+        気に入ったノートを登録してみましょう！
+        
+= render @watching_posts, with_note_info: true

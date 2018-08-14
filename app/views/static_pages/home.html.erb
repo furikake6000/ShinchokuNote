@@ -1,3 +1,6 @@
 <%= render 'static_pages/letsstart' %>
 
-<%= render 'posts/newest_posts' %>
+<div class="tray-light-withedge">
+  <h3><%= fa_icon 'clock-o', text: 'みんなの進捗' %></h3>
+  <%= render 'posts/newest_posts' %>
+</div>
