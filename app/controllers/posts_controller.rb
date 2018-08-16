@@ -66,6 +66,18 @@ class PostsController < ApplicationController
     redirect_to note_path(note)
   end
 
+  def newest_posts
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def watching_posts
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
 
   # Postのパラメータを安全に取り出す

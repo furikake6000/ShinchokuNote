@@ -7,6 +7,6 @@
     .watching_posts
         = render @watching_posts, with_note_info: true
         = link_to '続きを見る',
-            root_path,
+            watching_posts_path,
             remote: true,
             class: 'btn btn-block btn-info'

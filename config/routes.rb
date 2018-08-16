@@ -53,6 +53,10 @@ Rails.application.routes.draw do
   post '/notifications', to: 'users#notifications_checked'
   get '/omakase', to: 'notes#omakase'
 
+  # Ajaxでの取得
+  get '/newest_posts', to: 'posts#newest_posts'
+  get '/watching_posts', to: 'posts#watching_posts'
+
   # 固定ページ
   get '/about', to: 'static_pages#about'
   get '/faq', to: 'static_pages#faq'
