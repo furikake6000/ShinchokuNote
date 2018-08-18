@@ -1,0 +1,8 @@
+$newest_posts_load_button = $("#newest_posts_load_button");
+
+<% if @newest_posts.empty? %>
+    $newest_posts_load_button.remove();
+<% else %>
+    $newest_posts_load_button.before("<%= escape_javascript(render @newest_posts, with_note_info: true) %>");
+    $newest_posts_load_button.attr("href", "<%= newest_posts_path(from_post: @newest_posts.last) %>")
+<% end %>

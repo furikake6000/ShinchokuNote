@@ -1,6 +1,6 @@
-.newest_posts
-    = render @newest_posts, with_note_info: true
+#newest_posts
     = link_to '続きを見る',
         newest_posts_path,
         remote: true,
-        class: 'btn btn-block btn-info'
+        id: 'newest_posts_load_button',
+        class: 'btn btn-block btn-info mb-3'

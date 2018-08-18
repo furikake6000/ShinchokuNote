@@ -1,0 +1,8 @@
+$watching_posts_load_button = $("#watching_posts_load_button");
+
+<% if @watching_posts.empty? %>
+    $watching_posts_load_button.remove();
+<% else %>
+    $watching_posts_load_button.before("<%= escape_javascript(render @watching_posts, with_note_info: true) %>");
+    $watching_posts_load_button.attr("href", "<%= watching_posts_path(from_post: @watching_posts.last) %>")
+<% end %>
