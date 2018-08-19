@@ -1,7 +1,7 @@
 if(true){
-  let post_links = document.getElementsByClassName("post_note_<%= @note.id %>_shinchoku_dodeska");
+  var post_links = document.getElementsByClassName("post_note_<%= @note.id %>_shinchoku_dodeska");
 
-  for (let i = 0; i < post_links.length; i++) {
+  for (var i = 0; i < post_links.length; i++) {
     <%# 数値を正しいものに更新する %>
     post_links[i].children[0]
             .innerHTML = "<span class=icon-shinchokunote></span> <%= @note.shinchoku_dodeskas.size %>";

@@ -1,7 +1,7 @@
 if(true){
-  let post_links = document.getElementsByClassName("toggle_note_<%= @note.id %>_watchlisted");
+  var post_links = document.getElementsByClassName("toggle_note_<%= @note.id %>_watchlisted");
 
-  for (let i = 0; i < post_links.length; i++) {
+  for (var i = 0; i < post_links.length; i++) {
     <%# 数値を正しいものに更新する %>
     post_links[i].children[0]
             .innerHTML = "<%= escape_javascript(link_to(fa_icon('star', text: @note.watching_users.count ))) %>";
