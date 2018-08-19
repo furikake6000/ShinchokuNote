@@ -63,6 +63,7 @@ Rails.application.routes.draw do
   get '/help', to: 'static_pages#help'
   get '/manage', to: 'static_pages#manage'
   get '/beta', to: 'static_pages#beta'
+  get '/terms', to: 'static_pages#terms'
 
   # ユーザー関連
 end
