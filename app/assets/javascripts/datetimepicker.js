@@ -1,6 +1,6 @@
 $(document).on('turbolinks:load', function(){
-    let timezoneOffsetHour = new Date().getTimezoneOffset() / 60 * -1;
-    let timezone = (timezoneOffsetHour >= 0 ? "+" : "-") + 
+    var timezoneOffsetHour = new Date().getTimezoneOffset() / 60 * -1;
+    var timezone = (timezoneOffsetHour >= 0 ? "+" : "-") + 
                     ("00" + Math.abs(timezoneOffsetHour)).slice(-2) + 
                     ":00";
     $('.date-picker').datetimepicker({

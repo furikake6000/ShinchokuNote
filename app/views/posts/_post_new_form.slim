@@ -27,11 +27,13 @@
         = f.submit '進捗報告',
             id: 'post_submit',
             class: "btn btn-#{note_color note} mr-3",
+            disabled: true,
             accept: 'image/*'
         = f.submit 'Twitterで進捗報告',
             name: 'post_with_tweet',
             id: 'tweet_submit',
-            class: "btn btn-#{note_color note}"
+            class: "btn btn-#{note_color note}",
+            disabled: true
 
 = render 'posts/image_edit_modal'
 

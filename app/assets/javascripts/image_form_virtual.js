@@ -1,18 +1,18 @@
 $(document).on('turbolinks:load', function(){
     // Max size of image(3MB)
-    let MAX_IMAGE_SIZE = 1024 * 1024 * 1.5;  // IE doesn't allow const
+    var MAX_IMAGE_SIZE = 1024 * 1024 * 1.5;  // IE doesn't allow const
     
-    let $postform = $('#new_post');
-    let $virtualform = $('#image_form_virtual');
-    let $realform = $('#image_form_hidden');
-    let $clickandselect = $('#image_form_click_and_select');
-    let $preview = $('#image_form_preview');
-    let $editconfirm = $('#edit_confirm_button');
-    let $canvas = $('#image_edit_canvas');
-    let $canvas_ui = $('#image_edit_ui_canvas');
-    let $imageeditmodal = $('#image_edit_modal');
-    let imagecount = 0;
-    let $pendingimages = {};
+    var $postform = $('#new_post');
+    var $virtualform = $('#image_form_virtual');
+    var $realform = $('#image_form_hidden');
+    var $clickandselect = $('#image_form_click_and_select');
+    var $preview = $('#image_form_preview');
+    var $editconfirm = $('#edit_confirm_button');
+    var $canvas = $('#image_edit_canvas');
+    var $canvas_ui = $('#image_edit_ui_canvas');
+    var $imageeditmodal = $('#image_edit_modal');
+    var imagecount = 0;
+    var $pendingimages = {};
 
     function disableEvent(e) {
         e.preventDefault();
@@ -22,11 +22,11 @@ $(document).on('turbolinks:load', function(){
     function loadImageToEditorModal($img, load_and_confirm){
         // Set editing <img> id to 'editingimage' attr
         $canvas.attr('editingimage', $img.attr('id'));
-        let ctx = $canvas[0].getContext('2d');
-        let image = new Image();
+        var ctx = $canvas[0].getContext('2d');
+        var image = new Image();
         image.src = $img.attr('src');
         image.onload = function(e){
-            let redratio = Math.min(
+            var redratio = Math.min(
                 1.0, 
                 Math.sqrt(MAX_IMAGE_SIZE / (image.width * image.height))
             );
@@ -50,14 +50,14 @@ $(document).on('turbolinks:load', function(){
 
     function confirmImageFromEditorModal(){
         // Confirm edited image
-        let dataURI = $canvas[0].toDataURL();
-        let $pendingimage = $('#' + $canvas.attr('editingimage'));
+        var dataURI = $canvas[0].toDataURL();
+        var $pendingimage = $('#' + $canvas.attr('editingimage'));
         $pendingimage.attr('src', dataURI);
     }
 
     function loadImages(images){
         $.each(images, function(){
-            let reader = new FileReader();
+            var reader = new FileReader();
             reader.onload = function(e){
                 // Increment ID of images
                 imagecount += 1;
@@ -67,7 +67,7 @@ $(document).on('turbolinks:load', function(){
                     width: "120px",
                     title: "uploaded_image"
                 }));
-                let $pendingimage = $("#pending_image_" + imagecount);
+                var $pendingimage = $("#pending_image_" + imagecount);
                 // Make the list of <img> tags
                 $pendingimages[imagecount] = $pendingimage;
 
@@ -112,15 +112,15 @@ $(document).on('turbolinks:load', function(){
     }
 
     function dataURItoFile(dataURI, fileName){
-        let blob = dataURItoBlob(dataURI);
-        let file = blobToFile(blob, fileName);
+        var blob = dataURItoBlob(dataURI);
+        var file = blobToFile(blob, fileName);
         file.type = "image/png";
         return file;
     }
 
     $clickandselect.click(function(){
         $('<input type="file" accept="image/*">').on('change', function(e) {
-            let images = e.target.files;
+            var images = e.target.files;
             loadImages(images);
         })[0].click();
     })
@@ -138,14 +138,14 @@ $(document).on('turbolinks:load', function(){
         disableEvent(e);
 
         // Reading all infomations from form
-        let fd = new FormData($postform[0]);
+        var fd = new FormData($postform[0]);
 
         // Appending submit information
-        let $clickedbutton = $(this).find("input[type=submit]:focus");
+        var $clickedbutton = $(this).find("input[type=submit]:focus");
         fd.append($clickedbutton[0].name, true);
 
         // Appending image files
-        let newvalue = [];
+        var newvalue = [];
         $.each($pendingimages, function(i, $pimage){
             fd.append('post[image][' + i + ']', dataURItoBlob($pimage[0].src));
         });
