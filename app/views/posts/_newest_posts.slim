@@ -4,3 +4,7 @@
         remote: true,
         id: 'newest_posts_load_button',
         class: 'btn btn-block btn-info mb-3'
+
+- content_for :javascript do
+    = javascript_include_tag 'newest_posts',
+        'data-turbolinks-track': 'reload'
