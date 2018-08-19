@@ -94,4 +94,7 @@ Rails.application.configure do
 
   # Be sure to set master_key
   config.require_master_key = true
+
+  # Store files on Google Cloud Storage.
+  config.active_storage.service = :google
 end

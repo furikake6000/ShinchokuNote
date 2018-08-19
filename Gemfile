@@ -9,6 +9,7 @@ end
 gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
 gem 'listen', '~>3.1'
+gem 'mini_magick', '~> 4.8'
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.2.0'
 gem 'sass-rails', '~> 5.0'
@@ -60,6 +61,9 @@ gem 'sprockets', '~> 3.7.2'
 # webpush notification
 gem 'serviceworker-rails'
 gem 'webpush'
+
+# Google Cloud Storage
+gem 'google-cloud-storage', '~> 1.3', require: false
 
 group :development, :test do
   gem 'byebug', '~>9.1', platforms: %i[mri mingw x64_mingw]

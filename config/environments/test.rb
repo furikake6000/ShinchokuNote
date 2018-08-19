@@ -42,4 +42,7 @@ Rails.application.configure do
 
   # Encrypted_Secretsを使用する
   config.read_encrypted_secrets = true
+
+  # Store files locally(test directory).
+  config.active_storage.service = :test
 end

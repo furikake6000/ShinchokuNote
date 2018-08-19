@@ -35,6 +35,9 @@ ja:
         only_follower: フォロワーさん
         only_signed: 要ログイン
         everyone: だれでも
+      rating:
+        everyone: 全年齢
+        restricted_18: R18
     project:
       stage:
         idea: 構想中

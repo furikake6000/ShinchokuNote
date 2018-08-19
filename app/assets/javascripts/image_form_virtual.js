@@ -2,6 +2,7 @@ $(document).on('turbolinks:load', function(){
     // Max size of image(3MB)
     let MAX_IMAGE_SIZE = 1024 * 1024 * 1.5;  // IE doesn't allow const
     
+    let $postform = $('#new_post');
     let $virtualform = $('#image_form_virtual');
     let $realform = $('#image_form_hidden');
     let $clickandselect = $('#image_form_click_and_select');
@@ -133,14 +134,34 @@ $(document).on('turbolinks:load', function(){
         'drop': pendFile
     });
 
-    $('#new_post').submit(function(){
-        let newvalue = [];
+    $postform.submit(function(e){
+        disableEvent(e);
 
-        $.each($pendingimages, function(i, $pendingimage){
-            new_file = dataURItoFile($pendingimage[0].src);
-            newvalue.push($pendingimage[0].src);
+        // Reading all infomations from form
+        let fd = new FormData($postform[0]);
+
+        // Appending submit information
+        let $clickedbutton = $(this).find("input[type=submit]:focus");
+        fd.append($clickedbutton[0].name, true);
+
+        // Appending image files
+        let newvalue = [];
+        $.each($pendingimages, function(i, $pimage){
+            fd.append('post[image][' + i + ']', dataURItoBlob($pimage[0].src));
         });
 
-        $realform.val(newvalue);
+        $.ajax({
+            type: $postform[0].method,
+            url: $postform[0].action,
+            data: fd,
+            processData: false,
+            contentType: false,
+            dataType: 'json'
+        }).done(function(data, status, xhr) {
+            // If succeed, reload
+            location.reload();
+        }).fail(function(xhr, status, error) {
+            console.log("Post#Create : " + status + " Error detected.");
+        });
     })
 })

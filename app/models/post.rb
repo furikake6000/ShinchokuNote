@@ -1,6 +1,8 @@
 class Post < ApplicationRecord
   acts_as_paranoid
 
+  has_many_attached :media
+
   enum type: {
     TweetPost: 'TweetPost',
     Schedule: 'Schedule',

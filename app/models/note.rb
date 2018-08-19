@@ -23,6 +23,10 @@ class Note < ApplicationRecord
     only_signed: 2,
     everyone: 10
   }, _suffix: true
+  enum rating: {
+    everyone: 0,
+    restricted_18: 1
+  }, _suffix: true
 
   belongs_to :user
 

@@ -21,6 +21,8 @@ Rails.application.config.assets.precompile += %w[
   datetimepicker.js
   tweet_text_box.js
   image_edit_modal.js
+  watching_posts.js
+  newest_posts.js
 ]
 
 # Original Webfonts

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   # リソース：ユーザー
   # Shallowによりindex, new, createはuserから指定可能
-  resources :users, except: %i[create destroy], shallow: true do
+  resources :users, except: :create, shallow: true do
     # リソース：ノート
     resources :notes, shallow: true do
       # リソース:投稿
@@ -53,12 +53,16 @@ Rails.application.routes.draw do
   post '/notifications', to: 'users#notifications_checked'
   get '/omakase', to: 'notes#omakase'
 
+  # Ajaxでの取得
+  get '/newest_posts', to: 'posts#newest_posts'
+  get '/watching_posts', to: 'posts#watching_posts'
+
   # 固定ページ
   get '/about', to: 'static_pages#about'
   get '/faq', to: 'static_pages#faq'
   get '/help', to: 'static_pages#help'
   get '/manage', to: 'static_pages#manage'
-  get '/beta', to: 'static_pages#beta'
+  get '/terms', to: 'static_pages#terms'
 
   # ユーザー関連
 end

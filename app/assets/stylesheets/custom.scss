@@ -161,6 +161,29 @@ a.text-lightgray:hover{
   margin: auto;
 }
 
+.carousel-control-prev-icon, .carousel-control-next-icon{
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.carousel-control-prev-icon{
+  background-image: url(
+    "data:image/svg+xml;charset=utf8,
+      <svg xmlns='http://www.w3.org/2000/svg' fill='%23000' stroke='%23fff' viewBox='0 0 8 8'>
+        <path d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/>
+      </svg>"
+    );
+}
+
+.carousel-control-next-icon{
+  background-image: url(
+    "data:image/svg+xml;charset=utf8,
+      <svg xmlns='http://www.w3.org/2000/svg' fill='%23000' stroke='%23fff' viewBox='0 0 8 8'>
+        <path d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/>
+      </svg>"
+    );
+}
+
 // Primary settings
 
 html{
@@ -310,25 +333,27 @@ header{
     table-layout: fixed;
     li{
       display: table-cell;
+      position: relative;
       vertical-align: middle;
-
-      &.active{
-        a{
-          color: $red;
-        }
-      }
 
       a{
         font-size: 2.1rem;
-        color: $gray-400;
+        color: $gray-500;
         
       }
   
       a:hover{
         text-decoration: none;
-        color: $gray-600;
-        &.active{
-          color: darken($red, 20);
+        color: $gray-700;
+      }
+
+      &.active{
+        a{
+          color: $red;
+        }
+
+        a:hover{
+          color: darken($red, 10);
         }
       }
     }
@@ -376,6 +401,9 @@ header{
 
 // Help
 @import "helpandfaq";
+
+// balloon
+@import "balloon";
 
 // dropmenu
 @import "dropmenu";

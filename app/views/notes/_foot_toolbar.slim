@@ -1,0 +1,41 @@
+- content_for :foot_toolbar do
+    .fixed-bottom.foot-toolbar
+        ul
+            li(
+                title="ウォッチリストに登録"
+                class="toggle_note_#{note.id}_watchlisted tool #{'active' if note.watchlisted_by?(current_user)}"
+            )
+                - if logged_in?
+                    = link_to fa_icon('star', text: note.watching_users.count ),
+                        note_watchlists_toggle_path(note),
+                        method: :post,
+                        remote: true
+                - else
+                    = link_to fa_icon('star', text: note.watching_users.count ),
+                        '',
+                        data: { toggle: 'modal', target: '#loginModal' }
+                .balloon ウォッチリスト
+            
+            li title="コメントフォームに移動"
+                = link_to fa_icon('envelope-o', text: note.comments.size),
+                    'javascript:void(0);',
+                    onclick: 'showCommentsTab()'
+                .balloon コメント
+            
+            li(
+                title="進捗どうですかをする"
+                class="post_note_#{note.id}_shinchoku_dodeska #{'active' if posted_shinchoku_dodeska_today?(note, current_user)}"
+            )
+                a(
+                    href="#{note_shinchoku_dodeskas_path(note)}"
+                    data-method="post"
+                    data-remote="true"
+                    rel="nofollow"
+                )
+                    span.icon-shinchokunote
+                        = note.shinchoku_dodeskas.size
+                .balloon 進捗どうですか
+
+- content_for :javascript do
+  = javascript_include_tag 'show_comments_tab',
+    'data-turbolinks-track': 'reload'

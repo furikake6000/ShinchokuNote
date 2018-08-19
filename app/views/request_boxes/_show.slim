@@ -4,6 +4,7 @@
     h1
         = request_box.name
         = render 'notes/viewstancebadge', note: request_box
+        = render 'notes/ratingbadge', note: request_box
     
     - if current_users_note? request_box
         = link_to '編集する',

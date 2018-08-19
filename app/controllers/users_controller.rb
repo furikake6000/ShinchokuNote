@@ -4,8 +4,6 @@ class UsersController < ApplicationController
                 only: %i[edit update destroy]
   before_action -> { load_user_as_me_or_admin :user_id }, only: :leave
   before_action -> { load_user :id }, only: :show
-  before_action -> { load_newest_posts 30 }, only: :home
-  before_action -> { load_watching_posts 30 }, only: :home
   before_action :load_notifications, only: :notifications
   before_action :load_twitter_friends, only: :recommended_users
 
@@ -49,8 +47,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    logout_user(@user)
+    logout_user @user
     @user.destroy
+    redirect_to root_path
   end
 
   def login
@@ -58,15 +57,26 @@ class UsersController < ApplicationController
     auth = request.env['omniauth.auth']
     # ログインか新規登録かのチェック
     if User.find_by(twitter_id: auth.uid).nil?
-      # 新規登録時の挙動
-      unless MYCONF['allow_user_register']
-        # 新規登録不可の場合、そのせつを出力
-        render 'static_pages/register_denyed'
-        return
+      # ユーザーが存在していない
+      user = User.with_deleted.find_by(twitter_id: auth.uid)
+      if user.nil?
+        # 新規登録時の挙動
+        unless MYCONF['allow_user_register']
+          # 新規登録不可の場合、そのせつを出力
+          render 'static_pages/register_denyed'
+          return
+        end
+        flash[:success] = "はじめまして、@#{auth[:info][:nickname]}さん！"
+      else
+        # ユーザーが一度退会し、再度登録した時の挙動
+        # データの復元
+        user.restore(recursive: true)
+        flash[:success] = "一度退会済みのユーザーです。過去のユーザーデータを復元しました。おひさしぶりです、@#{auth[:info][:nickname]}さん！"
       end
+    else
+      flash[:success] = "こんにちは、@#{auth[:info][:nickname]}さん！"
     end
     twitter_login(auth)
-    flash[:success] = 'ログインしました'
     redirect_to root_path
   end
 
@@ -80,7 +90,7 @@ class UsersController < ApplicationController
   def home
     # 未ログイン状態ならばstatic_pages#homeを描画
     render 'static_pages/home' unless logged_in?
-
+    
     @announces = Announce.where('created_at > ?', Time.now.yesterday)
                          .order('created_at DESC')
   end

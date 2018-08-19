@@ -22,6 +22,40 @@
         .media-body
             p.mb-1 class="#{defined?(light) ? 'media-text' : 'media-text-l'}"
                 = plain_post.text
+            
+            - if plain_post.media.size == 1
+                = image_tag(url_for(plain_post.media[0]),
+                    class: "d-block w-100 mb-2")
+            - elsif plain_post.media.size >= 2
+                .carousel.slide.mb-2(
+                    id="media-car-#{plain_post.id}"
+                    data-ride="carousel"
+                    data-interval="false"
+                    )
+                    .carousel-inner
+                    - plain_post.media.each_with_index do |media, i|
+                        - if i==0
+                            .carousel-item.active
+                                = image_tag(url_for(media),
+                                    class: "d-block w-100")
+                        - else
+                            .carousel-item
+                                = image_tag(url_for(media),
+                                    class: "d-block w-100")
+                    a.carousel-control-prev(
+                        href="#media-car-#{plain_post.id}"
+                        role="button"
+                        data-slide="prev"
+                        )
+                        span.carousel-control-prev-icon aria-hidden="true"
+                        span.sr-only Previous
+                    a.carousel-control-next(
+                        href="#media-car-#{plain_post.id}"
+                        role="button"
+                        data-slide="next"
+                        )
+                        span.carousel-control-next-icon aria-hidden="true"
+                        span.sr-only Next
 
         .media-footer
             span

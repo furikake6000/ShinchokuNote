@@ -2,6 +2,9 @@
     <hr>
     <ul class="nav justify-content-center">
         <li class="nav-item">
+            <%= link_to '利用規約', terms_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
             <%= link_to 'ヘルプ', help_path, class: 'nav-link' %>
         </li>
         <li class="nav-item">
@@ -12,9 +15,6 @@
         </li>
         <li class="nav-item">
             <%= link_to fa_icon('twitter', text: 'Twitter'), 'https://twitter.com/shinchokunote', class: 'nav-link' %>
-        </li>
-        <li class="nav-item">
-            <%= link_to 'ベータ版について', beta_path, class: 'nav-link' %>
         </li>
         <li class="nav-item">
             <%= link_to 'ご意見はこちらまで', note_path(1), class: 'nav-link' %>

@@ -166,10 +166,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_equal current_user_secret, Rails.application.credentials.twitter_test_fixture[:okaka_secret]
   end
 
-=begin
-
-# Delete user系の動作は未実装のためコメントアウト中
-
   test 'delete user' do
     login_as_okaka
     # delete myself
@@ -177,6 +173,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       delete user_path(@okaka.screen_name)
     end
     # automatically logged out when deleting myself
+    assert_redirected_to(root_path)
+    assert_not logged_in?
     assert_nil current_user
     # could not find user deleted
     assert_nil User.find_by(screen_name: @okaka.screen_name)
@@ -220,6 +218,5 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     # can find user not deleted
     assert User.find_by(screen_name: @noritama.screen_name)
   end
-=end
 
 end
