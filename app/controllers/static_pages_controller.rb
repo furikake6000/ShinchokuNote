@@ -11,8 +11,6 @@ class StaticPagesController < ApplicationController
 
   def faq; end
 
-  def beta; end
-
   def help; end
 
   def terms; end
