@@ -156,23 +156,6 @@ class ApplicationController < ActionController::Base
     render_404 && return if @announce.nil?
   end
 
-  def load_newest_posts(size)
-    @newest_posts = TweetPost.joins(:note)
-                             .where(notes: { shared_to_public: true, view_stance: 'everyone' })
-                             .order('created_at DESC')
-                             .limit(size)
-  end
-
-  def load_watching_posts(size)
-    return nil unless logged_in?
-    # note_idがwatching_noteであるpostを抽出
-    allowed_types = ['TweetPost', 'PlainPost']
-    @watching_posts = Post.where('type IN (?)', allowed_types)
-                          .where('note_id IN (?)', current_user.watching_notes.map(&:id))
-                          .order('created_at DESC')
-                          .limit(size)
-  end
-
   def load_notifications
     return @notifications if @notifications
 

@@ -1,16 +1,10 @@
-- if @watching_posts.empty?
-    p.text-center |
-        まだウォッチリストに登録されたノートがありません。
-        気に入ったノートを登録してみましょう！
+#watching_posts
+    = link_to '続きを見る',
+        watching_posts_path,
+        remote: true,
+        id: 'watching_posts_load_button',
+        class: 'btn btn-block btn-info mb-3'
 
-- else
-    #watching_posts
-        = link_to '続きを見る',
-            watching_posts_path,
-            remote: true,
-            id: 'watching_posts_load_button',
-            class: 'btn btn-block btn-info mb-3'
-
-    - content_for :javascript do
-        = javascript_include_tag 'watching_posts',
-            'data-turbolinks-track': 'reload'
+- content_for :javascript do
+    = javascript_include_tag 'watching_posts',
+        'data-turbolinks-track': 'reload'

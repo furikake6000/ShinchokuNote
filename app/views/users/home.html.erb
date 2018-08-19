@@ -26,12 +26,6 @@
 </ul>
 <div class="tab-content" id="tabs-tabContent">
   <div class="tab-pane fade show active" id="watchlist_posts" role="tabpanel" aria-labelledby="watchlist_posts_tab">
-    <% if @watching_posts.empty? %>
-      <p class="text-center">
-        まだウォッチリストに登録されたノートがありません。<br>
-        気に入ったノートを登録してみましょう！
-      </p>
-    <% end %>
     <%= render 'posts/watching_posts' %>
   </div>
   <div class="tab-pane fade" id="all_posts" role="tabpanel" aria-labelledby="all_posts_tab">
