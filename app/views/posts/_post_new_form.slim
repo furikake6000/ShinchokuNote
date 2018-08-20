@@ -15,14 +15,13 @@
 
     #text_count class="text-#{note_color note}" 0 / #{(defined?(response_to) ? 108 : 110)}
 
-    .input-group
+    .input-group.mb-2
         #image_form_virtual
             #image_form_click_and_select
                 div
                     =fa_icon 'photo 2x'
                 div クリックorドロップで画像選択
             #image_form_preview
-    .text-info.small-text.mb-2 ※現在ツイートなしの進捗報告は画像投稿に対応しておりません...(実装中)
     .text-right
         = f.submit '進捗報告',
             name: 'post_normal',
