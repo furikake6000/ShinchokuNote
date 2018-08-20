@@ -3,6 +3,7 @@ $(document).on('turbolinks:load', function(){
     var MAX_IMAGE_SIZE = 1024 * 1024 * 1.5;  // IE doesn't allow const
     
     var $postform = $('#new_post');
+    var $postform_submit = $('#new_post input[type=submit]')
     var $virtualform = $('#image_form_virtual');
     var $realform = $('#image_form_hidden');
     var $clickandselect = $('#image_form_click_and_select');
@@ -134,15 +135,15 @@ $(document).on('turbolinks:load', function(){
         'drop': pendFile
     });
 
+    $postform_submit.click(function(e){
+        $('#submit_type').attr('name', $(this).attr('name'))
+    })
+
     $postform.submit(function(e){
         disableEvent(e);
 
         // Reading all infomations from form
         var fd = new FormData($postform[0]);
-
-        // Appending submit information
-        var $clickedbutton = $(this).find("input[type=submit]:focus");
-        fd.append($clickedbutton[0].name, true);
 
         // Appending image files
         var newvalue = [];
