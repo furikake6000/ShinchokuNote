@@ -11,13 +11,12 @@
             span.icon-shinchokunote
 
         - if current_user? plain_post.note.user
-
-        button.close(
-            type="button"
-            data-toggle="modal"
-            data-target="#deletePost#{plain_post.id}Modal"
-        )
-            span aria-hidden="true" &times;
+            button.close(
+                type="button"
+                data-toggle="modal"
+                data-target="#deletePost#{plain_post.id}Modal"
+            )
+                span aria-hidden="true" &times;
         
         .media-body
             p.mb-1 class="#{defined?(light) ? 'media-text' : 'media-text-l'}"
