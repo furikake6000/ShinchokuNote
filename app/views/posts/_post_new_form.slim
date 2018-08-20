@@ -25,6 +25,7 @@
     .text-info.small-text.mb-2 ※現在ツイートなしの進捗報告は画像投稿に対応しておりません...(実装中)
     .text-right
         = f.submit '進捗報告',
+            name: 'post_normal',
             id: 'post_submit',
             class: "btn btn-#{note_color note} mr-3",
             disabled: true,
@@ -34,6 +35,7 @@
             id: 'tweet_submit',
             class: "btn btn-#{note_color note}",
             disabled: true
+        = hidden_field_tag :submit_type, 'true'
 
 = render 'posts/image_edit_modal'
 
