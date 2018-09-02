@@ -1,5 +1,5 @@
 - content_for :foot_toolbar do
-    .fixed-bottom.foot-toolbar
+    #foot-toolbar.fixed-bottom
         ul
             li(
                 title="ウォッチリストに登録"
@@ -35,6 +35,7 @@
                     span.icon-shinchokunote
                         = note.shinchoku_dodeskas.size
                 .balloon 進捗どうですか
+        .shinchoku_dodeska_form.d-none a
 
 - content_for :javascript do
   = javascript_include_tag 'show_comments_tab',
