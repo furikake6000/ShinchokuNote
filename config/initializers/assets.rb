@@ -14,7 +14,6 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 Rails.application.config.assets.precompile += %w[
   image_form_virtual.js
   copy_to_clipboard.js
-  show_comments_tab.js
   post_text_box.js
   schedule_text_box.js
   comment_text_box.js
@@ -23,6 +22,7 @@ Rails.application.config.assets.precompile += %w[
   image_edit_modal.js
   watching_posts.js
   newest_posts.js
+  note_foot_toolbar.js
 ]
 
 # Original Webfonts
