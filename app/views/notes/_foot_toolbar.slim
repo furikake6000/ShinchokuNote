@@ -34,7 +34,16 @@
                     span.icon-shinchokunote
                         = note.shinchoku_dodeskas.size
                 .balloon 進捗どうですか
-        #shinchoku_dodeska_tab.d-none a
+        #shinchoku_dodeska_tab.d-none
+            ul
+                li
+                    = image_tag 'shinchoku_stamps/suki'
+                li
+                    = image_tag 'shinchoku_stamps/otukare'
+                li
+                    = image_tag 'shinchoku_stamps/suki'
+                li
+                    = image_tag 'shinchoku_stamps/otukare'
 
 - content_for :javascript do
   = javascript_include_tag 'note_foot_toolbar',
