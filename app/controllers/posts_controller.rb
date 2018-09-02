@@ -101,8 +101,9 @@ class PostsController < ApplicationController
           .where('posts.type IN (?)', allowed_types)
           .where(notes: {
             shared_to_public: true,
-            view_stance: 'everyone'
-          })
+            view_stance: 'everyone',
+            rating: 'everyone'
+            })
           .order('created_at DESC')
           .limit(size)
     else
@@ -110,8 +111,9 @@ class PostsController < ApplicationController
           .where('posts.type IN (?)', allowed_types)
           .where(notes: {
             shared_to_public: true,
-            view_stance: 'everyone'
-          })
+            view_stance: 'everyone',
+            rating: 'everyone'
+            })
           .where('posts.created_at < (?)', from_post.created_at)
           .order('created_at DESC')
           .limit(size)
