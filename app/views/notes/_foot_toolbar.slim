@@ -16,13 +16,12 @@
                         data: { toggle: 'modal', target: '#loginModal' }
                 .balloon ウォッチリスト
             
-            li title="コメントフォームに移動"
-                = link_to fa_icon('envelope-o', text: note.comments.size),
-                    'javascript:void(0);',
-                    onclick: 'showCommentsTab()'
+            li.comments_tab_toggler title="コメントフォームに移動"
+                a
+                    = fa_icon('envelope-o', text: note.comments.size)
                 .balloon コメント
             
-            li(
+            li.shinchoku_dodeska_tab_toggler(
                 title="進捗どうですかをする"
                 class="post_note_#{note.id}_shinchoku_dodeska #{'active' if posted_shinchoku_dodeska_today?(note, current_user)}"
             )
@@ -35,7 +34,7 @@
                     span.icon-shinchokunote
                         = note.shinchoku_dodeskas.size
                 .balloon 進捗どうですか
-        .shinchoku_dodeska_form.d-none a
+        #shinchoku_dodeska_tab.d-none a
 
 - content_for :javascript do
   = javascript_include_tag 'note_foot_toolbar',

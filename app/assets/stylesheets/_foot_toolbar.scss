@@ -19,12 +19,12 @@
             a{
                 font-size: 2.1rem;
                 color: $gray-500;
+                cursor: pointer;
                 
-            }
-
-            a:hover{
-                text-decoration: none;
-                color: $gray-700;
+                &:hover{
+                    text-decoration: none;
+                    color: $gray-700;
+                }
             }
 
             &.active{
@@ -45,9 +45,9 @@
     }
 }
 
-.shinchoku_dodeska_form{
+#shinchoku_dodeska_tab{
     position: absolute;
-    bottom: 3.5rem;
+    bottom: 3rem;
     left: 50%;
     transform: translate(-50%, 0%);
     max-width: 576px;
@@ -61,7 +61,7 @@
 }
 
 
-.shinchoku_dodeska_form::before{
+#shinchoku_dodeska_tab::before{
     content: '';
     position: absolute;
     display: block;
