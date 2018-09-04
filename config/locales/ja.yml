@@ -46,3 +46,8 @@ ja:
         finished: 完成
         frozen: 凍結中
         closed: お蔵入り
+    shinchoku_dodeska:
+      content:
+        plain: 進捗どうですか？
+        otukare: おつかれさま
+        suki: 好き！
