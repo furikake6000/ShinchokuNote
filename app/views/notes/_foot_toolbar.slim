@@ -34,14 +34,14 @@
                 .balloon 進捗どうですか
         #shinchoku_dodeska_tab.d-none
             ul
-                li
-                    = image_tag 'shinchoku_stamps/suki'
-                li
-                    = image_tag 'shinchoku_stamps/otukare'
-                li
-                    = image_tag 'shinchoku_stamps/suki'
-                li
-                    = image_tag 'shinchoku_stamps/otukare'
+                - ShinchokuDodeska.contents.keys.each do |content|
+                    - next if content == 'plain'
+                    li
+                        = link_to note_shinchoku_dodeskas_path(note, content: content),
+                          method: :post,
+                          remote: true,
+                          rel: 'nofollow' do
+                            = image_tag "shinchoku_stamps/#{content}"
 
 - content_for :javascript do
   = javascript_include_tag 'note_foot_toolbar',
