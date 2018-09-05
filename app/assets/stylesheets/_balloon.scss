@@ -1,70 +1,67 @@
-.balloon-static{
-    position: relative;
+.balloon-primitive{
     padding: 5px;
-    margin: 5px;
-    margin-bottom: 15px;
     border-radius: 10px;
-    background-color: white;
-    border: 2px solid $primary;
+    background-color: $primary;
     color: white;
-    font-weight: bold;
-    font-size: 0.75rem;
-}
 
-.balloon-static::before{
-    content: '';
-    position: absolute;
-    display: block;
-    width: 0;
-    height: 0;
-    left: 0;
-    right: 0;
-    bottom: -10px;
-    margin: 0 auto;
-    border-top: 10px solid $primary;
-    border-right: 10px solid transparent;
-    border-left: 10px solid transparent;
-}
-
-.balloon-static::after{
-    content: '';
-    position: absolute;
-    display: block;
-    width: 0;
-    height: 0;
-    left: 0;
-    right: 0;
-    bottom: -7px;
-    margin: 0 auto;
-    border-top: 10px solid white;
-    border-right: 10px solid transparent;
-    border-left: 10px solid transparent;
+    &::before{
+        content: '';
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        left: 0;
+        right: 0;
+        bottom: -10px;
+        margin: 0 auto;
+        border-top: 10px solid $primary;
+        border-right: 10px solid transparent;
+        border-left: 10px solid transparent;
+    }
 }
 
 .balloon{
+    @extend .balloon-primitive;
     position: absolute;
     bottom: 3.25rem;
     left: 50%;
     transform: translate(-50%, 0%);
-    padding: 5px;
-    border-radius: 10px;
-    background-color: transparentize(red, 0.4);
-    color: white;
-    font-weight: bold;
-    font-size: 0.75rem;
 }
 
-.balloon::before{
-    content: '';
-    position: absolute;
-    display: block;
-    width: 0;
-    height: 0;
-    left: 0;
-    right: 0;
-    bottom: -10px;
-    margin: 0 auto;
-    border-top: 10px solid transparentize(red, 0.4);;
-    border-right: 10px solid transparent;
-    border-left: 10px solid transparent;
+.balloon-red-trans{
+    @extend .balloon;
+    background-color: transparentize(red, 0.4);
+    
+    &::before{
+        border-top: 10px solid transparentize(red, 0.4);
+    }
+}
+
+.balloon-static{
+    @extend .balloon-primitive;
+    position: relative;
+    margin: 5px;
+    margin-bottom: 15px;
+}
+
+.balloon-static-withedge-primary{
+    @extend .balloon-static;
+
+    background-color: white;
+    border: 2px solid $primary;
+
+    &::after{
+        content: '';
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        left: 0;
+        right: 0;
+        bottom: -7px;
+        margin: 0 auto;
+        border-top: 10px solid white;
+        border-right: 10px solid transparent;
+        border-left: 10px solid transparent;
+    }
 }

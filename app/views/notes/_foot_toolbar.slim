@@ -14,12 +14,12 @@
                     = link_to fa_icon('star', text: note.watching_users.count ),
                         '',
                         data: { toggle: 'modal', target: '#loginModal' }
-                .balloon ウォッチリスト
+                .balloon-red-trans.small-text.bold-text.nowrap ウォッチリスト
             
             li.comments_tab_toggler title="コメントフォームに移動"
                 a
                     = fa_icon('envelope-o', text: note.comments.size)
-                .balloon コメント
+                .balloon-red-trans.small-text.bold-text.nowrap コメント
             
             li.shinchoku_dodeska_tab_toggler(
                 title="進捗どうですかをする"
@@ -31,7 +31,7 @@
                           rel: 'nofollow' do
                     span.icon-shinchokunote
                         = note.shinchoku_dodeskas.size
-                .balloon 進捗どうですか
+                .balloon-red-trans.small-text.bold-text.nowrap 進捗どうですか
         #shinchoku_dodeska_tab.d-none
             ul
                 - ShinchokuDodeska.contents.keys.each do |content|

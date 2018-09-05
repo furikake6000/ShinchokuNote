@@ -184,23 +184,6 @@ a.text-lightgray:hover{
     );
 }
 
-.overflow-x-auto{
-  overflow-x: auto;
-}
-
-.h-100px{
-  height: 100px;
-}
-
-.w-100px{
-  width: 100px;
-}
-
-.inline-block-bottom {
-  display: inline-block;
-  vertical-align: bottom;
-}
-
 // Primary settings
 
 html{
@@ -278,6 +261,23 @@ header{
 }
 .pre-text{
   white-space: pre-wrap;
+}
+
+.overflow-x-auto{
+  overflow-x: auto;
+}
+
+.nowrap{
+  white-space: nowrap;
+}
+
+.w-100px{
+  width: 100px;
+}
+
+.inline-block-bottom {
+  display: inline-block;
+  vertical-align: bottom;
 }
 
 .clickable{
