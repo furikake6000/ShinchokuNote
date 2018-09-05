@@ -35,7 +35,7 @@ class ShinchokuDodeskasController < ApplicationController
                         .count
       WebpushService.new(user: @note.user)
                     .webpush(
-                      "#{@note.name}に「進捗どうですか？」が届きました",
+                      "#{@note.name}に「#{@shinchoku_dodeska.content_i18n}」が届きました",
                       title: "#{newest_shinchoku_dodeska_to_note_count}件の新しい「進捗どうですか？」"
                     )
     end
