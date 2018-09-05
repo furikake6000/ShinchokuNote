@@ -11,7 +11,7 @@
 
         div 
             |
-                「#{link_to notify[:note].name, note_path(notify[:note])}」に新しく
+                #{link_to notify[:note].name, note_path(notify[:note])} に新しく
                 #{notify[:shinchoku_dodeskas].group_by(&:content).map{|content, shinchoku_dodeskas| "#{shinchoku_dodeskas.size}件の「#{t "enums.shinchoku_dodeska.content.#{content}"}」" }.join('、')}
                 が投稿されました！
         - notify[:shinchoku_dodeskas].each do |s|
@@ -25,7 +25,7 @@
         .text-right.text-info.small-text
             = smart_time_to_str notify[:time]
             
-        div 「#{link_to notify[:note].name, note_path(notify[:note])}」は新しく#{notify[:watchlists].size}人のウォッチリストに登録されました！
+        div #{link_to notify[:note].name, note_path(notify[:note])} は新しく#{notify[:watchlists].size}人のウォッチリストに登録されました！
         - notify[:watchlists].each do |w|
             - if w.watching_user
                 = link_to \
