@@ -17,6 +17,7 @@ class ShinchokuDodeskasController < ApplicationController
     end
 
     @shinchoku_dodeska = ShinchokuDodeska.new(shinchoku_dodeskas_params)
+    @shinchoku_dodeska.content ||= 'plain'
     if logged_in?
       @shinchoku_dodeska.from_user = current_user
     else
