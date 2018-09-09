@@ -30,4 +30,6 @@ Rails.application.config.assets.paths <<
   Rails.root.join('app', 'assets', 'fonts')
 Rails.application.config.assets.paths <<
   Rails.root.join('app', 'assets', 'images', 'help')
+Rails.application.config.assets.paths <<
+  Rails.root.join('app', 'assets', 'images', 'shinchoku_stamps')
 Rails.configuration.assets.precompile += %w[serviceworker.js manifest.json]
