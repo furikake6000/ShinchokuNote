@@ -263,6 +263,23 @@ header{
   white-space: pre-wrap;
 }
 
+.overflow-x-auto{
+  overflow-x: auto;
+}
+
+.nowrap{
+  white-space: nowrap;
+}
+
+.w-100px{
+  width: 100px;
+}
+
+.inline-block-bottom {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
 .clickable{
   cursor: pointer;
 }
@@ -318,53 +335,6 @@ header{
   }
 }
 
-// foot-toolbar
-.foot-toolbar{
-  margin-bottom: 0;
-  text-align: center;
-  background-color: white;
-
-  ul{
-    margin: 0 auto;
-    padding: 0;
-    max-width: 576px;
-    width: 100%;
-    display: table;
-    table-layout: fixed;
-    li{
-      display: table-cell;
-      position: relative;
-      vertical-align: middle;
-
-      a{
-        font-size: 2.1rem;
-        color: $gray-500;
-        
-      }
-  
-      a:hover{
-        text-decoration: none;
-        color: $gray-700;
-      }
-
-      &.active{
-        a{
-          color: $red;
-        }
-
-        a:hover{
-          color: darken($red, 10);
-        }
-      }
-    }
-  }
-
-  .badge{
-    margin-left: -15px;
-    pointer-events: none;
-  }
-}
-
 // notification
 .notification{
   border-bottom: 1px solid $gray-400;
@@ -410,3 +380,6 @@ header{
 
 // image edit modal
 @import "image_edit_modal";
+
+// foot_toolbar
+@import "foot_toolbar";

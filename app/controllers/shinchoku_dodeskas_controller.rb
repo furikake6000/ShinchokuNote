@@ -16,7 +16,8 @@ class ShinchokuDodeskasController < ApplicationController
       return
     end
 
-    @shinchoku_dodeska = ShinchokuDodeska.new
+    @shinchoku_dodeska = ShinchokuDodeska.new(shinchoku_dodeskas_params)
+    @shinchoku_dodeska.content ||= 'plain'
     if logged_in?
       @shinchoku_dodeska.from_user = current_user
     else
@@ -35,7 +36,7 @@ class ShinchokuDodeskasController < ApplicationController
                         .count
       WebpushService.new(user: @note.user)
                     .webpush(
-                      "#{@note.name}に「進捗どうですか？」が届きました",
+                      "#{@note.name}に「#{@shinchoku_dodeska.content_i18n}」が届きました",
                       title: "#{newest_shinchoku_dodeska_to_note_count}件の新しい「進捗どうですか？」"
                     )
     end
@@ -48,5 +49,12 @@ class ShinchokuDodeskasController < ApplicationController
 
   def destroy
     @shinchoku_dodeska.destroy
+  end
+
+  private
+
+  # ShinchokuDodeskaのパラメータを安全に取り出す
+  def shinchoku_dodeskas_params
+    params.permit(:content)
   end
 end

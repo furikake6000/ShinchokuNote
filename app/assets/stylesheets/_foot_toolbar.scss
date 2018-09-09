@@ -1,0 +1,90 @@
+// foot-toolbar
+#foot-toolbar{
+    margin-bottom: 0;
+    text-align: center;
+    background-color: white;
+
+    ul{
+        margin: 0 auto;
+        padding: 0;
+        max-width: 576px;
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+        li{
+            display: table-cell;
+            position: relative;
+            vertical-align: middle;
+
+            a{
+                font-size: 2.1rem;
+                color: $gray-500;
+                cursor: pointer;
+                
+                &:hover{
+                    text-decoration: none;
+                    color: $gray-700;
+                }
+            }
+
+            &.active{
+                a{
+                    color: $red;
+                }
+
+                a:hover{
+                    color: darken($red, 10);
+                }
+            }
+        }
+    }
+
+    .badge{
+        margin-left: -15px;
+        pointer-events: none;
+    }
+}
+
+#shinchoku_dodeska_tab{
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    max-width: 576px;
+    width: 100%;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: transparentize( black, 0.3 );
+    color: white;
+    font-weight: bold;
+    font-size: 0.75rem;
+    
+    ul{
+        display: table;
+        
+        li{
+            display: table-cell;
+
+            img{
+                width: 80%;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+
+#shinchoku_dodeska_tab::before{
+    content: '';
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    left: 81%;
+    right: 19%;
+    bottom: -15px;
+    margin: 0 auto;
+    border-top: 15px solid transparentize( black, 0.3 );
+    border-right: 15px solid transparent;
+    border-left: 15px solid transparent;
+}

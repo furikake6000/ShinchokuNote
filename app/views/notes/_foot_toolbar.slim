@@ -1,5 +1,5 @@
 - content_for :foot_toolbar do
-    .fixed-bottom.foot-toolbar
+    #foot-toolbar.fixed-bottom
         ul
             li(
                 title="ウォッチリストに登録"
@@ -14,28 +14,36 @@
                     = link_to fa_icon('star', text: note.watching_users.count ),
                         '',
                         data: { toggle: 'modal', target: '#loginModal' }
-                .balloon ウォッチリスト
+                .balloon-red-trans.small-text.bold-text.nowrap ウォッチリスト
             
-            li title="コメントフォームに移動"
-                = link_to fa_icon('envelope-o', text: note.comments.size),
-                    'javascript:void(0);',
-                    onclick: 'showCommentsTab()'
-                .balloon コメント
+            li.comments_tab_toggler title="コメントフォームに移動"
+                a
+                    = fa_icon('envelope-o', text: note.comments.size)
+                .balloon-red-trans.small-text.bold-text.nowrap コメント
             
-            li(
+            li.shinchoku_dodeska_tab_toggler(
                 title="進捗どうですかをする"
                 class="post_note_#{note.id}_shinchoku_dodeska #{'active' if posted_shinchoku_dodeska_today?(note, current_user)}"
             )
-                a(
-                    href="#{note_shinchoku_dodeskas_path(note)}"
-                    data-method="post"
-                    data-remote="true"
-                    rel="nofollow"
-                )
+                = link_to note_shinchoku_dodeskas_path(note),
+                          method: :post,
+                          remote: true,
+                          rel: 'nofollow' do
                     span.icon-shinchokunote
                         = note.shinchoku_dodeskas.size
-                .balloon 進捗どうですか
+                .balloon-red-trans.small-text.bold-text.nowrap 進捗どうですか
+        #shinchoku_dodeska_tab.d-none
+            ul
+                - ShinchokuDodeska.contents.keys.each do |content|
+                    - next if content == 'plain'
+                    li
+                        = link_to note_shinchoku_dodeskas_path(note, content: content),
+                          method: :post,
+                          remote: true,
+                          class: 'shinchoku_stamp',
+                          rel: 'nofollow' do
+                            = image_tag "shinchoku_stamps/#{content}"
 
 - content_for :javascript do
-  = javascript_include_tag 'show_comments_tab',
+  = javascript_include_tag 'note_foot_toolbar',
     'data-turbolinks-track': 'reload'
