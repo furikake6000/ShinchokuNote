@@ -40,6 +40,7 @@
                         = link_to note_shinchoku_dodeskas_path(note, content: content),
                           method: :post,
                           remote: true,
+                          class: 'shinchoku_stamp',
                           rel: 'nofollow' do
                             = image_tag "shinchoku_stamps/#{content}"
 
