@@ -7,6 +7,8 @@ class ShinchokuDodeska < ApplicationRecord
   enum content: {
     plain: 0,
     otukare: 1,
-    suki: 2
+    suki: 2,
+    ouen: 3,
+    machimasu: 4
   }
 end
