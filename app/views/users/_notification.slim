@@ -22,7 +22,7 @@
                             .text-center
                                 - if s.content != 'plain'
                                     .balloon-static-withedge-primary.w-100px
-                                        = image_tag "shinchoku_stamps/#{s.content}", class: 'w-100'
+                                        = image_tag "shinchoku_stamps/#{s.content}.png", class: 'w-100'
                                 = image_tag(s.from_user.thumb_url, alt: s.from_user.name, class: 'mr-1 note-info-user-thumb rounded-circle', size: '32x32')
     
     - when 'Watchlists'
