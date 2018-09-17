@@ -21,3 +21,8 @@
 
 set :environment, ENV['RAILS_ENV'] || :development
 set :output, "#{Rails.root}/log/cron.log"
+
+# Deleting daily logs
+every 1.day, :at => '0:05 am' do
+  runner "Tasks.LogDeleter.delete_logs_of_last_week"
+end
