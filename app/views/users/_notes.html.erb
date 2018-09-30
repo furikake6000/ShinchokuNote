@@ -1,9 +1,9 @@
 <div class="tray-secondary-withedge">
   <h3><%= fa_icon 'envelope', text: 'リクエストボックス' %></h3>
-  <%= render request_boxes_of user %>
+  <%= render notelist_of_type(user, 'RequestBox') %>
 </div>
 
 <div class="tray-primary-withedge">
   <h3><%= fa_icon 'file-text', text: 'プロジェクト' %></h3>
-  <%= render projects_of user %>
+  <%= render notelist_of_type(user, 'Project') %>
 </div>

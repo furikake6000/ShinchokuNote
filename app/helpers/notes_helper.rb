@@ -3,15 +3,10 @@ module NotesHelper
   def current_users_note?(note)
     logged_in? && note.user == current_user
   end
-
-  # 特定ユーザーのプロジェクトのみ取得
-  def projects_of(user)
-    user.notes.select { |p| p.type == 'Project' }
-  end
-
-  # 特定ユーザーのリクエストボックスのみ取得
-  def request_boxes_of(user)
-    user.notes.select { |p| p.type == 'RequestBox' }
+  
+  # 特定typeのノートリストを抽出
+  def notelist_of_type(user, type)
+    user.notes.with_type(type).select { |n| user_can_see?(n, current_user)}
   end
 
   # おまかせパスにランダム文字列を付与したもの
