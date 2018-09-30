@@ -55,6 +55,8 @@ class Note < ApplicationRecord
   validates :type, presence: true
   validates_uniqueness_of :name, scope: :user
 
+  scope :with_type, ->(type) { where(type: type) }
+
   def watchlisted_by?(user)
     watching_users.include? user
   end

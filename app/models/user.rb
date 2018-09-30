@@ -23,7 +23,7 @@ class User < ApplicationRecord
   has_many :watching_notes,
            through: :watchlists,
            dependent: :destroy
-  
+
   has_many :devices, dependent: :destroy
 
   # adminかどうかを返す
