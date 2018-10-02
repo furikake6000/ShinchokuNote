@@ -65,6 +65,9 @@ gem 'webpush'
 # Google Cloud Storage
 gem 'google-cloud-storage', '~> 1.3', require: false
 
+# schemaやrouteを書き出してくれるAnnotate
+gem 'annotate', '~>2.7.4'
+
 group :development, :test do
   gem 'byebug', '~>9.1', platforms: %i[mri mingw x64_mingw]
   gem 'capybara', '~> 2.13'
