@@ -14,12 +14,12 @@ gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.2.0'
 gem 'sass-rails', '~> 5.0'
 gem 'slim', '~> 3.0'
-gem 'therubyracer', '~> 0.12.3'
+gem 'mini_racer', '~> 0.2.3'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
 # jQuery and bootstrap
-gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap', '~> 4.1.2'
 gem 'bootstrap-will_paginate', '~> 1.0.0'
 gem 'jquery-rails', '~>4.3.1'
 gem 'jquery-ui-rails', '~>6.0.1'
@@ -55,9 +55,6 @@ gem 'newrelic_rpm'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 
-# fixing security vulnerabilities
-gem 'sprockets', '~> 3.7.2'
-
 # webpush notification
 gem 'serviceworker-rails'
 gem 'webpush'
@@ -67,6 +64,11 @@ gem 'google-cloud-storage', '~> 1.3', require: false
 
 # schemaやrouteを書き出してくれるAnnotate
 gem 'annotate', '~>2.7.4'
+
+# fixing security vulnerabilities
+gem 'sprockets', '~> 3.7.2'
+gem 'ffi', '~> 1.9.25'
+gem 'rubyzip', '~> 1.2.2'
 
 group :development, :test do
   gem 'byebug', '~>9.1', platforms: %i[mri mingw x64_mingw]
