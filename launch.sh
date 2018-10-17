@@ -42,7 +42,7 @@ fi
 
 # crontab update
 if [ "$FLG_CRON_UPDATE" = "TRUE" ]; then
-    bundle exec whenever --update-crontab 
+    bundle exec whenever --update-crontab RAILS_ENV=production RAILS_MASTER_KEY=$1
 fi
 
 # db:migrate
