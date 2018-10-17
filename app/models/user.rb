@@ -1,3 +1,26 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                                :integer          not null, primary key
+#  twitter_id                        :string
+#  name                              :string
+#  screen_name                       :string
+#  url                               :string
+#  thumb_url                         :string
+#  desc                              :string
+#  user_group_info                   :string
+#  permission                        :string           default("")
+#  deleted_at                        :datetime
+#  created_at                        :datetime         not null
+#  updated_at                        :datetime         not null
+#  checked_notifications_at          :datetime
+#  linked_users_info                 :binary
+#  saw_notifications_at              :datetime
+#  comment_webpush_enabled           :boolean
+#  shinchoku_dodeska_webpush_enabled :boolean
+#
+
 class User < ApplicationRecord
   after_initialize :set_default_value, if: :new_record?
 
@@ -23,7 +46,7 @@ class User < ApplicationRecord
   has_many :watching_notes,
            through: :watchlists,
            dependent: :destroy
-  
+
   has_many :devices, dependent: :destroy
 
   # adminかどうかを返す

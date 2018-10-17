@@ -1,3 +1,27 @@
+# == Schema Information
+#
+# Table name: notes
+#
+#  id                     :integer          not null, primary key
+#  name                   :string
+#  desc                   :string
+#  type                   :string
+#  stage                  :integer          default(2)
+#  thumb_info             :string
+#  tags                   :string
+#  comment_receive_stance :integer          default("everyone")
+#  comment_share_stance   :integer          default("only_me")
+#  user_id                :integer
+#  started_at             :datetime
+#  finished_at            :datetime
+#  deleted_at             :datetime
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  view_stance            :integer          default("everyone")
+#  shared_to_public       :boolean          default(TRUE)
+#  rating                 :integer          default("everyone")
+#
+
 class Note < ApplicationRecord
   acts_as_paranoid
 
@@ -54,6 +78,8 @@ class Note < ApplicationRecord
   validates :name, presence: true
   validates :type, presence: true
   validates_uniqueness_of :name, scope: :user
+
+  scope :with_type, ->(type) { where(type: type) }
 
   def watchlisted_by?(user)
     watching_users.include? user
