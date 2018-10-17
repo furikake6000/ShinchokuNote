@@ -36,13 +36,13 @@ fi
 
 # アセットの明示的プリコンパイル
 if [ "$FLG_PRECOMPILE" = "TRUE" ]; then
-    bundle exec rake assets:clobber RAILS_ENV=production RAILS_MASTER_KEY=$1
-    bundle exec rake assets:precompile RAILS_ENV=production RAILS_MASTER_KEY=$1
+    RAILS_ENV=production RAILS_MASTER_KEY=$1 bundle exec rake assets:clobber
+    RAILS_ENV=production RAILS_MASTER_KEY=$1 bundle exec rake assets:precompile
 fi
 
 # crontab update
 if [ "$FLG_CRON_UPDATE" = "TRUE" ]; then
-    bundle exec whenever --update-crontab RAILS_ENV=production RAILS_MASTER_KEY=$1
+    RAILS_ENV=production RAILS_MASTER_KEY=$1 bundle exec whenever --update-crontab
 fi
 
 # db:migrate
