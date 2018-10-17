@@ -19,6 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 
+require File.expand_path(File.dirname(__FILE__) + "/environment")
 set :environment, ENV['RAILS_ENV'] || :development
 set :output, "#{Rails.root}/log/cron.log"
 
