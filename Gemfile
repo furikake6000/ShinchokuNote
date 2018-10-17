@@ -62,6 +62,9 @@ gem 'webpush'
 # Google Cloud Storage
 gem 'google-cloud-storage', '~> 1.3', require: false
 
+# cron
+gem 'whenever', '~> 0.10.0', require: false
+
 # schemaやrouteを書き出してくれるAnnotate
 gem 'annotate', '~>2.7.4'
 
