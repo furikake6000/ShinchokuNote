@@ -1,0 +1,3 @@
+[submodule "app/assets/jquery.contenteditable.placeholder"]
+	path = app/assets/jquery.contenteditable.placeholder
+	url = https://github.com/hikaruworld/jquery.contenteditable.placeholder.git
