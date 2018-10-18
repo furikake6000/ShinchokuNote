@@ -8,6 +8,16 @@
     font-size: 1.2rem;
     font-weight: bold;
 }
+
+#new_text_form{
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: solid 1px $gray-400;
+    border-radius: 10px;
+}
+
 #image_form_virtual{
     width: 100%;
     padding: 20px;

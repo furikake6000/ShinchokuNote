@@ -17,11 +17,17 @@
 
     .input-group.mb-2
         #image_form_virtual
-            #image_form_click_and_select
+            #image_form_click_and_select contenteditable="true"
                 div
                     =fa_icon 'photo 2x'
                 div クリックorドロップで画像選択
             #image_form_preview
+
+    #new_text_form (
+        contenteditable="true"
+        data-placeholder="進捗の詳細"
+    )
+        
     .text-right
         = f.submit '進捗報告',
             name: 'post_normal',
@@ -39,6 +45,8 @@
 = render 'posts/image_edit_modal'
 
 - content_for :javascript do
+    = javascript_include_tag 'jquery.contenteditable.placeholder.js',
+        'data-turbolinks-track': 'reload'
     = javascript_include_tag 'post_text_box',
         'data-turbolinks-track': 'reload'
     = javascript_include_tag 'image_form_virtual',

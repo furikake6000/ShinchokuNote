@@ -23,6 +23,7 @@ Rails.application.config.assets.precompile += %w[
   watching_posts.js
   newest_posts.js
   note_foot_toolbar.js
+  jquery.contenteditable.placeholder.js
 ]
 
 # Original Webfonts
