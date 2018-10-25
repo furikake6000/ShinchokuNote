@@ -165,7 +165,7 @@ $(document).on('turbolinks:load', function () {
         var fd = new FormData($postform[0]);
 
         // Appending text
-        fd.append('post[text]', $textform.text());
+        fd.append('post[text]', $textform.textWithLF());
 
         // Appending image files
         $.each($pendingimages, function (i, $pimage) {
