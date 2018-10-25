@@ -70,6 +70,7 @@ $(document).on('turbolinks:load', function () {
         $('<img>').attr({
             src: src,
             id: "pending_image_" + imagecount,
+            class: "pending-image",
             title: "uploaded_image"
         }).appendTo($new_image_preview_box);
 
