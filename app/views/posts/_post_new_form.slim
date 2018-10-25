@@ -13,6 +13,7 @@
     )
     #image_form_preview
         #post_menubar.pb-2
+            p.small-text.text-info.mb-0 テキストエリアへの画像ドラッグ&ドロップ、コピーペーストが可能です。
             button#image_select_button.btn.btn-sm.btn-info type="button"
                 = fa_icon 'picture-o'
             #text_count 0 / #{(defined?(response_to) ? 108 : 110)}
