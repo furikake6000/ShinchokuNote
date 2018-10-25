@@ -1,5 +1,5 @@
 $(document).on('turbolinks:load', function () {
-    $text_form = $("#new_text_form");
+    $text_form = $("#text_form");
     $text_count = $("#text_count");
     $post_submit = $("#post_submit");
     $tweet_submit = $("#tweet_submit");

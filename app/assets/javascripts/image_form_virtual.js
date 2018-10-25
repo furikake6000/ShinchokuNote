@@ -3,16 +3,13 @@ $(document).on('turbolinks:load', function () {
     var MAX_IMAGE_SIZE = 1024 * 1024 * 1.5;  // IE doesn't allow const
 
     var $postform = $('#new_post');
-    var $postform_submit = $('#new_post input[type=submit]')
-    var $virtualform = $('#image_form_virtual');
-    var $realform = $('#image_form_hidden');
-    var $clickandselect = $('#image_form_click_and_select');
+    var $postform_submit = $('#new_post input[type=submit]');
     var $preview = $('#image_form_preview');
     var $editconfirm = $('#edit_confirm_button');
     var $canvas = $('#image_edit_canvas');
     var $canvas_ui = $('#image_edit_ui_canvas');
     var $imageeditmodal = $('#image_edit_modal');
-    var $newtextform = $('#new_text_form');
+    var $textform = $('#text_form');
     var $imageselectbutton = $('#image_select_button');
 
     var imagecount = 0;
@@ -148,13 +145,6 @@ $(document).on('turbolinks:load', function () {
         return file;
     }
 
-    $clickandselect.click(function () {
-        $('<input type="file" accept="image/*">').on('change', function (e) {
-            var images = e.target.files;
-            loadImageFiles(images);
-        })[0].click();
-    })
-
     $imageselectbutton.click(function () {
         $('<input type="file" accept="image/*">').on('change', function (e) {
             var images = e.target.files;
@@ -163,13 +153,6 @@ $(document).on('turbolinks:load', function () {
     })
 
     $editconfirm.click(confirmImageFromEditorModal);
-
-    $virtualform.on({
-        'dragenter': disableEvent,
-        'dragover': disableEvent,
-        'dragleave': disableEvent,
-        'drop': pendFile
-    });
 
     $postform_submit.click(function (e) {
         $('#submit_type').attr('name', $(this).attr('name'))
@@ -182,7 +165,7 @@ $(document).on('turbolinks:load', function () {
         var fd = new FormData($postform[0]);
 
         // Appending text
-        fd.append('post[text]', $newtextform.text());
+        fd.append('post[text]', $textform.text());
 
         // Appending image files
         $.each($pendingimages, function (i, $pimage) {
@@ -205,8 +188,8 @@ $(document).on('turbolinks:load', function () {
     })
 
     // Fig pasted detection (for Firefox, IE, etc...)
-    $newtextform.on('input', function () {
-        var $pastedImages = $newtextform.find("img");
+    $textform.on('input', function () {
+        var $pastedImages = $textform.find("img");
 
         // If no image found, do nothing
         if ($pastedImages.length == 0) {
@@ -221,7 +204,7 @@ $(document).on('turbolinks:load', function () {
     })
 
     // Fig pasted detection (for Chrome)
-    $newtextform.on('paste', function (e) {
+    $textform.on('paste', function (e) {
         var clipdata = e.clipboardData;
 
         // If no image found, do nothing
