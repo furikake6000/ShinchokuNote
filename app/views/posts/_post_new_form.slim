@@ -7,26 +7,15 @@
             id: 'respond_to',
             value: response_to.id
 
-    .input-group
-        = f.text_area :text,
-            placeholder: 'つぶやく内容',
-            id: 'text_form',
-            class: 'form-control'
-
-    #text_count class="text-#{note_color note}" 0 / #{(defined?(response_to) ? 108 : 110)}
-
-    .input-group.mb-2
-        #image_form_virtual
-            #image_form_click_and_select contenteditable="true"
-                div
-                    =fa_icon 'photo 2x'
-                div クリックorドロップで画像選択
-
     #new_text_form (
         contenteditable="true"
         data-placeholder="進捗の詳細"
     )
     #image_form_preview
+        #post_menubar.pb-2
+            button#image_select_button.btn.btn-sm.btn-info type="button"
+                = fa_icon 'picture-o'
+            #text_count 0 / #{(defined?(response_to) ? 108 : 110)}
         
     .text-right
         = f.submit '進捗報告',

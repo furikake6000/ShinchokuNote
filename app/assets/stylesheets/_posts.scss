@@ -4,8 +4,7 @@
 }
 #text_count{
     float: right;
-    margin-right: 10px;
-    font-size: 1.2rem;
+    color: $gray-600;
     font-weight: bold;
 }
 
@@ -45,18 +44,18 @@
     display: none;
 }
 #image_form_preview{
-    background-color: $gray-200;
+    background-color: $gray-300;
     border: solid 2px $gray-400;
     border-top: none;
     margin-bottom: 10px;
-    padding: 5px 10px 5px 10px;
+    padding: 10px;
     border-radius: 0 0 10px 10px;
 
     .image_preview_box{
         display: inline-block;
-        margin: 5px;
         width: 100px;
         height: 100px;
+        margin: 0 5px 5px 0;
         position: relative;
 
         img{

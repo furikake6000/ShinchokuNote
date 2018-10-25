@@ -13,6 +13,7 @@ $(document).on('turbolinks:load', function () {
     var $canvas_ui = $('#image_edit_ui_canvas');
     var $imageeditmodal = $('#image_edit_modal');
     var $newtextform = $('#new_text_form');
+    var $imageselectbutton = $('#image_select_button');
 
     var imagecount = 0;
     var $pendingimages = {};
@@ -154,6 +155,13 @@ $(document).on('turbolinks:load', function () {
         })[0].click();
     })
 
+    $imageselectbutton.click(function () {
+        $('<input type="file" accept="image/*">').on('change', function (e) {
+            var images = e.target.files;
+            loadImageFiles(images);
+        })[0].click();
+    })
+
     $editconfirm.click(confirmImageFromEditorModal);
 
     $virtualform.on({
@@ -173,8 +181,10 @@ $(document).on('turbolinks:load', function () {
         // Reading all infomations from form
         var fd = new FormData($postform[0]);
 
+        // Appending text
+        fd.append('post[text]', $newtextform.text());
+
         // Appending image files
-        var newvalue = [];
         $.each($pendingimages, function (i, $pimage) {
             fd.append('post[image][' + i + ']', dataURItoBlob($pimage[0].src));
         });
