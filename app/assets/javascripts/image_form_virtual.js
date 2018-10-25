@@ -3,15 +3,15 @@ $(document).on('turbolinks:load', function () {
     var MAX_IMAGE_SIZE = 1024 * 1024 * 1.5;  // IE doesn't allow const
 
     var $postform = $('#new_post');
-    var $postform_submit = $('#new_post input[type=submit]')
-    var $virtualform = $('#image_form_virtual');
-    var $realform = $('#image_form_hidden');
-    var $clickandselect = $('#image_form_click_and_select');
+    var $postform_submit = $('#new_post input[type=submit]');
     var $preview = $('#image_form_preview');
     var $editconfirm = $('#edit_confirm_button');
     var $canvas = $('#image_edit_canvas');
     var $canvas_ui = $('#image_edit_ui_canvas');
     var $imageeditmodal = $('#image_edit_modal');
+    var $textform = $('#text_form');
+    var $imageselectbutton = $('#image_select_button');
+
     var imagecount = 0;
     var $pendingimages = {};
 
@@ -56,50 +56,59 @@ $(document).on('turbolinks:load', function () {
         $pendingimage.attr('src', dataURI);
     }
 
-    function loadImages(images) {
+    function loadImage(src) {
+        // Increment ID of images
+        imagecount += 1;
+
+        var $new_image_preview_box = $('<div>').attr({
+            class: "image_preview_box",
+            imagecount: imagecount
+        }).appendTo($preview);
+
+        $('<img>').attr({
+            src: src,
+            id: "pending_image_" + imagecount,
+            class: "pending-image",
+            title: "uploaded_image"
+        }).appendTo($new_image_preview_box);
+
+        var $deselect_button = $('<div>&times;</div>').attr({
+            class: "deselect_button",
+            id: "deselect_image_" + imagecount,
+            imagecount: imagecount
+        }).appendTo($new_image_preview_box);
+        $deselect_button.click(function (e) {
+            // delete image from pendingimages and preview area
+            delete $pendingimages[$deselect_button.attr('imagecount')];
+            $deselect_button.parent().remove();
+        });
+
+        var $pendingimage = $("#pending_image_" + imagecount);
+        // Make the list of <img> tags
+        $pendingimages[imagecount] = $pendingimage;
+
+        // Make the click trigger of <img> tags
+        $pendingimage.click(function (e) {
+            // Set the image of canvas
+            loadImageToEditorModal($pendingimage);
+            $imageeditmodal.modal('toggle');
+        });
+
+        // Once load it on canvas to scale it (for large images)
+        loadImageToEditorModal($pendingimage, true);
+    }
+
+    function loadImageFile(image) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            loadImage(e.target.result);
+        }
+        reader.readAsDataURL(image);
+    }
+
+    function loadImageFiles(images) {
         $.each(images, function () {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                // Increment ID of images
-                imagecount += 1;
-
-                var $new_image_preview_box = $('<div>').attr({
-                    class: "image_preview_box",
-                    imagecount: imagecount
-                }).appendTo($preview);
-
-                $('<img>').attr({
-                    src: e.target.result,
-                    id: "pending_image_" + imagecount,
-                    title: "uploaded_image"
-                }).appendTo($new_image_preview_box);
-
-                var $deselect_button = $('<div>&times;</div>').attr({
-                    class: "deselect_button",
-                    id: "deselect_image_" + imagecount,
-                    imagecount: imagecount
-                }).appendTo($new_image_preview_box);
-                $deselect_button.click(function (e) {
-                    // delete image from pendingimages and preview area
-                    delete $pendingimages[$deselect_button.attr('imagecount')];
-                    $deselect_button.parent().remove();
-                });
-
-                var $pendingimage = $("#pending_image_" + imagecount);
-                // Make the list of <img> tags
-                $pendingimages[imagecount] = $pendingimage;
-
-                // Make the click trigger of <img> tags
-                $pendingimage.click(function (e) {
-                    // Set the image of canvas
-                    loadImageToEditorModal($pendingimage);
-                    $imageeditmodal.modal('toggle');
-                });
-
-                // Once load it on canvas to scale it (for large images)
-                loadImageToEditorModal($pendingimage, true);
-            }
-            reader.readAsDataURL(this);
+            loadImageFile(this);
         })
     }
 
@@ -107,7 +116,7 @@ $(document).on('turbolinks:load', function () {
         e.preventDefault();
         var images = e.originalEvent.dataTransfer.files;
 
-        loadImages(images);
+        loadImageFiles(images);
     }
 
     // Ref: (https://stackoverflow.com/a/15754051)
@@ -136,21 +145,14 @@ $(document).on('turbolinks:load', function () {
         return file;
     }
 
-    $clickandselect.click(function () {
+    $imageselectbutton.click(function () {
         $('<input type="file" accept="image/*">').on('change', function (e) {
             var images = e.target.files;
-            loadImages(images);
+            loadImageFiles(images);
         })[0].click();
     })
 
     $editconfirm.click(confirmImageFromEditorModal);
-
-    $virtualform.on({
-        'dragenter': disableEvent,
-        'dragover': disableEvent,
-        'dragleave': disableEvent,
-        'drop': pendFile
-    });
 
     $postform_submit.click(function (e) {
         $('#submit_type').attr('name', $(this).attr('name'))
@@ -162,8 +164,10 @@ $(document).on('turbolinks:load', function () {
         // Reading all infomations from form
         var fd = new FormData($postform[0]);
 
+        // Appending text
+        fd.append('post[text]', $textform.text());
+
         // Appending image files
-        var newvalue = [];
         $.each($pendingimages, function (i, $pimage) {
             fd.append('post[image][' + i + ']', dataURItoBlob($pimage[0].src));
         });
@@ -180,6 +184,42 @@ $(document).on('turbolinks:load', function () {
             location.reload();
         }).fail(function (xhr, status, error) {
             console.log("Post#Create : " + status + " Error detected.");
+        });
+    })
+
+    // Fig pasted detection (for Firefox, IE, etc...)
+    $textform.on('input', function () {
+        var $pastedImages = $textform.find("img");
+
+        // If no image found, do nothing
+        if ($pastedImages.length == 0) {
+            return true;
+        }
+
+        $.each($pastedImages, function (i, $pimage) {
+            loadImage($pimage.src);
+            // delete the pasted <img> tag
+            $pimage.remove();
+        });
+    })
+
+    // Fig pasted detection (for Chrome)
+    $textform.on('paste', function (e) {
+        var clipdata = e.clipboardData;
+
+        // If no image found, do nothing
+        if (!clipdata ||
+            !clipdata.types ||
+            (clipdata.types.length != 1) ||
+            (clipdata.types[0] != "Files")) {
+            return true;
+        }
+
+        var pastedImageFiles = clipdata.items;
+        $.each($pastedImageFiles, function (i, $pimagefile) {
+            if ($pimagefile.type.indexOf('image') >= 0) {
+                loadImage($pimage.getAsFile());
+            }
         });
     })
 })

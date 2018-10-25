@@ -352,6 +352,12 @@ header{
   }
 }
 
+// contenteditable-placeholder
+[data-placeholder][data-placeholderactive=true]::before {
+  content: attr(data-placeholder);
+  opacity: 0.5
+}
+
 // User
 @import "users";
 
