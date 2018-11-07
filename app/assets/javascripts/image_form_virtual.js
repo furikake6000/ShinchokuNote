@@ -154,6 +154,13 @@ $(document).on('turbolinks:load', function () {
 
     $editconfirm.click(confirmImageFromEditorModal);
 
+    $postform.on({
+        'dragenter': disableEvent,
+        'dragover': disableEvent,
+        'dragleave': disableEvent,
+        'drop': pendFile
+    });
+
     $postform_submit.click(function (e) {
         $('#submit_type').attr('name', $(this).attr('name'))
     })
