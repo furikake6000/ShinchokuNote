@@ -1,5 +1,5 @@
 // (ref: https://gist.githubusercontent.com/n0f/828c0c2935ee031c8b2b54697514542b/raw/170f0d972559fcb1e65922e86d47cc7250bb8ef4/jquery.text-with-lf.js )
-// 改変として</div><div>を改行としてみなすようにしてある
+// 改変として<br/>のかわりに(<br/>)?(</div>)?<div>を改行としてみなすようにしてある(contenteditable用)
 
 (function ($) {
     var escapes = {
@@ -24,7 +24,7 @@
         hasStripRegexp = new RegExp(stripRegExp.source),
         nl2brRegexp = /([^>\r\n]?)(\r\n|\n\r|\r|\n)/g,
         hasNl2brRegexp = new RegExp(nl2brRegexp.source),
-        br2nlRegexp = /<br\s*\/?>|<\/div><div>/mg,
+        br2nlRegexp = /(<br\s*\/?>)?(<\/div>)?<div>/mg,
         hasBr2nlRegexp = new RegExp(br2nlRegexp.source);
 
     $.fn.textWithLF = function (text) {
