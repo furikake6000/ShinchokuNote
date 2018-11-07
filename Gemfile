@@ -72,6 +72,7 @@ gem 'annotate', '~>2.7.4'
 gem 'sprockets', '~> 3.7.2'
 gem 'ffi', '~> 1.9.25'
 gem 'rubyzip', '~> 1.2.2'
+gem 'loofah', '>= 2.2.3'
 
 group :development, :test do
   gem 'byebug', '~>9.1', platforms: %i[mri mingw x64_mingw]
