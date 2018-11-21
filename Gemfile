@@ -71,6 +71,7 @@ gem 'annotate', '~>2.7.4'
 # fixing security vulnerabilities
 gem 'sprockets', '~> 3.7.2'
 gem 'ffi', '~> 1.9.25'
+gem "rack", ">= 2.0.6"
 gem 'rubyzip', '~> 1.2.2'
 gem 'loofah', '>= 2.2.3'
 
