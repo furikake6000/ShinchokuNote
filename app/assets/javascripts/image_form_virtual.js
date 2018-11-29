@@ -56,6 +56,7 @@ $(document).on('turbolinks:load', function () {
         $pendingimage.attr('src', dataURI);
     }
 
+    // DataURL -> <img> content
     function loadImage(src) {
         // Increment ID of images
         imagecount += 1;
@@ -98,6 +99,7 @@ $(document).on('turbolinks:load', function () {
         loadImageToEditorModal($pendingimage, true);
     }
 
+    // Blob or File -> DataURL
     function loadImageFile(image) {
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -106,12 +108,14 @@ $(document).on('turbolinks:load', function () {
         reader.readAsDataURL(image);
     }
 
+    // Blob or File -> DataURL (multiple)
     function loadImageFiles(images) {
         $.each(images, function () {
             loadImageFile(this);
         })
     }
 
+    // Getting File from d&d files
     function pendFile(e) {
         e.preventDefault();
         var images = e.originalEvent.dataTransfer.files;
