@@ -15,9 +15,18 @@ $(document).on('turbolinks:load', function () {
     var imagecount = 0;
     var $pendingimages = {};
 
+    // Do nothing (when d&d files to upload area)
     function disableEvent(e) {
         e.preventDefault();
         e.stopPropagation();
+    }
+
+    // Getting File from d&d files
+    function pendFile(e) {
+        e.preventDefault();
+        var images = e.originalEvent.dataTransfer.files;
+
+        loadImageFiles(images);
     }
 
     function loadImageToEditorModal($img, load_and_confirm) {
@@ -113,14 +122,6 @@ $(document).on('turbolinks:load', function () {
         $.each(images, function () {
             loadImageFile(this);
         })
-    }
-
-    // Getting File from d&d files
-    function pendFile(e) {
-        e.preventDefault();
-        var images = e.originalEvent.dataTransfer.files;
-
-        loadImageFiles(images);
     }
 
     // Ref: (https://stackoverflow.com/a/15754051)
