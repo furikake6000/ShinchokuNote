@@ -26,8 +26,11 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
+# git submoduleの読み込み
+git submodule update -i
+
 # rails起動の確認
-if [ -e "/tmp/pids/server.pid" ]; then
+if [ -e "tmp/pids/server.pid" ]; then
     echo "既にサーバーが起動しています。サーバのプロセスIDは"
     cat "/tmp/pids/server.pid"
     echo "です。"
