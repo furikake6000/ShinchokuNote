@@ -1,3 +1,6 @@
 [submodule "app/assets/jquery.contenteditable.placeholder"]
 	path = app/assets/jquery.contenteditable.placeholder
 	url = https://github.com/hikaruworld/jquery.contenteditable.placeholder.git
+[submodule "app/assets/javascript_load_image"]
+	path = app/assets/javascript_load_image
+	url = https://github.com/blueimp/JavaScript-Load-Image
