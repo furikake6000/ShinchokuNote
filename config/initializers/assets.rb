@@ -25,6 +25,7 @@ Rails.application.config.assets.precompile += %w[
   note_foot_toolbar.js
   jquery.contenteditable.placeholder.js
   jquery.text-with-lf.js
+  js/load-image.all.min.js
 ]
 
 # Original Webfonts
