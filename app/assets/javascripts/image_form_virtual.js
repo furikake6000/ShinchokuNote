@@ -26,10 +26,10 @@ $(document).on('turbolinks:load', function () {
         e.preventDefault();
         var images = e.originalEvent.dataTransfer.files;
 
-        loadImageFiles(images);
+        openImageFiles(images);
     }
 
-    function loadImageToEditorModal($img, load_and_confirm) {
+    function setImageToEditorModal($img, load_and_confirm) {
         // Set editing <img> id to 'editingimage' attr
         $canvas.attr('editingimage', $img.attr('id'));
         var ctx = $canvas[0].getContext('2d');
@@ -66,7 +66,7 @@ $(document).on('turbolinks:load', function () {
     }
 
     // DataURL -> <img> content
-    function loadImage(src) {
+    function openImage(src) {
         // Increment ID of images
         imagecount += 1;
 
@@ -100,27 +100,27 @@ $(document).on('turbolinks:load', function () {
         // Make the click trigger of <img> tags
         $pendingimage.click(function (e) {
             // Set the image of canvas
-            loadImageToEditorModal($pendingimage);
+            setImageToEditorModal($pendingimage);
             $imageeditmodal.modal('toggle');
         });
 
         // Once load it on canvas to scale it (for large images)
-        loadImageToEditorModal($pendingimage, true);
+        setImageToEditorModal($pendingimage, true);
     }
 
     // Blob or File -> DataURL
-    function loadImageFile(image) {
+    function openImageFile(image) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            loadImage(e.target.result);
+            openImage(e.target.result);
         }
         reader.readAsDataURL(image);
     }
 
     // Blob or File -> DataURL (multiple)
-    function loadImageFiles(images) {
+    function openImageFiles(images) {
         $.each(images, function () {
-            loadImageFile(this);
+            openImageFile(this);
         })
     }
 
@@ -153,7 +153,7 @@ $(document).on('turbolinks:load', function () {
     $imageselectbutton.click(function () {
         $('<input type="file" accept="image/*">').on('change', function (e) {
             var images = e.target.files;
-            loadImageFiles(images);
+            openImageFiles(images);
         })[0].click();
     })
 
@@ -209,7 +209,7 @@ $(document).on('turbolinks:load', function () {
         }
 
         $.each($pastedImages, function (i, $pimage) {
-            loadImage($pimage.src);
+            openImage($pimage.src);
             // delete the pasted <img> tag
             $pimage.remove();
         });
@@ -230,7 +230,7 @@ $(document).on('turbolinks:load', function () {
         var pastedImageFiles = clipdata.items;
         $.each($pastedImageFiles, function (i, $pimagefile) {
             if ($pimagefile.type.indexOf('image') >= 0) {
-                loadImage($pimage.getAsFile());
+                openImage($pimage.getAsFile());
             }
         });
     })
