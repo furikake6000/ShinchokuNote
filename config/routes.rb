@@ -98,6 +98,7 @@ Rails.application.routes.draw do
 
       # 進捗どうですか
       resources :shinchoku_dodeskas, only: :create
+      post '/shinchoku_dodeskas/toggle', to: 'shinchoku_dodeskas#toggle'
     end
 
     # 削除メニュー

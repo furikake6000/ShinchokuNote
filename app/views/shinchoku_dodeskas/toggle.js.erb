@@ -1,0 +1,17 @@
+if(true){
+  var post_links = document.getElementsByClassName("post_note_<%= @note.id %>_shinchoku_dodeska");
+
+  for (var i = 0; i < post_links.length; i++) {
+    <%# 数値を正しいものに更新する %>
+    post_links[i].children[0]
+            .innerHTML = "<span class=icon-shinchokunote></span> <%= @note.shinchoku_dodeskas.size %>";
+
+    <% if @shinchoku_dodeska %>
+      <%# 該当部分をactiveにする %>
+      post_links[i].classList.add('active');
+    <% else %>
+      <%# 該当部分を非activeにする %>
+      post_links[i].classList.remove('active');
+    <% end %>
+  }
+}

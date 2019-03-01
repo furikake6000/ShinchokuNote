@@ -23,9 +23,9 @@
             
             li.shinchoku_dodeska_tab_toggler(
                 title="進捗どうですかをする"
-                class="post_note_#{note.id}_shinchoku_dodeska #{'active' if posted_shinchoku_dodeska_today?(note, current_user)}"
+                class="post_note_#{note.id}_shinchoku_dodeska #{'active' if todays_posted_shinchoku_dodeska(note, current_user)}"
             )
-                = link_to note_shinchoku_dodeskas_path(note),
+                = link_to note_shinchoku_dodeskas_toggle_path(note),
                           method: :post,
                           remote: true,
                           rel: 'nofollow' do
@@ -37,7 +37,7 @@
                 - ShinchokuDodeska.contents.keys.each do |content|
                     - next if content == 'plain'
                     li
-                        = link_to note_shinchoku_dodeskas_path(note, content: content),
+                        = link_to note_shinchoku_dodeskas_toggle_path(note, content: content),
                           method: :post,
                           remote: true,
                           class: 'shinchoku_stamp',

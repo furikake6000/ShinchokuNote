@@ -9,8 +9,8 @@
   <div class="tool">
     <%= fa_icon 'envelope-o', text: note.comments.count %>
   </div>
-  <div class="post_note_<%= note.id %>_shinchoku_dodeska tool <%= 'active' if posted_shinchoku_dodeska_today?(note, current_user) %>">
-    <%= link_to note_shinchoku_dodeskas_path(note), method: :post, remote: true do %>
+  <div class="post_note_<%= note.id %>_shinchoku_dodeska tool <%= 'active' if todays_posted_shinchoku_dodeska(note, current_user) %>">
+    <%= link_to note_shinchoku_dodeskas_toggle_path(note), method: :post, remote: true do %>
       <span class="icon-shinchokunote"></span> <%= note.shinchoku_dodeskas.count %>
     <% end %>
   </div>
