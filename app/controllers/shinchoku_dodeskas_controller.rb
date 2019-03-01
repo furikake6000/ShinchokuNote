@@ -40,7 +40,6 @@ class ShinchokuDodeskasController < ApplicationController
     existing_shinchoku_dodeska = todays_posted_shinchoku_dodeska(@note, current_user)
     if existing_shinchoku_dodeska
       # 既に投稿されていた場合、投稿を削除
-      p existing_shinchoku_dodeska
       existing_shinchoku_dodeska.destroy
     else
       # 投稿されていなかった場合、新規作成
