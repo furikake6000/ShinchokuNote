@@ -1,5 +1,5 @@
 module ShinchokuDodeskasHelper
-  def posted_shinchoku_dodeska_today?(note, user)
+  def todays_posted_shinchoku_dodeska(note, user)
     unless user.nil?
       # if user logged_in
       ShinchokuDodeska.where(
@@ -7,7 +7,7 @@ module ShinchokuDodeskasHelper
         user.id,
         note.id,
         Time.now.beginning_of_day
-      ).empty?.!
+      ).to_a.first
     else
       # if user not logged_in
       ShinchokuDodeska.where(
@@ -15,7 +15,7 @@ module ShinchokuDodeskasHelper
         request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip,
         note.id,
         Time.now.beginning_of_day
-      ).empty?.!
+      ).to_a.first
     end
   end
 end
