@@ -23,6 +23,10 @@ jobs:
           paths:
             - vendor/bundle
 
+      # apt setup
+      - run: sudo apt update
+      - run: sudo apt upgrade
+
       # Dependencies installation
       - type: shell
         command: |
