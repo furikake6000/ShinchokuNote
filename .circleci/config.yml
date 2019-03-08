@@ -30,7 +30,7 @@ jobs:
       # Dependencies installation
       - type: shell
         command: |
-          sudo apt install libsodium
+          sudo apt install libsodium-dev
 
       # Rails setup
       - run: gem install rails
