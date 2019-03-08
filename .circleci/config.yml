@@ -4,7 +4,7 @@ jobs:
     parallelism: 1
     working_directory: ~/ShinchokuNote
     docker: 
-      - image: circleci/ruby:2.6.1-node
+      - image: circleci/ruby:2.6.1
         environment:
           RAILS_ENV: test
     steps:
