@@ -23,6 +23,11 @@ jobs:
           paths:
             - vendor/bundle
 
+      # Dependencies installation
+      - type: shell
+        command: |
+          sudo apt install libsodium
+
       # Rails setup
       - run: gem install rails
 
