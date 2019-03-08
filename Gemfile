@@ -19,7 +19,7 @@ gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
 # jQuery and bootstrap
-gem 'bootstrap', '~> 4.1.2'
+gem 'bootstrap', '~> 4.3.1'
 gem 'bootstrap-will_paginate', '~> 1.0.0'
 gem 'jquery-rails', '~>4.3.1'
 gem 'jquery-ui-rails', '~>6.0.1'
