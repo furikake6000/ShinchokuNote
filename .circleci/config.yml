@@ -1,0 +1,43 @@
+version: 2
+jobs:
+  build:
+    parallelism: 1
+    working_directory: ~/ShinchokuNote
+    docker: 
+      - image: circleci/ruby:2.6.1-node
+        environment:
+          RAILS_ENV: test
+    steps:
+      - checkout
+
+      # Restore bundle cache
+      - restore_cache:
+          key: rails-demo-{{ checksum "Gemfile.lock" }}
+
+      # Bundle install dependencies
+      - run: bundle install --without production --path vendor/bundle
+
+      # Store bundle cache
+      - save_cache:
+          key: rails-demo-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      # Rails setup
+      - run: gem install rails
+
+      # Database setup
+      - run: rails db:create
+      - run: rails db:schema:load
+
+      # Run rspec in parallel
+      - type: shell
+        command: |
+          rails test
+
+      # collect reports
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
