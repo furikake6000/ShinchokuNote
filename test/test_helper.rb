@@ -17,24 +17,24 @@ class ActiveSupport::TestCase
     @current_user = nil
     @master_user = nil
     login_user @okaka,
-               Rails.application.credentials.twitter_test_fixture[:okaka_token],
-               Rails.application.credentials.twitter_test_fixture[:okaka_secret]
+               credentials_wrap('twitter_test_fixture', 'okaka_token'),
+               credentials_wrap('twitter_test_fixture', 'okaka_secret')
   end
 
   def login_as_noritama
     @current_user = nil
     @master_user = nil
     login_user @noritama,
-               Rails.application.credentials.twitter_test_fixture[:noritama_token],
-               Rails.application.credentials.twitter_test_fixture[:noritama_secret]
+               credentials_wrap('twitter_test_fixture', 'noritama_token'),
+               credentials_wrap('twitter_test_fixture', 'noritama_secret')
   end
 
   def login_as_noriwasa
     @current_user = nil
     @master_user = nil
     login_user @noriwasa,
-               Rails.application.credentials.twitter_test_fixture[:noriwasa_token],
-               Rails.application.credentials.twitter_test_fixture[:noriwasa_secret]
+               credentials_wrap('twitter_test_fixture', 'noriwasa_token'),
+               credentials_wrap('twitter_test_fixture', 'noriwasa_secret')
   end
 
   # ApplicationHelperモジュールの書き換え

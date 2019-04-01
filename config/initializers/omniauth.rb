@@ -1,15 +1,7 @@
-Rails.application.config.middleware.use OmniAuth::Builder do
-  #if Rails.env == 'production'
-  #  provider :twitter,
-  #           Rails.application.credentials.twitter[:key],
-  #           Rails.application.credentials.twitter[:secret]
-  #else
-  #  provider :twitter,
-  #           Rails.application.credentials.twitter_dev[:key],
-  #           Rails.application.credentials.twitter_dev[:secret]
-  #end
+include CredentialsWrapper
 
+Rails.application.config.middleware.use OmniAuth::Builder do
   provider :twitter,
-    Rails.application.credentials.twitter[:key],
-    Rails.application.credentials.twitter[:secret]
+    credentials_wrap('twitter', 'key'),
+    credentials_wrap('twitter', 'secret')
 end

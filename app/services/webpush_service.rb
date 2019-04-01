@@ -35,8 +35,8 @@ class WebpushService
       auth: device.auth,
       ttl: 24 * 60 * 60,
       vapid: {
-        public_key: Rails.application.credentials.vapid[:public_key],
-        private_key: Rails.application.credentials.vapid[:private_key]
+        public_key: credentials_wrap('vapid', 'public_key'),
+        private_key: credentials_wrap('vapid', 'private_key')
       }
     )
   end

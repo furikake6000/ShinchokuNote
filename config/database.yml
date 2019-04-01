@@ -1,3 +1,5 @@
+<% include CredentialsWrapper %>
+
 # SQLite version 3.x
 #   gem install sqlite3
 #
@@ -28,4 +30,4 @@ production:
   port: 5432
   database: shinchokunote
   username: postgres
-  password: <%= Rails.application.credentials.postgres_pass %>
+  password: <%= credentials_wrap('postgres_pass', nil) %>

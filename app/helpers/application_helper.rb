@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include CredentialsWrapper
+
   # RbNaClを使用して対象鍵暗号を施す
   require 'rbnacl'
   require 'uri'
@@ -145,7 +147,7 @@ module ApplicationHelper
 
   # Webpushで使用する、service workerのvapid_public_keyをjsから呼び出す
   def vapid_public_key
-    Rails.application.credentials.vapid[:public_key]
+    credentials_wrap('vapid', 'public_key')
   end
 
   def vapid_public_key_base64
