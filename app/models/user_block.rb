@@ -1,0 +1,2 @@
+class UserBlock < ApplicationRecord
+end

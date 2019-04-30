@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_04_155625) do
+ActiveRecord::Schema.define(version: 2019_04_30_114224) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -117,6 +117,16 @@ ActiveRecord::Schema.define(version: 2018_09_04_155625) do
     t.index ["to_note_id"], name: "index_shinchoku_dodeskas_on_to_note_id"
   end
 
+  create_table "user_blocks", force: :cascade do |t|
+    t.integer "from_user_id"
+    t.integer "to_user_id"
+    t.string "to_addr"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_user_id"], name: "index_user_blocks_on_from_user_id"
+    t.index ["to_user_id"], name: "index_user_blocks_on_to_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "twitter_id"
     t.string "name"
@@ -132,8 +142,8 @@ ActiveRecord::Schema.define(version: 2018_09_04_155625) do
     t.datetime "checked_notifications_at"
     t.binary "linked_users_info"
     t.datetime "saw_notifications_at"
-    t.boolean "comment_webpush_enabled", default: true
-    t.boolean "shinchoku_dodeska_webpush_enabled", default: true
+    t.boolean "comment_webpush_enabled"
+    t.boolean "shinchoku_dodeska_webpush_enabled"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["twitter_id"], name: "index_users_on_twitter_id", unique: true
   end
