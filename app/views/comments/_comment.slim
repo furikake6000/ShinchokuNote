@@ -120,3 +120,52 @@
                         comment_path(comment),
                         method: :delete,
                         class: 'btn btn-danger' 
+
+- content_for :modals do 
+    / ユーザーブロック用モーダル
+    / 複数パーシャルが呼ばれても1度だけ描画する
+    - unless @user_block_modal_defined
+        - @user_block_modal_defined = true
+
+        / トグルボタン
+        button.close(
+            type='button'
+            data-toggle='modal'
+            data-target="#userBlockModal"
+        )
+            span aria-hidden='true' &times;
+
+        #userBlockModal.modal.fade(
+            tabindex='-1'
+            role='dialog'
+            aria-labelledby="userBlockModal"
+            aria-hidden='true'
+            style="z-index: 1500"
+        )
+            .modal-dialog role='document'
+                .modal-content
+                    .modal-header
+                        h5.modal-title 投稿者ブロック
+                        
+                        button.close(
+                            type='button'
+                            data-dismiss='modal'
+                            aria-label='Close'
+                        )
+                            span aria-hidden='true' &times;
+
+                    .modal-body
+                        p コメントをミュートしました。この投稿者をブロックしますか？
+                        p ブロックすると同じ投稿者からのコメントが今後届かなくなります。
+                        p （投稿者に気づかれることはありません。）
+
+                    .modal-footer
+                        button.btn.btn-info(
+                            type='button'
+                            data-dismiss='modal'
+                        ) ブロックしない
+
+                        = link_to 'ブロックする',
+                            root_path,
+                            method: :delete,
+                            class: 'btn btn-danger' 

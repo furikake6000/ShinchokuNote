@@ -24,3 +24,7 @@
   document.getElementById("toggle_comment_<%= @comment.id %>_muted")
     .classList.remove('active');
 <% end %>
+
+<% if @comment_params[:muted] == true %>
+  $('#userBlockModal').modal('show')
+<% end %>
