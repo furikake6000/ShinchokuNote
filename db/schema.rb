@@ -118,13 +118,13 @@ ActiveRecord::Schema.define(version: 2019_04_30_114224) do
   end
 
   create_table "user_blocks", force: :cascade do |t|
-    t.integer "from_user_id"
+    t.integer "user_id"
     t.integer "to_user_id"
     t.string "to_addr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["from_user_id"], name: "index_user_blocks_on_from_user_id"
     t.index ["to_user_id"], name: "index_user_blocks_on_to_user_id"
+    t.index ["user_id"], name: "index_user_blocks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
