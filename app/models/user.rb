@@ -49,6 +49,8 @@ class User < ApplicationRecord
 
   has_many :devices, dependent: :destroy
 
+  has_many :user_blocks, dependent: :destroy
+
   # adminかどうかを返す
   def admin?
     permission == 'admin'
