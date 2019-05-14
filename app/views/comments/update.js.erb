@@ -26,5 +26,6 @@
 <% end %>
 
 <% if @comment_params[:muted] == true %>
-  $('#userBlockModal').modal('show')
+  $('#userBlockModal').modal('show');
+  $('#block_modal_comment_id').val(<%= @comment.id %>);
 <% end %>

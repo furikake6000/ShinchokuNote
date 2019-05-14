@@ -3,7 +3,8 @@ class UserBlocksController < ApplicationController
 
   def create
     @user_block = current_user.user_blocks.new
-    target_comment = Comment.find(user_blocks_params[:comment_id])
+    target_comment = Comment.find_by(id: user_blocks_params[:comment_id])
+    return nil if target_comment.nil?
     
     unless target_comment.from_user.nil?
       @user_block.to_user = target_comment.from_user
@@ -23,7 +24,7 @@ class UserBlocksController < ApplicationController
 
   # UserBlockに必要なパラメータを安全に取り出す
   def user_blocks_params
-    params.permit(:comment_id)
+    params.require(:user_block).permit(:comment_id)
   end
 
   # UserがUserBlockを消せるか？

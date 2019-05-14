@@ -165,7 +165,16 @@
                             data-dismiss='modal'
                         ) ブロックしない
 
+                        = form_with model: UserBlock.new do |f|
+                            = f.hidden_field :comment_id,
+                                id: 'block_modal_comment_id',
+                                value: -1
+
+                            = f.submit 'ブロックする',
+                                class: 'btn btn-danger'
+                        
                         = link_to 'ブロックする',
-                            root_path,
-                            method: :delete,
-                            class: 'btn btn-danger' 
+                            user_blocks_path,
+                            method: :post,
+                            id: 'block_link',
+                            class: 'btn btn-danger'
