@@ -37,4 +37,8 @@ class Comment < ApplicationRecord
              class_name: 'Post',
              foreign_key: 'response_id',
              optional: true
+
+  scope :not_muted, ->{
+    where(muted: false)
+  }
 end
