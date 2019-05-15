@@ -16,4 +16,7 @@ class UserBlock < ApplicationRecord
              class_name: 'User',
              foreign_key: 'to_user_id',
              optional: true
+  
+  # Can not block same user twice, whether id or addr
+  validates :user_id, uniqueness: { score: [:to_user_id, :to_addr] }
 end

@@ -4,7 +4,7 @@ class UserBlocksController < ApplicationController
   def create
     @user_block = current_user.user_blocks.new
     target_comment = Comment.find_by(id: user_blocks_params[:comment_id])
-    return nil if target_comment.nil?
+    render_404 and return if target_comment.nil?
     
     unless target_comment.from_user.nil?
       @user_block.to_user = target_comment.from_user
@@ -12,7 +12,12 @@ class UserBlocksController < ApplicationController
       @user_block.to_addr = target_comment.from_addr
     end
 
-    @user_block.save!
+    begin
+      @user_block.save!
+    rescue ActiveRecord::RecordInvalid
+      # Blocked same user multiple time
+      render_400
+    end
   end
 
   def delete
