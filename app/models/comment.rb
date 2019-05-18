@@ -41,4 +41,7 @@ class Comment < ApplicationRecord
   scope :not_muted, ->{
     where(muted: false)
   }
+  scope :not_blocked, ->{
+    joins(:to_note => :user).left_joins(:blocking_users)
+  }
 end

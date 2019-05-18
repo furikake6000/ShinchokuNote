@@ -7,9 +7,9 @@ class UserBlocksController < ApplicationController
     render_404 and return if target_comment.nil?
     
     unless target_comment.from_user.nil?
-      @user_block.to_user = target_comment.from_user
+      @user_block.blocking_user = target_comment.from_user
     else
-      @user_block.to_addr = target_comment.from_addr
+      @user_block.blocking_addr = target_comment.from_addr
     end
 
     begin

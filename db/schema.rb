@@ -119,11 +119,11 @@ ActiveRecord::Schema.define(version: 2019_04_30_114224) do
 
   create_table "user_blocks", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "to_user_id"
-    t.string "to_addr"
+    t.integer "blocking_user_id"
+    t.string "blocking_addr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["to_user_id"], name: "index_user_blocks_on_to_user_id"
+    t.index ["blocking_user_id"], name: "index_user_blocks_on_blocking_user_id"
     t.index ["user_id"], name: "index_user_blocks_on_user_id"
   end
 
