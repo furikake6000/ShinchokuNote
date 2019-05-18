@@ -41,7 +41,19 @@ class Comment < ApplicationRecord
   scope :not_muted, ->{
     where(muted: false)
   }
-  scope :not_blocked, ->{
-    joins(:to_note => :user).left_joins(:blocking_users)
+  scope :join_blockdata, ->{
+    joins(to_note: { user: :user_blocks } )
   }
+  scope :blocked_by_id, ->{
+    join_blockdata.merge(UserBlock.blocked_by_id)
+                  .where("comments.from_user_id = user_blocks.blocking_user_id")
+  }
+  scope :blocked_by_addr, ->{
+    join_blockdata.merge(UserBlock.blocked_by_addr)
+                  .where("comments.from_addr = user_blocks.blocking_addr")
+  }
+  scope :blocked, ->{
+    blocked_by_id.or(blocked_by_addr)
+  }
+  
 end
