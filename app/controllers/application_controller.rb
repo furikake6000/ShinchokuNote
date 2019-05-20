@@ -99,6 +99,9 @@ class ApplicationController < ActionController::Base
                        .not_muted.where(favor_flag: true).order('created_at DESC')
       @comments_flag_favored = true
     end
+
+    # ブロックされているコメントを除外する(SQLが思いつかないための暫定的処理)
+    @comments -= @note.comments.blocked
   end
 
   def load_comment(paramname)
