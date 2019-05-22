@@ -1,0 +1,1 @@
+$('#userBlockModal').modal('hide');
