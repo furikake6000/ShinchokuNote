@@ -1,6 +1,10 @@
 class UserBlocksController < ApplicationController
   before_action :check_logged_in
 
+  def index
+    @user_blocks = current_user.user_blocks
+  end
+
   def create
     @user_block = current_user.user_blocks.new
     target_comment = Comment.find_by(id: user_blocks_params[:comment_id])

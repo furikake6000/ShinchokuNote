@@ -44,7 +44,8 @@
 #                                PUT    /announces/:id(.:format)                                                                 announces#update
 #                                DELETE /announces/:id(.:format)                                                                 announces#destroy
 #                        devices POST   /devices(.:format)                                                                       devices#create
-#                    user_blocks POST   /user_blocks(.:format)                                                                   user_blocks#create
+#                    user_blocks GET    /user_blocks(.:format)                                                                   user_blocks#index
+#                                POST   /user_blocks(.:format)                                                                   user_blocks#create
 #                     user_block DELETE /user_blocks/:id(.:format)                                                               user_blocks#destroy
 #                         search GET    /search(.:format)                                                                        search#search
 #          auth_twitter_callback GET    /auth/twitter/callback(.:format)                                                         users#login
@@ -115,7 +116,7 @@ Rails.application.routes.draw do
   resources :devices, only: [:create]
 
   # リソース:ユーザーブロック
-  resources :user_blocks, only: %i[create destroy]
+  resources :user_blocks, only: %i[index create destroy]
 
   get '/search', to: 'search#search'
   get '/auth/twitter/callback', to: 'users#login'
