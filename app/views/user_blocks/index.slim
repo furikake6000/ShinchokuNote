@@ -1,3 +1,6 @@
-= provide :title, 'ブロックユーザー一覧'
+= provide :title, 'ブロック一覧'
 
-h1 ブロックユーザー一覧
+h1 ブロック一覧
+
+- @blocked_comments.each do |blocked_comment|
+    = render blocked_comment
