@@ -25,6 +25,12 @@
     .classList.remove('active');
 <% end %>
 
-<% if @comment_params[:muted] == true %>
-  $('#userBlockModal').modal('show')
+<%# commentがmuteされたとき、ついでにblockするか聞くモーダルを表示 %>
+<% if @comment_params[:muted] == true || @comment_params[:muted] == 'true' %>
+  $('#userBlockModal').modal('show');
+<% end %>
+
+<%# commentがblockされたとき、モーダルを閉じる %>
+<% if @comment_params[:blocked] == true || @comment_params[:blocked] == 'true' %>
+  $('#userBlockModal').modal('hide');
 <% end %>

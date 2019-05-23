@@ -166,6 +166,7 @@
                         ) ブロックしない
 
                         = link_to 'ブロックする',
-                            root_path,
-                            method: :delete,
+                            comment_path(comment, params: { comment: { blocked: 'true' } }),
+                            method: :put,
+                            remote: true,
                             class: 'btn btn-danger'

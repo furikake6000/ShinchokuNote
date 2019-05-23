@@ -94,9 +94,9 @@ class CommentsController < ApplicationController
 
   # Commentのパラメータ（edit可能なもの）を安全に取り出す
   def comments_params_editable
-    togglable_attributes = %i[read_flag favor_flag muted]
+    togglable_attributes = %i[read_flag favor_flag muted blocked]
 
-    pa = params.require(:comment).permit(:read_flag, :favor_flag, :muted)
+    pa = params.require(:comment).permit(:read_flag, :favor_flag, :muted, :blocked)
     # togglableかつ'toggle'になっている要素はすべて処理
     togglable_attributes.each do |a|
       pa[a] = !@comment[a] if pa[a] == 'toggle'
