@@ -68,7 +68,8 @@ class CommentsController < ApplicationController
   end
 
   def update
-    @comment.update_attributes(comments_params_editable)
+    @comment_params = comments_params_editable
+    @comment.update_attributes(@comment_params)
     # Updateミスなどの対応は後に
 
     respond_to do |format|
