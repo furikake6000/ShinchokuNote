@@ -2,5 +2,15 @@
 
 h1 ブロック一覧
 
-- @blocked_comments.each do |blocked_comment|
-    = render blocked_comment
+- @user_blocks.each do |ub|
+    .media-box.comment.mb-3
+        .media-content
+            .bgstr
+                = fa_icon 'minus-circle'
+            .media-text-l
+                = ub.blocking_comment.text
+            .media-footer
+                / ここに「ブロック解除ボタン」
+                
+                span.media-footer-right
+                    = "#{ub.blocking_comment.to_note.name}へのコメント"

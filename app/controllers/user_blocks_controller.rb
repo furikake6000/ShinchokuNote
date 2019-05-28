@@ -2,21 +2,7 @@ class UserBlocksController < ApplicationController
   before_action :check_logged_in
 
   def index
-    @user_blocks = current_user.user_blocks.eager_load(:blocking_user)
-    @blocked_comments = []
-    @user_blocks.each do |block|
-      @blocked_comments.push(
-        block.blocking_user ?
-        block.blocking_user
-             .comments
-             .joins(to_note: :user)
-             .where("users.id = ?", current_user.id)
-             .first :
-        Comment.joins(to_note: :user)
-               .where(comments: { from_addr: block.blocking_addr })
-               .where("users.id = ?", current_user.id)
-      )
-    end
+    @user_blocks = current_user.user_blocks.eager_load(blocking_comment: :to_note)
   end
 
   def create
@@ -32,7 +18,7 @@ class UserBlocksController < ApplicationController
 
     # ブロックされる相手とともに、ブロックの要因となったコメントも保存される
     @user_block.blocking_comment = target_comment
-    
+
     begin
       @user_block.save!
     rescue ActiveRecord::RecordInvalid
