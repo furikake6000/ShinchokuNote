@@ -23,13 +23,16 @@ class UserBlocksController < ApplicationController
     @user_block = current_user.user_blocks.new
     target_comment = Comment.find_by(id: user_blocks_params[:comment_id])
     render_404 and return if target_comment.nil?
-    
+
     unless target_comment.from_user.nil?
       @user_block.blocking_user = target_comment.from_user
     else
       @user_block.blocking_addr = target_comment.from_addr
     end
 
+    # ブロックされる相手とともに、ブロックの要因となったコメントも保存される
+    @user_block.blocking_comment = target_comment
+    
     begin
       @user_block.save!
     rescue ActiveRecord::RecordInvalid
