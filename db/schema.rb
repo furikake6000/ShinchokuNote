@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_30_114224) do
+ActiveRecord::Schema.define(version: 2019_05_28_155048) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2019_04_30_114224) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "blocked", default: false
     t.index ["deleted_at"], name: "index_comments_on_deleted_at"
     t.index ["from_user_id"], name: "index_comments_on_from_user_id"
     t.index ["response_id"], name: "index_comments_on_response_id"
@@ -123,6 +124,8 @@ ActiveRecord::Schema.define(version: 2019_04_30_114224) do
     t.string "blocking_addr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "blocking_comment_id"
+    t.index ["blocking_comment_id"], name: "index_user_blocks_on_blocking_comment_id"
     t.index ["blocking_user_id"], name: "index_user_blocks_on_blocking_user_id"
     t.index ["user_id"], name: "index_user_blocks_on_user_id"
   end
