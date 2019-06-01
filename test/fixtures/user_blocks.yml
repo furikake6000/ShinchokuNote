@@ -12,13 +12,3 @@
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  from_user: 
-  to_user: 
-  to_addr: MyString
-
-two:
-  from_user: 
-  to_user: 
-  to_addr: MyString
