@@ -2,6 +2,9 @@
 
 h1 ブロック一覧
 
+- if @user_blocks.empty?
+    .text-center.text-info.my-3 ブロックしているユーザーはいません。
+
 - @user_blocks.each do |ub|
     .media-box.comment.mb-3
         .media-content
