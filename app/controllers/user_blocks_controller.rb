@@ -27,9 +27,10 @@ class UserBlocksController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     @user_block = UserBlock.find(params[:id])
     @user_block.destroy if user_can_delete_user_block?(@user_block, current_user)
+    redirect_back(fallback_location: user_blocks_path)
   end
 
   private
@@ -44,5 +45,6 @@ class UserBlocksController < ApplicationController
     return false if user.nil?
     return true if user_block.user == user
     return true if user.admin?
+    return false
   end
 end

@@ -10,7 +10,11 @@ h1 ブロック一覧
             .media-text-l
                 = ub.blocking_comment.text
             .media-footer
-                / ここに「ブロック解除ボタン」
+                / Unblock button
+                =link_to 'ブロックを解除',
+                    user_block_path(ub),
+                    method: :delete,
+                    class: 'btn btn-info btn-sm mt-2'
                 
                 span.media-footer-right
                     = "#{ub.blocking_comment.to_note.name}へのコメント"
