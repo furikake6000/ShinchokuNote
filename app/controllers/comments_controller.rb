@@ -46,7 +46,7 @@ class CommentsController < ApplicationController
       flash[:success] = 'コメントを投稿しました。'
 
       # Notification
-      if @note.user.comment_webpush_enabled
+      if !blocked?(@comment) && @note.user.comment_webpush_enabled
         WebpushService.new(user: @note.user)
                       .webpush(
                         @comment.text,
@@ -68,7 +68,8 @@ class CommentsController < ApplicationController
   end
 
   def update
-    @comment.update_attributes(comments_params_editable)
+    @comment_params = comments_params_editable
+    @comment.update_attributes(@comment_params)
     # Updateミスなどの対応は後に
 
     respond_to do |format|
@@ -101,5 +102,22 @@ class CommentsController < ApplicationController
       pa[a] = !@comment[a] if pa[a] == 'toggle'
     end
     pa
+  end
+
+  # Commentがブロックされているかの判定
+  def blocked?(comment)
+    unless comment.from_user.nil?
+      # Non anonimized comment
+      UserBlock.where(
+        user: comment.to_note.user,
+        blocking_user: comment.from_user
+      ).present?
+    else
+      # Anonimized comment
+      UserBlock.where(
+        user: comment.to_note.user,
+        blocking_addr: comment.from_addr
+      ).present?
+    end
   end
 end

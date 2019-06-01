@@ -1,0 +1,174 @@
+.media-box.comment.mb-3
+    = render 'notes/note_info', note: comment.to_note if defined?(with_note_info)
+
+    .media-content
+        / 背景画像
+        .bgstr
+            = fa_icon 'envelope-o'
+        
+        / 削除ボタン
+        - if user_can_delete_comment?(comment, current_user)
+            .media-righttop
+                button.close(
+                    type='button'
+                    data-toggle='modal'
+                    data-target="#deleteComment#{comment.id}Modal"
+                )
+                    span aria-hidden='true' &times;
+
+        / テキスト表示
+        / light, heavyなどのオプションが設定されていれば反映
+        - if defined?(light)
+            .media-text
+                =comment.text
+        - elsif defined?(heavy)
+            .media-text-xl
+                =comment.text
+        - else
+            .media-text-l
+                =comment.text
+        
+        / コメント操作メニュー
+        / コメント送信先が自分(かつlightオプションなし)なら表示
+        - if current_user?(comment.to_note.user) && !defined?(light)
+            .media-toolbox.cf
+
+                / 既読ボタン
+                .tool(
+                    id="toggle_comment_#{comment.id}_read_flag"
+                    class="#{'active' if comment.read_flag}"
+                )
+                    = link_to fa_icon('check', text: '既読'), 
+                        comment_path(comment, params: { comment: { read_flag: 'toggle' } }), 
+                        method: :put,
+                        remote: true
+            
+                / お気に入りボタン
+                .tool(
+                    id="toggle_comment_#{comment.id}_favor_flag"
+                    class="#{'active' if comment.favor_flag}"
+                )
+                    = link_to fa_icon('star', text: 'お気に入り'),
+                        comment_path(comment, params: { comment: { favor_flag: 'toggle' } }),
+                        method: :put,
+                        remote: true
+                
+                / ミュートボタン
+                .tool(
+                    id="toggle_comment_#{comment.id}_muted"
+                    class="#{'active' if comment.muted}"
+                )
+                    = link_to fa_icon('eye-slash', text: 'ミュート'),
+                        comment_path(comment, params: { comment: { muted: 'toggle' } }),
+                        method: :put,
+                        remote: true
+                
+                / 詳細
+                div
+                    = link_to '詳細',
+                        comment_path(comment),
+                        class: 'comment-link'
+        
+        .media-footer
+            span
+                = smart_time_to_str(comment.created_at)
+
+            / 送信者表示
+            - unless comment.from_user.nil? || comment.secret_anonimity?
+                span.media-footer-right
+                    by #{comment.from_user.name}
+            
+            / 返信
+            - if !defined?(hide_response) && comment.response_post
+                span.text-muted
+                    = fa_icon 'reply', text: 'このコメントに対する返信', class: 'mt-3'
+                = render comment.response_post, light: true, hide_response: true
+        
+/ コメント削除モーダル
+- unless comment.response_post
+    .modal.fade(
+        id="deleteComment#{comment.id}Modal"
+        tabindex='-1'
+        role='dialog'
+        aria-labelledby="deleteComment#{comment.id}Modal"
+        aria-hidden='true'
+    )
+        .modal-dialog role='document'
+            .modal-content
+                .modal-header
+                    h5.modal-title コメントを削除します
+                    
+                    button.close(
+                        type='button'
+                        data-dismiss='modal'
+                        aria-label='Close'
+                    )
+                        span aria-hidden='true' &times;
+
+                .modal-body
+                    p コメント「#{comment.text}」を削除します。
+                    p.text-danger.font-weight-bold
+                        | 復元はできません。本当によろしいですか？
+
+                .modal-footer
+                    button.btn.btn-info(
+                        type='button'
+                        data-dismiss='modal'
+                    ) キャンセル
+
+                    = link_to '削除する',
+                        comment_path(comment),
+                        method: :delete,
+                        class: 'btn btn-danger' 
+
+- content_for :modals do 
+    / ユーザーブロック用モーダル
+    / 複数パーシャルが呼ばれても1度だけ描画する
+    - unless @user_block_modal_defined
+        - @user_block_modal_defined = true
+
+        / トグルボタン
+        button.close(
+            type='button'
+            data-toggle='modal'
+            data-target="#userBlockModal"
+        )
+            span aria-hidden='true' &times;
+
+        #userBlockModal.modal.fade(
+            tabindex='-1'
+            role='dialog'
+            aria-labelledby="userBlockModal"
+            aria-hidden='true'
+            style="z-index: 1500"
+        )
+            .modal-dialog role='document'
+                .modal-content
+                    .modal-header
+                        h5.modal-title 投稿者ブロック
+                        
+                        button.close(
+                            type='button'
+                            data-dismiss='modal'
+                            aria-label='Close'
+                        )
+                            span aria-hidden='true' &times;
+
+                    .modal-body
+                        p コメントをミュートしました。この投稿者をブロックしますか？
+                        p ブロックすると同じ投稿者からのコメントが今後届かなくなります。
+                        p （投稿者に気づかれることはありません。）
+
+                    .modal-footer
+                        button.btn.btn-info(
+                            type='button'
+                            data-dismiss='modal'
+                        ) ブロックしない
+
+                        = form_with model: UserBlock.new do |f|
+                            = f.hidden_field :comment_id,
+                                id: 'block_modal_comment_id',
+                                value: -1
+
+                            = f.submit 'ブロックする',
+                                class: 'btn btn-danger'

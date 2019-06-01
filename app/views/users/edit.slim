@@ -20,6 +20,12 @@ h1 #{@user.name}の設定
         = f.check_box :shinchoku_dodeska_webpush_enabled
         = f.label :shinchoku_dodeska_webpush_enabled, '「進捗どうですか」が届いた時'
     
+    h2 ミュート・ブロック
+    
+    .mx-3.mb-3
+      = link_to 'ブロック一覧',
+                user_blocks_path
+
     = f.submit '保存する', class: 'btn btn-info mb-3'
 
 button type="button" class="btn btn-danger mb-3" data-toggle="modal" data-target="#deleteUserModal" 進捗ノートから退会する

@@ -1,0 +1,23 @@
+= provide :title, 'ブロック一覧'
+
+h1 ブロック一覧
+
+- if @user_blocks.empty?
+    .text-center.text-info.my-3 ブロックしているユーザーはいません。
+
+- @user_blocks.each do |ub|
+    .media-box.comment.mb-3
+        .media-content
+            .bgstr
+                = fa_icon 'minus-circle'
+            .media-text-l
+                = ub.blocking_comment.text
+            .media-footer
+                / Unblock button
+                =link_to 'ブロックを解除',
+                    user_block_path(ub),
+                    method: :delete,
+                    class: 'btn btn-info btn-sm mt-2'
+                
+                span.media-footer-right
+                    = "#{ub.blocking_comment.to_note.name}へのコメント"
