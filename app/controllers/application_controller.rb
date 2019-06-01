@@ -88,11 +88,11 @@ class ApplicationController < ActionController::Base
       @comments_flag_all = true
     when 'unread' then
       @comments = @note.comments
-                       .not_muted.where(read_flag: false).order('created_at DESC')
+                       .not_muted.unread.order('created_at DESC')
       @comments_flag_unread = true
     when 'read' then
       @comments = @note.comments
-                       .not_muted.where(read_flag: true).order('created_at DESC')
+                       .not_muted.read.order('created_at DESC')
       @comments_flag_read = true
     when 'favored' then
       @comments = @note.comments
@@ -166,16 +166,17 @@ class ApplicationController < ActionController::Base
 
     # 自分のノートについたコメントを調べる
     @recent_to_me_comments = Comment.joins(:to_note)
+                                    .not_muted
+                                    .unread
                                     .where(
-                                      comments: {
-                                        read_flag: false, muted: false 
-                                      }, 
                                       notes: {
                                         user_id: current_user.id 
                                       }
                                     )
                                     .where('comments.created_at > ?', current_user.checked_notifications_at)
                                     .order('created_at DESC')
+
+    @recent_to_me_comments -= @recent_to_me_comments.blocked
 
     # 自分のノートに新規で付いた進捗どうですかを調べる
     @recent_shinchoku_dodeskas = ShinchokuDodeska.where(
@@ -243,17 +244,17 @@ class ApplicationController < ActionController::Base
   def newest_comments_count
     return 0 unless logged_in?
     return @newest_comments_count if @newest_comments_count
-    @newest_comments_count = Comment.joins(:to_note)
-    .where(
-      comments: {
-        read_flag: false, muted: false 
-      }, 
-      notes: {
-        user_id: current_user.id
-      }
-    )
-    .where('comments.created_at > ?', current_user.notify_from)
-    .count
+    newest_comments = Comment.joins(:to_note)
+                             .not_muted
+                             .unread
+                             .where(
+                               notes: {
+                                 user_id: current_user.id 
+                               }
+                             )
+                             .where('comments.created_at > ?', current_user.notify_from)
+    newest_comments -= newest_comments.blocked
+    @newest_comments_count = newest_comments.count
   end
 
   # フォロー中のユーザーを取得する

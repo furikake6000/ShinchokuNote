@@ -41,6 +41,12 @@ class Comment < ApplicationRecord
   scope :not_muted, ->{
     where(muted: false)
   }
+  scope :read, ->{
+    where(read_flag: true)
+  }
+  scope :unread, ->{
+    where(read_flag: false)
+  }
   scope :join_blockdata, ->{
     joins(to_note: { user: :user_blocks } )
   }
