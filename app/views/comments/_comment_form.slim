@@ -18,6 +18,7 @@
         / 投稿ボタン
         .input-group
             button#comment_submit.btn(
+                type="button"
                 class="#{note.type == 'RequestBox' ? 'btn-secondary' : 'btn-primary'}"
                 data-toggle="modal"
                 data-target="#commentConfirm"
