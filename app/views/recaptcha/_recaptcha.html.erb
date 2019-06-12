@@ -1,0 +1,16 @@
+<%# docs: https://developers.google.com/recaptcha/docs/v3 %>
+
+<% content_for :javascript do %>
+  <script src="https://www.google.com/recaptcha/api.js?render=<%= Rails.application.credentials.recaptcha[:key] %>"></script>
+  <script>
+    grecaptcha.ready(function() {
+        grecaptcha.execute('<%= Rails.application.credentials.recaptcha[:key] %>', {action: 'homepage'}).then(function(token) {
+          // Set token
+          var recaptchaTokenForm = document.getElementById('recaptcha_token');
+          recaptchaTokenForm.value = token;
+        });
+    });
+  </script>
+<% end %>
+
+<input type="hidden" name="recaptcha_token" id="recaptcha_token">
