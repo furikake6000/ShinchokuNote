@@ -68,6 +68,9 @@ gem 'whenever', '~> 0.10.0', require: false
 # schemaやrouteを書き出してくれるAnnotate
 gem 'annotate', '~>2.7.4'
 
+# Google reCAPTCHA
+gem 'recaptcha', require: "recaptcha/rails"
+
 # fixing security vulnerabilities
 gem 'sprockets', '~> 3.7.2'
 gem 'ffi', '~> 1.9.25'
