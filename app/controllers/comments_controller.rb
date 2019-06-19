@@ -17,6 +17,13 @@ class CommentsController < ApplicationController
   end
 
   def create
+    success = verify_recaptcha(action: 'social', minimum_score: 0.5)
+    unless success
+      flash[:warning] = 'あなたのコメントはシステムによってbotと判断されました。再度お試しいただき、それでもうまくいかない場合は進捗ノート運営にお問い合わせください。'
+      redirect_back(fallback_location: root_path)
+      return
+    end
+
     @comment = @note.comments.new(comments_params)
 
     unless user_can_comment?(@note, current_user)
