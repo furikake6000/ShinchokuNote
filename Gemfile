@@ -26,7 +26,7 @@ gem 'jquery-ui-rails', '~>6.0.1'
 gem 'will_paginate', '~> 3.1.5'
 
 # Twitter連携
-gem 'omniauth', '~>1.7'
+gem 'omniauth', '~>1.9'
 gem 'omniauth-twitter', '~>1.4'
 gem 'twitter', '~>6.2.0'
 
