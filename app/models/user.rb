@@ -44,8 +44,7 @@ class User < ApplicationRecord
            dependent: :destroy
 
   has_many :watching_notes,
-           through: :watchlists,
-           dependent: :destroy
+           through: :watchlists
 
   has_many :devices, dependent: :destroy
 
