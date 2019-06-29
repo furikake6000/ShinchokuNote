@@ -81,10 +81,12 @@ class UsersController < ApplicationController
   end
 
   def logout
-    # cookieを削除すればログアウト処理に
-    logout_user(current_user)
-    flash[:success] = 'ログアウトしました'
-    redirect_back(fallback_location: root_path)
+    if logged_in?
+      # cookieを削除すればログアウト処理に
+      logout_user(current_user)
+      flash[:success] = 'ログアウトしました'
+    end
+    redirect_to(root_path)
   end
 
   def home
