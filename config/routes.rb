@@ -124,7 +124,7 @@ Rails.application.routes.draw do
   get '/updateuser', to: 'users#updateuser'
   get '/recommended_users', to: 'users#recommended_users'
   get '/login', to: 'users#new'
-  get '/logout', to: 'users#logout'
+  post '/logout', to: 'users#logout'
   get '/notifications', to: 'users#notifications'
   post '/notifications', to: 'users#notifications_checked'
   get '/omakase', to: 'notes#omakase'
