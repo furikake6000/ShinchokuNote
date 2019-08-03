@@ -24,12 +24,13 @@ ul#pills_tab.nav.nav-pills.nav-pills-secondary.nav-justified.mb-3 (
     role="tablist"
 )
     li.nav-item
-        a#posts_tab.nav-link.active (
+        a#posts_tab.nav-link (
             data-toggle="pill"
             href="#posts"
             role="tab"
             aria-controls="posts"
-            aria-selected="true"
+            aria-selected="#{@show_comments ? false : true}"
+            class = "#{'active' unless @show_comments}"
         ) 進捗
     li.nav-item
         a#commentslist_tab.nav-link (
@@ -37,19 +38,22 @@ ul#pills_tab.nav.nav-pills.nav-pills-secondary.nav-justified.mb-3 (
             href="#commentslist"
             role="tab"
             aria-controls="commentslist"
-            aria-selected="false"
+            aria-selected="#{@show_comments ? true : false}"
+            class = "#{'active' if @show_comments}"
         ) コメント
 
 .tab-content
-    #posts.tab-pane.fade.show.active(
+    #posts.tab-pane.fade(
         role="tabpanel"
         aria-labelledby="posts_tab"
+        class = "#{'show active' unless @show_comments}"
     )
         = render 'notes/note_monthly_index', note: request_box
         = render 'notes/posts', note: request_box
     #commentslist.tab-pane.fade(
         role="tabpanel"
         aria-labelledby="commentslist_tab"
+        class = "#{'show active' if @show_comments}"
     )
         = render 'notes/comments', { \
             note: request_box,

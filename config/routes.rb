@@ -5,7 +5,8 @@
 #                     note_posts GET    /notes/:note_id/posts(.:format)                                                          posts#index
 #                                POST   /notes/:note_id/posts(.:format)                                                          posts#create
 #                           post DELETE /posts/:id(.:format)                                                                     posts#destroy
-#                  note_comments POST   /notes/:note_id/comments(.:format)                                                       comments#create
+#                  note_comments GET    /notes/:note_id/comments(.:format)                                                       comments#index
+#                                POST   /notes/:note_id/comments(.:format)                                                       comments#create
 #                        comment GET    /comments/:id(.:format)                                                                  comments#show
 #                                PATCH  /comments/:id(.:format)                                                                  comments#update
 #                                PUT    /comments/:id(.:format)                                                                  comments#update
@@ -53,7 +54,7 @@
 #                     updateuser GET    /updateuser(.:format)                                                                    users#updateuser
 #              recommended_users GET    /recommended_users(.:format)                                                             users#recommended_users
 #                          login GET    /login(.:format)                                                                         users#new
-#                         logout GET    /logout(.:format)                                                                        users#logout
+#                         logout POST   /logout(.:format)                                                                        users#logout
 #                  notifications GET    /notifications(.:format)                                                                 users#notifications
 #                                POST   /notifications(.:format)                                                                 users#notifications_checked
 #                        omakase GET    /omakase(.:format)                                                                       notes#omakase
@@ -83,7 +84,7 @@ Rails.application.routes.draw do
       resources :posts, only: %i[index create destroy]
 
       # リソース:コメント
-      resources :comments, only: %i[create show update destroy]
+      resources :comments, only: %i[index create show update destroy]
       constraints lambda { |req| req.format == :js } do
         resources :comments, only: :index
       end

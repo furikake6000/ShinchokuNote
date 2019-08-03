@@ -10,8 +10,15 @@ class CommentsController < ApplicationController
   def index
     # @noteはbefore_actionで取得済み
     # @commentsはbefore_actionで取得済み
+    render_403 unless user_can_see? @note, current_user
 
     respond_to do |format|
+      format.html do
+        # htmlの場合はコメント一覧ページを表示
+        @show_comments = true
+        render 'notes/show'
+      end
+      # jsの場合はajaxでコメントのデータを送信
       format.js
     end
   end
