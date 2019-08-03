@@ -58,7 +58,7 @@ ul#pills_tab.nav.nav-pills.nav-pills-primary.nav-justified.mb-3 (
         - if user_can_comment? project, current_user
             #comment-form.comment-form.control-panel
                 h3 コメント
-                = render 'comments/comment_form', note: project
+                = render 'comments/comment_form', note: project, draft: @draft, rejudge: @rejudge
         = render 'notes/comments', { \
             note: project,
             comments: @comments \

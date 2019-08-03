@@ -16,7 +16,7 @@
     
     - if user_can_comment? request_box, current_user
         h3.mt-3 リクエスト
-        = render 'comments/comment_form', note: request_box
+        = render 'comments/comment_form', note: request_box, draft: @draft, rejudge: @rejudge
     
     = render 'notes/howlongsincemade', note: request_box
 
