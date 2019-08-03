@@ -10,17 +10,33 @@ class CommentsController < ApplicationController
   def index
     # @noteはbefore_actionで取得済み
     # @commentsはbefore_actionで取得済み
+    render_403 unless user_can_see? @note, current_user
 
     respond_to do |format|
+      format.html do
+        # htmlの場合はコメント一覧ページを表示
+        @show_comments = true
+        @draft = params.permit(:draft)[:draft]
+        @rejudge = params.permit(:rejudge)[:rejudge]
+        render 'notes/show'
+      end
+      # jsの場合はajaxでコメントのデータを送信
       format.js
     end
   end
 
   def create
-    success = verify_recaptcha(action: 'social', minimum_score: 0.5)
+    recaptcha_v2_flag = params.require(:comment).permit(:recaptcha_v2)[:recaptcha_v2]
+    success = recaptcha_v2_flag ?
+              verify_recaptcha(secret_key: Rails.application.credentials.recaptcha_v2[:secret]) :
+              verify_recaptcha(action: 'social', minimum_score: 0.5)
     unless success
-      flash[:warning] = 'あなたのコメントはシステムによってbotと判断されました。再度お試しいただき、それでもうまくいかない場合は進捗ノート運営にお問い合わせください。'
-      redirect_back(fallback_location: root_path)
+      if recaptcha_v2_flag
+        flash[:warning] = 'あなたのコメントはシステムによってbotと判断されました。再度お試しいただき、それでもうまくいかない場合は進捗ノート運営にお問い合わせください。'
+      else
+        flash[:warning] = 'お手数ですが、「私はロボットではありません」をクリックし、再度投稿してください。'
+      end
+      redirect_to note_comments_path(@note, draft:comments_params[:text] ,rejudge: true)
       return
     end
 
