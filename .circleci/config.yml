@@ -36,6 +36,9 @@ jobs:
       - run: bin/rails db:create
       - run: bin/rails db:schema:load
 
+      # Assets precompile
+      - run: DISABLE_SPRING=true bin/rake assets:precompile
+
       # Run rspec in parallel
       - type: shell
         command: |
