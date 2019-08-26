@@ -10,19 +10,6 @@ jobs:
     steps:
       - checkout
 
-      # Restore bundle cache
-      - restore_cache:
-          key: rails-demo-{{ checksum "Gemfile.lock" }}
-
-      # Bundle install dependencies
-      - run: bundle install --without production --path vendor/bundle
-
-      # Store bundle cache
-      - save_cache:
-          key: rails-demo-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-
       # apt setup
       - run: sudo apt update
       - run: sudo apt upgrade
@@ -32,17 +19,27 @@ jobs:
         command: |
           sudo apt install libsodium-dev
 
-      # Rails setup
-      - run: gem install rails
+      # Restore bundle cache
+      - restore_cache:
+          key: rails-dependencies-{{ checksum "Gemfile.lock" }}
+
+      # Bundle install dependencies
+      - run: bundle install --without production --path vendor/bundle
+
+      # Store bundle cache
+      - save_cache:
+          key: rails-dependencies-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
 
       # Database setup
-      - run: rails db:create
-      - run: rails db:schema:load
+      - run: bin/rails db:create
+      - run: bin/rails db:schema:load
 
       # Run rspec in parallel
       - type: shell
         command: |
-          rails test
+          DISABLE_SPRING=true bin/rails test
 
       # collect reports
       - store_test_results:
