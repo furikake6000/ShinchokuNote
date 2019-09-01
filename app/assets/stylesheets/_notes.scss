@@ -157,3 +157,17 @@
         }
     }
 }
+
+// Note forbidden page
+.note-forbidden-img {
+    width: 80%;
+    max-width: 600px;
+}
+
+.note-forbidden-title {
+    font-size: 1.8rem;
+
+    @media (max-width: 767px) {
+        font-size: 1.2rem;
+    }
+}
