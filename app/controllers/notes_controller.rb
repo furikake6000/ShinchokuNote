@@ -16,7 +16,10 @@ class NotesController < ApplicationController
   end
 
   def show
-    render_403 unless user_can_see? @note, current_user
+    unless user_can_see? @note, current_user
+      render 'forbidden', layout: 'simple', status: :forbidden
+      return
+    end
     # before_actionですでに@noteは取得済
     @omakase = params[:omakase]
   end
