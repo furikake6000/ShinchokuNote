@@ -151,4 +151,16 @@ module ApplicationHelper
   def vapid_public_key_base64
     Base64.urlsafe_decode64(vapid_public_key).bytes
   end
+
+  # SVG画像を展開
+  # (ref: https://coderwall.com/p/d1vplg/embedding-and-styling-inline-svg-documents-with-css-in-rails )
+  def svg_tag filename, options={}
+    file = File.read(Rails.root.join('app', 'assets', 'images', filename))
+    doc = Nokogiri::HTML::DocumentFragment.parse file
+    svg = doc.at_css 'svg'
+    if options[:class].present?
+      svg['class'] = options[:class]
+    end
+    doc.to_html.html_safe
+  end
 end
