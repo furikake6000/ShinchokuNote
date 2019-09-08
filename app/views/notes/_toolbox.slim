@@ -1,5 +1,9 @@
 - content_for :leftcol do
     #note_toolbox
         .sticky-wrapper
-            .shinchoku_dodeska_button
+            .shinchoku_dodeska_button.mb-2
                 =svg_tag('Shinchoku_icon_colored.svg')
+            .toolbox_button.mb-2
+                =fa_icon 'star'
+            .toolbox_button
+                = fa_icon 'envelope', class: 'small'
