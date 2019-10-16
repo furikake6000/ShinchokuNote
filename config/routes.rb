@@ -110,6 +110,9 @@ Rails.application.routes.draw do
     # get '/leave', to: 'users#leave'
   end
 
+  # Firefox等一部ブラウザにおいて、PATCHメソッドのフォームがPOSTになってしまう問題の解消用
+  post '/notes/:id', to: 'notes#update'
+
   # リソース:アナウンス
   resources :announces, only: %i[index create update show destroy]
 
