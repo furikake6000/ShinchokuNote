@@ -18,6 +18,9 @@ gem 'mini_racer', '~> 0.2.3'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
+# database
+gem 'pg', '~>1.0.0'
+
 # jQuery and bootstrap
 gem 'bootstrap', '~> 4.3.1'
 gem 'bootstrap-will_paginate', '~> 1.0.0'
@@ -83,9 +86,6 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver', '~>3.8'
 
-  # Use sqlite on dev mode
-  gem 'sqlite3', '~>1.3.13'
-
   # Relationship diagrams
   gem 'rails-erd', '~>1.5'
 end
@@ -105,8 +105,6 @@ group :test do
 end
 
 group :production do
-  # Use postgresql on production mode
-  gem 'pg', '~>1.0.0'
 end
 
 # Below gem is only for Windows
