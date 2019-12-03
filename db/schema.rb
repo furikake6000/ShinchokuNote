@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2019_05_28_155048) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -45,15 +48,14 @@ ActiveRecord::Schema.define(version: 2019_05_28_155048) do
     t.boolean "read_flag", default: false
     t.boolean "favor_flag", default: false
     t.boolean "muted", default: false
-    t.integer "from_user_id"
+    t.bigint "from_user_id"
     t.string "from_addr"
-    t.integer "to_note_id"
-    t.integer "response_id"
+    t.bigint "to_note_id"
+    t.bigint "response_id"
     t.integer "anonimity", default: 0
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "blocked", default: false
     t.index ["deleted_at"], name: "index_comments_on_deleted_at"
     t.index ["from_user_id"], name: "index_comments_on_from_user_id"
     t.index ["response_id"], name: "index_comments_on_response_id"
@@ -78,7 +80,7 @@ ActiveRecord::Schema.define(version: 2019_05_28_155048) do
     t.string "tags"
     t.integer "comment_receive_stance", default: 10
     t.integer "comment_share_stance", default: 0
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "started_at"
     t.datetime "finished_at"
     t.datetime "deleted_at"
@@ -95,7 +97,7 @@ ActiveRecord::Schema.define(version: 2019_05_28_155048) do
     t.string "text"
     t.string "type"
     t.float "order"
-    t.integer "note_id"
+    t.bigint "note_id"
     t.datetime "deleted_at"
     t.string "twitter_id"
     t.datetime "created_at", null: false
@@ -108,9 +110,9 @@ ActiveRecord::Schema.define(version: 2019_05_28_155048) do
   end
 
   create_table "shinchoku_dodeskas", force: :cascade do |t|
-    t.integer "from_user_id"
+    t.bigint "from_user_id"
     t.string "from_addr"
-    t.integer "to_note_id"
+    t.bigint "to_note_id"
     t.integer "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -119,12 +121,12 @@ ActiveRecord::Schema.define(version: 2019_05_28_155048) do
   end
 
   create_table "user_blocks", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "blocking_user_id"
+    t.bigint "user_id"
+    t.bigint "blocking_user_id"
     t.string "blocking_addr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "blocking_comment_id"
+    t.bigint "blocking_comment_id"
     t.index ["blocking_comment_id"], name: "index_user_blocks_on_blocking_comment_id"
     t.index ["blocking_user_id"], name: "index_user_blocks_on_blocking_user_id"
     t.index ["user_id"], name: "index_user_blocks_on_user_id"
@@ -145,19 +147,31 @@ ActiveRecord::Schema.define(version: 2019_05_28_155048) do
     t.datetime "checked_notifications_at"
     t.binary "linked_users_info"
     t.datetime "saw_notifications_at"
-    t.boolean "comment_webpush_enabled"
-    t.boolean "shinchoku_dodeska_webpush_enabled"
+    t.boolean "comment_webpush_enabled", default: true
+    t.boolean "shinchoku_dodeska_webpush_enabled", default: true
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["twitter_id"], name: "index_users_on_twitter_id", unique: true
   end
 
   create_table "watchlists", force: :cascade do |t|
-    t.integer "from_user_id"
-    t.integer "to_note_id"
+    t.bigint "from_user_id"
+    t.bigint "to_note_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["from_user_id"], name: "index_watchlists_on_from_user_id"
     t.index ["to_note_id"], name: "index_watchlists_on_to_note_id"
   end
 
+  add_foreign_key "comments", "notes", column: "to_note_id"
+  add_foreign_key "comments", "posts", column: "response_id"
+  add_foreign_key "comments", "users", column: "from_user_id"
+  add_foreign_key "notes", "users"
+  add_foreign_key "posts", "notes"
+  add_foreign_key "shinchoku_dodeskas", "notes", column: "to_note_id"
+  add_foreign_key "shinchoku_dodeskas", "users", column: "from_user_id"
+  add_foreign_key "user_blocks", "comments", column: "blocking_comment_id"
+  add_foreign_key "user_blocks", "users"
+  add_foreign_key "user_blocks", "users", column: "blocking_user_id"
+  add_foreign_key "watchlists", "notes", column: "to_note_id"
+  add_foreign_key "watchlists", "users", column: "from_user_id"
 end
