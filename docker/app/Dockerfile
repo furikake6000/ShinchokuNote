@@ -8,7 +8,10 @@ RUN apt-get update -qq && \
         git \
         build-essential \
         nodejs \
-        postgresql-client
+        postgresql-client \
+        libpq-dev \
+        libsodium-dev \
+        graphviz
  
 RUN mkdir /ShinchokuNote
 WORKDIR /ShinchokuNote
@@ -22,7 +25,8 @@ RUN wget https://github.com/progrium/entrykit/releases/download/v${ENTRYKIT_VERS
     chmod +x /bin/entrykit && \
     entrykit --symlink
 
+RUN mkdir -p /var/www/run
+
 ENTRYPOINT [ "prehook", \
     "bundle install -j4 --clean", \
-    "yarn install", \
     "--" ]
