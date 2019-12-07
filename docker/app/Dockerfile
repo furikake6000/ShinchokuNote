@@ -13,7 +13,6 @@ RUN apt-get update -qq && \
         libsodium-dev \
         graphviz
  
-RUN mkdir /ShinchokuNote
 WORKDIR /ShinchokuNote
 
 # entrykit
