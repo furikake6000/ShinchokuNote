@@ -9,3 +9,20 @@ services:
       - .:/ShinchokuNote
     ports:
       - "3000:3000"
+    links:
+      - db_dev
+      - db_test
+  db_dev:
+    image: postgres:10.1
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=password"
+      - "POSTGRES_DB=shinchokunote_development"
+  db_test:
+    image: postgres:10.1
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=password"
+      - "POSTGRES_DB=shinchokunote_test"

@@ -12,10 +12,12 @@ default: &default
 
 development:
   <<: *default
+  host: db_dev
   database: shinchokunote_development
 
 test:
   <<: *default
+  host: db_test
   database: shinchokunote_test
 
 production:
