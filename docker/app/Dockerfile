@@ -27,5 +27,5 @@ RUN wget https://github.com/progrium/entrykit/releases/download/v${ENTRYKIT_VERS
 RUN mkdir -p /var/www/run
 
 ENTRYPOINT [ "prehook", \
-    "bundle install -j4 --clean", \
+    "bundle install -j4 --clean --path vendor/bundle", \
     "--" ]
