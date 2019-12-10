@@ -35,7 +35,7 @@ sudo docker-compose build
 ### run
 
 ```shell
-sudo docker-compose up
+sudo docker-compose -f docker-compose.dev.yml up
 ```
 
 ### puma-dev(Optional)
