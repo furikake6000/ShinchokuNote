@@ -16,7 +16,7 @@ services:
   db_dev:
     image: postgres:10.1
     volumes:
-      - ./tmp/db:/var/lib/postgresql/data
+      - ./tmp/db:/var/lib/postgresql
     environment:
       - "POSTGRES_USER=postgres"
       - "POSTGRES_PASSWORD=password"
