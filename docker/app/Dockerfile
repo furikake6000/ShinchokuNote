@@ -8,6 +8,7 @@ RUN apt-get update -qq && \
         git \
         build-essential \
         nodejs \
+        npm \
         postgresql-client \
         libpq-dev \
         libsodium-dev \
@@ -26,6 +27,9 @@ RUN wget https://github.com/progrium/entrykit/releases/download/v${ENTRYKIT_VERS
 
 RUN mkdir -p /var/www/run
 
-ENTRYPOINT [ "prehook", \
-    "bundle install -j4 --clean --path vendor/bundle", \
-    "--" ]
+# install yarn
+RUN npm install yarn -g
+
+ENTRYPOINT [ \
+    "prehook", "bundle install -j4 --clean --path vendor/bundle", "--", \
+    "prehook", "bundle exec rails assets:precompile", "--"]
