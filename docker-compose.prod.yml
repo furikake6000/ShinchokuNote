@@ -14,3 +14,15 @@ services:
     environment:
       RAILS_ENV: production
       RAILS_MASTER_KEY:
+  https-portal:
+    image: steveltn/https-portal:1
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - app
+    restart: always
+    environment:
+      DOMAINS: 'beta.shinchoku.net -> http://app:3000'
+      # FORCE_RENEW: 'true' # テスト用。STAGE: productionの場合は切る
+      STAGE: 'production'
