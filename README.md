@@ -55,8 +55,8 @@ puma-dev -install -d test
 (初回起動時、もしくはDB構造が変更された時)
 
 ```shell
-sudo docker-compose run app bin/rails db:migration RAILS_ENV=development
-sudo docker-compose run app bin/rails db:migration RAILS_ENV=test
+sudo docker-compose run app bin/rails db:migrate RAILS_ENV=development
+sudo docker-compose run app bin/rails db:migrate RAILS_ENV=test
 ```
 
 ## 本番(orステージング)サーバーを建てる
