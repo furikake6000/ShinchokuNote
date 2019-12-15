@@ -138,5 +138,5 @@ Host shinchoku.net
 $ cd
 $ git clone https://github.com/furikake6000/ShinchokuNote.git
 $ cd ShinchokuNote
-$ sudo docker-compose -f docker-compose.prod.yml up -d
+$ sudo RAILS_MASTER_KEY={RAILS_MASTER_KEY} docker-compose -f docker-compose.prod.yml up -d
 ```
