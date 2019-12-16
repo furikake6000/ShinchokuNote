@@ -7,7 +7,6 @@ server {
     # domain.name will be "my.example.com", you can also hard-code it.
     server_name <%= domain.name %>;
 
-    ssl on;
     ssl_certificate <%= domain.chained_cert_path %>;
     ssl_certificate_key <%= domain.key_path %>;
 
@@ -19,10 +18,13 @@ server {
     ssl_dhparam <%= dhparam_path %>;
 
     # Rooting for /public
-    root /var/www/static_files;
+    location / {
+        root /var/www/static_files;
+        try_files $uri @rails;
+    }
 
     # Rooting for rails
-    location / {
+    location @rails {
         proxy_pass <%= domain.upstream %>;
 
         proxy_set_header Host $host;
