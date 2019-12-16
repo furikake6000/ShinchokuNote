@@ -16,6 +16,10 @@ services:
       RAILS_MASTER_KEY:
   https-portal:
     image: steveltn/https-portal:1
+    volumes:
+      - ./public:/var/www/static_files
+      - ./nginx/http_config.erb:/var/lib/nginx-conf/beta.shinchoku.net.conf.erb:ro
+      - ./nginx/https_config.erb:/var/lib/nginx-conf/beta.shinchoku.net.ssl.conf.erb:ro
     ports:
       - "80:80"
       - "443:443"
