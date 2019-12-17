@@ -26,6 +26,7 @@
 /vendor/bundler/*
 /vendor/bundle/*
 /public/custom_log/*
+/.bundle_install
 # Ignore encrypted secrets key file.
 config/secrets.yml.key
 config/master.key
@@ -38,3 +39,6 @@ erd.pdf
 
 # Ignore storage folders
 /storage/*
+
+# Ignore precompiled assets
+/public/assets
