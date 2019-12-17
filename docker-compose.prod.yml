@@ -25,8 +25,18 @@ services:
       - "443:443"
     links:
       - app
+      - jenkins
     restart: always
     environment:
       DOMAINS: 'beta.shinchoku.net -> http://app:3000'
       # FORCE_RENEW: 'true' # テスト用。STAGE: productionの場合は切る
-      STAGE: 'production'
+      # STAGE: 'production'
+  jenkins:
+    image: jenkins/jenkins:lts
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    environment:
+      JENKINS_OPTS: '--prefix=/jenkins'
+    volumes:
+      - .jenkins:/var/jenkins_home

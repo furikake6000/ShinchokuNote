@@ -42,3 +42,6 @@ erd.pdf
 
 # Ignore precompiled assets
 /public/assets
+
+# Ignore jenkins data
+/.jenkins
