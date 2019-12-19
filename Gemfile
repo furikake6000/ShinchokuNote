@@ -81,6 +81,14 @@ gem "rack", ">= 2.0.6"
 gem 'rubyzip', '~> 1.2.2'
 gem 'loofah', '>= 2.2.3'
 
+# deployment
+gem 'capistrano', '~>3.11.2', require: false
+gem 'capistrano-bundler', require: false
+gem 'capistrano-nodenv', require: false
+gem 'capistrano-rails', require: false
+gem 'capistrano-rbenv', require: false
+gem 'capistrano-sidekiq', require: false
+
 group :development, :test do
   gem 'byebug', '~>9.1', platforms: %i[mri mingw x64_mingw]
   gem 'capybara', '~> 2.13'
