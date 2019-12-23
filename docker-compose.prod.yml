@@ -32,7 +32,9 @@ services:
       # FORCE_RENEW: 'true' # テスト用。STAGE: productionの場合は切る
       # STAGE: 'production'
   jenkins:
-    image: jenkins/jenkins:lts
+    build:
+      context: .
+      dockerfile: ./docker/jenkins/Dockerfile
     ports:
       - "8080:8080"
       - "50000:50000"
@@ -40,3 +42,4 @@ services:
       JENKINS_OPTS: '--prefix=/jenkins'
     volumes:
       - .jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
