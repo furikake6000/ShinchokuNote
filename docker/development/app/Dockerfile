@@ -1,3 +1,9 @@
+# !!こちらに変更を加えたらproductionにも同様の変更を行うこと!!
+#
+# devイメージとprodイメージの違い
+#   ・vimインストールの有無
+#   ・プロジェクトファイルをvolumeで共有する(dev)か、あらかじめCOPYする(prod)か
+
 FROM ruby:2.6.5-slim
 
 # apt update & install
@@ -13,7 +19,8 @@ RUN apt-get update -qq && \
         libpq-dev \
         libsodium-dev \
         graphviz \
-        cron
+        cron \
+        vim
  
 WORKDIR /ShinchokuNote
 
@@ -35,4 +42,5 @@ ENTRYPOINT [ \
     "prehook", "bundle install -j4 --clean --path vendor/bundle", "--", \
     "prehook", "bundle exec rails assets:precompile", "--", \
     "prehook", "bundle exec whenever --update-crontab", "--", \
-    "prehook", "service cron start", "--"]
+    "prehook", "service cron start", "--", \
+    "prehook", "rm -f tmp/pids/server.pid", "--"]
