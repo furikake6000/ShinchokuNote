@@ -45,6 +45,10 @@ spec:
               secretKeyRef:
                 name: rails
                 key: secret-key-base
+          # rails force_ssl would be disabled
+          # because proxy protocol is not supported in ingress-nginx with GCE/GKE
+          - name: RAILS_FORCE_SSL
+            value: "false"
           - name: DB_HOST
             valueFrom:
               configMapKeyRef:
