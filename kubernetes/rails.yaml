@@ -5,7 +5,7 @@ metadata:
 spec:
   ports:
     - port: 80
-      targetPort: 3000
+      targetPort: 80
       protocol: TCP
       name: rails
   type: NodePort
@@ -59,3 +59,24 @@ spec:
               secretKeyRef:
                 name: cloudsql
                 key: password
+      - name: nginx-internal
+        image: nginx:1.17-alpine
+        ports:
+          - containerPort: 80
+        volumeMounts:
+          - name: nginx-conf
+            mountPath: /etc/nginx/nginx.conf
+            subPath: nginx.conf  # mount as a file(not directory)
+            readOnly: true
+          - name: static-files
+            mountPath: /var/www/static_files
+            readOnly: true
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: nginx
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+        - name: static-files
+          emptyDir: {}
