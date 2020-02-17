@@ -59,6 +59,9 @@ spec:
               secretKeyRef:
                 name: cloudsql
                 key: password
+        volumeMounts:
+          - name: static-files
+            mountPath: /ShinchokuNote/public
       - name: nginx-internal
         image: nginx:1.17-alpine
         ports:
