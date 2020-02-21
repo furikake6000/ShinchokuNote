@@ -13,3 +13,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     Rails.application.credentials.twitter[:key],
     Rails.application.credentials.twitter[:secret]
 end
+
+# リダイレクト用のURIを設定
+OmniAuth.config.full_host = ENV['HOST_URI'] if ENV['HOST_URI']
