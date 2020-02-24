@@ -1,0 +1,6 @@
+.alert.alert-primary
+  p Request URL: #{request.url}
+  p Request original URL: #{request.original_url}
+  p Header:
+  - request.headers.sort.each do |k, v|
+    p #{k} : #{v}
