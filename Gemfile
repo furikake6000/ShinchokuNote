@@ -74,6 +74,9 @@ gem 'annotate', '~>2.7.4'
 # Google reCAPTCHA
 gem 'recaptcha', require: "recaptcha/rails"
 
+# ヘルスチェック用のエンドポイントを生やしてくれる
+gem 'okcomputer'
+
 # fixing security vulnerabilities
 gem 'sprockets', '~> 3.7.2'
 gem 'ffi', '~> 1.9.25'
