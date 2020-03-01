@@ -13,6 +13,7 @@ module ShinchokuNote
 
     # Set locale to Japanese
     config.i18n.default_locale = :ja
+    config.i18n.fallbacks = [:ja, :en]
 
     # Setting for sqlite3 in test env
     Rails.application.config.active_record.sqlite3.represent_boolean_as_integer = false
