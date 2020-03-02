@@ -58,6 +58,11 @@ spec:
         volumeMounts:
           - name: static-files
             mountPath: /ShinchokuNote/public
+        readinessProbe:
+          httpGet:
+            path: /health
+          initialDelaySeconds: 20
+          timeoutSeconds: 3
       - name: nginx-internal
         image: nginx:1.17-alpine
         ports:
