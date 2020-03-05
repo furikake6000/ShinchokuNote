@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: rails
-        image: furikake6000/shinchokunote:kube_test
+        image: furikake6000/shinchokunote:0.1.1
         ports:
         - containerPort: 3000
         args: 
@@ -58,9 +58,15 @@ spec:
         volumeMounts:
           - name: static-files
             mountPath: /ShinchokuNote/public
+        resources:
+          requests:
+            memory: "500Mi"
+          limits:
+            memory: "1Gi"
         readinessProbe:
           httpGet:
             path: /health
+            port: 3000
           initialDelaySeconds: 20
           timeoutSeconds: 3
       - name: nginx-internal
