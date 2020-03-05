@@ -46,6 +46,12 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = ActiveRecord::Type::Boolean.new.cast(ENV.fetch('RAILS_FORCE_SSL') { true })
+  # Exclude force_ssl on health check
+  config.ssl_options = {
+    redirect: {
+      exclude: -> request { request.path =~ /\A\/health[\w\/]*\z/ }
+    }
+  }
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
