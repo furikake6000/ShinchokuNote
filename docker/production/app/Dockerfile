@@ -3,6 +3,7 @@
 # devイメージとprodイメージの違い
 #   ・vimインストールの有無
 #   ・プロジェクトファイルをvolumeで共有する(dev)か、あらかじめCOPYする(prod)か
+#   ・bundle install / assets precompileを毎度行う(dev)か、build時にやってある(prod)か
 
 FROM ruby:2.6.5-slim
 
@@ -40,9 +41,11 @@ RUN npm install yarn -g
 # copy rails root dir
 COPY . /ShinchokuNote
 
+# bundle install & assets precompile
+RUN bundle install -j4 --clean --path vendor/bundle
+RUN bundle exec rails assets:precompile
+
 ENTRYPOINT [ \
-    "prehook", "bundle install -j4 --clean --path vendor/bundle", "--", \
-    "prehook", "bundle exec rails assets:precompile", "--", \
     "prehook", "bundle exec whenever --update-crontab", "--", \
     "prehook", "service cron start", "--", \
     "prehook", "rm -f tmp/pids/server.pid", "--"]

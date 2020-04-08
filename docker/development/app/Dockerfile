@@ -3,6 +3,7 @@
 # devイメージとprodイメージの違い
 #   ・vimインストールの有無
 #   ・プロジェクトファイルをvolumeで共有する(dev)か、あらかじめCOPYする(prod)か
+#   ・bundle install / assets precompileを毎度行う(dev)か、build時にやってある(prod)か
 
 FROM ruby:2.6.5-slim
 
