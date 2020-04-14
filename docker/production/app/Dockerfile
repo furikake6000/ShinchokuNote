@@ -45,6 +45,7 @@ COPY . /ShinchokuNote
 RUN bundle install -j4 --clean --path vendor/bundle
 
 ENTRYPOINT [ \
+    "prehook", "cp -pR static_files/. public", "--", \
     "prehook", "bundle exec rails assets:precompile", "--", \
     "prehook", "bundle exec whenever --update-crontab", "--", \
     "prehook", "service cron start", "--", \
