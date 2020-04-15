@@ -40,5 +40,5 @@ erd.pdf
 # Ignore storage folders
 /storage/*
 
-# Ignore precompiled assets
-/public/assets
+# Ignore public/
+/public/*
