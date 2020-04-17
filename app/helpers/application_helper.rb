@@ -59,13 +59,13 @@ module ApplicationHelper
     time_c = time.dup
     if time_c.to_date == Time.now.to_date
       # 日付が今日だった場合、時刻のみ表示
-      I18n.l(time_c.localtime, format: :hour_min)
+      I18n.l(time_c.localtime("+09:00"), format: :hour_min)
     elsif time.year == Time.now.year
       # 月日と時刻を表示
-      I18n.l(time_c.localtime, format: :date_hour_min)
+      I18n.l(time_c.localtime("+09:00"), format: :date_hour_min)
     else
       # 年月日と時刻を表示
-      I18n.l(time_c.localtime, format: :year_date_hour_min)
+      I18n.l(time_c.localtime("+09:00"), format: :year_date_hour_min)
     end
   end
 
@@ -74,10 +74,10 @@ module ApplicationHelper
     time_c = time.dup
     if time.year == Time.now.year
       # 月日を表示
-      I18n.l(time_c.localtime, format: :date)
+      I18n.l(time_c.localtime("+09:00"), format: :date)
     else
       # 年月日を表示
-      I18n.l(time_c.localtime, format: :year_date)
+      I18n.l(time_c.localtime("+09:00"), format: :year_date)
     end
   end
 
