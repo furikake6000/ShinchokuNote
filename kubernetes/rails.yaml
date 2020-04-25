@@ -1,0 +1,92 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rails
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: rails
+  type: NodePort
+  selector:
+    app: rails
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rails
+  labels:
+    app: rails
+spec:
+  selector:
+    matchLabels:
+      app: rails
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rails
+    spec:
+      containers:
+      - name: rails
+        image: furikake6000/shinchokunote:0.1.1
+        ports:
+        - containerPort: 3000
+        args: 
+          - /bin/sh
+          - -c
+          - "bundle exec rails s -p 3000 -b '0.0.0.0'"
+        env:
+          - name: RAILS_ENV
+            value: "production"
+          - name: RAILS_MASTER_KEY
+            valueFrom:
+              secretKeyRef:
+                name: rails
+                key: secret-key-base
+          - name: DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: cloudsql
+                key: host
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: cloudsql
+                key: password
+        volumeMounts:
+          - name: static-files
+            mountPath: /ShinchokuNote/public
+        resources:
+          requests:
+            memory: "500Mi"
+          limits:
+            memory: "1Gi"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 20
+          timeoutSeconds: 3
+      - name: nginx-internal
+        image: nginx:1.17-alpine
+        ports:
+          - containerPort: 80
+        volumeMounts:
+          - name: nginx-conf
+            mountPath: /etc/nginx/nginx.conf
+            subPath: nginx.conf  # mount as a file(not directory)
+            readOnly: true
+          - name: static-files
+            mountPath: /var/www/static_files
+            readOnly: true
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: nginx
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+        - name: static-files
+          emptyDir: {}
