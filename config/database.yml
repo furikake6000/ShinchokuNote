@@ -12,12 +12,12 @@ default: &default
 
 development:
   <<: *default
-  host: db_dev
+  host: <%= ENV.fetch("DB_HOST") { 'db_dev' } %>
   database: shinchokunote_development
 
 test:
   <<: *default
-  host: db_test
+  host: <%= ENV.fetch("DB_HOST") { 'db_host' } %>
   database: shinchokunote_test
 
 production:
