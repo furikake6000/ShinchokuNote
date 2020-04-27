@@ -60,11 +60,9 @@ jobs:
     steps:
       - checkout
       - ruby-orbs/bundle-install
-      - node/yarn_install
       - assets_precompile:
           requires:
             - ruby-orbs/bundle-install
-            - yarn-install
       - run: bundle exec rails db:create db:migrate --trace
       - run: bundle exec rails test
 
