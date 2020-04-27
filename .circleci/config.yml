@@ -58,6 +58,15 @@ jobs:
   minitest:
     executor: default
     steps:
+      - run:
+          name: Install APT packages
+          command: |
+            apt-get update -qq && \
+            apt-get install -y \
+              graphviz \
+              postgresql-client \
+              libpq-dev \
+              libsodium-dev
       - checkout
       - ruby-orbs/bundle-install
       - assets_precompile
