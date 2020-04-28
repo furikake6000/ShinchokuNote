@@ -71,7 +71,7 @@ jobs:
       - ruby-orbs/bundle-install
       - assets_precompile
       - run: bundle exec rails db:create db:migrate --trace
-      - run: bundle exec rails test
+      - run: bundle exec rake test
 
 workflows:
   version: 2
