@@ -53,6 +53,11 @@ commands:
             - node_modules
             - public/assets
             - tmp/cache/assets
+  static_files_copy:
+    description: "copy static files from static_files/ to public/"
+    steps:
+      - run:
+          command: cp -pR static_files/. public
 
 jobs:
   minitest:
@@ -70,6 +75,7 @@ jobs:
       - checkout
       - ruby-orbs/bundle-install
       - assets_precompile
+      - static_files_copy
       - run: bundle exec rails db:create db:migrate --trace
       - run: bundle exec rake test
 
