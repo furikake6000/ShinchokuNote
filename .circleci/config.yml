@@ -73,6 +73,7 @@ jobs:
               libpq-dev \
               libsodium-dev
       - checkout
+      - run: git submodule update --init --recursive 
       - ruby-orbs/bundle-install
       - assets_precompile
       - static_files_copy
