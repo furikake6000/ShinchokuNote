@@ -1,0 +1,103 @@
+# CircleCI 設定ファイル
+# 本ファイルのimage構成とdocker-compose、本番環境は可能な限り同じにすること
+
+version: 2.1
+
+orbs:
+  node:      circleci/node@1.1.6
+  ruby-orbs: sue445/ruby-orbs@1.3.0
+
+executors:
+  default:
+    working_directory: ~/shinchokunote
+    docker:
+      - image: circleci/ruby:2.6.5-stretch-node-browsers
+        environment:
+          RAILS_ENV: test
+          DB_HOST: 127.0.0.1
+      - image: circleci/postgres:11
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: shinchokunote_test
+
+commands:
+  assets_precompile:
+    description: "assets precompile"
+    parameters:
+      cache_key_prefix:
+        description: "The cache key prefix."
+        type: string
+        default: "v1-assets"
+      rails_env:
+        description: "Rails environment"
+        type: string
+        default: "test"
+    steps:
+      - restore_cache:
+          keys:
+            - << parameters.cache_key_prefix >>-{{ .Branch }}-{{ .Revision }}
+            - << parameters.cache_key_prefix >>-{{ .Branch }}
+            - << parameters.cache_key_prefix >>
+      - run:
+          command: bundle exec rails assets:precompile
+          environment:
+            RAILS_ENV: << parameters.rails_env >>
+      - run:
+          command: bundle exec rails assets:clean
+          environment:
+            RAILS_ENV: << parameters.rails_env >>
+      - save_cache:
+          key: << parameters.cache_key_prefix >>-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - node_modules
+            - public/assets
+            - tmp/cache/assets
+  static_files_copy:
+    description: "copy static files from static_files/ to public/"
+    steps:
+      - run:
+          command: cp -pR static_files/. public
+
+jobs:
+  minitest:
+    executor: default
+    steps:
+      - run:
+          name: Install APT packages
+          command: |
+            sudo apt-get update -qq && \
+            sudo apt-get install -y \
+              graphviz \
+              postgresql-client \
+              libpq-dev \
+              libsodium-dev
+      - checkout
+      - run: git submodule update --init --recursive 
+      - ruby-orbs/bundle-install
+      - assets_precompile
+      - static_files_copy
+      - run: bundle exec rails db:create db:migrate --trace
+      - run: bundle exec rake test
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - minitest
+  auto_bundle_update:
+    triggers:
+      - schedule:
+          cron: "0 0 1 * *"
+          filters:
+            branches:
+              only: master
+    jobs:
+      - ruby-orbs/bundle-update-pr:
+          git_user_name: furikake6000
+          git_user_email: ewave5000@gmail.com
+          image: "circleci/ruby:2.6.5-stretch-node-browsers"
+          pre-bundle-update-pr:
+            - ruby-orbs/bundle-install
+          duplicate: true
+          assignees: furikake6000
