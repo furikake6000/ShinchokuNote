@@ -18,12 +18,3 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-
-require File.expand_path(File.dirname(__FILE__) + "/environment")
-set :environment, ENV['RAILS_ENV'] || :development
-set :output, "#{Rails.root}/log/cron.log"
-
-# Deleting daily logs
-every 1.day, :at => '0:05 am' do
-  runner "Tasks.LogDeleter.delete_logs_of_last_week"
-end
