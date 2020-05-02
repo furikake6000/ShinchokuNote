@@ -3,7 +3,7 @@ require 'rails/test_help'
 require 'minitest/autorun'
 
 module UserTestHelper
-  def test_login(user, token, secret)
+  def login_for_test(user, token, secret)
     verify_user_mock = Minitest::Mock.new.expect :call, true
     self.stub(:verify_user_info, verify_user_mock) do
       @current_user = nil
@@ -13,15 +13,15 @@ module UserTestHelper
   end
 
   def login_as_okaka
-    test_login @okaka, 'okaka_token', 'okaka_secret'
+    login_for_test @okaka, 'okaka_token', 'okaka_secret'
   end
 
   def login_as_noritama
-    test_login @noritama, 'noritama_token', 'noritama_secret'
+    login_for_test @noritama, 'noritama_token', 'noritama_secret'
   end
 
   def login_as_noriwasa
-    test_login @noriwasa, 'noriwasa_token', 'noriwasa_secret'
+    login_for_test @noriwasa, 'noriwasa_token', 'noriwasa_secret'
   end
 end
 
