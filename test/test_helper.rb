@@ -13,22 +13,22 @@ class ActiveSupport::TestCase
   end
 
   # Add more helper methods to be used by all tests here...
-  def login_as_okaka
+  def test_login(user, token, secret)
     @current_user = nil
     @master_user = nil
-    login_user @okaka, 'okaka_token', 'okaka_secret'
+    login_user user, token, secret
+  end
+
+  def login_as_okaka
+    test_login @okaka, 'okaka_token', 'okaka_secret'
   end
 
   def login_as_noritama
-    @current_user = nil
-    @master_user = nil
-    login_user @noritama, 'noritama_token', 'noritama_secret'
+    test_login @noritama, 'noritama_token', 'noritama_secret'
   end
 
   def login_as_noriwasa
-    @current_user = nil
-    @master_user = nil
-    login_user @noriwasa, 'noriwasa_token', 'noriwasa_secret'
+    test_login @noriwasa, 'noriwasa_token', 'noriwasa_secret'
   end
 
   # ApplicationHelperモジュールの書き換え
