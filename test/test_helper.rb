@@ -1,5 +1,6 @@
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'minitest/autorun'
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml
@@ -14,9 +15,12 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   def test_login(user, token, secret)
-    @current_user = nil
-    @master_user = nil
-    login_user user, token, secret
+    verify_user_mock = Minitest::Mock.new.expect :call, true
+    self.stub(:verify_user_info, verify_user_mock) do
+      @current_user = nil
+      @master_user = nil
+      login_user user, token, secret
+    end
   end
 
   def login_as_okaka
