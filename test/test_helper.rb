@@ -2,18 +2,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'minitest/autorun'
 
-class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.yml
-  # for all tests in alphabetical order.
-  fixtures :all
-
-  def setup
-    @okaka = users(:okaka)
-    @noritama = users(:noritama)
-    @noriwasa = users(:noriwasa)
-  end
-
-  # Add more helper methods to be used by all tests here...
+module UserTestHelper
   def test_login(user, token, secret)
     verify_user_mock = Minitest::Mock.new.expect :call, true
     self.stub(:verify_user_info, verify_user_mock) do
@@ -33,6 +22,22 @@ class ActiveSupport::TestCase
 
   def login_as_noriwasa
     test_login @noriwasa, 'noriwasa_token', 'noriwasa_secret'
+  end
+end
+
+# Add more helper methods to be used by all tests here...
+
+class ActiveSupport::TestCase
+  include UserTestHelper
+
+  # Setup all fixtures in test/fixtures/*.yml
+  # for all tests in alphabetical order.
+  fixtures :all
+
+  def setup
+    @okaka = users(:okaka)
+    @noritama = users(:noritama)
+    @noriwasa = users(:noriwasa)
   end
 
   # ApplicationHelperモジュールの書き換え
