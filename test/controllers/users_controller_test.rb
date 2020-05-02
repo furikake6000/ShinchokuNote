@@ -144,12 +144,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_nil master_user_secret
     # Token and secret with logging in
     login_as_noritama
-    assert_equal master_user_token, Rails.application.credentials.twitter_test_fixture[:noritama_token]
-    assert_equal master_user_secret, Rails.application.credentials.twitter_test_fixture[:noritama_secret]
+    assert_equal master_user_token, 'noritama_token'
+    assert_equal master_user_secret, 'noritama_secret'
     # Token and secret with logging in with two accounts
     login_as_okaka
-    assert_equal master_user_token, Rails.application.credentials.twitter_test_fixture[:noritama_token]
-    assert_equal master_user_secret, Rails.application.credentials.twitter_test_fixture[:noritama_secret]
+    assert_equal master_user_token, 'noritama_token'
+    assert_equal master_user_secret, 'noritama_secret'
   end
 
   test 'get current_user_token and secret' do
@@ -158,12 +158,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_nil current_user_secret
     # Token and secret with logging in
     login_as_noritama
-    assert_equal current_user_token, Rails.application.credentials.twitter_test_fixture[:noritama_token]
-    assert_equal current_user_secret, Rails.application.credentials.twitter_test_fixture[:noritama_secret]
+    assert_equal current_user_token, 'noritama_token'
+    assert_equal current_user_secret, 'noritama_secret'
     # Token and secret with logging in with two accounts
     login_as_okaka
-    assert_equal current_user_token, Rails.application.credentials.twitter_test_fixture[:okaka_token]
-    assert_equal current_user_secret, Rails.application.credentials.twitter_test_fixture[:okaka_secret]
+    assert_equal current_user_token, 'okaka_token'
+    assert_equal current_user_secret, 'okaka_secret'
   end
 
   test 'delete user' do
