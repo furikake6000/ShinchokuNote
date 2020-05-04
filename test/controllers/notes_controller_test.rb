@@ -84,31 +84,39 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     @okaka_project1.only_follower_view_stance!
     @okaka_project1.save!
 
-    # not logged in
-    get note_path(@okaka_project1)
-    assert_response 403
+    client_mock = Minitest::Mock.new
+    client_mock.expect :friendship?, false, [@noriwasa.screen_name, @okaka.screen_name]
+    client_mock.expect :friendship?, true, [@noritama.screen_name, @okaka.screen_name]
 
-    # unfollowed
-    login_as_noriwasa
-    get note_path(@okaka_project1)
-    assert_response 403
-    logout_user @noriwasa
+    NotesController.stub_any_instance(:client_new, client_mock) do
+      assert_nil current_user
 
-    # followed
-    login_as_noritama
-    get note_path(@okaka_project1)
-    assert_response :success
-    assert_template :show
-    logout_user @noritama
+      # not logged in
+      get note_path(@okaka_project1)
+      assert_response 403
 
-    # author
-    login_as_okaka
-    get note_path(@okaka_project1)
-    assert_response :success
-    assert_template :show
-    logout_user @okaka
+      # unfollowed
+      login_as_noriwasa
+      get note_path(@okaka_project1)
+      assert_response 403
+      logout_user @noriwasa
 
-    assert_nil current_user
+      # followed
+      login_as_noritama
+      get note_path(@okaka_project1)
+      assert_response :success
+      assert_template :show
+      logout_user @noritama
+
+      # author
+      login_as_okaka
+      get note_path(@okaka_project1)
+      assert_response :success
+      assert_template :show
+      logout_user @okaka
+
+      assert_nil current_user
+    end
   end
 
   test 'show note for only_me' do
