@@ -12,7 +12,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     @noritama_project1 = notes(:noritama_project_1)
   end
 
-  test 'access note show' do
+  test 'show note for everyone' do
     # view stance: everyone
     @okaka_project1.everyone_view_stance!
     @okaka_project1.save!
@@ -42,7 +42,9 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_template :show
     logout_user @okaka
+  end
 
+  test 'show note for only_signed' do
     # view stance: only_signed
     @okaka_project1.only_signed_view_stance!
     @okaka_project1.save!
@@ -75,7 +77,9 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     logout_user @okaka
 
     assert_nil current_user
-
+  end
+  
+  test 'show note for only_follower' do
     # view stance: only_follower
     @okaka_project1.only_follower_view_stance!
     @okaka_project1.save!
@@ -105,7 +109,9 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     logout_user @okaka
 
     assert_nil current_user
+  end
 
+  test 'show note for only_me' do
     # view stance: only_me
     @okaka_project1.only_me_view_stance!
     @okaka_project1.save!
