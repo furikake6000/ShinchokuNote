@@ -14,7 +14,7 @@
     p.mt-2.mb-0.pre-text
         = replace_url_to_link(h(request_box.desc)).html_safe
     
-    - if user_can_comment? request_box, current_user
+    - if @current_user_can_comment
         h3.mt-3 リクエスト
         = render 'comments/comment_form', note: request_box, draft: @draft, rejudge: @rejudge
     

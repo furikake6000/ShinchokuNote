@@ -101,39 +101,47 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     @okaka_project1.only_follower_comment_receive_stance!
     @okaka_project1.save!
 
-    # Comment from anonimous
-    assert_no_difference '@okaka_project1.comments.count' do
-      post note_comments_path(@okaka_project1), params: { comment: {
-        text: 'Comment of anonimous',
-        anonimity: :anonimity_secret
-      } }
-    end
+    client_mock = Minitest::Mock.new
+    client_mock.expect :friendship?, false, [@noriwasa.screen_name, @okaka.screen_name]
+    client_mock.expect :friendship?, true, [@noritama.screen_name, @okaka.screen_name]
 
-    # Comment from other user (not follower)
-    login_as_noriwasa
-    assert_no_difference '@okaka_project1.comments.count' do
-      post note_comments_path(@okaka_project1), params: { comment: {
-        text: 'Comment of others',
-        anonimity: :anonimity_secret
-      } }
-    end
+    CommentsController.stub_any_instance(:client_new, client_mock) do
+      NotesController.stub_any_instance(:client_new, client_mock) do
+        # Comment from anonimous
+        assert_no_difference '@okaka_project1.comments.count' do
+          post note_comments_path(@okaka_project1), params: { comment: {
+            text: 'Comment of anonimous',
+            anonimity: :anonimity_secret
+          } }
+        end
 
-    # Comment from other user (follower)
-    login_as_noritama
-    assert_difference '@okaka_project1.comments.count', 1 do
-      post note_comments_path(@okaka_project1), params: { comment: {
-        text: 'Comment of others',
-        anonimity: :anonimity_secret
-      } }
-    end
+        # Comment from other user (not follower)
+        login_as_noriwasa
+        assert_no_difference '@okaka_project1.comments.count' do
+          post note_comments_path(@okaka_project1), params: { comment: {
+            text: 'Comment of others',
+            anonimity: :anonimity_secret
+          } }
+        end
 
-    # Comment of myself
-    login_as_okaka
-    assert_difference '@okaka_project1.comments.count', 1 do
-      post note_comments_path(@okaka_project1), params: { comment: {
-        text: 'Comment of myself',
-        anonimity: :anonimity_secret
-      } }
+        # Comment from other user (follower)
+        login_as_noritama
+        assert_difference '@okaka_project1.comments.count', 1 do
+          post note_comments_path(@okaka_project1), params: { comment: {
+            text: 'Comment of others',
+            anonimity: :anonimity_secret
+          } }
+        end
+
+        # Comment of myself
+        login_as_okaka
+        assert_difference '@okaka_project1.comments.count', 1 do
+          post note_comments_path(@okaka_project1), params: { comment: {
+            text: 'Comment of myself',
+            anonimity: :anonimity_secret
+          } }
+        end
+      end
     end
   end
 

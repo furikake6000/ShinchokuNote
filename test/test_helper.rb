@@ -1,7 +1,36 @@
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'minitest/autorun'
+require 'minitest/stub_any_instance'
+
+module UserTestHelper
+  def login_for_test(user, token, secret)
+    verify_user_mock = Minitest::Mock.new.expect :call, true
+    self.stub(:verify_user_info, verify_user_mock) do
+      @current_user = nil
+      @master_user = nil
+      login_user user, token, secret
+    end
+  end
+
+  def login_as_okaka
+    login_for_test @okaka, 'okaka_token', 'okaka_secret'
+  end
+
+  def login_as_noritama
+    login_for_test @noritama, 'noritama_token', 'noritama_secret'
+  end
+
+  def login_as_noriwasa
+    login_for_test @noriwasa, 'noriwasa_token', 'noriwasa_secret'
+  end
+end
+
+# Add more helper methods to be used by all tests here...
 
 class ActiveSupport::TestCase
+  include UserTestHelper
+
   # Setup all fixtures in test/fixtures/*.yml
   # for all tests in alphabetical order.
   fixtures :all
@@ -10,31 +39,6 @@ class ActiveSupport::TestCase
     @okaka = users(:okaka)
     @noritama = users(:noritama)
     @noriwasa = users(:noriwasa)
-  end
-
-  # Add more helper methods to be used by all tests here...
-  def login_as_okaka
-    @current_user = nil
-    @master_user = nil
-    login_user @okaka,
-               Rails.application.credentials.twitter_test_fixture[:okaka_token],
-               Rails.application.credentials.twitter_test_fixture[:okaka_secret]
-  end
-
-  def login_as_noritama
-    @current_user = nil
-    @master_user = nil
-    login_user @noritama,
-               Rails.application.credentials.twitter_test_fixture[:noritama_token],
-               Rails.application.credentials.twitter_test_fixture[:noritama_secret]
-  end
-
-  def login_as_noriwasa
-    @current_user = nil
-    @master_user = nil
-    login_user @noriwasa,
-               Rails.application.credentials.twitter_test_fixture[:noriwasa_token],
-               Rails.application.credentials.twitter_test_fixture[:noriwasa_secret]
   end
 
   # ApplicationHelperモジュールの書き換え

@@ -22,6 +22,7 @@ class NotesController < ApplicationController
     end
     # before_actionですでに@noteは取得済
     @omakase = params[:omakase]
+    @current_user_can_comment = user_can_comment? @note, current_user
   end
 
   def create

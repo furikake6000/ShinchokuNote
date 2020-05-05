@@ -12,7 +12,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     @noritama_project1 = notes(:noritama_project_1)
   end
 
-  test 'access note show' do
+  test 'show note for everyone' do
     # view stance: everyone
     @okaka_project1.everyone_view_stance!
     @okaka_project1.save!
@@ -42,7 +42,9 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_template :show
     logout_user @okaka
+  end
 
+  test 'show note for only_signed' do
     # view stance: only_signed
     @okaka_project1.only_signed_view_stance!
     @okaka_project1.save!
@@ -75,37 +77,49 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     logout_user @okaka
 
     assert_nil current_user
-
+  end
+  
+  test 'show note for only_follower' do
     # view stance: only_follower
     @okaka_project1.only_follower_view_stance!
     @okaka_project1.save!
 
-    # not logged in
-    get note_path(@okaka_project1)
-    assert_response 403
+    client_mock = Minitest::Mock.new
+    client_mock.expect :friendship?, false, [@noriwasa.screen_name, @okaka.screen_name]
+    client_mock.expect :friendship?, true, [@noritama.screen_name, @okaka.screen_name]
 
-    # unfollowed
-    login_as_noriwasa
-    get note_path(@okaka_project1)
-    assert_response 403
-    logout_user @noriwasa
+    NotesController.stub_any_instance(:client_new, client_mock) do
+      assert_nil current_user
 
-    # followed
-    login_as_noritama
-    get note_path(@okaka_project1)
-    assert_response :success
-    assert_template :show
-    logout_user @noritama
+      # not logged in
+      get note_path(@okaka_project1)
+      assert_response 403
 
-    # author
-    login_as_okaka
-    get note_path(@okaka_project1)
-    assert_response :success
-    assert_template :show
-    logout_user @okaka
+      # unfollowed
+      login_as_noriwasa
+      get note_path(@okaka_project1)
+      assert_response 403
+      logout_user @noriwasa
 
-    assert_nil current_user
+      # followed
+      login_as_noritama
+      get note_path(@okaka_project1)
+      assert_response :success
+      assert_template :show
+      logout_user @noritama
 
+      # author
+      login_as_okaka
+      get note_path(@okaka_project1)
+      assert_response :success
+      assert_template :show
+      logout_user @okaka
+
+      assert_nil current_user
+    end
+  end
+
+  test 'show note for only_me' do
     # view stance: only_me
     @okaka_project1.only_me_view_stance!
     @okaka_project1.save!

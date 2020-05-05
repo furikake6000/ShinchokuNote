@@ -17,7 +17,7 @@ development:
 
 test:
   <<: *default
-  host: <%= ENV.fetch("DB_HOST") { 'db_host' } %>
+  host: <%= ENV.fetch("DB_HOST") { 'db_test' } %>
   database: shinchokunote_test
 
 production:
