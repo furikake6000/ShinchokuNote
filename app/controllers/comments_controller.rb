@@ -15,6 +15,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       format.html do
         # htmlの場合はコメント一覧ページを表示
+        @current_user_can_comment = user_can_comment? @note, current_user
         @show_comments = true
         @draft = params.permit(:draft)[:draft]
         @rejudge = params.permit(:rejudge)[:rejudge]
