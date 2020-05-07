@@ -42,3 +42,6 @@ erd.pdf
 
 # Ignore public/
 /public/*
+
+# Ignore node_modules
+/frontend/node_modules/*
