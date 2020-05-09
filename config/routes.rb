@@ -144,5 +144,5 @@ Rails.application.routes.draw do
   get '/manage', to: 'static_pages#manage'
   get '/terms', to: 'static_pages#terms'
 
-  # ユーザー関連
+  get '/vue_test', to: 'vue_test#index'
 end
