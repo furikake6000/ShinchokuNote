@@ -1,5 +1,8 @@
 import Vue from 'vue';
 
+// pages
+import vueTest from './components/vueTest';
+
 document.addEventListener('DOMContentLoaded', function(event) {
   // Return if Vue.js is not used
   if (document.getElementById('app') == null) {
@@ -8,8 +11,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
   new Vue({
     el: '#app',
-    data: {
-      name: 'Hello, vue.js!'
+    components: {
+      'vue-test': vueTest
     }
   });
 });
