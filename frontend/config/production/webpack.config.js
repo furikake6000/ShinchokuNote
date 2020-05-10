@@ -5,7 +5,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 module.exports = {
   mode: 'production',
   entry: {
-    webpack: './src/javascripts/entry.js'
+    webpack: './src/entry.js'
   },
   output: {
     path: '/ShinchokuNote/app/assets/javascripts',

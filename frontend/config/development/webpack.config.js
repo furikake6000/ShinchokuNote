@@ -6,7 +6,7 @@ module.exports = {
   devtool: 'inline-source-map',
   mode: 'development',
   entry: {
-    webpack: './src/javascripts/entry.js'
+    webpack: './src/entry.js'
   },
   output: {
     path: '/ShinchokuNote/app/assets/javascripts',

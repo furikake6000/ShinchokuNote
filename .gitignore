@@ -45,3 +45,5 @@ erd.pdf
 
 # Ignore node_modules
 /frontend/node_modules/*
+# Ignore generated webpack.js
+/app/assets/javascripts/webpack.js

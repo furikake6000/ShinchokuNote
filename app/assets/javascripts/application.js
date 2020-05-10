@@ -21,3 +21,4 @@
 //= require turbolinks
 //= require components
 //= require serviceworker-companion
+//= require webpack
