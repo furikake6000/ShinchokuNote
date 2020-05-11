@@ -78,10 +78,10 @@ commands:
           paths:
             - frontend/node_modules
   yarn_build:
-    description: "yarn build"
+    description: "build webpack.js"
     steps:
       - run:
-          command: yarn build
+          command: yarn run build
           working_directory: frontend/
 jobs:
   minitest:
