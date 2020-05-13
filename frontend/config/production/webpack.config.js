@@ -1,6 +1,7 @@
 // ref: https://qiita.com/okabee326/items/014c282a24b0886c814e#webpack%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B
 
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const path = require('path');
 
 module.exports = {
   mode: 'production',
@@ -8,7 +9,7 @@ module.exports = {
     webpack: './src/entry.js'
   },
   output: {
-    path: '/ShinchokuNote/app/assets/javascripts',
+    path: path.resolve(__dirname, '../../../app/assets/javascripts'),
     filename: '[name].js'
   },
   module: {
