@@ -33,6 +33,7 @@ link rel="manifest" href="/manifest.json"
     = raw "window.vapidPublicKey = new Uint8Array(#{vapid_public_key_base64});\n"
 = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js'
 = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+= javascript_pack_tag 'application'
 = yield :javascript
 
 /! [if lt IE 9]
