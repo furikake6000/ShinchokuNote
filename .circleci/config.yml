@@ -50,7 +50,6 @@ commands:
       - save_cache:
           key: << parameters.cache_key_prefix >>-{{ .Branch }}-{{ .Revision }}
           paths:
-            - node_modules
             - public/assets
             - tmp/cache/assets
   static_files_copy:
@@ -58,6 +57,25 @@ commands:
     steps:
       - run:
           command: cp -pR static_files/. public
+  yarn_install:
+    description: "yarn install"
+    parameters:
+      cache_key_prefix:
+        description: "The cache key prefix."
+        type: string
+        default: "v1-yarn-install"
+    steps:
+      - restore_cache:
+          keys:
+            - << parameters.cache_key_prefix >>-{{ .Branch }}-{{ .Revision }}
+            - << parameters.cache_key_prefix >>-{{ .Branch }}
+            - << parameters.cache_key_prefix >>
+      - run:
+          command: yarn install
+      - save_cache:
+          key: << parameters.cache_key_prefix >>-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - node_modules
 
 jobs:
   minitest:
@@ -75,6 +93,7 @@ jobs:
       - checkout
       - run: git submodule update --init --recursive 
       - ruby-orbs/bundle-install
+      - yarn_install
       - assets_precompile
       - static_files_copy
       - run: bundle exec rails db:create db:migrate --trace
