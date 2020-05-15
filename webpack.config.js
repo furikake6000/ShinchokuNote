@@ -1,5 +1,7 @@
 const path = require('path');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const { NODE_ENV } = process.env;
 const isProd = NODE_ENV === 'production';
@@ -16,7 +18,28 @@ module.exports = {
     filename: isProd ? '[name]-[hash].js' : '[name].js'
   },
   resolve: {
-    extensions: ['.js']
+    extensions: ['.js', '.vue'],
+    alias: {
+      vue$: 'vue/dist/vue.esm.js'
+    }
   },
-  plugins: [new WebpackAssetsManifest({ publicPath: true })]
+  module: {
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
+      }
+    ]
+  },
+  plugins: [
+    new VueLoaderPlugin(),
+    new WebpackAssetsManifest({ publicPath: true }),
+    new MiniCssExtractPlugin({
+      filename: isProd ? '[name]-[hash].css' : '[name].css'
+    })
+  ]
 };
