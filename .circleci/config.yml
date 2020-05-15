@@ -76,6 +76,11 @@ commands:
           key: << parameters.cache_key_prefix >>-{{ .Branch }}-{{ .Revision }}
           paths:
             - node_modules
+  webpack:
+    description: "build webpack files"
+    steps:
+      - run:
+          command: ./node_modules/.bin/webpack
 
 jobs:
   minitest:
@@ -94,6 +99,7 @@ jobs:
       - run: git submodule update --init --recursive 
       - ruby-orbs/bundle-install
       - yarn_install
+      - webpack
       - assets_precompile
       - static_files_copy
       - run: bundle exec rails db:create db:migrate --trace
