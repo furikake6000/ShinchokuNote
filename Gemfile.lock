@@ -308,6 +308,8 @@ GEM
       faraday (~> 0.9)
       jwt (>= 1.5, < 3.0)
       multi_json (~> 1.10)
+    simpacker (1.1.0)
+      railties (>= 4.2)
     simple_oauth (0.3.1)
     slim (3.0.9)
       temple (>= 0.7.6, < 0.9)
@@ -416,6 +418,7 @@ DEPENDENCIES
   scss-lint (~> 0.7)
   selenium-webdriver (~> 3.8)
   serviceworker-rails
+  simpacker
   slim (~> 3.0)
   spring (~> 2.0)
   spring-watcher-listen (~> 2.0.0)
