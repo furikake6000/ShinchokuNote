@@ -1,5 +1,8 @@
-import Hello from './components/pages/Hello.vue';
 import Vue from 'vue';
+import VueRouter from 'vue-router';
+import router from './routes';
+
+Vue.use(VueRouter);
 
 document.addEventListener('DOMContentLoaded', () => {
   // Vueが使われていないページでは無効化
@@ -9,6 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   new Vue({
     el: '#app',
-    components: { Hello }
+    template: '<router-view />',
+    router,
+    mounted: function() {
+      console.log(this.$route.path);
+    }
   });
 });

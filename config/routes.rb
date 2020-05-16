@@ -104,6 +104,9 @@ Rails.application.routes.draw do
       # 進捗どうですか
       resources :shinchoku_dodeskas, only: :create
       post '/shinchoku_dodeskas/toggle', to: 'shinchoku_dodeskas#toggle'
+
+      # 新ノートページ(仮置き、最終的にNote#showに)
+      get '/new_viewer', to: 'notes#new_viewer'
     end
 
     # 削除メニュー
