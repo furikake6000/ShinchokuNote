@@ -81,6 +81,8 @@ commands:
     steps:
       - run:
           command: ./node_modules/.bin/webpack
+          environment:
+            NODE_ENV: production
 
 jobs:
   minitest:
