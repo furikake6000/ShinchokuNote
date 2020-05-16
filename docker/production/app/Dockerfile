@@ -20,6 +20,7 @@ RUN apt-get update -qq && \
         libpq-dev \
         libsodium-dev \
         graphviz \
+        imagemagick \
         cron
  
 WORKDIR /ShinchokuNote
