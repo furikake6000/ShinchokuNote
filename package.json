@@ -2,12 +2,14 @@
   "name": "shinchokunote",
   "private": true,
   "dependencies": {
+    "file-loader": "^6.0.0",
     "pug": "^2.0.4",
     "vue": "^2.6.11",
     "vue-router": "^3.1.6",
     "vuetify": "^2.2.28"
   },
   "devDependencies": {
+    "@mdi/font": "^5.2.45",
     "css-loader": "^3.5.3",
     "deepmerge": "^4.2.2",
     "fibers": "^5.0.0",
