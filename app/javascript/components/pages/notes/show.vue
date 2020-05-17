@@ -64,7 +64,7 @@ export default {
 .cover
   background-color: white
   h1.name
-    font-size: 48px
+    font-size: 3rem
     color: var(--v-primary-base)
     border-color: var(--v-primary-base)
     span.v-chip
@@ -76,13 +76,13 @@ export default {
   padding: 20px
   .user-name
     font-weight: bold
-    font-size: 24px
+    font-size: 1.5rem
   .user-desc
     border-bottom: 5px dotted var(--v-secondary-lighten2)
 
 button.v-btn.follow-btn
-  width: 180px
-  height: 48px
-  font-size: 16px
+  width: 12rem
+  height: 3rem
+  font-size: 1rem
   font-weight: bold
 </style>
