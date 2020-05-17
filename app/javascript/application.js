@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import router from './routes';
+import vuetify from './plugins/vuetify';
 
 Vue.use(VueRouter);
 
@@ -14,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     el: '#app',
     template: '<router-view />',
     router,
+    vuetify,
     mounted: function() {
       console.log(this.$route.path);
     }

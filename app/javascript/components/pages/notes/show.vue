@@ -1,5 +1,7 @@
 <template>
-  <p>notes#show</p>
+  <div class="text-center">
+    <v-btn outlined color="indigo">Button</v-btn>
+  </div>
 </template>
 
 <script>
