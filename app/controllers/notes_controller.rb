@@ -6,7 +6,7 @@ class NotesController < ApplicationController
   before_action -> { load_note_as_mine_or_admin :id },
                 only: %i[edit update destroy]
 
-  layout 'simple', only: %i[new_viewer]
+  layout 'vue', only: %i[new_viewer]
 
   def index
     # Userのshowアクションと同じなのでリダイレクト

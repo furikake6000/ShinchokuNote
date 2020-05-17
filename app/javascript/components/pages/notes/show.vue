@@ -1,7 +1,7 @@
 <template>
-  <div class="text-center">
-    <v-btn outlined color="indigo">Button</v-btn>
-  </div>
+  <v-app>
+    
+  </v-app>
 </template>
 
 <script>

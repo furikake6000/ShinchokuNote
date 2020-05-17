@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%= render 'layouts/head' %>
+        <%# Vue未使用ページへの影響を避けるため、stylesheetはここで読み込む %>
+        <%= stylesheet_pack_tag 'application'%>
+    </head>
+
+    <body class="<%= yield :body_bg %>">
+        <%= render 'layouts/header', nomargin: true %>
+        <%= yield %>
+    </body>
+</html>
