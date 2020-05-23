@@ -75,7 +75,7 @@
                         span 自分のみ
                       v-chip(color="error" small).ml-1 R18
                   v-card-subtitle Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ...
-                  v-card-actions                
+                  v-card-actions
                     v-spacer
                     v-tooltip(top)
                       template(v-slot:activator="{ on }")
@@ -105,6 +105,8 @@
                           v-icon mdi-star
                           span 10
                       span フォローする
+              template(v-for="note in notes")
+                note(v-bind="note")
               .text-center.secondary--text リクエストボックス
               v-card.note-card.my-4
                 .bgstr.request
@@ -129,7 +131,27 @@
 </template>
 
 <script>
+import Note from '../../modules/note.vue'
+
 export default {
+  data: function () {
+    return {
+      notes: [
+        {
+          name: 'test',
+          desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ...',
+          url: '',
+          watchUrl: '',
+          stage: 'finished',
+          viewStance: 'only_me',
+          rating: 'restricted_18'
+        }
+      ]
+    }
+  },
+  components: {
+    Note
+  }
 }
 </script>
 
