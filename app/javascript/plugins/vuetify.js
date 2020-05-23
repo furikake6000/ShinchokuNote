@@ -10,7 +10,9 @@ const opts = {
     themes: {
       light: {
         primary: '#F75C2F',
-        secondary: '#999999'
+        secondary: '#999999',
+        project: '#F75C2F',
+        request_box: '#2EA9DF'
       }
     },
     options: {
