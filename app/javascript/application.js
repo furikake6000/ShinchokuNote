@@ -15,9 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     el: '#app',
     template: '<router-view />',
     router,
-    vuetify,
-    mounted: function() {
-      console.log(this.$route.path);
-    }
+    vuetify
   });
 });
