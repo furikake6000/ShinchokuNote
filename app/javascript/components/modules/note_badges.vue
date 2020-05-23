@@ -6,6 +6,8 @@
       v-chip(color="secondary" small).ml-1
         v-icon mdi-lock
         span {{ viewStanceName }}
+    template(v-if="rating=='restricted_18'")
+      v-chip(color="error" small).ml-1 R18
 </template>
 
 <script>
