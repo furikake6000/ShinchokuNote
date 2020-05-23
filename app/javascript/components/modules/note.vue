@@ -4,9 +4,18 @@
       .bgstr
         v-icon mdi-note-text
       .note-card-content
-        v-card-title.headline
-          span.mr-2 {{name}}
-          note-badges(:stage="stage" :viewStance="viewStance" :rating="rating")
+        template(v-if="thumbUrl")
+          v-img(
+            :src="thumbUrl" height="200px"
+            gradient="to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, .5)"
+          ).white--text.align-end
+            v-card-title.headline
+              span.mr-2 {{name}}
+              note-badges(:stage="stage" :viewStance="viewStance" :rating="rating")
+        template(v-else)
+          v-card-title.headline
+            span.mr-2 {{name}}
+            note-badges(:stage="stage" :viewStance="viewStance" :rating="rating")
         v-card-subtitle {{desc}}
         v-card-actions
           v-spacer

@@ -146,6 +146,17 @@ export default {
           viewStance: 'only_me',
           rating: 'restricted_18',
           watchersCount: 10
+        },
+        {
+          name: 'テスト～～～～～～～～～～～～～',
+          desc: '寿限無寿限無五劫の擦り切れ海砂利水魚の水行末雲来末風来末食う寝る処に住む処やぶら小路の藪柑子パイポパイポパイポのシューリンガンシューリンガンのグーリンダイグーリンダイのポンポコピーのポンポコナーの長久命の長助',
+          url: '/notes/1',
+          watchUrl: '',
+          thumbUrl: 'http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f97e59db7026b209deb6890df4bc5551512f79f5/blob',
+          stage: 'in_progress',
+          viewStance: 'everyone',
+          rating: 'everyone',
+          watchersCount: 10
         }
       ]
     }
