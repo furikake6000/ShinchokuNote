@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-card.note-card.my-4
+  v-card.note-card
     .bgstr
       v-icon mdi-note-text
     .note-card-content

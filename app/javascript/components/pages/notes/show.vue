@@ -106,7 +106,7 @@
                           span 10
                       span フォローする
               template(v-for="note in notes")
-                note(v-bind="note")
+                note(v-bind="note").my-4
               .text-center.secondary--text リクエストボックス
               v-card.note-card.my-4
                 .bgstr.request
