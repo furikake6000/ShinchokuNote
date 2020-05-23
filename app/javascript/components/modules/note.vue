@@ -10,11 +10,11 @@
             gradient="to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, .5)"
           ).white--text.align-end
             v-card-title.headline
-              span.mr-2 {{name}}
+              span.mr-2.note-card-title {{name}}
               note-badges(:stage="stage" :viewStance="viewStance" :rating="rating")
         template(v-else)
           v-card-title.headline
-            span.mr-2 {{name}}
+            span.mr-2.note-card-title {{name}}
             note-badges(:stage="stage" :viewStance="viewStance" :rating="rating")
         v-card-subtitle {{desc}}
         v-card-actions
@@ -73,6 +73,11 @@ export default {
     .v-icon
       font-size: unset
       color: unset
+  .note-card-title
+    display: -webkit-box
+    -webkit-box-orient: vertical
+    -webkit-line-clamp: 3
+    overflow: hidden
   .note-card-content
     position: relative
     z-index: 1
