@@ -144,7 +144,8 @@ export default {
           watchUrl: '',
           stage: 'finished',
           viewStance: 'only_me',
-          rating: 'restricted_18'
+          rating: 'restricted_18',
+          watchersCount: 10
         }
       ]
     }

@@ -6,6 +6,15 @@
       v-card-title.headline
         span.mr-2 {{name}}
         note-badges(:stage="stage" :viewStance="viewStance" :rating="rating")
+      v-card-subtitle {{desc}}
+      v-card-actions
+        v-spacer
+        v-tooltip(top)
+          template(v-slot:activator="{ on }")
+            v-btn(text color="secondary" v-on="on")
+              v-icon mdi-star
+              span {{watchersCount}}
+          span フォローする
         
 </template>
 
@@ -22,7 +31,8 @@ export default {
     watchUrl: String,
     stage: String,
     viewStance: String,
-    rating: String
+    rating: String,
+    watchersCount: Number
   },
   components: {
     NoteBadges
