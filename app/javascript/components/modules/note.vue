@@ -1,6 +1,6 @@
 <template lang="pug">
-  a(:href="url")
-    v-card.note-card
+  v-card.note-card
+    a(:href="url")
       .bgstr
         v-icon mdi-note-text
       .note-card-content
@@ -51,12 +51,13 @@ export default {
 </script>
 
 <style scoped lang="sass">
-a:hover
-  text-decoration: none
-
 .note-card
   position: relative
   overflow: hidden
+  a
+    color: rgba(0, 0, 0, .87)
+    &:hover
+      text-decoration: none
   .bgstr
     position: absolute
     z-index: 0
