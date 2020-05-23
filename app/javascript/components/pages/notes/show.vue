@@ -62,49 +62,6 @@
               a.body-2.primary--text(href="https://example.com") https://example.com
             .user-notes
               .text-center.secondary--text 最近のノート
-              v-card.note-card.my-4
-                .bgstr
-                  v-icon mdi-note-text
-                .note-card-content
-                  v-card-title.headline
-                    span.mr-2 test
-                    .chips
-                      v-chip(color="success" small).ml-1 完成
-                      v-chip(color="secondary" small).ml-1
-                        v-icon mdi-lock
-                        span 自分のみ
-                      v-chip(color="error" small).ml-1 R18
-                  v-card-subtitle Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ...
-                  v-card-actions
-                    v-spacer
-                    v-tooltip(top)
-                      template(v-slot:activator="{ on }")
-                        v-btn(text color="secondary" v-on="on")
-                          v-icon mdi-star
-                          span 10
-                      span フォローする
-              v-card.note-card.my-4
-                .bgstr
-                  v-icon mdi-note-text
-                .note-card-content
-                  v-img(
-                    src="http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f97e59db7026b209deb6890df4bc5551512f79f5/blob"
-                    height="200px"
-                    gradient="to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, .5)"
-                  ).white--text.align-end
-                    v-card-title.headline
-                      span.mr-2 test
-                      .chips
-                        v-chip(color="error" small).ml-1 R18
-                  v-card-subtitle Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ...
-                  v-card-actions                
-                    v-spacer
-                    v-tooltip(top)
-                      template(v-slot:activator="{ on }")
-                        v-btn(text color="secondary" v-on="on")
-                          v-icon mdi-star
-                          span 10
-                      span フォローする
               template(v-for="note in notes")
                 note(v-bind="note").my-4
               .text-center.secondary--text リクエストボックス
