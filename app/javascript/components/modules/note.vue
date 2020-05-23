@@ -66,4 +66,11 @@ a:hover
   .note-card-content
     position: relative
     z-index: 1
+  .v-card__subtitle
+    display: -webkit-box
+    -webkit-box-orient: vertical
+    -webkit-line-clamp: 3
+    overflow: hidden
+    padding-bottom: 0
+    margin-bottom: 1rem
 </style>
