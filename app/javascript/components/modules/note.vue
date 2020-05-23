@@ -1,20 +1,21 @@
 <template lang="pug">
-  v-card.note-card
-    .bgstr
-      v-icon mdi-note-text
-    .note-card-content
-      v-card-title.headline
-        span.mr-2 {{name}}
-        note-badges(:stage="stage" :viewStance="viewStance" :rating="rating")
-      v-card-subtitle {{desc}}
-      v-card-actions
-        v-spacer
-        v-tooltip(top)
-          template(v-slot:activator="{ on }")
-            v-btn(text color="secondary" v-on="on")
-              v-icon mdi-star
-              span {{watchersCount}}
-          span フォローする
+  a(:href="url")
+    v-card.note-card
+      .bgstr
+        v-icon mdi-note-text
+      .note-card-content
+        v-card-title.headline
+          span.mr-2 {{name}}
+          note-badges(:stage="stage" :viewStance="viewStance" :rating="rating")
+        v-card-subtitle {{desc}}
+        v-card-actions
+          v-spacer
+          v-tooltip(top)
+            template(v-slot:activator="{ on }")
+              v-btn(text color="secondary" v-on="on")
+                v-icon mdi-star
+                span {{watchersCount}}
+            span フォローする
         
 </template>
 
@@ -41,6 +42,9 @@ export default {
 </script>
 
 <style scoped lang="sass">
+a:hover
+  text-decoration: none
+
 .note-card
   position: relative
   overflow: hidden

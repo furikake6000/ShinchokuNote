@@ -140,7 +140,7 @@ export default {
         {
           name: 'test',
           desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ...',
-          url: '',
+          url: '/notes/1',
           watchUrl: '',
           stage: 'finished',
           viewStance: 'only_me',
