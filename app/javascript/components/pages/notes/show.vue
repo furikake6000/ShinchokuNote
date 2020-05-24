@@ -46,6 +46,21 @@
                 span スケジュールの追加
               span.secondary--text.subtitle-1.font-weight-bold.ml-auto.mr-4 0 / 1000
               v-btn(rounded color="primary").follow-btn 投稿する
+          .timeline
+            .timeline-date.small
+              .month 5
+              .year / 2020
+            .post
+              .content a
+              .date 13:57
+            .post
+              .content b
+              .date 12:00
+            .timeline-date
+              .month 5
+              .year / 2020
+              .month-en May
+
         v-col(cols="4")
           .user-info
             v-avatar(size="100px")
@@ -169,6 +184,52 @@ export default {
       color: var(--v-secondary-lighten2)
       font-weight: bold
       font-size: 0.8rem
+
+.timeline
+  --timeline-color: var(--v-primary-base)
+  border-left: solid 20px var(--timeline-color)
+  margin-top: 20px
+  padding-left: 20px
+  &::before
+    content: ""
+    position: relative
+    top: -40px
+    left: -50px
+    border: 20px solid transparent
+    border-bottom-color: var(--timeline-color)
+  .timeline-date
+    display: flex
+    align-items: baseline
+    margin-left: -20px
+    padding-left: 20px
+    width: 400px
+    line-height: 5.4rem
+    height: 4.8rem
+    border-radius: 0 999px 999px 0
+    background-color: var(--timeline-color)
+    color: white
+    .month
+      font-size: 5rem
+      font-weight: bold
+    .month-en
+      position: relative
+      top: -40px
+      left: -110px
+      color: rgba(255, 255, 255, .75)
+      font-size: 1.8rem
+    .year
+      margin-left: 0.5rem
+      font-size: 2.4rem
+    &.small
+      width: 250px
+      line-height: 2.8rem
+      height: 2.4rem
+      .month
+        font-size: 2.4rem
+        font-weight: bold
+      .year
+        margin-left: 0.5rem
+        font-size: 1.8rem
 
 button.v-btn.follow-btn
   width: 12rem
