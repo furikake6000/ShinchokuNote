@@ -46,7 +46,7 @@
                 span スケジュールの追加
               span.secondary--text.subtitle-1.font-weight-bold.ml-auto.mr-4 0 / 1000
               v-btn(rounded color="primary").follow-btn 投稿する
-          .timeline
+          .timeline.mb-8
             .month-section.small
               .month 5
               .year / 2020
@@ -67,10 +67,74 @@
             .post.my-4
               .headline 寿限無寿限無五劫の擦り切れ海砂利水魚の水行末雲来末風来末食う寝る処に住む処やぶら小路の藪柑子パイポパイポパイポのシューリンガンシューリンガンのグーリンダイグーリンダイのポンポコピーのポンポコナーの長久命の長助
               .body-2.secondary--text 11:00
+            .post.my-4
+              .body-1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              .body-2.secondary--text 19:00
+            .post.my-4
+              .display-1 poyo
+              .body-2.secondary--text 12:00
+            .post.my-4
+              .headline 寿限無寿限無五劫の擦り切れ海砂利水魚の水行末雲来末風来末食う寝る処に住む処やぶら小路の藪柑子パイポパイポパイポのシューリンガンシューリンガンのグーリンダイグーリンダイのポンポコピーのポンポコナーの長久命の長助
+              .body-2.secondary--text 11:00
+            .date 5/2
+            .post.my-4
+              .body-1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              .body-2.secondary--text 19:00
+            .date 5/1
+            .post.my-4
+              .display-1 poyo
+              .body-2.secondary--text 12:00
+            .post.my-4
+              .headline 寿限無寿限無五劫の擦り切れ海砂利水魚の水行末雲来末風来末食う寝る処に住む処やぶら小路の藪柑子パイポパイポパイポのシューリンガンシューリンガンのグーリンダイグーリンダイのポンポコピーのポンポコナーの長久命の長助
+              .body-2.secondary--text 11:00
             .month-section
               .month 5
               .year / 2020
               .month-en May
+          .timeline.mb-8
+            .month-section.small
+              .month 12
+              .year / 2020
+            .date 12/24
+            .post.my-4
+              .display-1 a
+              .body-2.secondary--text 13:57
+            .post.my-4
+              .display-1 hogehogehogehoge~~~~~~~~~~~
+              .body-2.secondary--text 12:00
+            .date 12/21
+            .post.my-4
+              .body-1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              .body-2.secondary--text 19:00
+            .post.my-4
+              .display-1 poyo
+              .body-2.secondary--text 12:00
+            .post.my-4
+              .headline 寿限無寿限無五劫の擦り切れ海砂利水魚の水行末雲来末風来末食う寝る処に住む処やぶら小路の藪柑子パイポパイポパイポのシューリンガンシューリンガンのグーリンダイグーリンダイのポンポコピーのポンポコナーの長久命の長助
+              .body-2.secondary--text 11:00
+            .post.my-4
+              .body-1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              .body-2.secondary--text 19:00
+            .post.my-4
+              .display-1 poyo
+              .body-2.secondary--text 12:00
+            .post.my-4
+              .headline 寿限無寿限無五劫の擦り切れ海砂利水魚の水行末雲来末風来末食う寝る処に住む処やぶら小路の藪柑子パイポパイポパイポのシューリンガンシューリンガンのグーリンダイグーリンダイのポンポコピーのポンポコナーの長久命の長助
+              .body-2.secondary--text 11:00
+            .date 12/31
+            .post.my-4
+              .body-1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              .body-2.secondary--text 19:00
+            .post.my-4
+              .display-1 poyo
+              .body-2.secondary--text 12:00
+            .post.my-4
+              .headline 寿限無寿限無五劫の擦り切れ海砂利水魚の水行末雲来末風来末食う寝る処に住む処やぶら小路の藪柑子パイポパイポパイポのシューリンガンシューリンガンのグーリンダイグーリンダイのポンポコピーのポンポコナーの長久命の長助
+              .body-2.secondary--text 11:00
+            .month-section
+              .month 12
+              .year / 2020
+              .month-en Dec
 
         v-col(cols="4")
           .user-info
