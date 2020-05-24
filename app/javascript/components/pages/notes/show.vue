@@ -97,7 +97,7 @@
               .year / 2020
             .date 12/24
             .post.my-4
-              .display-1 a
+              .display-1 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
               .body-2.secondary--text 13:57
             .post.my-4
               .display-1 hogehogehogehoge~~~~~~~~~~~
@@ -336,6 +336,7 @@ export default {
     border: solid 2px var(--timeline-color)
     border-radius: 15px
     background-color: white
+    word-wrap: break-word
     &::before
       content: ""
       position: absolute
