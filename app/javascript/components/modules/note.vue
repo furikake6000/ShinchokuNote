@@ -1,8 +1,8 @@
 <template lang="pug">
   v-card.note-card
     a(:href="url")
-      .bgstr
-        v-icon mdi-note-text
+      .bgstr(:class="noteIconColor")
+        v-icon {{noteTypeIcon}}
       .note-card-content
         template(v-if="thumbUrl")
           v-img(
@@ -15,7 +15,7 @@
         template(v-else)
           v-card-title.headline
             span.mr-2.note-card-title {{name}}
-            note-badges(:stage="stage" :viewStance="viewStance" :rating="rating")
+            note-badges(:stage="(this.type == 'request_box' ? null : this.stage)" :viewStance="viewStance" :rating="rating")
         v-card-subtitle {{desc}}
         v-card-actions
           v-spacer
@@ -31,9 +31,19 @@
 <script>
 import NoteBadges from './note_badges.vue';
 
+const noteTypeIcons = {
+  'project': 'mdi-note-text',
+  'request_box': 'mdi-email'
+}
+const noteIconColors = {
+  'project': 'project--text text--lighten-5',
+  'request_box': 'request_box--text text--lighten-3'
+}
+
 export default {
   name: 'note',
   props: {
+    type: String,
     name: String,
     desc: String,
     thumbUrl: String,
@@ -46,6 +56,14 @@ export default {
   },
   components: {
     NoteBadges
+  },
+  computed: {
+    noteTypeIcon: function() {
+      return noteTypeIcons[this.type];
+    },
+    noteIconColor: function() {
+      return noteIconColors[this.type];
+    }
   }
 }
 </script>
