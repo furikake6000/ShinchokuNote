@@ -47,16 +47,27 @@
               span.secondary--text.subtitle-1.font-weight-bold.ml-auto.mr-4 0 / 1000
               v-btn(rounded color="primary").follow-btn 投稿する
           .timeline
-            .timeline-date.small
+            .month-section.small
               .month 5
               .year / 2020
-            .post
-              .content a
-              .date 13:57
-            .post
-              .content b
-              .date 12:00
-            .timeline-date
+            .date 5/24
+            .post.my-4
+              .display-1 a
+              .body-2.secondary--text 13:57
+            .post.my-4
+              .display-1 hogehogehogehoge~~~~~~~~~~~
+              .body-2.secondary--text 12:00
+            .date 5/21
+            .post.my-4
+              .body-1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              .body-2.secondary--text 19:00
+            .post.my-4
+              .display-1 poyo
+              .body-2.secondary--text 12:00
+            .post.my-4
+              .headline 寿限無寿限無五劫の擦り切れ海砂利水魚の水行末雲来末風来末食う寝る処に住む処やぶら小路の藪柑子パイポパイポパイポのシューリンガンシューリンガンのグーリンダイグーリンダイのポンポコピーのポンポコナーの長久命の長助
+              .body-2.secondary--text 11:00
+            .month-section
               .month 5
               .year / 2020
               .month-en May
@@ -189,6 +200,7 @@ export default {
   --timeline-color: var(--v-primary-base)
   border-left: solid 20px var(--timeline-color)
   margin-top: 20px
+  margin-left: 30px
   padding-left: 20px
   &::before
     content: ""
@@ -197,7 +209,7 @@ export default {
     left: -50px
     border: 20px solid transparent
     border-bottom-color: var(--timeline-color)
-  .timeline-date
+  .month-section
     display: flex
     align-items: baseline
     margin-left: -20px
@@ -230,6 +242,52 @@ export default {
       .year
         margin-left: 0.5rem
         font-size: 1.8rem
+    + .date
+      margin-top: 15px
+  .date
+    position: absolute
+    width: 70px
+    text-align: right
+    left: -40px
+    border-radius: 50%
+    color: var(--timeline-color)
+    line-height: 70px
+    font-size: 1.5rem
+    font-weight: bold
+    &::after
+      position: absolute
+      top: 22px
+      left: 77px
+      content: ""
+      width: 30px
+      height: 30px
+      border: solid 5px var(--timeline-color)
+      border-radius: 50%
+      background-color: white
+    + .post
+      margin-left: 5px
+  .post
+    position: relative
+    padding: 15px
+    border: solid 2px var(--timeline-color)
+    border-radius: 15px
+    background-color: white
+    &::before
+      content: ""
+      position: absolute
+      top: 20px
+      left: -27px
+      z-index: 2
+      border: 14px solid transparent
+      border-right-color: white
+    &::after
+      content: ""
+      position: absolute
+      top: 20px
+      left: -30px
+      z-index: 1
+      border: 14px solid transparent
+      border-right-color: var(--timeline-color)
 
 button.v-btn.follow-btn
   width: 12rem
