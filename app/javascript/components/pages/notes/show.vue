@@ -170,28 +170,6 @@ export default {
       font-weight: bold
       font-size: 0.8rem
 
-.note-card
-  position: relative
-  overflow: hidden
-  .bgstr
-    position: absolute
-    z-index: 0
-    bottom: -80px
-    right: -20px
-    white-space: nowrap
-    font-size: 14rem
-    font-weight: bold
-    transform: rotate(-30deg)
-    color: var(--v-primary-lighten5)
-    &.request
-      color: var(--v-accent-lighten2)
-    .v-icon
-      font-size: unset
-      color: unset
-  .note-card-content
-    position: relative
-    z-index: 1
-
 button.v-btn.follow-btn
   width: 12rem
   height: 3rem
