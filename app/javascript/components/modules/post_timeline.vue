@@ -6,7 +6,7 @@
         .year / {{monthlyPosts.year}}
       template(v-for="dailyPosts in monthlyPosts.posts")
         .date {{monthlyPosts.month}}/{{dailyPosts.day}}
-        post.ml-1.my-4(v-bind="post" v-for="post in dailyPosts.posts")
+        post.ml-1.my-4(v-bind="post" v-for="post in dailyPosts.posts" :key="post.id")
       .month-sign
         .month {{monthlyPosts.month}}
         .year / {{monthlyPosts.year}}

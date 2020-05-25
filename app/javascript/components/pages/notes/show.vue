@@ -119,26 +119,32 @@ export default {
       ],
       posts: [
         {
+          id: 6,
           text: 'a',
           date: new Date("24 May 2020 13:57:00 +0900")
         },
         {
+          id: 5,
           text: 'hogehogehogehoge~~~~~~~~~~~',
           date: new Date("24 May 2020 12:00:00 +0900")
         },
         {
+          id: 4,
           text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
           date: new Date("21 May 2020 19:00:00 +0900")
         },
         {
+          id: 3,
           text: 'poyo',
           date: new Date("21 May 2020 12:00:00 +0900")
         },
         {
+          id: 2,
           text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
           date: new Date("1 Dec 2019 19:00:00 +0900")
         },
         {
+          id: 1,
           text: 'poyo',
           date: new Date("31 Dec 2019 12:00:00 +0900")
         },

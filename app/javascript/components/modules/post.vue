@@ -10,6 +10,7 @@ const timeFormatter = Intl.DateTimeFormat('en-US', { hour12: false, hour: '2-dig
 export default {
   name: 'post',
   props: {
+    id: Number,
     text: String,
     date: Date
   },
