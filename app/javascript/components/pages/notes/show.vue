@@ -139,6 +139,10 @@ export default {
         {
           id: 3,
           text: 'poyo',
+          images: [
+            "http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--efa9c0f7721c8f0adc8ce9d3b494cfd33efeff1e/blob",
+            "http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--e1577d0c41acd953cfe105de0d9da9009c955ab6/blob"
+          ],
           date: new Date("21 May 2020 12:00:00 +0900")
         },
         {

@@ -3292,6 +3292,11 @@ void-elements@^2.0.1:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
   integrity sha1-wGavtYK7HLQSjWDqkjkulNXp2+w=
 
+vue-easy-lightbox@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/vue-easy-lightbox/-/vue-easy-lightbox-0.13.0.tgz#1d6d5ae37d648600358287c34ce62cdbbbaa2889"
+  integrity sha512-dzS+GE9bCme0KtoMxfTOeJ3O+h02+xiMX7x0J4VIyboCEuE4kh1BFW2zR2RIJ988JHKvTmlqllwfXwPmSTwhXA==
+
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"

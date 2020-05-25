@@ -1,11 +1,22 @@
 <template lang="pug">
   .post
     div(:class="textClass") {{text}}
-    v-img.my-2(:src="image" v-for="image in images" max-height="600px" contain :key="image")
+    v-img.my-2(:src="image" v-for="(image, index) in images" max-height="600px" contain :key="image" @click="showLightbox(index)")
     .body-2.secondary--text {{timeStr}}
+    vue-easy-lightbox(
+      v-if="images"
+      :visible="lightboxEnabled"
+      :imgs="images"
+      :index="lightboxIndex"
+      @hide="hideLightbox"
+    )
 </template>
 
 <script>
+import Vue from 'vue';
+import Lightbox from 'vue-easy-lightbox';
+Vue.use(Lightbox);
+
 const timeFormatter = Intl.DateTimeFormat('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
 
 export default {
@@ -16,6 +27,12 @@ export default {
     images: Array,
     date: Date
   },
+  data: function() {
+    return {
+      lightboxEnabled: false,
+      lightboxIndex: 0
+    }
+  },
   computed: {
     textClass: function() {
       if (this.text.length <= 30) return 'display-1';
@@ -24,6 +41,15 @@ export default {
     },
     timeStr: function() {
       return timeFormatter.format(this.date);
+    }
+  },
+  methods: {
+    showLightbox: function(index) {
+      this.lightboxEnabled = true;
+      this.lightboxIndex = index;
+    },
+    hideLightbox: function() {
+      this.lightboxEnabled = false;
     }
   }
 }
