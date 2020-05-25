@@ -121,6 +121,9 @@ export default {
         {
           id: 6,
           text: 'a',
+          images: [
+            "http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f97e59db7026b209deb6890df4bc5551512f79f5/blob"
+          ],
           date: new Date("24 May 2020 13:57:00 +0900")
         },
         {
@@ -145,6 +148,9 @@ export default {
         },
         {
           id: 1,
+          images: [
+            "http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--38a1a23da3d044d9c627bc246c838e29d660ec21/blob"
+          ],
           text: 'poyo',
           date: new Date("31 Dec 2019 12:00:00 +0900")
         },

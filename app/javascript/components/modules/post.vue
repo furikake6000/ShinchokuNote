@@ -1,6 +1,7 @@
 <template lang="pug">
   .post
     div(:class="textClass") {{text}}
+    v-img.my-2(:src="image" v-for="image in images" max-height="600px" contain :key="image")
     .body-2.secondary--text {{timeStr}}
 </template>
 
@@ -12,6 +13,7 @@ export default {
   props: {
     id: Number,
     text: String,
+    images: Array,
     date: Date
   },
   computed: {
