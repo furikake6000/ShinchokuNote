@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import App from './app.vue';
 import VueRouter from 'vue-router';
 import router from './routes';
 import vuetify from './plugins/vuetify';
@@ -13,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   new Vue({
     el: '#app',
-    template: '<router-view />',
+    template: '<app />',
+    components: { App },
     router,
     vuetify
   });

@@ -76,21 +76,6 @@ export default {
     color: rgba(0, 0, 0, .87)
     &:hover
       text-decoration: none
-  .bgstr
-    position: absolute
-    z-index: 0
-    bottom: -80px
-    right: -20px
-    white-space: nowrap
-    font-size: 14rem
-    font-weight: bold
-    transform: rotate(-30deg)
-    color: var(--v-primary-lighten5)
-    &.request
-      color: var(--v-accent-lighten2)
-    .v-icon
-      font-size: unset
-      color: unset
   .note-card-title
     display: -webkit-box
     -webkit-box-orient: vertical
