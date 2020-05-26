@@ -119,6 +119,28 @@ export default {
       ],
       posts: [
         {
+          id: 10,
+          type: 'schedule',
+          text: '未完のスケジュール',
+          date: new Date("24 May 2020 13:57:00 +0900"),
+          scheduledDate: new Date("31 May 2020 07:00:00 +0900")
+        },
+        {
+          id: 9,
+          type: 'schedule',
+          text: '完了したスケジュール',
+          date: new Date("24 May 2020 13:57:00 +0900"),
+          scheduledDate: new Date("31 May 2020 07:00:00 +0900"),
+          finishedDate: new Date("31 May 2020 09:23:00 +0900")
+        },
+        {
+          id: 8,
+          type: 'schedule',
+          text: '時間切れのスケジュール',
+          date: new Date("24 May 2020 13:57:00 +0900"),
+          scheduledDate: new Date("11 May 2020 07:00:00 +0900")
+        },
+        {
           id: 6,
           text: 'a',
           images: [

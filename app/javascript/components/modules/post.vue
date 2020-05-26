@@ -1,5 +1,17 @@
 <template lang="pug">
-  .post
+  .schedule(v-if="type == 'schedule'" :class="scheduleStatus")
+    .bgstr.small
+      v-icon {{scheduleStatusIcon}}
+    .content.text-center
+      .headline.font-weight-bold {{text}}
+      .body-2.mt-2
+        v-icon(small) mdi-clock-outline
+        span {{dateStr(scheduledDate)}} まで
+        span.ml-4(v-if="finishedDate")
+          v-icon(small) mdi-check
+          span {{dateStr(finishedDate)}} 完了
+
+  .post(v-else)
     .responded-comment.mb-2(v-if="respondedComment")
       .body-2.secondary--text {{respondedComment.from || "名無し"}}さんからのコメント
       .body-1 {{respondedComment.text}}
@@ -25,14 +37,23 @@ import Lightbox from 'vue-easy-lightbox';
 Vue.use(Lightbox);
 
 const timeFormatter = Intl.DateTimeFormat('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+const dateFormatter = Intl.DateTimeFormat('ja-JP', { month: 'narrow', day: 'numeric' ,hour12: false, hour: '2-digit', minute: '2-digit' });
+const scheduleStatusIcons = {
+  'unfinished': 'mdi-clock-outline',
+  'finished': 'mdi-check-circle',
+  'outdated': 'mdi-clock-outline'
+}
 
 export default {
   name: 'post',
   props: {
     id: Number,
+    type: String,
     text: String,
     images: Array,
     date: Date,
+    scheduledDate: Date,
+    finishedDate: Date,
     respondedComment: Object
   },
   data: function() {
@@ -49,6 +70,14 @@ export default {
     },
     timeStr: function() {
       return timeFormatter.format(this.date);
+    },
+    scheduleStatus: function() {
+      if(this.finishedDate) return 'finished';
+      if(this.scheduledDate > Date.now()) return 'unfinished';
+      return 'outdated';
+    },
+    scheduleStatusIcon: function() {
+      return scheduleStatusIcons[this.scheduleStatus];
     }
   },
   methods: {
@@ -58,12 +87,40 @@ export default {
     },
     hideLightbox: function() {
       this.lightboxEnabled = false;
+    },
+    dateStr: function(date) {
+      return dateFormatter.format(date);
     }
   }
 }
 </script>
 
 <style lang="sass" scoped>
+  .schedule
+    position: relative
+    overflow: hidden
+    padding: 15px
+    border-radius: 15px
+    word-wrap: break-word
+    .content
+      position: relative
+      z-index: 1
+    .v-icon
+      color: unset
+    color: var(--v-primary-darken1)
+    background-color: var(--v-primary-lighten4)
+    .bgstr
+      color: var(--v-primary-lighten2)
+    &.finished
+      color: var(--v-success-darken1)
+      background-color: var(--v-success-lighten3)
+      .bgstr
+        color: var(--v-success-lighten2)
+    &.outdated
+      color: var(--v-error-darken1)
+      background-color: var(--v-error-lighten3)
+      .bgstr
+        color: var(--v-error-lighten2)
   .responded-comment
     position: relative
     padding: 15px
