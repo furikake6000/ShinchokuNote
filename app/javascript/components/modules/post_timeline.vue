@@ -69,7 +69,7 @@ export default {
 
 <style lang="sass" scoped>
 .month-section
-  --timeline-color: var(--v-primary-base)
+  --timeline-color: var(--v-primary-lighten1)
   border-left: solid 20px var(--timeline-color)
   margin-left: 30px
   padding-left: 20px
