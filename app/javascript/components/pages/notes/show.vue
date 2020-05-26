@@ -132,6 +132,16 @@ export default {
           date: new Date("24 May 2020 12:00:00 +0900")
         },
         {
+          id: 7,
+          text: 'poyopoyo',
+          respondedComment: {
+            from: 'furikake555',
+            text: 'piyopiyo',
+            date: new Date("23 May 2020 11:00:00 +0900")
+          },
+          date: new Date("24 May 2020 12:00:00 +0900")
+        },
+        {
           id: 4,
           text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
           date: new Date("21 May 2020 19:00:00 +0900")
@@ -155,6 +165,10 @@ export default {
           images: [
             "http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--38a1a23da3d044d9c627bc246c838e29d660ec21/blob"
           ],
+          respondedComment: {
+            text: 'piyo',
+            date: new Date("23 May 2020 11:00:00 +0900")
+          },
           text: 'poyo',
           date: new Date("31 Dec 2019 12:00:00 +0900")
         },
