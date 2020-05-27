@@ -2,14 +2,16 @@
   .schedule(:class="status")
     .bgstr.small
       v-icon {{statusIcon}}
-    .content.text-center
-      .headline.font-weight-bold {{text}}
-      .body-2.mt-2
-        v-icon(small) mdi-clock-outline
-        span {{dateStr(scheduledDate)}} まで
-        span.ml-4(v-if="finishedDate")
-          v-icon(small) mdi-check
-          span {{dateStr(finishedDate)}} 完了
+    .content.d-flex.align-center
+      v-icon(large @click="toggleFinished") {{statusCheckboxIcon}}
+      .text-center.flex-grow-1
+        .headline.font-weight-bold {{text}}
+        .body-2.mt-2
+          v-icon(small) mdi-clock-outline
+          span {{dateStr(scheduledDate)}} まで
+          span.ml-4(v-if="finishedDate")
+            v-icon(small) mdi-check
+            span {{dateStr(finishedDate)}} 完了
 </template>
 
 <script>
@@ -18,6 +20,11 @@ const statusIcons = {
   'unfinished': 'mdi-clock-outline',
   'finished': 'mdi-check-circle',
   'outdated': 'mdi-clock-outline'
+}
+const statusCheckboxIcons = {
+  'unfinished': 'mdi-checkbox-blank-outline',
+  'finished': 'mdi-checkbox-marked-outline',
+  'outdated': 'mdi-checkbox-blank-outline'
 }
 
 export default {
@@ -43,11 +50,21 @@ export default {
     },
     statusIcon: function() {
       return statusIcons[this.status];
+    },
+    statusCheckboxIcon: function() {
+      return statusCheckboxIcons[this.status];
     }
   },
   methods: {
     dateStr: function(date) {
       return dateFormatter.format(date);
+    },
+    toggleFinished: function(date) {
+      if(this.status == 'finished'){
+        this.finishedDate = null;
+      }else{
+        this.finishedDate = Date.now();
+      }
     }
   }
 }
