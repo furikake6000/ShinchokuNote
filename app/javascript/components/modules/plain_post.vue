@@ -150,4 +150,6 @@ export default {
       z-index: 1
       border: 14px solid transparent
       border-right-color: var(--timeline-color)
+  .v-image
+    cursor: pointer
 </style>
