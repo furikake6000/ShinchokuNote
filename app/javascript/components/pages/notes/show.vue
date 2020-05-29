@@ -73,8 +73,8 @@
 </template>
 
 <script>
-import Note from '../../modules/note.vue'
-import PostTimeline from '../../modules/post_timeline.vue'
+import Note from '../../modules/notes/note.vue'
+import PostTimeline from '../../modules/posts/post_timeline.vue'
 
 export default {
   data: function () {
