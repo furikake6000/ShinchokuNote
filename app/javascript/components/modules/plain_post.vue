@@ -1,5 +1,5 @@
 <template lang="pug">
-  .post(v-else)
+  .post
     .responded-comment.mb-2(v-if="respondedComment")
       .body-2.secondary--text {{respondedComment.from || "名無し"}}さんからのコメント
       .body-1 {{respondedComment.text}}
