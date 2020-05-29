@@ -4,6 +4,21 @@
       .body-2.secondary--text {{respondedComment.from || "名無し"}}さんからのコメント
       .body-1 {{respondedComment.text}}
     .post-balloon
+      .float-right
+        v-dialog(v-model="deleteDialogEnabled" width="500")
+          template(v-slot:activator="{ on }")
+            v-btn(v-on="on" text icon color="secondary lighten-1")
+              v-icon mdi-delete
+          v-card
+            v-card-title.headline 投稿を削除します
+            v-card-text
+              span 投稿「{{trimmedText}}」を削除します。
+              br
+              span.error--text.font-weight-bold 復元はできません。本当によろしいですか？
+            v-card-actions
+              v-spacer
+              v-btn.font-weight-bold(@click="hideDeleteDialog" text color="secondary") キャンセル
+              v-btn.font-weight-bold(text color="error") 削除する
       .body-2.secondary--text(v-if="respondedComment")
         v-icon.secondary--text.text--lighten-1 mdi-reply
         span コメントへの返信
@@ -38,7 +53,8 @@ export default {
   data: function() {
     return {
       lightboxEnabled: false,
-      lightboxIndex: 0
+      lightboxIndex: 0,
+      deleteDialogEnabled: false
     }
   },
   computed: {
@@ -49,6 +65,10 @@ export default {
     },
     timeStr: function() {
       return timeFormatter.format(this.date);
+    },
+    trimmedText: function() {
+      if(this.text.length <= 20) return this.text;
+      return `${this.text.slice(0, 20)}...`;
     }
   },
   methods: {
@@ -58,6 +78,9 @@ export default {
     },
     hideLightbox: function() {
       this.lightboxEnabled = false;
+    },
+    hideDeleteDialog: function() {
+      this.deleteDialogEnabled = false;
     }
   }
 }
