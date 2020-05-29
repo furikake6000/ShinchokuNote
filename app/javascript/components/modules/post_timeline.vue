@@ -26,23 +26,28 @@ export default {
   },
   computed: {
     groupedPosts: function() {
+      var sortDate = (post) => {
+        if(post.type == 'schedule') return post.scheduledDate;
+        return post.date;
+      }
+      
       // postsを時間「降順」でソート
       this.posts.sort((a, b) => {
-        return b.date.getTime() - a.date.getTime();
+        return sortDate(b).getTime() - sortDate(a).getTime();
       });
       
       // postsを日毎にまとめ、さらに月毎にまとめる
       const groupedPosts = this.posts.reduce((groupedPosts, post) => {
-        const year = post.date.getFullYear();
-        const month = monthFormatter.format(post.date);
-        const day = post.date.getDate();
+        const year = sortDate(post).getFullYear();
+        const month = monthFormatter.format(sortDate(post));
+        const day = sortDate(post).getDate();
 
         var monthElem = groupedPosts.find((el) => el.year == year && el.month == month);
         if (!monthElem) {
           monthElem = {
             year: year,
             month: month,
-            monthEn: monthEnFormatter.format(post.date),
+            monthEn: monthEnFormatter.format(sortDate(post)),
             posts: []
           };
           groupedPosts.push(monthElem);
