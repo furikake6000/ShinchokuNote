@@ -5,7 +5,7 @@
       .body-1 {{respondedComment.text}}
     .post-balloon
       .body-2.secondary--text(v-if="respondedComment")
-        v-icon.secondary--text.lighten-2 mdi-reply
+        v-icon.secondary--text.text--lighten-1 mdi-reply
         span コメントへの返信
       div(:class="textClass") {{text}}
       v-img.my-2(:src="image" v-for="(image, index) in images" max-height="600px" contain :key="image" @click="showLightbox(index)")
