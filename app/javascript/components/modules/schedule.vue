@@ -12,6 +12,32 @@
           span.ml-4(v-if="finishedDate")
             v-icon(small) mdi-check
             span {{dateStr(finishedDate)}} 完了
+      v-menu(transition="scale-transition")
+        template(v-slot:activator="{ on }")
+          v-btn.align-self-start(v-on="on" text icon)
+            v-icon mdi-dots-vertical
+        v-list(dense)
+          v-list-item
+            v-list-item-icon
+              v-icon mdi-pencil
+            v-list-item-content
+              v-list-item-title 編集する
+          v-list-item(@click="showDeleteDialog")
+            v-list-item-icon
+              v-icon mdi-delete
+            v-list-item-content
+              v-list-item-title 削除する
+    v-dialog(v-model="deleteDialogEnabled" width="500")
+      v-card
+        v-card-title.headline スケジュールを削除します
+        v-card-text
+          span スケジュール「{{text}}}」を削除します。
+          br
+          span.error--text.font-weight-bold 復元はできません。本当によろしいですか？
+        v-card-actions
+          v-spacer
+          v-btn.font-weight-bold(@click="hideDeleteDialog" text color="secondary") キャンセル
+          v-btn.font-weight-bold(text color="error") 削除する
 </template>
 
 <script>
@@ -39,7 +65,8 @@ export default {
   data: function() {
     return {
       lightboxEnabled: false,
-      lightboxIndex: 0
+      lightboxIndex: 0,
+      deleteDialogEnabled: false
     }
   },
   computed: {
@@ -65,6 +92,12 @@ export default {
       }else{
         this.finishedDate = Date.now();
       }
+    },
+    showDeleteDialog: function() {
+      this.deleteDialogEnabled = true;
+    },
+    hideDeleteDialog: function() {
+      this.deleteDialogEnabled = false;
     }
   }
 }
