@@ -26,26 +26,8 @@
               .secondary--text.text--lighten-1.font-weight-bold 2019年1月1日作成 (100日め)
     v-container
       v-row
-        v-col(cols="8")
-          .new-post-form
-            .new-post-text-form
-              textarea(placeholder="新しい進捗を投稿する...")
-              .image-hint テキストエリアへの画像のドロップ・コピペが可能です
-            .d-flex.align-center.mt-2
-              v-btn(icon color="secondary")
-                v-icon mdi-image
-              v-tooltip(top)
-                template(v-slot:activator="{ on }")
-                  v-btn(icon color="secondary" v-on="on")
-                    v-icon mdi-link
-                span URLでリンク
-              v-tooltip(top)
-                template(v-slot:activator="{ on }")
-                  v-btn(icon color="secondary" v-on="on")
-                    v-icon mdi-calendar
-                span スケジュールの追加
-              span.secondary--text.subtitle-1.font-weight-bold.ml-auto.mr-4 0 / 1000
-              v-btn(rounded color="primary").follow-btn 投稿する
+        v-col.main-col(cols="8")
+          post-form.post-form
           post-timeline(:posts="posts")
 
         v-col(cols="4")
@@ -74,6 +56,7 @@
 
 <script>
 import Note from '../../modules/notes/note.vue'
+import PostForm from '../../modules/posts/post_form.vue'
 import PostTimeline from '../../modules/posts/post_timeline.vue'
 
 export default {
@@ -199,6 +182,7 @@ export default {
   },
   components: {
     Note,
+    PostForm,
     PostTimeline
   }
 }
@@ -232,25 +216,11 @@ export default {
   .user-desc
     border-bottom: 5px dotted var(--v-secondary-lighten2)
 
-.new-post-form
-  .new-post-text-form
+.main-col
+  position: relative
+  .post-form
     position: relative
-    textarea
-      width: 100%
-      padding: 20px
-      background-color: white
-      border: 2px solid var(--v-secondary-lighten2)
-      border-radius: 20px
-      &::placeholder
-        color: var(--v-secondary-lighten2)
-        font-weight: bold
-    .image-hint
-      position: absolute
-      right: 20px
-      bottom: 20px
-      color: var(--v-secondary-lighten2)
-      font-weight: bold
-      font-size: 0.8rem
+    z-index: 1
 
 button.v-btn.follow-btn
   width: 12rem
