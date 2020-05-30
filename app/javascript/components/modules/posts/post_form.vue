@@ -62,8 +62,8 @@
         span スケジュールの作成
       template(v-if="mode=='text'")
         span.secondary--text.subtitle-1.font-weight-bold.ml-auto.mr-4 {{newPost.text.length}} / 1000
-        v-btn(rounded color="primary").follow-btn 投稿する
-      v-btn.ml-auto(v-if="mode=='schedule'" rounded color="primary").follow-btn スケジュールの作成
+        v-btn(rounded color="primary").follow-btn.font-weight-bold 投稿する
+      v-btn(v-if="mode=='schedule'" rounded color="primary").ml-auto.follow-btn.font-weight-bold スケジュールの作成
 </template>
 
 <script>
