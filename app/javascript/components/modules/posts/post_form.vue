@@ -46,7 +46,6 @@
             v-model="newSchedule.time"
             format="24hr"
           )
-        // v-time-picker.ml-4(v-model="newSchedule.time" full-width format="24hr")
     .d-flex.align-center.mt-2
       v-btn(icon color="secondary")
         v-icon mdi-image
