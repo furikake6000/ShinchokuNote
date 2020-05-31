@@ -118,6 +118,8 @@ export default {
     async addImages(files) {
       for (var i = 0; i < files.length; i++) {
         const type = files[i].type;
+        if (type.indexOf('image/') < 0) continue;
+
         loadImage(
           files[i],
           async (c) => {
