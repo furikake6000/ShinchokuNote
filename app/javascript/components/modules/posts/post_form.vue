@@ -19,7 +19,7 @@
               .ma-1.d-flex.justify-space-between(v-if="hover")
                 v-btn(x-small fab color="secondary darken-2")
                   v-icon mdi-image-edit
-                v-btn(x-small fab color="secondary darken-2")
+                v-btn(@click="deleteImage(index)" x-small fab color="secondary darken-2")
                   v-icon mdi-close
     .schedule-form(v-show="mode=='schedule'")
       v-text-field(label="スケジュール タイトル")
@@ -137,6 +137,9 @@ export default {
     },
     dropImages() {
       this.addImages(event.dataTransfer.files);
+    },
+    deleteImage(index) {
+      this.newPost.images.splice(index, 1);
     }
   }
 }
