@@ -96,19 +96,19 @@ export default {
     }
   },
   methods:  {
-    setMode: function(mode) {
+    setMode(mode) {
       this.mode = mode;
     },
-    addImages: function(files) {
+    addImages(files) {
       for (var i = 0; i < files.length; i++) {
         this.newPost.images.push(files.item(i));
       }
     },
-    addImagesFromInput: function() {
+    addImagesFromInput() {
       this.addImages(event.target.files);
       event.target.value="";
     },
-    dropImages: function() {
+    dropImages() {
       this.addImages(event.dataTransfer.files);
     }
   }
