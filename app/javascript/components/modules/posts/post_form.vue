@@ -9,12 +9,12 @@
         )
         .image-hint テキストエリアへの画像のドロップ・コピペが可能です
       .image-preview.d-flex.mt-2(v-if="newPost.images.length > 0")
-        template(v-for="image in newPost.images")
+        template(v-for="(image, index) in newPost.images")
           v-hover(v-slot:default="{ hover }")
             v-img.mr-2(
               :src="image"
               max-width="128px"
-              max-height="128px"
+              height="128px"
             )
               .ma-1.d-flex.justify-space-between(v-if="hover")
                 v-btn(x-small fab color="secondary darken-2")
