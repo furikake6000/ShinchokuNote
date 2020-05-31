@@ -1,7 +1,11 @@
 <template lang="pug">
   .post-form
     .text-form(v-if="mode=='text'")
-      textarea(v-model="newPost.text" placeholder="新しい進捗を投稿する...")
+      textarea(
+        v-model="newPost.text"
+        placeholder="新しい進捗を投稿する..."
+        @drop.prevent="dropImages"
+      )
       .image-hint テキストエリアへの画像のドロップ・コピペが可能です
     .schedule-form(v-if="mode=='schedule'")
       v-text-field(label="スケジュール タイトル")
@@ -47,8 +51,15 @@
             format="24hr"
           )
     .d-flex.align-center.mt-2
-      v-btn(icon color="secondary")
+      v-btn(@click="$refs.imageInput.click()" icon color="secondary")
         v-icon mdi-image
+        input.d-none(
+          ref="imageInput"
+          multiple
+          type="file"
+          accept="image/jpeg, image/jpg, image/png, image/gif, image/bmp"
+          @change="addImagesFromInput"
+        )
       v-tooltip(top)
         template(v-slot:activator="{ on }")
           v-btn(@click="setMode('text')" icon :color="mode=='text'?'primary':'secondary'" v-on="on")
@@ -66,13 +77,16 @@
 </template>
 
 <script>
+const MAX_IMAGE_SIZE = 1024 * 1024 * 1.5;
+
 export default {
   name: 'post-form',
   data: function() {
     return {
       mode: 'text',
       newPost: {
-        text: ""
+        text: "",
+        images: []
       },
       newSchedule: {
         date: new Date().toISOString().substr(0, 10),
@@ -84,6 +98,18 @@ export default {
   methods:  {
     setMode: function(mode) {
       this.mode = mode;
+    },
+    addImages: function(files) {
+      for (var i = 0; i < files.length; i++) {
+        this.newPost.images.push(files.item(i));
+      }
+    },
+    addImagesFromInput: function() {
+      this.addImages(event.target.files);
+      event.target.value="";
+    },
+    dropImages: function() {
+      this.addImages(event.dataTransfer.files);
     }
   }
 }
