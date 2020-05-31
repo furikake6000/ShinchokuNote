@@ -16,6 +16,11 @@
               max-width="128px"
               max-height="128px"
             )
+              .ma-1.d-flex.justify-space-between(v-if="hover")
+                v-btn(x-small fab color="secondary darken-2")
+                  v-icon mdi-image-edit
+                v-btn(x-small fab color="secondary darken-2")
+                  v-icon mdi-close
     .schedule-form(v-show="mode=='schedule'")
       v-text-field(label="スケジュール タイトル")
       p.font-weight-bold.mb-0 目標日時
