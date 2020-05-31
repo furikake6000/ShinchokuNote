@@ -1,13 +1,22 @@
 <template lang="pug">
   .post-form
-    .text-form(v-if="mode=='text'")
-      textarea(
-        v-model="newPost.text"
-        placeholder="新しい進捗を投稿する..."
-        @drop.prevent="dropImages"
-      )
-      .image-hint テキストエリアへの画像のドロップ・コピペが可能です
-    .schedule-form(v-if="mode=='schedule'")
+    .text-form(v-show="mode=='text'")
+      .text-area
+        textarea(
+          v-model="newPost.text"
+          placeholder="新しい進捗を投稿する..."
+          @drop.prevent="dropImages"
+        )
+        .image-hint テキストエリアへの画像のドロップ・コピペが可能です
+      .image-preview.d-flex.mt-2(v-if="newPost.images.length > 0")
+        template(v-for="image in newPost.images")
+          v-hover(v-slot:default="{ hover }")
+            v-img.mr-2(
+              :src="image"
+              max-width="128px"
+              max-height="128px"
+            )
+    .schedule-form(v-show="mode=='schedule'")
       v-text-field(label="スケジュール タイトル")
       p.font-weight-bold.mb-0 目標日時
       .d-flex
@@ -77,6 +86,8 @@
 </template>
 
 <script>
+import loadImage from 'blueimp-load-image';
+
 const MAX_IMAGE_SIZE = 1024 * 1024 * 1.5;
 
 export default {
@@ -99,9 +110,18 @@ export default {
     setMode(mode) {
       this.mode = mode;
     },
-    addImages(files) {
+    async addImages(files) {
       for (var i = 0; i < files.length; i++) {
-        this.newPost.images.push(files.item(i));
+        const type = files[i].type;
+        loadImage(
+          files[i],
+          async (c) => {
+            this.newPost.images.push(c.toDataURL(type));
+          },
+          {
+            canvas: true
+          }
+        )
       }
     },
     addImagesFromInput() {
@@ -117,23 +137,27 @@ export default {
 
 <style lang="sass" scoped>
   .text-form
-    position: relative
-    textarea
-      width: 100%
-      padding: 20px
-      background-color: white
-      border: 2px solid var(--v-secondary-lighten2)
-      border-radius: 20px
-      &::placeholder
+    padding: 20px
+    background-color: white
+    border: 2px solid var(--v-secondary-lighten2)
+    border-radius: 20px
+    .text-area
+      position: relative
+      textarea
+        width: 100%
+        margin-bottom: -5px
+        &::placeholder
+          color: var(--v-secondary-lighten2)
+          font-weight: bold
+      .image-hint
+        position: absolute
+        right: 10px
+        bottom: 0
         color: var(--v-secondary-lighten2)
         font-weight: bold
-    .image-hint
-      position: absolute
-      right: 20px
-      bottom: 20px
-      color: var(--v-secondary-lighten2)
-      font-weight: bold
-      font-size: 0.8rem
+        font-size: 0.8rem
+    .image-preview
+      overflow-x: auto
   .schedule-form
     padding: 0 20px
     background-color: white
