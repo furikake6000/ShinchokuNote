@@ -51,8 +51,8 @@
             format="24hr"
           )
     .d-flex.align-center.mt-2
-      v-btn(@click="$refs.imageInput.click()" icon color="secondary")
-        v-icon mdi-image
+      v-btn(@click="$refs.imageInput.click()" :disabled="mode!='text'" icon color="secondary")
+        v-icon {{mode == "text" ? "mdi-image" : "mdi-image-off"}}
         input.d-none(
           ref="imageInput"
           multiple
