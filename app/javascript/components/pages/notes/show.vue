@@ -220,7 +220,7 @@ export default {
   position: relative
   .post-form
     position: relative
-    z-index: 1
+    z-index: 101
 
 button.v-btn.follow-btn
   width: 12rem
