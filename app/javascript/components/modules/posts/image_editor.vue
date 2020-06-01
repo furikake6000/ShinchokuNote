@@ -62,14 +62,6 @@
             v-btn(@click="startFlip" icon text large)
               v-icon mdi-flip-horizontal
             .caption 反転
-          .text-center.mx-2
-            v-btn(icon text large)
-              v-icon mdi-tune
-            .caption フィルター
-          .text-center.mx-2
-            v-btn(icon text large)
-              v-icon mdi-sticker-plus-outline
-            .caption ステッカー
           v-icon.mx-2.secondary--text(large) mdi-power-on
           .text-center.mx-2
             v-btn(@click="$emit('apply', imageEditor.toDataURL())" icon text large color="success lighten-3")
