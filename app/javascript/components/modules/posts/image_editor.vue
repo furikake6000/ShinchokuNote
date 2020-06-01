@@ -8,45 +8,77 @@
           v-btn(@click="setCropRatio(1.333333)" text) 4:3
           v-btn(@click="setCropRatio(1.777777)" text) 16:9
           v-icon.mx-2.secondary--text(large) mdi-power-on
-          v-btn(@click="applyCrop" icon text large)
-            v-icon mdi-check
-          v-btn(@click="cancelCrop" icon text large)
-            v-icon mdi-close
+          .text-center.mx-2
+            v-btn(@click="applyCrop" icon text large)
+              v-icon mdi-check
+            .caption 適用
+          .text-center.mx-2
+            v-btn(@click="cancelCrop" icon text large)
+              v-icon mdi-close
+            .caption キャンセル
       div(v-show="flipModeEnabled")
         .d-flex.justify-center
-          v-btn(@click="flipX" icon text large)
-            v-icon mdi-flip-horizontal
-          v-btn(@click="flipY" icon text large)
-            v-icon mdi-flip-vertical
-          v-btn(@click="resetFlip" icon text large)
-            v-icon mdi-restore
+          .text-center.mx-2
+            v-btn(@click="flipX" icon text large)
+              v-icon mdi-flip-horizontal
+            .caption 水平
+          .text-center.mx-2
+            v-btn(@click="flipY" icon text large)
+              v-icon mdi-flip-vertical
+            .caption 垂直
+          .text-center.mx-2
+            v-btn(@click="resetFlip" icon text large)
+              v-icon mdi-restore
+            .caption リセット
           v-icon.mx-2.secondary--text(large) mdi-power-on
-          v-btn(@click="applyFlip" icon text large)
-            v-icon mdi-check
-          v-btn(@click="cancelFlip" icon text large)
-            v-icon mdi-close
+          .text-center.mx-2
+            v-btn(@click="applyFlip" icon text large)
+              v-icon mdi-check
+            .caption 適用
+          .text-center.mx-2
+            v-btn(@click="cancelFlip" icon text large)
+              v-icon mdi-close
+            .caption キャンセル
       div(v-show="!isCropping && !flipModeEnabled")
-        .d-flex.justify-center
-          v-btn(@click="undo" icon text large)
-            v-icon mdi-undo
-          v-btn(@click="redo" icon text large)
-            v-icon mdi-redo
-          v-btn(@click="reset" icon text large)
-            v-icon mdi-restore
+        .d-flex.justify-center.align-center
+          .text-center.mx-2
+            v-btn(@click="undo" icon text large)
+              v-icon mdi-undo
+            .caption 元に戻す
+          .text-center.mx-2
+            v-btn(@click="redo" icon text large)
+              v-icon mdi-redo
+            .caption やり直し
+          .text-center.mx-2
+            v-btn(@click="reset" icon text large)
+              v-icon mdi-restore
+            .caption リセット
           v-icon.mx-2.secondary--text(large) mdi-power-on
-          v-btn(@click="startCrop" icon text large)
-            v-icon mdi-crop
-          v-btn(@click="startFlip" icon text large)
-            v-icon mdi-flip-horizontal
-          v-btn(icon text large)
-            v-icon mdi-tune
-          v-btn(icon text large)
-            v-icon mdi-sticker-plus-outline
+          .text-center.mx-2
+            v-btn(@click="startCrop" icon text large)
+              v-icon mdi-crop
+            .caption トリミング
+          .text-center.mx-2
+            v-btn(@click="startFlip" icon text large)
+              v-icon mdi-flip-horizontal
+            .caption 反転
+          .text-center.mx-2
+            v-btn(icon text large)
+              v-icon mdi-tune
+            .caption フィルター
+          .text-center.mx-2
+            v-btn(icon text large)
+              v-icon mdi-sticker-plus-outline
+            .caption ステッカー
           v-icon.mx-2.secondary--text(large) mdi-power-on
-          v-btn(@click="$emit('apply', imageEditor.toDataURL())" icon text large color="success lighten-3")
-            v-icon mdi-check
-          v-btn(@click="$emit('cancel')" icon text large color="error lighten-3")
-            v-icon mdi-close
+          .text-center.mx-2
+            v-btn(@click="$emit('apply', imageEditor.toDataURL())" icon text large color="success lighten-3")
+              v-icon mdi-check
+            .caption.success--text.text--lighten-3 決定
+          .text-center.mx-2
+            v-btn(@click="$emit('cancel')" icon text large color="error lighten-3")
+              v-icon mdi-close
+            .caption.error--text.text--lighten-3 キャンセル
 </template>
 
 <script>
