@@ -12,7 +12,6 @@
         template(v-for="(image, index) in newPost.images")
           v-hover(v-slot:default="{ hover }")
             v-img.mr-2(
-              @click="editImage(index)"
               :src="image"
               max-width="128px"
               height="128px"
@@ -192,8 +191,6 @@ export default {
         font-size: 0.8rem
     .image-preview
       overflow-x: auto
-      .v-image
-        cursor: pointer
   .schedule-form
     padding: 0 20px
     background-color: white
