@@ -12,12 +12,13 @@
         template(v-for="(image, index) in newPost.images")
           v-hover(v-slot:default="{ hover }")
             v-img.mr-2(
+              @click="showImageEditor(image)"
               :src="image"
               max-width="128px"
               height="128px"
             )
               .ma-1.d-flex.justify-space-between(v-if="hover")
-                v-btn(x-small fab color="secondary darken-2")
+                v-btn(@click="showImageEditor(image)" x-small fab color="secondary darken-2")
                   v-icon mdi-image-edit
                 v-btn(@click="deleteImage(index)" x-small fab color="secondary darken-2")
                   v-icon mdi-close
@@ -88,10 +89,15 @@
         span.secondary--text.subtitle-1.font-weight-bold.ml-auto.mr-4 {{newPost.text.length}} / 1000
         v-btn(rounded color="primary").follow-btn.font-weight-bold 投稿する
       v-btn(v-if="mode=='schedule'" rounded color="primary").ml-auto.follow-btn.font-weight-bold スケジュールの作成
+    v-overlay(:value="imageEditorEnabled")
+      v-btn(icon @click="hideImageEditor")
+        v-icon mdi-close
+      image-editor(:image="editingImage")
 </template>
 
 <script>
 import loadImage from 'blueimp-load-image';
+import ImageEditor from './image_editor.vue';
 
 const MAX_IMAGE_SIZE = 1024 * 1024 * 1.5;
 
@@ -108,7 +114,9 @@ export default {
         date: new Date().toISOString().substr(0, 10),
         time: "",
         text: ""
-      }
+      },
+      imageEditorEnabled: false,
+      editingImage: null
     }
   },
   methods:  {
@@ -140,7 +148,17 @@ export default {
     },
     deleteImage(index) {
       this.newPost.images.splice(index, 1);
+    },
+    showImageEditor(image) {
+      this.editingImage = image;
+      this.imageEditorEnabled = true;
+    },
+    hideImageEditor() {
+      this.imageEditorEnabled = false;
     }
+  },
+  components: {
+    ImageEditor
   }
 }
 </script>
@@ -168,6 +186,8 @@ export default {
         font-size: 0.8rem
     .image-preview
       overflow-x: auto
+      .v-image
+        cursor: pointer
   .schedule-form
     padding: 0 20px
     background-color: white
