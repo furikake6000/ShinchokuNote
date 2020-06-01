@@ -1,25 +1,31 @@
 <template lang="pug">
   .image-editor-gui
     #image_editor.d-flex.justify-center
-    .ma-4.d-flex.justify-center
-      v-btn(@click="undo" icon text large)
-        v-icon mdi-undo
-      v-btn(@click="redo" icon text large)
-        v-icon mdi-redo
-      v-btn(@click="reset" icon text large)
-        v-icon mdi-restore
-      v-icon.mx-2.secondary--text(large) mdi-power-on
-      v-btn(icon text large)
-        v-icon mdi-crop
-      v-btn(icon text large)
-        v-icon mdi-flip-horizontal
-      v-btn(icon text large)
-        v-icon mdi-tune
-      v-icon.mx-2.secondary--text(large) mdi-power-on
-      v-btn(icon text large color="success lighten-3")
-        v-icon mdi-check
-      v-btn(icon text large color="error lighten-3")
-        v-icon mdi-close
+    .ma-4
+      .d-flex.justify-center(v-if="isCropping")
+        v-btn(@click="applyCrop" icon text large)
+          v-icon mdi-check
+        v-btn(@click="cancelCrop" icon text large)
+          v-icon mdi-close
+      .d-flex.justify-center(v-else)
+        v-btn(@click="undo" icon text large)
+          v-icon mdi-undo
+        v-btn(@click="redo" icon text large)
+          v-icon mdi-redo
+        v-btn(@click="reset" icon text large)
+          v-icon mdi-restore
+        v-icon.mx-2.secondary--text(large) mdi-power-on
+        v-btn(@click="startCrop" icon text large)
+          v-icon mdi-crop
+        v-btn(icon text large)
+          v-icon mdi-flip-horizontal
+        v-btn(icon text large)
+          v-icon mdi-tune
+        v-icon.mx-2.secondary--text(large) mdi-power-on
+        v-btn(icon text large color="success lighten-3")
+          v-icon mdi-check
+        v-btn(icon text large color="error lighten-3")
+          v-icon mdi-close
 
 </template>
 
@@ -36,6 +42,12 @@ export default {
       imageEditor: null
     }
   },
+  computed: {
+    isCropping() {
+      if(!this.imageEditor) return false;
+      return this.imageEditor.getDrawingMode() === 'CROPPER';
+    }
+  },
   methods: {
     loadImage(image) {
       this.imageEditor.loadImageFromURL(image, "image").then((result) =>{
@@ -50,6 +62,17 @@ export default {
     },
     reset() {
       this.loadImage(this.image);
+    },
+    startCrop() {
+      this.imageEditor.startDrawingMode('CROPPER');
+    },
+    applyCrop() {
+      this.imageEditor.crop(this.imageEditor.getCropzoneRect()).then(() => {
+        this.imageEditor.stopDrawingMode();
+      });
+    },
+    cancelCrop() {
+      this.imageEditor.stopDrawingMode();
     }
   },
   watch: {
