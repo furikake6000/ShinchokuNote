@@ -2,10 +2,26 @@
   .image-editor-gui
     #image_editor.d-flex.justify-center
     .ma-4
-      .d-flex.justify-center(v-if="isCropping")
+      .d-flex.justify-center.align-center(v-if="isCropping")
+        v-btn(@click="setCropRatio(1)" text) 1:1
+        v-btn(@click="setCropRatio(1.333333)" text) 4:3
+        v-btn(@click="setCropRatio(1.777777)" text) 16:9
+        v-icon.mx-2.secondary--text(large) mdi-power-on
         v-btn(@click="applyCrop" icon text large)
           v-icon mdi-check
         v-btn(@click="cancelCrop" icon text large)
+          v-icon mdi-close
+      .d-flex.justify-center(v-else-if="flipModeEnabled")
+        v-btn(@click="flipX" icon text large)
+          v-icon mdi-flip-horizontal
+        v-btn(@click="flipY" icon text large)
+          v-icon mdi-flip-vertical
+        v-btn(@click="resetFlip" icon text large)
+          v-icon mdi-restore
+        v-icon.mx-2.secondary--text(large) mdi-power-on
+        v-btn(@click="applyFlip" icon text large)
+          v-icon mdi-check
+        v-btn(@click="cancelFlip" icon text large)
           v-icon mdi-close
       .d-flex.justify-center(v-else)
         v-btn(@click="undo" icon text large)
@@ -17,10 +33,12 @@
         v-icon.mx-2.secondary--text(large) mdi-power-on
         v-btn(@click="startCrop" icon text large)
           v-icon mdi-crop
-        v-btn(icon text large)
+        v-btn(@click="startFlip" icon text large)
           v-icon mdi-flip-horizontal
         v-btn(icon text large)
           v-icon mdi-tune
+        v-btn(icon text large)
+          v-icon mdi-sticker-plus-outline
         v-icon.mx-2.secondary--text(large) mdi-power-on
         v-btn(icon text large color="success lighten-3")
           v-icon mdi-check
@@ -39,7 +57,8 @@ export default {
   },
   data: () => {
     return {
-      imageEditor: null
+      imageEditor: null,
+      flipModeEnabled: false
     }
   },
   computed: {
@@ -73,6 +92,28 @@ export default {
     },
     cancelCrop() {
       this.imageEditor.stopDrawingMode();
+    },
+    setCropRatio(ratio) {
+      this.imageEditor.setCropzoneRect(ratio);
+    },
+    startFlip() {
+      this.flipModeEnabled = true;
+    },
+    flipX() {
+      this.imageEditor.flipX();
+    },
+    flipY() {
+      this.imageEditor.flipY();
+    },
+    resetFlip() {
+      this.imageEditor.resetFlip();
+    },
+    applyFlip() {
+      this.flipModeEnabled = false;
+    },
+    cancelFlip() {
+      this.imageEditor.resetFlip();
+      this.flipModeEnabled = false;
     }
   },
   watch: {
