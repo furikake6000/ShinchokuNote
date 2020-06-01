@@ -43,9 +43,9 @@
           v-btn(icon text large)
             v-icon mdi-sticker-plus-outline
           v-icon.mx-2.secondary--text(large) mdi-power-on
-          v-btn(icon text large color="success lighten-3")
+          v-btn(@click="$emit('apply', imageEditor.toDataURL())" icon text large color="success lighten-3")
             v-icon mdi-check
-          v-btn(icon text large color="error lighten-3")
+          v-btn(@click="$emit('cancel')" icon text large color="error lighten-3")
             v-icon mdi-close
 </template>
 

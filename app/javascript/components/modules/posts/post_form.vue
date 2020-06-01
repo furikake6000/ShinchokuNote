@@ -12,13 +12,13 @@
         template(v-for="(image, index) in newPost.images")
           v-hover(v-slot:default="{ hover }")
             v-img.mr-2(
-              @click="showImageEditor(image)"
+              @click="editImage(index)"
               :src="image"
               max-width="128px"
               height="128px"
             )
               .ma-1.d-flex.justify-space-between(v-if="hover")
-                v-btn(@click="showImageEditor(image)" x-small fab color="secondary darken-2")
+                v-btn(@click="editImage(index)" x-small fab color="secondary darken-2")
                   v-icon mdi-image-edit
                 v-btn(@click="deleteImage(index)" x-small fab color="secondary darken-2")
                   v-icon mdi-close
@@ -90,9 +90,11 @@
         v-btn(rounded color="primary").follow-btn.font-weight-bold 投稿する
       v-btn(v-if="mode=='schedule'" rounded color="primary").ml-auto.follow-btn.font-weight-bold スケジュールの作成
     v-overlay(:value="imageEditorEnabled")
-      v-btn(icon @click="hideImageEditor")
-        v-icon mdi-close
-      image-editor(:image="editingImage")
+      image-editor(
+        :image="newPost.images[editingImageIndex]"
+        @apply="applyEditingImage"
+        @cancel="closeImageEditor"
+      )
 </template>
 
 <script>
@@ -116,7 +118,7 @@ export default {
         text: ""
       },
       imageEditorEnabled: false,
-      editingImage: null
+      editingImageIndex: null
     }
   },
   methods:  {
@@ -149,11 +151,15 @@ export default {
     deleteImage(index) {
       this.newPost.images.splice(index, 1);
     },
-    showImageEditor(image) {
-      this.editingImage = image;
+    editImage(index) {
+      this.editingImageIndex = index;
       this.imageEditorEnabled = true;
     },
-    hideImageEditor() {
+    applyEditingImage(image) {
+      this.newPost.images[this.editingImageIndex] = image;
+      this.closeImageEditor();
+    },
+    closeImageEditor() {
       this.imageEditorEnabled = false;
     }
   },
