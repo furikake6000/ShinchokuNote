@@ -42,11 +42,11 @@
       div(v-show="!isCropping && !flipModeEnabled")
         .d-flex.justify-center.align-center
           .text-center.mx-2
-            v-btn(@click="undo" icon text large)
+            v-btn(@click="undo" icon text large :disabled="imageEditor && imageEditor.isEmptyUndoStack()")
               v-icon mdi-undo
             .caption 元に戻す
           .text-center.mx-2
-            v-btn(@click="redo" icon text large)
+            v-btn(@click="redo" icon text large :disabled="imageEditor && imageEditor.isEmptyRedoStack()")
               v-icon mdi-redo
             .caption やり直し
           .text-center.mx-2
