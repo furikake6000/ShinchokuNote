@@ -1,6 +1,6 @@
 <template lang="pug">
   .image-editor-gui
-    #image_editor.d-flex.justify-center
+    #image_editor.d-flex.justify-center.align-center
     .ma-4
       div(v-show="isCropping")
         .d-flex.justify-center.align-center
