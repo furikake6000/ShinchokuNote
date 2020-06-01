@@ -1,5 +1,6 @@
 <template lang="pug">
-  #image_editor
+  .image-editor-gui
+    #image_editor.d-flex.justify-center
 </template>
 
 <script>
@@ -28,15 +29,21 @@ export default {
     }
   },
   mounted: function() {
-    this.imageEditor = new ImageEditor(document.querySelector('#image_editor'));
+    this.imageEditor = new ImageEditor(document.querySelector('#image_editor'), {
+      cssMaxWidth: 960,
+      cssMaxHeight: 640
+    });
     this.loadImage(this.image);
   }
 }
 </script>
 
 <style lang="sass" scoped>
-  #image_editor
+  .image-editor-gui
     width: 1000px
-    height: 800px
-    background-color: black
+    height: 780px
+    padding: 40px
+    background-color: var(--v-secondary-darken3)
+  #image_editor
+    height: 640px
 </style>
