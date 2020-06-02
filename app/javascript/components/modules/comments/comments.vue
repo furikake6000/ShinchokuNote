@@ -1,5 +1,7 @@
 <template lang="pug">
   .comments
+    .bgstr.top
+      v-icon(color="secondary lighten-3") mdi-email
     .comments-title.secondary--text.font-weight-bold コメント(24)
     comment-form.mt-2
 </template>
