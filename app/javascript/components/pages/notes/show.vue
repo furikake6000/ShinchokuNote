@@ -29,6 +29,7 @@
         v-col.main-col(cols="8")
           post-form.post-form
           post-timeline(:posts="posts")
+          comments
 
         v-col(cols="4")
           .user-info
@@ -58,6 +59,7 @@
 import Note from '../../modules/notes/note.vue'
 import PostForm from '../../modules/posts/post_form.vue'
 import PostTimeline from '../../modules/posts/post_timeline.vue'
+import Comments from '../../modules/comments/comments.vue'
 
 export default {
   data: function () {
@@ -177,13 +179,23 @@ export default {
           text: 'poyo',
           date: new Date("31 Dec 2019 12:00:00 +0900")
         },
+      ],
+      comments: [
+        {
+          id: 10,
+          type: 'schedule',
+          text: '未完のスケジュール',
+          date: new Date("24 May 2020 13:57:00 +0900"),
+          scheduledDate: new Date("31 May 2020 07:00:00 +0900")
+        },
       ]
     }
   },
   components: {
     Note,
     PostForm,
-    PostTimeline
+    PostTimeline,
+    Comments
   }
 }
 </script>
