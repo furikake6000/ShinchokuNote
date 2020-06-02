@@ -1,5 +1,5 @@
 <template lang="pug">
-  .image-editor-gui
+  .image-editor-gui.elevation-8
     #image_editor.d-flex.justify-center.align-center
     .ma-4
       div(v-show="isCropping")
@@ -163,6 +163,7 @@ export default {
     height: 780px
     padding: 40px
     background-color: var(--v-secondary-darken3)
+    border-radius: 20px
   #image_editor
     height: 640px
 </style>
