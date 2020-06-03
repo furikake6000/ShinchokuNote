@@ -29,7 +29,7 @@
         v-col.main-col(cols="8")
           post-form.post-form
           post-timeline(:posts="posts")
-          comments
+          comments(:comments="comments")
 
         v-col(cols="4")
           .user-info
@@ -182,12 +182,30 @@ export default {
       ],
       comments: [
         {
-          id: 10,
-          type: 'schedule',
-          text: '未完のスケジュール',
-          date: new Date("24 May 2020 13:57:00 +0900"),
-          scheduledDate: new Date("31 May 2020 07:00:00 +0900")
+          id: 4,
+          text: 'コメント4',
+          date: new Date("25 May 2020 14:00:00 +0900")
         },
+        {
+          id: 3,
+          text: 'コメント3',
+          date: new Date("24 May 2020 13:59:00 +0900")
+        },
+        {
+          id: 2,
+          text: 'コメント2',
+          date: new Date("24 May 2020 13:58:00 +0900")
+        },
+        {
+          id: 1,
+          text: 'コメント',
+          date: new Date("24 May 2020 13:57:00 +0900")
+        },
+        {
+          id: 5,
+          text: 'コメント5',
+          date: new Date("24 Dec 2019 13:57:00 +0900")
+        }
       ]
     }
   },
