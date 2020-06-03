@@ -5,13 +5,10 @@
       v-btn(text small color="secondary")
         v-icon(small) mdi-reply
         span 返信
-      v-btn(text small color="secondary")
-        v-icon(small) mdi-check
-        span 既読
-      v-btn(text small color="secondary")
+      v-btn(@click="toggleFavored" text small :color="favored ? 'primary' : 'secondary'")
         v-icon(small) mdi-star
         span お気に入り
-      v-btn(text small color="secondary")
+      v-btn(@click="toggleMuted" text small :color="muted ? 'primary' : 'secondary'")
         v-icon(small) mdi-eye-off
         span ミュート
       span.caption.secondary--text.ml-auto {{ dateStr(date) }}
@@ -41,7 +38,9 @@ export default {
   props: {
     id: Number,
     text: String,
-    date: Date
+    date: Date,
+    favored: Boolean,
+    muted: Boolean
   },
   methods: {
     dateStr(date) {

@@ -185,26 +185,43 @@ export default {
         {
           id: 4,
           text: 'コメント4',
+          favored: false,
+          muted: false,
           date: new Date("25 May 2020 14:00:00 +0900")
         },
         {
           id: 3,
           text: 'コメント3',
+          favored: true,
+          muted: false,
           date: new Date("24 May 2020 13:59:00 +0900")
         },
         {
           id: 2,
           text: 'コメント2',
+          favored: false,
+          muted: false,
           date: new Date("24 May 2020 13:58:00 +0900")
         },
         {
           id: 1,
           text: 'コメント',
+          favored: false,
+          muted: false,
           date: new Date("24 May 2020 13:57:00 +0900")
+        },
+        {
+          id: 6,
+          text: 'ミュートされたコメント',
+          favored: false,
+          muted: true,
+          date: new Date("21 May 2020 13:57:00 +0900")
         },
         {
           id: 5,
           text: 'コメント5',
+          favored: true,
+          muted: false,
           date: new Date("24 Dec 2019 13:57:00 +0900")
         }
       ]

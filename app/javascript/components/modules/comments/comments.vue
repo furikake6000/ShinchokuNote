@@ -4,7 +4,13 @@
       v-icon(color="secondary lighten-3") mdi-email
     .comments-title.secondary--text.font-weight-bold コメント({{count}})
     comment-form.mt-2
-    comment.my-4(v-bind="comment" v-for="comment in comments" :key="comment.id")
+    v-divider
+    v-btn-toggle(borderless dense mandatory v-model="filter")
+      v-btn(value="all") すべて
+      v-btn(value="unreplied") 未返信
+      v-btn(value="favored") お気に入り
+      v-btn(value="muted") ミュート済み
+    comment.my-4(v-bind="comment" v-for="comment in filteredComments" :key="comment.id")
 </template>
 
 <script>
@@ -16,6 +22,25 @@ export default {
   props: {
     comments: Array,
     count: Number
+  },
+  data: function() {
+    return {
+      filter: "all"
+    }
+  },
+  computed: {
+    filteredComments() {
+      switch(this.filter) {
+        case "all":
+          return this.comments.filter(c => !c.muted);
+        case "unreplied":
+          return this.comments.filter(c => !c.response && !c.muted);
+        case "favored":
+          return this.comments.filter(c => c.favored && !c.muted);
+        case "muted":
+          return this.comments.filter(c => c.muted);
+      }
+    }
   },
   components: {
     CommentForm,
