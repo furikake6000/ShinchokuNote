@@ -2,7 +2,7 @@
   .comments
     .bgstr.top
       v-icon(color="secondary lighten-3") mdi-email
-    .comments-title.secondary--text.font-weight-bold コメント(24)
+    .comments-title.secondary--text.font-weight-bold コメント({{count}})
     comment-form.mt-2
     comment.my-4(v-bind="comment" v-for="comment in comments" :key="comment.id")
 </template>
@@ -14,7 +14,8 @@ import Comment from "./comment.vue";
 export default {
   name: "comments",
   props: {
-    comments: Array
+    comments: Array,
+    count: Number
   },
   components: {
     CommentForm,

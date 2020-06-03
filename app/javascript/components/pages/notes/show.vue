@@ -29,7 +29,7 @@
         v-col.main-col(cols="8")
           post-form.post-form
           post-timeline(:posts="posts")
-          comments(:comments="comments")
+          comments(:comments="comments" :count="commentsCount")
 
         v-col(cols="4")
           .user-info
@@ -180,6 +180,7 @@ export default {
           date: new Date("31 Dec 2019 12:00:00 +0900")
         },
       ],
+      commentsCount: 5,
       comments: [
         {
           id: 4,
