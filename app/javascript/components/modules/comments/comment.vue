@@ -1,5 +1,6 @@
 <template lang="pug">
   .comment
+    .caption.secondary--text(v-if="author") {{author.screen_name}}さんより
     .comment-text {{text}}
     .d-flex.align-center
       v-btn(text small color="secondary")
@@ -40,7 +41,8 @@ export default {
     text: String,
     date: Date,
     favored: Boolean,
-    muted: Boolean
+    muted: Boolean,
+    author: Object
   },
   methods: {
     dateStr(date) {

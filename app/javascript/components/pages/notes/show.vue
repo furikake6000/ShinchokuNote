@@ -187,7 +187,11 @@ export default {
           text: 'コメント4',
           favored: false,
           muted: false,
-          date: new Date("25 May 2020 14:00:00 +0900")
+          date: new Date("25 May 2020 14:00:00 +0900"),
+          author: {
+            screen_name: "ふりかけ",
+            url: "/users/furikake555"
+          }
         },
         {
           id: 3,
@@ -208,7 +212,11 @@ export default {
           text: 'コメント',
           favored: false,
           muted: false,
-          date: new Date("24 May 2020 13:57:00 +0900")
+          date: new Date("24 May 2020 13:57:00 +0900"),
+          author: {
+            screen_name: "ふりかけ",
+            url: "/users/furikake555"
+          }
         },
         {
           id: 6,
