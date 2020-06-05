@@ -1,0 +1,13 @@
+- content_for :leftcol do
+  #note_toolbox
+    .sticky-wrapper
+      #shinchoku_dodeska_button.mt-5
+        = svg_tag('Shinchoku_icon_colored.svg')
+      #watchlist_button.toolbox-button.mt-5
+        = fa_icon 'star'
+      #comment_button.toolbox-button.mt-5
+        = fa_icon 'envelope', class: 'small'
+
+- content_for :javascript do
+  = javascript_include_tag 'note_foot_toolbar',
+    'data-turbolinks-track': 'reload'
