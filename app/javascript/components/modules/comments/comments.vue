@@ -9,7 +9,6 @@
       v-btn(value="all") すべて
       v-btn(value="unreplied") 未返信
       v-btn(value="favored") お気に入り
-      v-btn(value="muted") ミュート済み
     comment.my-4(v-bind="comment" v-for="comment in filteredComments" :key="comment.id")
 </template>
 
@@ -37,8 +36,6 @@ export default {
           return this.comments.filter(c => !c.response && !c.muted);
         case "favored":
           return this.comments.filter(c => c.favored && !c.muted);
-        case "muted":
-          return this.comments.filter(c => c.muted);
       }
     }
   },
