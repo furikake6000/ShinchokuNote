@@ -30,8 +30,6 @@ export default {
 
 <style lang="sass">
   .comment-form
-    label
-      margin-bottom: 0
     .v-text-field label.v-label
       color: var(--v-secondary-lighten2)
       font-weight: bold
