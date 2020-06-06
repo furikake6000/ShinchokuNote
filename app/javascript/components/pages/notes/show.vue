@@ -191,6 +191,10 @@ export default {
           author: {
             screen_name: "ふりかけ",
             url: "/users/furikake555"
+          },
+          responsePost: {
+            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+            date: new Date("21 May 2020 19:00:00 +0900")
           }
         },
         {
@@ -198,7 +202,15 @@ export default {
           text: 'コメント3',
           favored: true,
           muted: false,
-          date: new Date("24 May 2020 13:59:00 +0900")
+          date: new Date("24 May 2020 13:59:00 +0900"),
+          responsePost: {
+            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+            images: [
+              "http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f97e59db7026b209deb6890df4bc5551512f79f5/blob",
+              "http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--38a1a23da3d044d9c627bc246c838e29d660ec21/blob"
+            ],
+            date: new Date("13 Apr 2020 19:00:00 +0900")
+          }
         },
         {
           id: 2,

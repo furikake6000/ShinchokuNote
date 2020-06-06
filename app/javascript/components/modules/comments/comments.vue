@@ -33,7 +33,7 @@ export default {
         case "all":
           return this.comments.filter(c => !c.muted);
         case "unreplied":
-          return this.comments.filter(c => !c.response && !c.muted);
+          return this.comments.filter(c => !c.responsePost && !c.muted);
         case "favored":
           return this.comments.filter(c => c.favored && !c.muted);
       }

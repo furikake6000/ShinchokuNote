@@ -3,7 +3,14 @@
     .caption.secondary--text(v-if="author") {{author.screen_name}}さんより
     .comment-text {{text}}
     .d-flex.align-center
-      v-btn(text small color="secondary")
+      template(v-if="responsePost")
+        v-btn(v-if="responseEnabled" @click="hideResponse" text small color="secondary")
+          v-icon(small) mdi-chevron-up
+          span 返信を非表示
+        v-btn(v-else @click="showResponse" text small color="secondary")
+          v-icon(small) mdi-chevron-down
+          span 返信を表示
+      v-btn(v-else text small color="secondary")
         v-icon(small) mdi-reply
         span 返信
       v-btn(@click="toggleFavored" text small :color="favored ? 'primary' : 'secondary'")
@@ -13,10 +20,35 @@
         v-icon(small) mdi-eye-off
         span ミュート
       span.caption.secondary--text.ml-auto {{ dateStr(date) }}
+    .ml-4(v-if="responsePost && responseEnabled")
+      span {{responsePost.text}}
+      v-row
+        v-col(
+          v-for="(image, index) in responsePost.images"
+          :key="image"
+          cols="4"
+        )
+          v-img(
+            :src="image"
+            aspect-ratio="1"
+            @click="showLightbox(index)"
+          )
+      .text-right.caption.secondary--text {{dateStr(responsePost.date)}}
+      vue-easy-lightbox(
+        v-if="responsePost.images"
+        :visible="lightboxEnabled"
+        :imgs="responsePost.images"
+        :index="lightboxIndex"
+        @hide="hideLightbox"
+      )
 </template>
 
 <script>
+import Vue from 'vue';
+import Lightbox from 'vue-easy-lightbox';
 import CommentForm from "./comment_form.vue";
+
+Vue.use(Lightbox);
 
 const dateFormatter = Intl.DateTimeFormat('ja-JP', {
   month: 'narrow',
@@ -42,9 +74,30 @@ export default {
     date: Date,
     favored: Boolean,
     muted: Boolean,
-    author: Object
+    author: Object,
+    responsePost: Object
+  },
+  data: function() {
+    return {
+      lightboxEnabled: false,
+      lightboxIndex: 0,
+      responseEnabled: false
+    }
   },
   methods: {
+    showLightbox(index) {
+      this.lightboxEnabled = true;
+      this.lightboxIndex = index;
+    },
+    hideLightbox() {
+      this.lightboxEnabled = false;
+    },
+    showResponse() {
+      this.responseEnabled = true;
+    },
+    hideResponse() {
+      this.responseEnabled = false;
+    },
     dateStr(date) {
       if(date.getFullYear() != new Date().getFullYear()){
         return dateFormatterWithYear.format(date);
