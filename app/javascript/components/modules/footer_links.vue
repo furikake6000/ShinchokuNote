@@ -11,8 +11,7 @@
           span Twitter
         a.mx-4(href="/notes/19600") ご意見はこちらまで
       .d-flex.justify-center.mt-4
-        a(href="/")
-          v-img(:src="logo" contain max-height="48px")
+        a.logo(href="/" v-html="logo")
 </template>
 
 <script>
@@ -31,4 +30,6 @@ export default {
 <style lang="sass" scoped>
   .footer-links a
     color: var(--v-primary-lighten2)
+  .logo
+    width: 180px
 </style>
