@@ -24,35 +24,37 @@
               pariatur. 
             .flex-shrink-0.text-right.align-self-end
               .secondary--text.text--lighten-1.font-weight-bold 2019年1月1日作成 (100日め)
-    v-container
-      v-row
-        v-col.main-col(cols="8")
-          post-form.post-form
-          post-timeline(:posts="posts")
-          comments(:comments="comments" :count="commentsCount")
+      v-container
+        v-row
+          v-col.main-col(cols="8")
+            post-form.post-form
+            post-timeline(:posts="posts")
+            comments(:comments="comments" :count="commentsCount")
 
-        v-col(cols="4")
-          .user-info
-            v-avatar(size="100px")
-              img(src="https://pbs.twimg.com/profile_images/1258916109442404353/I-NTF47_.jpg")
-            .user-name ふりかけ
-            a(href="https://twitter.com/furikake555").secondary--text.text--lighten-1
-              v-icon mdi-twitter
-              span @furikake6000
-            .user-desc.my-3.pb-3
-              p.body-2.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              br
-              a.body-2.primary--text(href="https://example.com") https://example.com
-            .user-notes
-              .text-center.secondary--text 最近のノート
-              template(v-for="note in projects")
-                note(v-bind="note").my-4
-              .text-center.secondary--text リクエストボックス
-              template(v-for="note in request_boxes")
-                note(v-bind="note").my-4
-            v-btn(outlined block color="primary") マイページへ
+          v-col(cols="4")
+            .user-info
+              v-avatar(size="100px")
+                img(src="https://pbs.twimg.com/profile_images/1258916109442404353/I-NTF47_.jpg")
+              .user-name ふりかけ
+              a(href="https://twitter.com/furikake555").secondary--text.text--lighten-1
+                v-icon mdi-twitter
+                span @furikake6000
+              .user-desc.my-3.pb-3
+                p.body-2.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                br
+                a.body-2.primary--text(href="https://example.com") https://example.com
+              .user-notes
+                .text-center.secondary--text 最近のノート
+                template(v-for="note in projects")
+                  note(v-bind="note").my-4
+                .text-center.secondary--text リクエストボックス
+                template(v-for="note in request_boxes")
+                  note(v-bind="note").my-4
+              v-btn(outlined block color="primary") マイページへ
+    footer
+      footer-links.mt-6.mb-12
 </template>
 
 <script>
@@ -60,6 +62,7 @@ import Note from '../../modules/notes/note.vue'
 import PostForm from '../../modules/posts/post_form.vue'
 import PostTimeline from '../../modules/posts/post_timeline.vue'
 import Comments from '../../modules/comments/comments.vue'
+import FooterLinks from '../../modules/footer_links.vue'
 
 export default {
   data: function () {
@@ -251,7 +254,8 @@ export default {
     Note,
     PostForm,
     PostTimeline,
-    Comments
+    Comments,
+    FooterLinks
   }
 }
 </script>
@@ -289,6 +293,9 @@ export default {
   .post-form
     position: relative
     z-index: 101
+
+footer
+  background-color: white
 
 button.v-btn.follow-btn
   width: 12rem
