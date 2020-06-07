@@ -1,7 +1,7 @@
 <template lang="pug">
   v-app
     main
-      .cover
+      .cover.grid-bg
         v-container
           h1.name.mt-4.pb-3
             .d-flex.flex-column.flex-md-row
@@ -53,7 +53,7 @@
                 template(v-for="note in request_boxes")
                   note(v-bind="note").my-4
               v-btn(outlined block color="primary") マイページへ
-    footer
+    footer.grid-bg
       footer-links.mt-6.mb-12
 </template>
 
