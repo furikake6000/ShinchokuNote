@@ -9,7 +9,7 @@
 
     .pa-4
       .mb-2.secondary--text.font-weight-bold このノートを共有
-      v-text-field(:value="currentUrl" readonly filled rounded dense)
+      v-text-field#current_url_field(:value="currentUrl" readonly filled rounded dense)
       .mt-n4.text-right
         v-tooltip(bottom)
           template(v-slot:activator="{ on }")
@@ -18,9 +18,13 @@
           span ツイート
         v-tooltip(bottom)
           template(v-slot:activator="{ on }")
-            v-btn.ml-2(v-on="on" fab color="secondary" small)
-              v-icon mdi-link-variant
-          span URLをコピー
+            v-btn.ml-2(
+              @click="copyCurrentUrl"
+              :color="currentUrlCopied ? 'success' : 'secondary'"
+              v-on="on" fab small
+            )
+              v-icon {{currentUrlCopied ? 'mdi-check' : 'mdi-link-variant'}}
+          span {{currentUrlCopied ? 'コピーしました！' : 'URLをコピー'}}
 </template>
 
 <script>
@@ -30,7 +34,20 @@ export default {
   name: "side-menu",
   data: () => {
     return {
-      icon: icon
+      icon: icon,
+      currentUrlCopied: false
+    }
+  },
+  methods: {
+    copyCurrentUrl() {
+      document.getElementById("current_url_field").select();
+      document.execCommand("copy");
+      this.currentUrlCopied = true;
+
+      // 10秒後に表示をもとに戻す
+      setTimeout(() => {
+        this.currentUrlCopied = false;
+      }, 10000);
     }
   },
   computed: {
