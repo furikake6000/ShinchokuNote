@@ -12,7 +12,8 @@ const opts = {
         primary: '#F75C2F',
         secondary: '#999999',
         project: '#F75C2F',
-        request_box: '#2EA9DF'
+        request_box: '#2EA9DF',
+        twitter: '#1DA1F2'
       }
     },
     options: {

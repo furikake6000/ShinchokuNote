@@ -31,7 +31,7 @@
             post-timeline(:posts="posts")
             comments(:comments="comments" :count="commentsCount")
 
-          v-col(cols="4")
+          v-col.d-flex.flex-column(cols="4")
             .user-info
               v-avatar(size="100px")
                 img(src="https://pbs.twimg.com/profile_images/1258916109442404353/I-NTF47_.jpg")
@@ -53,8 +53,10 @@
                 template(v-for="note in request_boxes")
                   note(v-bind="note").my-4
               v-btn(outlined block color="primary") マイページへ
+            .flex-grow-1
+              side-menu
     footer.grid-bg
-      footer-links.mt-6.mb-12
+      footer-links
 </template>
 
 <script>
@@ -63,6 +65,7 @@ import PostForm from '../../modules/posts/post_form.vue'
 import PostTimeline from '../../modules/posts/post_timeline.vue'
 import Comments from '../../modules/comments/comments.vue'
 import FooterLinks from '../../modules/footer_links.vue'
+import SideMenu from '../../modules/side_menu.vue'
 
 export default {
   data: function () {
@@ -255,7 +258,8 @@ export default {
     PostForm,
     PostTimeline,
     Comments,
-    FooterLinks
+    FooterLinks,
+    SideMenu
   }
 }
 </script>
@@ -294,8 +298,14 @@ export default {
     position: relative
     z-index: 101
 
+.side-menu
+  position: sticky
+  top: 120px
+
 footer
   background-color: white
+  padding-top: 36px
+  padding-bottom: 108px
 
 button.v-btn.follow-btn
   width: 12rem
