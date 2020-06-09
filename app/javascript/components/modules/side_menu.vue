@@ -1,10 +1,19 @@
 <template lang="pug">
   .side-menu
     .d-flex.flex-column.pa-4
-      .icon.elevation-6(v-html="icon")
-      v-btn.mt-4(fab color="secondary")
+      .pop.shinchoku-dodeska
+        span.number 15
+        span.ml-1 進捗どうですか
+      .icon.elevation-6.mb-4(v-html="icon")
+      .pop
+        span.number 3
+        span.ml-1 ウォッチリスト
+      v-btn.ml-1.mb-4(fab small color="secondary")
         v-icon mdi-star
-      v-btn.mt-4(fab color="secondary")
+      .pop
+        span.number 5
+        span.ml-1 コメント
+      v-btn.ml-1(@click="$vuetify.goTo('.comment-form')" fab small color="secondary")
         v-icon mdi-email
 
     .pa-4
@@ -29,6 +38,7 @@
 
 <script>
 import icon from "../../assets/images/icon.svg"
+import goTo from "vuetify/es5/services/goto"
 
 export default {
   name: "side-menu",
@@ -64,7 +74,36 @@ export default {
   .icon
     background-color: white
     border-radius: 50%
-    width: 72px
-    height: 72px
-    fill: #bf321d
+    width: 64px
+    height: 64px
+    fill: var(--v-shinchoku-base)
+  .pop
+    position: relative
+    margin-right: auto
+    margin-bottom: 15px
+    padding: 0 10px 5px 10px
+    border-radius: 10px
+    background-color: var(--v-secondary-lighten1)
+    color: white
+    font-weight: bold
+    opacity: 0.8
+    span
+      font-size: .75rem
+      &.number
+        font-size: 1.2rem
+    &::after
+      content: ''
+      position: absolute
+      display: block
+      width: 0
+      left: 15px
+      bottom: -10px
+      border-top: 10px solid var(--v-secondary-lighten1)
+      border-right: 10px solid transparent
+      border-left: 10px solid transparent
+    &.shinchoku-dodeska
+      background-color: var(--v-shinchoku-lighten1)
+      &::after
+        left: 20px
+        border-top-color: var(--v-shinchoku-lighten1)
 </style>

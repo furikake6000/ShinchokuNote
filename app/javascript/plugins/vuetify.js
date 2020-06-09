@@ -13,6 +13,7 @@ const opts = {
         secondary: '#999999',
         project: '#F75C2F',
         request_box: '#2EA9DF',
+        shinchoku: '#c8321e',
         twitter: '#1DA1F2'
       }
     },
