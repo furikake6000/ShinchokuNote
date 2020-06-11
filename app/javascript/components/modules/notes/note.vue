@@ -1,7 +1,7 @@
 <template lang="pug">
-  v-card.note-card
+  v-card.note-card(:class="`note-${type}`")
     a(:href="url")
-      .bgstr(:class="noteIconColor")
+      .bgstr
         v-icon {{noteTypeIcon}}
       template(v-if="thumbUrl")
         v-img(
@@ -84,6 +84,7 @@ export default {
   .content
     position: relative
     z-index: 1
+    border-left: solid 16px white
   .v-image
     position: relative
     z-index: 1
@@ -94,4 +95,16 @@ export default {
     overflow: hidden
     padding-bottom: 0
     margin-bottom: 1rem
+
+  &.note-project
+    .content
+      border-color: var(--v-project-lighten5)
+    .bgstr
+      color: var(--v-project-lighten5)
+
+  &.note-request_box
+    .content
+      border-color: var(--v-request_box-lighten3)
+    .bgstr
+      color: var(--v-request_box-lighten3)
 </style>
