@@ -79,7 +79,7 @@ export default {
   .note-card-title
     display: -webkit-box
     -webkit-box-orient: vertical
-    -webkit-line-clamp: 3
+    -webkit-line-clamp: 2
     overflow: hidden
   .note-card-content
     position: relative
