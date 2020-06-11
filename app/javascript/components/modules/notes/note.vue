@@ -3,16 +3,16 @@
     a(:href="url")
       .bgstr(:class="noteIconColor")
         v-icon {{noteTypeIcon}}
+      template(v-if="thumbUrl")
+        v-img(
+          :src="thumbUrl" height="200px"
+          gradient="to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, .5)"
+        ).white--text.align-end
+          v-card-title.headline
+            span.mr-2.note-card-title {{name}}
+            note-badges(:stage="stage" :viewStance="viewStance" :rating="rating")
       .note-card-content
-        template(v-if="thumbUrl")
-          v-img(
-            :src="thumbUrl" height="200px"
-            gradient="to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, .5)"
-          ).white--text.align-end
-            v-card-title.headline
-              span.mr-2.note-card-title {{name}}
-              note-badges(:stage="stage" :viewStance="viewStance" :rating="rating")
-        template(v-else)
+        template(v-if="!thumbUrl")
           v-card-title.headline
             span.mr-2.note-card-title {{name}}
             note-badges(:stage="(this.type == 'request_box' ? null : this.stage)" :viewStance="viewStance" :rating="rating")
@@ -82,6 +82,9 @@ export default {
     -webkit-line-clamp: 2
     overflow: hidden
   .note-card-content
+    position: relative
+    z-index: 1
+  .v-image
     position: relative
     z-index: 1
   .v-card__subtitle
