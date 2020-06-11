@@ -9,12 +9,12 @@
           gradient="to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, .5)"
         ).white--text.align-end
           v-card-title.headline
-            span.mr-2.note-card-title {{name}}
+            span.mr-2.name {{name}}
             note-badges(:stage="stage" :viewStance="viewStance" :rating="rating")
-      .note-card-content
+      .content
         template(v-if="!thumbUrl")
           v-card-title.headline
-            span.mr-2.note-card-title {{name}}
+            span.mr-2.name {{name}}
             note-badges(:stage="(this.type == 'request_box' ? null : this.stage)" :viewStance="viewStance" :rating="rating")
         v-card-subtitle {{desc}}
         v-card-actions
@@ -76,12 +76,12 @@ export default {
     color: rgba(0, 0, 0, .87)
     &:hover
       text-decoration: none
-  .note-card-title
+  .name
     display: -webkit-box
     -webkit-box-orient: vertical
     -webkit-line-clamp: 2
     overflow: hidden
-  .note-card-content
+  .content
     position: relative
     z-index: 1
   .v-image
