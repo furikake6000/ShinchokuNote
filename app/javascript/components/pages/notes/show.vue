@@ -5,15 +5,25 @@
         v-container
           h1.name.mt-4.pb-3
             .d-flex.flex-column.flex-md-row
-              div.flex-grow-1
+              .flex-grow-1
                 span test
                 v-chip(color="success" outlined).ml-2 完成
                 v-chip(color="secondary" outlined).ml-2
                   v-icon mdi-lock
                   span 自分のみ
                 v-chip(color="error" outlined).ml-2 R18
-              .text-left
-                v-btn(rounded color="secondary").align-self-center.follow-btn 編集する
+              .d-flex.align-center
+                v-tooltip(bottom)
+                  template(v-slot:activator="{ on }")
+                    v-btn(v-on="on" icon large color="secondary")
+                      v-icon mdi-star
+                  span ウォッチ！
+                v-tooltip(bottom)
+                  template(v-slot:activator="{ on }")
+                    v-btn(@click="$vuetify.goTo('.comments')" v-on="on" icon large color="secondary")
+                      v-icon mdi-email
+                  span コメント
+                .icon.ml-2(v-html="icon")
           .d-flex.flex-column.flex-md-row.mt-4
             p.
               Lorem ipsum dolor sit amet, consectetur adipiscing elit,
@@ -52,6 +62,7 @@
                 .text-center.secondary--text リクエストボックス
                 template(v-for="note in request_boxes")
                   note(v-bind="note").my-4
+                
               v-btn(outlined block color="primary") マイページへ
             .flex-grow-1
               side-menu
@@ -66,6 +77,7 @@ import PostTimeline from '../../modules/posts/post_timeline.vue'
 import Comments from '../../modules/comments/comments.vue'
 import FooterLinks from '../../modules/footer_links.vue'
 import SideMenu from '../../modules/side_menu.vue'
+import icon from "../../../assets/images/icon.svg"
 
 export default {
   data: function () {
@@ -250,7 +262,8 @@ export default {
           muted: false,
           date: new Date("24 Dec 2019 13:57:00 +0900")
         }
-      ]
+      ],
+      icon: icon
     }
   },
   components: {
@@ -292,6 +305,12 @@ export default {
   .user-desc
     border-bottom: 5px dotted var(--v-secondary-lighten2)
 
+.icon
+  width: 48px
+  height: 48px
+  line-height: 24px
+  fill: var(--v-secondary-base)
+
 .main-col
   position: relative
   .post-form
@@ -306,16 +325,4 @@ footer
   background-color: white
   padding-top: 36px
   padding-bottom: 108px
-
-button.v-btn.follow-btn
-  width: 12rem
-  height: 3rem
-  font-size: 1rem
-  font-weight: bold
-
-button.v-btn.follow-btn
-  width: 8rem
-  height: 2.5rem
-  font-size: 1rem
-  font-weight: bold
 </style>
