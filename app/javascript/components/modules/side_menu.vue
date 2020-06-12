@@ -13,7 +13,7 @@
       .pop
         span.number 5
         span.ml-1 コメント
-      v-btn.ml-1(@click="$vuetify.goTo('.comment-form')" fab small color="secondary")
+      v-btn.ml-1(@click="$vuetify.goTo('.comments')" fab small color="secondary")
         v-icon mdi-email
 
     .pa-4
@@ -38,7 +38,6 @@
 
 <script>
 import icon from "../../assets/images/icon.svg"
-import goTo from "vuetify/es5/services/goto"
 
 export default {
   name: "side-menu",
