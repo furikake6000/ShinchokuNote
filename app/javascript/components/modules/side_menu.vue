@@ -7,7 +7,7 @@
       .icon.elevation-6.mb-4(v-html="icon")
       .pop
         span.number 3
-        span.ml-1 ウォッチリスト
+        span.ml-1 ウォッチ中
       v-btn.ml-1.mb-4(fab small color="secondary")
         v-icon mdi-star
       .pop

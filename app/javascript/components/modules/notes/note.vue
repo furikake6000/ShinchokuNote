@@ -24,7 +24,7 @@
               v-btn(text color="secondary" v-on="on")
                 v-icon mdi-star
                 span {{watchersCount}}
-            span フォローする
+            span ウォッチ！
         
 </template>
 
