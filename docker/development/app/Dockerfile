@@ -44,7 +44,6 @@ RUN npm install yarn -g
 ENTRYPOINT [ \
     "prehook", "cp -pR static_files/. public", "--", \
     "prehook", "bundle install -j4 --clean --path vendor/bundle", "--", \
-    "prehook", "yarn install", "--", \
     "prehook", "bundle exec rails assets:precompile", "--", \
     "prehook", "bundle exec whenever --update-crontab", "--", \
     "prehook", "service cron start", "--", \
