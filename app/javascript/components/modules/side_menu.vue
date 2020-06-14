@@ -4,7 +4,7 @@
       .pop.shinchoku-dodeska
         span.number 15
         span.ml-1 進捗どうですか
-      .icon.elevation-6.mb-4(v-html="icon")
+      shinchoku-button.mb-4
       .pop
         span.number 3
         span.ml-1 ウォッチ中
@@ -37,14 +37,14 @@
 </template>
 
 <script>
-import icon from "../../assets/images/icon.svg"
+import ShinchokuButton from "../modules/shinchoku_dodeskas/shinchoku_button.vue"
 
 export default {
   name: "side-menu",
   data: () => {
     return {
-      icon: icon,
-      currentUrlCopied: false
+      currentUrlCopied: false,
+      stampFormEnabled: false
     }
   },
   methods: {
@@ -63,6 +63,9 @@ export default {
     currentUrl() {
       return location.href;
     }
+  },
+  components: {
+    ShinchokuButton
   }
 }
 </script>
@@ -70,12 +73,6 @@ export default {
 <style lang="sass" scoped>
   .side-menu
     position: relative
-  .icon
-    background-color: white
-    border-radius: 50%
-    width: 64px
-    height: 64px
-    fill: var(--v-shinchoku-base)
   .pop
     position: relative
     margin-right: auto

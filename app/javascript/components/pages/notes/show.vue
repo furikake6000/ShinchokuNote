@@ -23,7 +23,7 @@
                     v-btn(@click="$vuetify.goTo('.comments')" v-on="on" icon large color="secondary")
                       v-icon mdi-email
                   span コメント
-                .icon.ml-2(v-html="icon")
+                shinchoku-button.ml-2(noBackground=true color="secondary" size="36px")
           .d-flex.flex-column.flex-md-row.mt-4
             p.
               Lorem ipsum dolor sit amet, consectetur adipiscing elit,
@@ -77,6 +77,7 @@ import PostTimeline from '../../modules/posts/post_timeline.vue'
 import Comments from '../../modules/comments/comments.vue'
 import FooterLinks from '../../modules/footer_links.vue'
 import SideMenu from '../../modules/side_menu.vue'
+import ShinchokuButton from '../../modules/shinchoku_dodeskas/shinchoku_button.vue'
 import icon from "../../../assets/images/icon.svg"
 
 export default {
@@ -272,7 +273,8 @@ export default {
     PostTimeline,
     Comments,
     FooterLinks,
-    SideMenu
+    SideMenu,
+    ShinchokuButton
   }
 }
 </script>
