@@ -116,7 +116,7 @@ export default {
       z-index: 1
       border: 14px solid transparent
       border-left-color: var(--v-secondary-lighten2)
-  .responded-comment + .post-balloon
+  .responded-comment + .post-balloon-wrapper
     &::before
       content: ""
       position: absolute
