@@ -6,7 +6,7 @@
           h1.name.mt-4.pb-3
             .d-flex.flex-column.flex-md-row
               .flex-grow-1
-                span test
+                span {{note.name}}
                 v-chip(color="success" outlined).ml-2 完成
                 v-chip(color="secondary" outlined).ml-2
                   v-icon mdi-lock
@@ -25,15 +25,9 @@
                   span コメント
                 shinchoku-button.ml-2(noBackground=true color="secondary" size="36px")
           .d-flex.flex-column.flex-md-row.mt-4
-            p.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-              pariatur. 
+            p {{note.desc}}
             .flex-shrink-0.text-right.align-self-end
-              .secondary--text.text--lighten-1.font-weight-bold 2019年1月1日作成 (100日め)
+              .secondary--text.text--lighten-1.font-weight-bold {{dateStr(note.createdAt)}}作成 ({{elapsedDaysFrom(note.createdAt)}}日め)
       v-container
         v-row
           v-col.main-col(cols="8")
@@ -80,9 +74,37 @@ import SideMenu from '../../modules/side_menu.vue'
 import ShinchokuButton from '../../modules/shinchoku_dodeskas/shinchoku_button.vue'
 import icon from "../../../assets/images/icon.svg"
 
+const dateFormatter = Intl.DateTimeFormat('ja-JP', {
+  month: 'narrow',
+  day: 'numeric' ,
+  hour12: false,
+  hour: '2-digit',
+  minute: '2-digit'
+});
+const dateFormatterWithYear = Intl.DateTimeFormat('ja-JP', {
+  year: 'numeric',
+  month: 'narrow',
+  day: 'numeric' ,
+  hour12: false,
+  hour: '2-digit',
+  minute: '2-digit'
+});
+
 export default {
   data: function () {
     return {
+      note: {
+        type: 'project',
+        name: 'test',
+        desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+        stage: 'finished',
+        viewStance: 'only_me',
+        rating: 'restricted_18',
+        watchersCount: 3,
+        shinchokuDodeskasCount: 15,
+        commentsCount: 5,
+        createdAt: new Date("1 Jan 2019 07:00:00 +0900")
+      },
       projects: [
         {
           type: 'project',
@@ -265,6 +287,17 @@ export default {
         }
       ],
       icon: icon
+    }
+  },
+  methods: {
+    dateStr(date) {
+      if(date.getFullYear() != new Date().getFullYear()){
+        return dateFormatterWithYear.format(date);
+      }
+      return dateFormatter.format(date);
+    },
+    elapsedDaysFrom(date) {
+      return Math.floor((Date.now() - date.getTime()) / (1000 * 60 * 60 * 24));
     }
   },
   components: {
