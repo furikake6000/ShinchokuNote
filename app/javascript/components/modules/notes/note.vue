@@ -10,12 +10,17 @@
         ).white--text.align-end
           v-card-title.headline
             span.mr-2.name {{name}}
-            note-badges(:stage="stage" :viewStance="viewStance" :rating="rating")
+            note-badges(:stage="stage" :viewStance="viewStance" :rating="rating" small)
       .content
         template(v-if="!thumbUrl")
           v-card-title.headline
             span.mr-2.name {{name}}
-            note-badges(:stage="(this.type == 'request_box' ? null : this.stage)" :viewStance="viewStance" :rating="rating")
+            note-badges(
+              :stage="(type == 'request_box' ? null : stage)"
+              :viewStance="viewStance"
+              :rating="rating"
+              small
+            )
         v-card-subtitle {{desc}}
         v-card-actions
           v-spacer

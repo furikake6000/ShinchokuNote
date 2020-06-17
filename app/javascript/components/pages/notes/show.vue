@@ -5,13 +5,14 @@
         v-container
           h1.name.mt-4.pb-3
             .d-flex.flex-column.flex-md-row
-              .flex-grow-1
+              .flex-grow-1.d-flex
                 span {{note.name}}
-                v-chip(color="success" outlined).ml-2 完成
-                v-chip(color="secondary" outlined).ml-2
-                  v-icon mdi-lock
-                  span 自分のみ
-                v-chip(color="error" outlined).ml-2 R18
+                note-badges.ml-2(
+                  :stage="(note.type == 'request_box' ? null : note.stage)"
+                  :viewStance="note.viewStance"
+                  :rating="note.rating"
+                  outlined
+                )
               .d-flex.align-center
                 v-tooltip(bottom)
                   template(v-slot:activator="{ on }")
@@ -72,6 +73,7 @@ import Comments from '../../modules/comments/comments.vue'
 import FooterLinks from '../../modules/footer_links.vue'
 import SideMenu from '../../modules/side_menu.vue'
 import ShinchokuButton from '../../modules/shinchoku_dodeskas/shinchoku_button.vue'
+import NoteBadges from '../../modules/notes/note_badges.vue'
 import icon from "../../../assets/images/icon.svg"
 
 const dateFormatter = Intl.DateTimeFormat('ja-JP', {
@@ -307,7 +309,8 @@ export default {
     Comments,
     FooterLinks,
     SideMenu,
-    ShinchokuButton
+    ShinchokuButton,
+    NoteBadges
   }
 }
 </script>
@@ -327,8 +330,6 @@ export default {
     font-size: 3rem
     color: var(--v-primary-base)
     border-color: var(--v-primary-base)
-    span.v-chip
-      letter-spacing: initial
 
 .user-info
   background-color: white
@@ -360,4 +361,9 @@ footer
   background-color: white
   padding-top: 36px
   padding-bottom: 108px
+</style>
+
+<style lang="sass">
+.cover h1.name span.v-chip
+  letter-spacing: initial
 </style>

@@ -1,13 +1,13 @@
 <template lang="pug">
   .chips
     template(v-if="stage")
-      v-chip(:color="stageColor" small).ml-1 {{ stageName }}
+      v-chip(:color="stageColor" :small="small" :outlined="outlined").ml-1 {{ stageName }}
     template(v-if="viewStanceName")
-      v-chip(color="secondary" small).ml-1
+      v-chip(color="secondary" :small="small" :outlined="outlined").ml-1
         v-icon mdi-lock
         span {{ viewStanceName }}
     template(v-if="rating=='restricted_18'")
-      v-chip(color="error" small).ml-1 R18
+      v-chip(color="error" :small="small" :outlined="outlined").ml-1 R18
 </template>
 
 <script>
@@ -37,7 +37,9 @@ export default {
   props: {
     stage: String,
     viewStance: String,
-    rating: String
+    rating: String,
+    small: Boolean,
+    outlined: Boolean
   },
   computed: {
     stageColor: function() {
