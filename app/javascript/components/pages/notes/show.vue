@@ -37,28 +37,7 @@
             comments(:comments="comments" :count="commentsCount")
 
           v-col.d-flex.flex-column(cols="4")
-            .user-info
-              v-avatar(size="100px")
-                img(src="https://pbs.twimg.com/profile_images/1258916109442404353/I-NTF47_.jpg")
-              .user-name ふりかけ
-              a(href="https://twitter.com/furikake555").secondary--text.text--lighten-1
-                v-icon mdi-twitter
-                span @furikake6000
-              .user-desc.my-3.pb-3
-                p.body-2.
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                br
-                a.body-2.primary--text(href="https://example.com") https://example.com
-              .user-notes
-                .text-center.secondary--text 最近のノート
-                template(v-for="note in projects")
-                  note(v-bind="note").my-4
-                .text-center.secondary--text リクエストボックス
-                template(v-for="note in request_boxes")
-                  note(v-bind="note").my-4
-                
-              v-btn(outlined block color="primary") マイページへ
+            user(v-bind="user")
             .flex-grow-1
               side-menu
     footer.grid-bg
@@ -66,7 +45,6 @@
 </template>
 
 <script>
-import Note from '../../modules/notes/note.vue'
 import PostForm from '../../modules/posts/post_form.vue'
 import PostTimeline from '../../modules/posts/post_timeline.vue'
 import Comments from '../../modules/comments/comments.vue'
@@ -74,6 +52,7 @@ import FooterLinks from '../../modules/footer_links.vue'
 import SideMenu from '../../modules/side_menu.vue'
 import ShinchokuButton from '../../modules/shinchoku_dodeskas/shinchoku_button.vue'
 import NoteBadges from '../../modules/notes/note_badges.vue'
+import User from '../../modules/users/user.vue'
 import icon from "../../../assets/images/icon.svg"
 
 const dateFormatter = Intl.DateTimeFormat('ja-JP', {
@@ -107,6 +86,14 @@ export default {
         commentsCount: 5,
         createdAt: new Date("1 Jan 2019 07:00:00 +0900")
       },
+      user: {
+        name: 'ふりかけ',
+        desc: '',
+        url: '/users/furikake555',
+        thumbUrl: 'https://pbs.twimg.com/profile_images/1258916109442404353/I-NTF47_.jpg',
+        twitterUrl: 'https://twitter.com/furikake555',
+        twitterScreenName: 'furikake555',
+        desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. https://example.com',
       projects: [
         {
           type: 'project',
@@ -132,7 +119,7 @@ export default {
           watchersCount: 10
         },
       ],
-      request_boxes: [
+        requestBoxes: [
         {
           type: 'request_box',
           name: 'testaaa',
@@ -144,7 +131,8 @@ export default {
           rating: 'restricted_18',
           watchersCount: 10
         }
-      ],
+        ]
+      },
       posts: [
         {
           id: 10,
@@ -303,14 +291,14 @@ export default {
     }
   },
   components: {
-    Note,
     PostForm,
     PostTimeline,
     Comments,
     FooterLinks,
     SideMenu,
     ShinchokuButton,
-    NoteBadges
+    NoteBadges,
+    User
   }
 }
 </script>
