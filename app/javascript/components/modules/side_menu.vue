@@ -2,16 +2,16 @@
   .side-menu
     .d-flex.flex-column.pa-4
       .pop.shinchoku-dodeska
-        span.number 15
+        span.number {{shinchokuDodeskasCount}}
         span.ml-1 進捗どうですか
       shinchoku-button.mb-4
       .pop
-        span.number 3
+        span.number {{watchersCount}}
         span.ml-1 ウォッチ中
       v-btn.ml-1.mb-4(fab small color="secondary")
         v-icon mdi-star
       .pop
-        span.number 5
+        span.number {{commentsCount}}
         span.ml-1 コメント
       v-btn.ml-1(@click="$vuetify.goTo('.comments')" fab small color="secondary")
         v-icon mdi-email
@@ -41,6 +41,11 @@ import ShinchokuButton from "../modules/shinchoku_dodeskas/shinchoku_button.vue"
 
 export default {
   name: "side-menu",
+  props: {
+    watchersCount: Number,
+    shinchokuDodeskasCount: Number,
+    commentsCount: Number
+  },
   data: () => {
     return {
       currentUrlCopied: false,
