@@ -168,7 +168,7 @@ export default {
     .icon
       width: 10rem
       height: 10rem
-      fill: var(--v-primary-lighten5)
+      color: var(--v-primary-lighten5)
   .content
     position: relative
     z-index: 1
