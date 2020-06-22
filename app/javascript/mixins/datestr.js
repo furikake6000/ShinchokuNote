@@ -21,6 +21,9 @@ export default {
         return dateFormatterWithYear.format(date);
       }
       return dateFormatter.format(date);
+    },
+    dateStrWithoutYear(date) {
+      return dateFormatter.format(date);
     }
   }
 };

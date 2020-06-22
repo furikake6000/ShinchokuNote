@@ -8,10 +8,10 @@
         .headline.font-weight-bold {{text}}
         .body-2.mt-2
           v-icon(small) mdi-clock-outline
-          span {{dateStr(scheduledDate)}} まで
+          span {{dateStrWithoutYear(scheduledDate)}} まで
           span.ml-4(v-if="finishedDate")
             v-icon(small) mdi-check
-            span {{dateStr(finishedDate)}} 完了
+            span {{dateStrWithoutYear(finishedDate)}} 完了
       v-menu(transition="scale-transition")
         template(v-slot:activator="{ on }")
           v-btn.align-self-start(v-on="on" text icon)
@@ -41,7 +41,6 @@
 </template>
 
 <script>
-const dateFormatter = Intl.DateTimeFormat('ja-JP', { month: 'narrow', day: 'numeric' ,hour12: false, hour: '2-digit', minute: '2-digit' });
 const statusIcons = {
   'unfinished': 'mdi-clock-outline',
   'finished': 'mdi-check-circle',
@@ -83,9 +82,6 @@ export default {
     }
   },
   methods: {
-    dateStr: function(date) {
-      return dateFormatter.format(date);
-    },
     toggleFinished: function(date) {
       if(this.status == 'finished'){
         this.finishedDate = null;
