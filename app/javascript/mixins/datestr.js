@@ -13,6 +13,11 @@ const dateFormatterWithYear = Intl.DateTimeFormat('ja-JP', {
   hour: '2-digit',
   minute: '2-digit'
 });
+const timeFormatter = Intl.DateTimeFormat('ja-JP', {
+  hour12: false,
+  hour: '2-digit',
+  minute: '2-digit'
+});
 
 export default {
   methods: {
@@ -24,6 +29,9 @@ export default {
     },
     dateStrWithoutYear(date) {
       return dateFormatter.format(date);
+    },
+    timeStr(date) {
+      return timeFormatter.format(date);
     }
   }
 };

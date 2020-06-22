@@ -28,7 +28,7 @@
             span コメントへの返信
           div(:class="textClass") {{text}}
           v-img.my-2(:src="image" v-for="(image, index) in images" max-height="600px" contain :key="image" @click="showLightbox(index)")
-          .body-2.secondary--text {{timeStr}}
+          .body-2.secondary--text {{timeStr(date)}}
     vue-easy-lightbox(
       v-if="images"
       :visible="lightboxEnabled"
@@ -43,8 +43,6 @@ import Vue from 'vue';
 import Lightbox from 'vue-easy-lightbox';
 import icon from "../../../assets/images/icon.svg";
 Vue.use(Lightbox);
-
-const timeFormatter = Intl.DateTimeFormat('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
 
 export default {
   name: 'plain-post',
@@ -68,9 +66,6 @@ export default {
       if (this.text.length <= 30) return 'display-1';
       if (this.text.length <= 140) return 'headline';
       return 'body-1';
-    },
-    timeStr: function() {
-      return timeFormatter.format(this.date);
     },
     trimmedText: function() {
       if(this.text.length <= 20) return this.text;
