@@ -55,22 +55,6 @@ import NoteBadges from '../../modules/notes/note_badges.vue'
 import User from '../../modules/users/user.vue'
 import icon from "../../../assets/images/icon.svg"
 
-const dateFormatter = Intl.DateTimeFormat('ja-JP', {
-  month: 'narrow',
-  day: 'numeric' ,
-  hour12: false,
-  hour: '2-digit',
-  minute: '2-digit'
-});
-const dateFormatterWithYear = Intl.DateTimeFormat('ja-JP', {
-  year: 'numeric',
-  month: 'narrow',
-  day: 'numeric' ,
-  hour12: false,
-  hour: '2-digit',
-  minute: '2-digit'
-});
-
 export default {
   data: function () {
     return {
@@ -280,12 +264,6 @@ export default {
     }
   },
   methods: {
-    dateStr(date) {
-      if(date.getFullYear() != new Date().getFullYear()){
-        return dateFormatterWithYear.format(date);
-      }
-      return dateFormatter.format(date);
-    },
     elapsedDaysFrom(date) {
       return Math.floor((Date.now() - date.getTime()) / (1000 * 60 * 60 * 24));
     }
