@@ -72,12 +72,11 @@
 <script>
 import Vue from 'vue';
 import Lightbox from 'vue-easy-lightbox';
-import CommentForm from "./comment_form.vue";
 
 Vue.use(Lightbox);
 
 export default {
-  name: "comment",
+  name: 'comment',
   props: {
     id: Number,
     text: String,
@@ -94,7 +93,7 @@ export default {
       responseEnabled: false,
       muteDialogEnabled: false,
       deleteDialogEnabled: false
-    }
+    };
   },
   methods: {
     showLightbox(index) {
@@ -127,7 +126,7 @@ export default {
       if(this.muted) this.showMuteDialog();
     }
   }
-}
+};
 </script>
 
 <style lang="sass" scoped>

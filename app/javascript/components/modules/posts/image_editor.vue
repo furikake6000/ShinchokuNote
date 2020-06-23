@@ -74,10 +74,10 @@
 </template>
 
 <script>
-import * as ImageEditor from "tui-image-editor";
+import * as ImageEditor from 'tui-image-editor';
 
 export default {
-  name: "image-editor",
+  name: 'image-editor',
   props: {
     image: String
   },
@@ -85,7 +85,7 @@ export default {
     return {
       imageEditor: null,
       flipModeEnabled: false
-    }
+    };
   },
   computed: {
     isCropping() {
@@ -95,7 +95,7 @@ export default {
   },
   methods: {
     loadImage(image) {
-      this.imageEditor.loadImageFromURL(image, "image").then((result) =>{
+      this.imageEditor.loadImageFromURL(image, 'image').then(() =>{
         this.imageEditor.clearUndoStack();
       });
     },
@@ -154,7 +154,7 @@ export default {
     });
     this.loadImage(this.image);
   }
-}
+};
 </script>
 
 <style lang="sass" scoped>

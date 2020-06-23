@@ -41,7 +41,7 @@
 <script>
 import Vue from 'vue';
 import Lightbox from 'vue-easy-lightbox';
-import icon from "../../../assets/images/icon.svg";
+import icon from '../../../assets/images/icon.svg';
 Vue.use(Lightbox);
 
 export default {
@@ -59,7 +59,7 @@ export default {
       lightboxIndex: 0,
       deleteDialogEnabled: false,
       icon: icon
-    }
+    };
   },
   computed: {
     textClass: function() {
@@ -84,7 +84,7 @@ export default {
       this.deleteDialogEnabled = false;
     }
   }
-}
+};
 </script>
 
 <style lang="sass" scoped>

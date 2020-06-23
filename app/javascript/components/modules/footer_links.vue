@@ -15,16 +15,16 @@
 </template>
 
 <script>
-import logo from "../../assets/images/logo.svg"
+import logo from '../../assets/images/logo.svg';
 
 export default {
-  name: "footer-links",
+  name: 'footer-links',
   data: () => {
     return {
       logo: logo
-    }
+    };
   }
-}
+};
 </script>
 
 <style lang="sass" scoped>

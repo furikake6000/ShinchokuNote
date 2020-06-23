@@ -37,10 +37,10 @@
 </template>
 
 <script>
-import ShinchokuButton from "../modules/shinchoku_dodeskas/shinchoku_button.vue"
+import ShinchokuButton from '../modules/shinchoku_dodeskas/shinchoku_button.vue';
 
 export default {
-  name: "side-menu",
+  name: 'side-menu',
   props: {
     watchersCount: Number,
     shinchokuDodeskasCount: Number,
@@ -50,12 +50,12 @@ export default {
     return {
       currentUrlCopied: false,
       stampFormEnabled: false
-    }
+    };
   },
   methods: {
     copyCurrentUrl() {
-      document.getElementById("current_url_field").select();
-      document.execCommand("copy");
+      document.getElementById('current_url_field').select();
+      document.execCommand('copy');
       this.currentUrlCopied = true;
 
       // 10秒後に表示をもとに戻す
@@ -72,7 +72,7 @@ export default {
   components: {
     ShinchokuButton
   }
-}
+};
 </script>
 
 <style lang="sass" scoped>

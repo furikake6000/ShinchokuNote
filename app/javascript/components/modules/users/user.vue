@@ -36,7 +36,7 @@ export default {
   components: {
     Note
   }
-}
+};
 </script>
 
 <style lang="sass" scoped>

@@ -13,29 +13,29 @@
 </template>
 
 <script>
-import CommentForm from "./comment_form.vue";
-import Comment from "./comment.vue";
+import CommentForm from './comment_form.vue';
+import Comment from './comment.vue';
 
 export default {
-  name: "comments",
+  name: 'comments',
   props: {
     comments: Array,
     count: Number
   },
   data: function() {
     return {
-      filter: "all"
-    }
+      filter: 'all'
+    };
   },
   computed: {
     filteredComments() {
       switch(this.filter) {
-        case "all":
-          return this.comments.filter(c => !c.muted);
-        case "unreplied":
+        case 'unreplied':
           return this.comments.filter(c => !c.responsePost && !c.muted);
-        case "favored":
+        case 'favored':
           return this.comments.filter(c => c.favored && !c.muted);
+        default:  // includes 'all'
+          return this.comments.filter(c => !c.muted);
       }
     }
   },
@@ -43,7 +43,7 @@ export default {
     CommentForm,
     Comment
   }
-}
+};
 </script>
 
 <style lang="sass" scoped>

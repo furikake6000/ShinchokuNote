@@ -26,10 +26,10 @@
 </template>
 
 <script>
-import icon from "../../../assets/images/icon.svg"
+import icon from '../../../assets/images/icon.svg';
 
 export default {
-  name: "shinchoku-button",
+  name: 'shinchoku-button',
   props: {
     noBackground: {
       type: Boolean,
@@ -37,11 +37,11 @@ export default {
     },
     color: {
       type: String,
-      default: "shinchoku"
+      default: 'shinchoku'
     },
     size: {
       type: String,
-      default: "64px"
+      default: '64px'
     }
   },
   data: () => ({
@@ -49,24 +49,24 @@ export default {
     icon: icon,
     stickers: [
       {
-        name: "plain",
-        desc: "進捗どうですか？"
+        name: 'plain',
+        desc: '進捗どうですか？'
       },
       {
-        name: "machimasu",
-        desc: "いつまでも待ちます。"
+        name: 'machimasu',
+        desc: 'いつまでも待ちます。'
       },
       {
-        name: "otukare",
-        desc: "おつかれさま"
+        name: 'otukare',
+        desc: 'おつかれさま'
       },
       {
-        name: "ouen",
-        desc: "応援してます！"
+        name: 'ouen',
+        desc: '応援してます！'
       },
       {
-        name: "suki",
-        desc: "スキ！"
+        name: 'suki',
+        desc: 'スキ！'
       }
     ]
   }),
@@ -75,10 +75,10 @@ export default {
       let classes = [];
       classes.push(this.noBackground ? 'no-bg' : 'elevation-6');
       classes.push(`${this.color}--text`);
-      return classes.join(" ");
+      return classes.join(' ');
     }
   }
-}
+};
 </script>
 
 <style lang="sass" scoped>

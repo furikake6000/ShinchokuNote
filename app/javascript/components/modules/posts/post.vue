@@ -38,7 +38,7 @@ export default {
     PlainPost,
     Schedule
   }
-}
+};
 </script>
 
 <style lang="sass" scoped>

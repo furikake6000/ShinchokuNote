@@ -14,15 +14,15 @@
 
 <script>
 export default {
-  name: "comment-form",
+  name: 'comment-form',
   data: () => {
     return {
       newComment: {
-        text: ""
+        text: ''
       }
-    }
+    };
   }
-}
+};
 </script>
 
 <style lang="sass" scoped>

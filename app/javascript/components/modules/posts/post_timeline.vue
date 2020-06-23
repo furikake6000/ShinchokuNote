@@ -29,15 +29,15 @@ export default {
       var sortDate = (post) => {
         if(post.type == 'schedule') return post.scheduledDate;
         return post.date;
-      }
+      };
       
       // postsを時間「降順」でソート
-      this.posts.sort((a, b) => {
+      const posts = this.posts.slice().sort((a, b) => {
         return sortDate(b).getTime() - sortDate(a).getTime();
       });
       
       // postsを日毎にまとめ、さらに月毎にまとめる
-      const groupedPosts = this.posts.reduce((groupedPosts, post) => {
+      const groupedPosts = posts.reduce((groupedPosts, post) => {
         const year = sortDate(post).getFullYear();
         const month = monthFormatter.format(sortDate(post));
         const day = sortDate(post).getDate();
@@ -69,7 +69,7 @@ export default {
   components: {
     Post
   }
-}
+};
 </script>
 
 <style lang="sass" scoped>

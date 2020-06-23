@@ -3,7 +3,7 @@
     .bgstr.small
       v-icon {{statusIcon}}
     .content.d-flex.align-center
-      v-icon(large @click="toggleFinished") {{statusCheckboxIcon}}
+      v-icon(large @click="toggleFinished()") {{statusCheckboxIcon}}
       .text-center.flex-grow-1
         .headline.font-weight-bold {{text}}
         .body-2.mt-2
@@ -45,12 +45,12 @@ const statusIcons = {
   'unfinished': 'mdi-clock-outline',
   'finished': 'mdi-check-circle',
   'outdated': 'mdi-clock-outline'
-}
+};
 const statusCheckboxIcons = {
   'unfinished': 'mdi-checkbox-blank-outline',
   'finished': 'mdi-checkbox-marked-outline',
   'outdated': 'mdi-checkbox-blank-outline'
-}
+};
 
 export default {
   name: 'post',
@@ -66,7 +66,7 @@ export default {
       lightboxEnabled: false,
       lightboxIndex: 0,
       deleteDialogEnabled: false
-    }
+    };
   },
   computed: {
     status: function() {
@@ -82,7 +82,7 @@ export default {
     }
   },
   methods: {
-    toggleFinished: function(date) {
+    toggleFinished: function() {
       if(this.status == 'finished'){
         this.finishedDate = null;
       }else{
@@ -96,7 +96,7 @@ export default {
       this.deleteDialogEnabled = false;
     }
   }
-}
+};
 </script>
 
 <style lang="sass" scoped>

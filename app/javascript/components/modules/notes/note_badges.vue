@@ -17,20 +17,20 @@ const stageColors = {
   'finished': 'success',
   'frozen': 'secondary',
   'closed': 'secondary darken-4'
-}
+};
 const stageNames = {
   'idea': '構想中',
   'in_progress': '進捗中',
   'finished': '完成',
   'frozen': '凍結中',
   'closed': 'お蔵入り'
-}
+};
 const viewStanceNames = {
   'only_me': '自分のみ',
   'only_follower': 'フォロワーさんのみ',
   'only_signed': '要ログイン',
   'everyone': 'だれでも'
-}
+};
 
 export default {
   name: 'note-badges',
@@ -56,7 +56,7 @@ export default {
       return viewStanceNames[this.viewStance];
     }
   }
-}
+};
 </script>
 
 <style scoped lang="sass">

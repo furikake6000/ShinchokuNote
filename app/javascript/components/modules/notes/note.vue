@@ -39,11 +39,11 @@ import NoteBadges from './note_badges.vue';
 const noteTypeIcons = {
   'project': 'mdi-note-text',
   'request_box': 'mdi-email'
-}
+};
 const noteIconColors = {
   'project': 'project--text text--lighten-5',
   'request_box': 'request_box--text text--lighten-3'
-}
+};
 
 export default {
   name: 'note',
@@ -70,7 +70,7 @@ export default {
       return noteIconColors[this.type];
     }
   }
-}
+};
 </script>
 
 <style scoped lang="sass">
