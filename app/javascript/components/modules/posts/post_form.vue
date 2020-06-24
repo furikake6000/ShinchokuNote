@@ -100,8 +100,6 @@
 import loadImage from 'blueimp-load-image';
 import ImageEditor from './image_editor.vue';
 
-const MAX_IMAGE_SIZE = 1024 * 1024 * 1.5;
-
 export default {
   name: 'post-form',
   data: function() {
