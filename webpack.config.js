@@ -13,7 +13,7 @@ module.exports = {
     application: path.resolve(__dirname, 'app/javascript/application.js')
   },
   output: {
-    path: path.resolve(__dirname, 'public/packs'),
+    path: path.resolve(__dirname, (isProd ? 'static_files/packs' : 'public/packs')),
     publicPath: '/packs/',
     filename: isProd ? '[name]-[hash].js' : '[name].js'
   },
