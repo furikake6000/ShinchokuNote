@@ -3,7 +3,8 @@
 # devイメージとprodイメージの違い
 #   ・vimインストールの有無
 #   ・プロジェクトファイルをvolumeで共有する(dev)か、あらかじめCOPYする(prod)か
-#   ・bundle install / assets precompileを毎度行う(dev)か、build時にやってある(prod)か
+#   ・bundle install / yarn installを毎度行う(dev)か、build時にやってある(prod)か
+#   ・ENTRYPOINTでwebpack buildを行う(prod)かどうか(devの場合は手動でwebpack --watchを走らせる推定)
 
 FROM ruby:2.6.5-slim
 
@@ -36,8 +37,10 @@ RUN wget https://github.com/progrium/entrykit/releases/download/v${ENTRYKIT_VERS
 
 RUN mkdir -p /var/www/run
 
-# install yarn
+# install yarn & packages
+ENV NODE_ENV production
 RUN npm install yarn -g
+RUN yarn install
 
 # copy rails root dir
 COPY . /ShinchokuNote
@@ -48,6 +51,7 @@ RUN bundle install -j4 --clean --path vendor/bundle
 ENTRYPOINT [ \
     "prehook", "cp -pR static_files/. public", "--", \
     "prehook", "bundle exec rails assets:precompile", "--", \
+    "prehook", "./node_modules/.bin/webpack", "--", \
     "prehook", "bundle exec whenever --update-crontab", "--", \
     "prehook", "service cron start", "--", \
     "prehook", "rm -f tmp/pids/server.pid", "--"]

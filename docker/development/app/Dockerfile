@@ -3,7 +3,8 @@
 # devイメージとprodイメージの違い
 #   ・vimインストールの有無
 #   ・プロジェクトファイルをvolumeで共有する(dev)か、あらかじめCOPYする(prod)か
-#   ・bundle install / assets precompileを毎度行う(dev)か、build時にやってある(prod)か
+#   ・bundle install / yarn installを毎度行う(dev)か、build時にやってある(prod)か
+#   ・ENTRYPOINTでwebpack buildを行う(prod)かどうか(devの場合は手動でwebpack --watchを走らせる推定)
 
 FROM ruby:2.6.5-slim
 

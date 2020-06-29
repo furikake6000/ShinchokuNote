@@ -77,6 +77,9 @@ gem 'recaptcha', require: "recaptcha/rails"
 # ヘルスチェック用のエンドポイントを生やしてくれる
 gem 'okcomputer'
 
+# シンプルなWebpacker, simpacker
+gem 'simpacker'
+
 # fixing security vulnerabilities
 gem 'sprockets', '~> 3.7.2'
 gem 'ffi', '~> 1.9.25'

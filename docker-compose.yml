@@ -6,8 +6,10 @@ services:
       dockerfile: ./docker/development/app/Dockerfile
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
-      - .:/ShinchokuNote
-      - .bundle_install:/ShinchokuNote/vendor/bundle:cached
+      - .:/ShinchokuNote:cached
+      - bundle:/ShinchokuNote/vendor/bundle
+      - node_modules:/ShinchokuNote/node_modules
+      - yarn_cache:/usr/local/share/.cache/yarn/v6
     ports:
       - "3000:3000"
     links:
@@ -27,3 +29,11 @@ services:
       - "POSTGRES_USER=postgres"
       - "POSTGRES_PASSWORD=password"
       - "POSTGRES_DB=shinchokunote_test"
+
+volumes:
+  bundle:
+    driver: local
+  node_modules:
+    driver: local
+  yarn_cache:
+    driver: local
