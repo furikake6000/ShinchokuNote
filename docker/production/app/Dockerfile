@@ -37,21 +37,20 @@ RUN wget https://github.com/progrium/entrykit/releases/download/v${ENTRYKIT_VERS
 
 RUN mkdir -p /var/www/run
 
-# install yarn & packages
-ENV NODE_ENV production
-RUN npm install yarn -g
-RUN yarn install
-
 # copy rails root dir
 COPY . /ShinchokuNote
 
 # bundle install
 RUN bundle install -j4 --clean --path vendor/bundle
 
+# install & build yarn
+ENV NODE_ENV production
+RUN npm install yarn -g
+RUN yarn install && yarn build
+
 ENTRYPOINT [ \
     "prehook", "cp -pR static_files/. public", "--", \
     "prehook", "bundle exec rails assets:precompile", "--", \
-    "prehook", "./node_modules/.bin/webpack", "--", \
     "prehook", "bundle exec whenever --update-crontab", "--", \
     "prehook", "service cron start", "--", \
     "prehook", "rm -f tmp/pids/server.pid", "--"]
