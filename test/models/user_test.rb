@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id                                :integer          not null, primary key
+#  id                                :bigint(8)        not null, primary key
 #  twitter_id                        :string
 #  name                              :string
 #  screen_name                       :string
@@ -17,8 +17,8 @@
 #  checked_notifications_at          :datetime
 #  linked_users_info                 :binary
 #  saw_notifications_at              :datetime
-#  comment_webpush_enabled           :boolean
-#  shinchoku_dodeska_webpush_enabled :boolean
+#  comment_webpush_enabled           :boolean          default(TRUE)
+#  shinchoku_dodeska_webpush_enabled :boolean          default(TRUE)
 #
 
 require 'test_helper'

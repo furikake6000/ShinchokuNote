@@ -2,9 +2,9 @@
 #
 # Table name: watchlists
 #
-#  id           :integer          not null, primary key
-#  from_user_id :integer
-#  to_note_id   :integer
+#  id           :bigint(8)        not null, primary key
+#  from_user_id :bigint(8)
+#  to_note_id   :bigint(8)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #

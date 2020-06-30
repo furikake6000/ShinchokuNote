@@ -2,11 +2,11 @@
 #
 # Table name: posts
 #
-#  id           :integer          not null, primary key
+#  id           :bigint(8)        not null, primary key
 #  text         :string
 #  type         :string
 #  order        :float
-#  note_id      :integer
+#  note_id      :bigint(8)
 #  deleted_at   :datetime
 #  twitter_id   :string
 #  created_at   :datetime         not null
