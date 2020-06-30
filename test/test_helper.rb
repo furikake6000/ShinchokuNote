@@ -30,6 +30,7 @@ end
 
 class ActiveSupport::TestCase
   include UserTestHelper
+  include FactoryBot::Syntax::Methods
 
   # Setup all fixtures in test/fixtures/*.yml
   # for all tests in alphabetical order.
