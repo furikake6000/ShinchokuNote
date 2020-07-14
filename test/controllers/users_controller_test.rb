@@ -5,8 +5,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   include UsersHelper
 
   def setup
-    @noritama = users(:noritama)
-    @okaka = users(:okaka)
+    @noritama = create :user
+    @okaka = create :user, :admin
   end
 
   test 'access users show' do
