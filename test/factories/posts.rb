@@ -31,6 +31,8 @@ FactoryBot.define do
       finished_at { Time.current.ago 1.days }
     end
 
+    association :note, factory: :project
+
     # TODO: 必要になったら :with_image のtraitを作成する
   end
 end

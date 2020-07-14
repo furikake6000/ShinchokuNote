@@ -28,19 +28,22 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test 'valid post' do
-    assert @okaka_tweet_post1.valid?
+    post = create(:post)
+    assert post.valid?
   end
 
   test 'invalid post no_type' do
     # Type "" means plain post, but it isn't allowed.
-    @okaka_tweet_post1.type = ''
-    assert_not @okaka_tweet_post1.valid?
+    post = create(:post)
+    post.type = ''
+    assert_not post.valid?
   end
 
   test 'invalid post wrong_type' do
     # Setting wrong type raises ArgumentError.
+    post = create(:post)
     assert_raises(ArgumentError) do
-      @okaka_tweet_post1.type = 'Undefined'
+      post.type = 'Undefined'
     end
   end
 end
