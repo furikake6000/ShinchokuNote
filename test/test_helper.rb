@@ -4,7 +4,7 @@ require 'minitest/autorun'
 require 'minitest/stub_any_instance'
 
 module UserTestHelper
-  def login_for_test(user, token, secret)
+  def login_for_test(user, token = 'token', secret = 'secret')
     verify_user_mock = Minitest::Mock.new.expect :call, true
     self.stub(:verify_user_info, verify_user_mock) do
       @current_user = nil
