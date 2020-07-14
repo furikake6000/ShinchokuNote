@@ -5,11 +5,11 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
   include UsersHelper
 
   def setup
-    @okaka = users(:okaka)
-    @noritama = users(:noritama)  # Noritama follows okaka
-    @noriwasa = users(:noriwasa)  # Noriwasa doesn't follow okaka
-    @okaka_project1 = notes(:okaka_project_1)
-    @noritama_project1 = notes(:noritama_project_1)
+    @okaka = create(:user)
+    @noritama = create(:user)  # Noritama follows okaka
+    @noriwasa = create(:user)  # Noriwasa doesn't follow okaka
+    @okaka_project1 = create(:project, user: @okaka)
+    @noritama_project1 = create(:project, user: @noritama)
   end
 
   test 'show note for everyone' do
@@ -313,8 +313,9 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'delete note of others as admin' do
-    # logging in
-    login_as_okaka
+    # logging in as admin
+    admin = create(:user, :admin)
+    login_for_test admin
 
     # deleting a note of others
     assert_difference 'Note.count', -1 do
