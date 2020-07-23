@@ -50,6 +50,8 @@ paths:
                     type: integer
                   created_at:
                     type: string
+                  user:
+                    $ref: '#/components/schemas/User'
               examples: {}
       operationId: get-note
       description: Get note information
@@ -59,8 +61,24 @@ components:
       title: USer
       type: object
       properties:
-        id:
+        name:
           type: string
+        url:
+          type: string
+        thumb_url:
+          type: string
+        twitter_screen_name:
+          type: string
+        desc:
+          type: string
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        request_boxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
     Note:
       title: Note
       type: object
