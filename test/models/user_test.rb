@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id                                :integer          not null, primary key
+#  id                                :bigint(8)        not null, primary key
 #  twitter_id                        :string
 #  name                              :string
 #  screen_name                       :string
@@ -17,22 +17,24 @@
 #  checked_notifications_at          :datetime
 #  linked_users_info                 :binary
 #  saw_notifications_at              :datetime
-#  comment_webpush_enabled           :boolean
-#  shinchoku_dodeska_webpush_enabled :boolean
+#  comment_webpush_enabled           :boolean          default(TRUE)
+#  shinchoku_dodeska_webpush_enabled :boolean          default(TRUE)
 #
 
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   def setup
-    @noritama = users(:noritama)
-    @okaka = users(:okaka)
-    @okaka_project1 = notes(:okaka_project_1)
-    @okaka_tweetpost1 = posts(:okaka_tweet_post_1)
-    @okaka_post1 = posts(:okaka_plain_post_1)
-    @okaka_schedule1 = posts(:okaka_schedule_1)
-    @from_okaka_comment1 = comments(:okaka_to_noritama_comment_1)
-    @to_okaka_comment1 = comments(:noritama_to_okaka_comment_1)
+    @okaka = create(:user, :admin)
+    @okaka_project = create(:project, user: @okaka)
+    @okaka_post = create(:post, note: @okaka_project)
+    @okaka_schedule = create(:schedule, note: @okaka_project)
+    
+    @noritama = create(:user)
+    @noritama_project = create(:project, user: @noritama)
+
+    @from_okaka_comment = create(:comment, from_user: @okaka, to_note: @noritama_project)
+    @to_okaka_comment = create(:comment, from_user: @noritama, to_note: @okaka_project)
   end
 
   test 'valid user' do
@@ -57,40 +59,36 @@ class UserTest < ActiveSupport::TestCase
 
   test 'delete and restore user' do
     assert_not @okaka.deleted?
-    assert_not @okaka_project1.deleted?
-    assert_not @okaka_tweetpost1.deleted?
-    assert_not @okaka_post1.deleted?
-    assert_not @okaka_schedule1.deleted?
-    assert_not @from_okaka_comment1.deleted?
-    assert_not @to_okaka_comment1.deleted?
+    assert_not @okaka_project.deleted?
+    assert_not @okaka_post.deleted?
+    assert_not @okaka_schedule.deleted?
+    assert_not @from_okaka_comment.deleted?
+    assert_not @to_okaka_comment.deleted?
 
     assert User.find_by(screen_name: @okaka.screen_name)
-    assert Project.find(@okaka_project1.id)
-    assert Post.find(@okaka_tweetpost1.id)
-    assert Post.find(@okaka_post1.id)
-    assert Post.find(@okaka_schedule1.id)
-    assert Comment.find(@from_okaka_comment1.id)
-    assert Comment.find(@to_okaka_comment1.id)
+    assert Project.find(@okaka_project.id)
+    assert Post.find(@okaka_post.id)
+    assert Post.find(@okaka_schedule.id)
+    assert Comment.find(@from_okaka_comment.id)
+    assert Comment.find(@to_okaka_comment.id)
 
     @okaka.destroy
 
     assert_nil User.find_by(screen_name: @okaka.screen_name)
-    assert_raises(ActiveRecord::RecordNotFound) { Project.find(@okaka_project1.id) }
-    assert_raises(ActiveRecord::RecordNotFound) { Post.find(@okaka_tweetpost1.id) }
-    assert_raises(ActiveRecord::RecordNotFound) { Post.find(@okaka_post1.id) }
-    assert_raises(ActiveRecord::RecordNotFound) { Post.find(@okaka_schedule1.id) }
-    assert_raises(ActiveRecord::RecordNotFound) { Comment.find(@from_okaka_comment1.id) }
-    assert_raises(ActiveRecord::RecordNotFound) { Comment.find(@to_okaka_comment1.id) }
+    assert_raises(ActiveRecord::RecordNotFound) { Project.find(@okaka_project.id) }
+    assert_raises(ActiveRecord::RecordNotFound) { Post.find(@okaka_post.id) }
+    assert_raises(ActiveRecord::RecordNotFound) { Post.find(@okaka_schedule.id) }
+    assert_raises(ActiveRecord::RecordNotFound) { Comment.find(@from_okaka_comment.id) }
+    assert_raises(ActiveRecord::RecordNotFound) { Comment.find(@to_okaka_comment.id) }
 
     @okaka.restore(recursive: true)
 
     assert User.find_by(screen_name: @okaka.screen_name)
-    assert Project.find(@okaka_project1.id)
-    assert Post.find(@okaka_tweetpost1.id)
-    assert Post.find(@okaka_post1.id)
-    assert Post.find(@okaka_schedule1.id)
-    assert Comment.find(@from_okaka_comment1.id)
-    assert Comment.find(@to_okaka_comment1.id)
+    assert Project.find(@okaka_project.id)
+    assert Post.find(@okaka_post.id)
+    assert Post.find(@okaka_schedule.id)
+    assert Comment.find(@from_okaka_comment.id)
+    assert Comment.find(@to_okaka_comment.id)
   end
 
   ## This test raises error because of the specification of paranoia gem

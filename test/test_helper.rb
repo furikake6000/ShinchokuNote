@@ -4,7 +4,7 @@ require 'minitest/autorun'
 require 'minitest/stub_any_instance'
 
 module UserTestHelper
-  def login_for_test(user, token, secret)
+  def login_for_test(user, token = 'token', secret = 'secret')
     verify_user_mock = Minitest::Mock.new.expect :call, true
     self.stub(:verify_user_info, verify_user_mock) do
       @current_user = nil
@@ -12,34 +12,17 @@ module UserTestHelper
       login_user user, token, secret
     end
   end
-
-  def login_as_okaka
-    login_for_test @okaka, 'okaka_token', 'okaka_secret'
-  end
-
-  def login_as_noritama
-    login_for_test @noritama, 'noritama_token', 'noritama_secret'
-  end
-
-  def login_as_noriwasa
-    login_for_test @noriwasa, 'noriwasa_token', 'noriwasa_secret'
-  end
 end
 
 # Add more helper methods to be used by all tests here...
 
 class ActiveSupport::TestCase
   include UserTestHelper
+  include FactoryBot::Syntax::Methods
 
   # Setup all fixtures in test/fixtures/*.yml
   # for all tests in alphabetical order.
   fixtures :all
-
-  def setup
-    @okaka = users(:okaka)
-    @noritama = users(:noritama)
-    @noriwasa = users(:noriwasa)
-  end
 
   # ApplicationHelperモジュールの書き換え
   module ApplicationHelperFixes

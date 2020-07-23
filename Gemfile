@@ -19,7 +19,7 @@ gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
 # database
-gem 'pg', '~>1.0.0'
+gem 'pg', '~>1.2.3'
 
 # jQuery and bootstrap
 gem 'bootstrap', '~> 4.3.1'
@@ -90,6 +90,8 @@ gem 'loofah', '>= 2.2.3'
 group :development, :test do
   gem 'byebug', '~>9.1', platforms: %i[mri mingw x64_mingw]
   gem 'capybara', '~> 2.13'
+  gem 'factory_bot_rails'
+  gem 'faker'
   gem 'selenium-webdriver', '~>3.8'
 
   # Relationship diagrams
@@ -97,8 +99,9 @@ group :development, :test do
 end
 
 group :development do
-  gem 'spring', '~>2.0'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  # docker-composeを使う場合メリットが無さそうなのでspringを無効化
+  # gem 'spring', '~>2.0'
+  # gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '~>3.5'
 
   # code refactoring

@@ -21,11 +21,13 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     assert_template :faq
   end
 
-  test 'access manage' do
+  test 'nonadmin cannot access manage' do
     get manage_path
     assert_response 403
+  end
 
-    login_as_okaka
+  test 'admin can access manage' do
+    login_for_test create(:user, :admin)
     get manage_path
     assert_response :success
     assert_template :manage

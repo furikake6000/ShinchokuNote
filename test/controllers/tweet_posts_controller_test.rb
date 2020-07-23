@@ -15,7 +15,7 @@ class TweetPostsControllerTest < ActionDispatch::IntegrationTest
   # end
 
   # test 'make new tweetpost(link)' do
-  #   login_as_okaka
+  #   login_for_test @okaka
 
   #   assert_difference '@okaka_project1.posts.count', 1 do
   #     post note_tweet_posts_path(@okaka_project1), params: { post: {
@@ -29,7 +29,7 @@ class TweetPostsControllerTest < ActionDispatch::IntegrationTest
   # end
 
   # test 'make new tweetpost(new)' do
-  #   login_as_okaka
+  #   login_for_test @okaka
 
   #   new_tweet_text = random_sentence
   #   assert_difference '@okaka_project1.posts.count', 1 do
@@ -52,7 +52,7 @@ class TweetPostsControllerTest < ActionDispatch::IntegrationTest
   #     } }
   #   end
 
-  #   login_as_noritama
+  #   login_for_test @noritama
 
   #   new_tweet_text = random_sentence
   #   assert_no_difference '@okaka_project1.posts.count' do
@@ -64,7 +64,7 @@ class TweetPostsControllerTest < ActionDispatch::IntegrationTest
   # end
 
   # test 'delete post' do
-  #   login_as_okaka
+  #   login_for_test @okaka
 
   #   assert_difference '@okaka_project1.posts.count', -1 do
   #     delete post_path(@okaka_tweet_post1)
@@ -81,7 +81,7 @@ class TweetPostsControllerTest < ActionDispatch::IntegrationTest
   # end
 
   # test 'delete post(with tweet)' do
-  #   login_as_okaka
+  #   login_for_test @okaka
 
   #   client = client_new
 
@@ -111,7 +111,7 @@ class TweetPostsControllerTest < ActionDispatch::IntegrationTest
   # end
 
   # test 'delete post of others' do
-  #   login_as_noritama
+  #   login_for_test @noritama
 
   #   assert_no_difference '@okaka_project1.posts.count' do
   #     delete post_path(@okaka_tweet_post1)

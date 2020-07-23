@@ -7,9 +7,7 @@
     "vue": "^2.6.11",
     "vue-easy-lightbox": "^0.13.0",
     "vue-router": "^3.1.6",
-    "vuetify": "^2.3.1"
-  },
-  "devDependencies": {
+    "vuetify": "^2.3.1",
     "@mdi/font": "^5.2.45",
     "blueimp-load-image": "^5.12.0",
     "css-loader": "^3.5.3",
@@ -29,6 +27,8 @@
     "webpack": "^4.43.0",
     "webpack-assets-manifest": "^3.1.1",
     "webpack-cli": "^3.3.12"
+  },
+  "devDependencies": {
   },
   "scripts": {
     "watch": "./node_modules/.bin/webpack --watch",

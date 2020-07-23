@@ -2,7 +2,7 @@
 #
 # Table name: notes
 #
-#  id                     :integer          not null, primary key
+#  id                     :bigint(8)        not null, primary key
 #  name                   :string
 #  desc                   :string
 #  type                   :string
@@ -11,7 +11,7 @@
 #  tags                   :string
 #  comment_receive_stance :integer          default("everyone")
 #  comment_share_stance   :integer          default("only_me")
-#  user_id                :integer
+#  user_id                :bigint(8)
 #  started_at             :datetime
 #  finished_at            :datetime
 #  deleted_at             :datetime
