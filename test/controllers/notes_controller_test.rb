@@ -23,21 +23,21 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     assert_template :show
 
     # unfollowed
-    login_as_noriwasa
+    login_for_test @noriwasa
     get note_path(@okaka_project1)
     assert_response :success
     assert_template :show
     logout_user @noriwasa
 
     # followed
-    login_as_noritama
+    login_for_test @noritama
     get note_path(@okaka_project1)
     assert_response :success
     assert_template :show
     logout_user @noritama
 
     # author
-    login_as_okaka
+    login_for_test @okaka
     get note_path(@okaka_project1)
     assert_response :success
     assert_template :show
@@ -56,21 +56,21 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     assert_response 403
 
     # unfollowed
-    login_as_noriwasa
+    login_for_test @noriwasa
     get note_path(@okaka_project1)
     assert_response :success
     assert_template :show
     logout_user @noriwasa
 
     # followed
-    login_as_noritama
+    login_for_test @noritama
     get note_path(@okaka_project1)
     assert_response :success
     assert_template :show
     logout_user @noritama
 
     # author
-    login_as_okaka
+    login_for_test @okaka
     get note_path(@okaka_project1)
     assert_response :success
     assert_template :show
@@ -96,20 +96,20 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
       assert_response 403
 
       # unfollowed
-      login_as_noriwasa
+      login_for_test @noriwasa
       get note_path(@okaka_project1)
       assert_response 403
       logout_user @noriwasa
 
       # followed
-      login_as_noritama
+      login_for_test @noritama
       get note_path(@okaka_project1)
       assert_response :success
       assert_template :show
       logout_user @noritama
 
       # author
-      login_as_okaka
+      login_for_test @okaka
       get note_path(@okaka_project1)
       assert_response :success
       assert_template :show
@@ -129,19 +129,19 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     assert_response 403
 
     # unfollowed
-    login_as_noriwasa
+    login_for_test @noriwasa
     get note_path(@okaka_project1)
     assert_response 403
     logout_user @noriwasa
 
     # followed
-    login_as_noritama
+    login_for_test @noritama
     get note_path(@okaka_project1)
     assert_response 403
     logout_user @noritama
 
     # author
-    login_as_okaka
+    login_for_test @okaka
     get note_path(@okaka_project1)
     assert_response :success
     assert_template :show
@@ -153,12 +153,12 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_template :watchers
 
-    login_as_noritama
+    login_for_test @noritama
     get note_watchers_path(@okaka_project1)
     assert_response :success
     assert_template :watchers
 
-    login_as_okaka
+    login_for_test @okaka
     get note_watchers_path(@okaka_project1)
     assert_response :success
     assert_template :watchers
@@ -168,11 +168,11 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     get edit_note_path(@okaka_project1)
     assert_response 403
 
-    login_as_noritama
+    login_for_test @noritama
     get edit_note_path(@okaka_project1)
     assert_response 403
 
-    login_as_okaka
+    login_for_test @okaka
     get edit_note_path(@okaka_project1)
     assert_response :success
     assert_template :edit
@@ -182,11 +182,11 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     get new_user_note_path(@okaka.screen_name)
     assert_response 403
 
-    login_as_noritama
+    login_for_test @noritama
     get new_user_note_path(@okaka.screen_name)
     assert_response 403
 
-    login_as_okaka
+    login_for_test @okaka
     get new_user_note_path(@okaka.screen_name)
     assert_response :success
     assert_template :new
@@ -194,7 +194,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
 
   test 'make new note' do
     # logging in
-    login_as_okaka
+    login_for_test @okaka
 
     # creating a note
     assert_difference '@okaka.notes.count', 1 do
@@ -217,7 +217,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     end
 
     # logging in
-    login_as_okaka
+    login_for_test @okaka
 
     # creating a note of others
     assert_no_difference 'Note.count' do
@@ -231,7 +231,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
 
   test 'edit note' do
     # logging in
-    login_as_okaka
+    login_for_test @okaka
 
     # editing a note
     patch note_path(@okaka_project1), params: { project: {
@@ -260,7 +260,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     assert_equal edited_note, @okaka_project1
 
     # logging in
-    login_as_okaka
+    login_for_test @okaka
 
     # creating a note of others
     patch note_path(@noritama_project1), params: { project: {
@@ -277,7 +277,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
 
   test 'delete note' do
     # logging in
-    login_as_okaka
+    login_for_test @okaka
 
     # deleting a note
     assert_difference '@okaka.notes.count', -1 do
@@ -301,7 +301,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     end
 
     # logging in
-    login_as_noritama
+    login_for_test @noritama
 
     # deleting a note of others
     assert_no_difference 'Note.count' do

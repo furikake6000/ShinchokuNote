@@ -12,18 +12,6 @@ module UserTestHelper
       login_user user, token, secret
     end
   end
-
-  def login_as_okaka
-    login_for_test @okaka, 'okaka_token', 'okaka_secret'
-  end
-
-  def login_as_noritama
-    login_for_test @noritama, 'noritama_token', 'noritama_secret'
-  end
-
-  def login_as_noriwasa
-    login_for_test @noriwasa, 'noriwasa_token', 'noriwasa_secret'
-  end
 end
 
 # Add more helper methods to be used by all tests here...
@@ -35,12 +23,6 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml
   # for all tests in alphabetical order.
   fixtures :all
-
-  def setup
-    @okaka = users(:okaka)
-    @noritama = users(:noritama)
-    @noriwasa = users(:noriwasa)
-  end
 
   # ApplicationHelperモジュールの書き換え
   module ApplicationHelperFixes
