@@ -5,13 +5,13 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   include UsersHelper
 
   def setup
-    @okaka = users(:okaka)
-    @noritama = users(:noritama)  # Noritama follows okaka
-    @noriwasa = users(:noriwasa)  # Noriwasa doesn't follow okaka
-    @okaka_project1 = notes(:okaka_project_1)
-    @noritama_project1 = notes(:noritama_project_1)
-    @okaka_comment1 = comments(:okaka_to_noritama_comment_1)
-    @noritama_comment1 = comments(:noritama_to_okaka_comment_1)
+    @okaka = create(:user)
+    @noritama = create(:user)  # Noritama follows okaka
+    @noriwasa = create(:user)  # Noriwasa doesn't follow okaka
+    @okaka_project1 = create(:project, user: @okaka)
+    @noritama_project1 = create(:project, user: @noritama)
+    @okaka_comment1 = create(:comment, from_user: @okaka, to_note: @noritama_project1)
+    @noritama_comment1 = create(:comment, from_user: @noritama, to_note: @okaka_project1)
   end
 
   test 'make new comment(everyone)' do
@@ -28,7 +28,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment from other user (not follower)
-    login_as_noriwasa
+    login_for_test @noriwasa
     assert_difference '@okaka_project1.comments.count', 1 do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of others',
@@ -37,7 +37,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment from other user (follower)
-    login_as_noritama
+    login_for_test @noritama
     assert_difference '@okaka_project1.comments.count', 1 do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of others',
@@ -46,7 +46,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment of myself
-    login_as_okaka
+    login_for_test @okaka
     assert_difference '@okaka_project1.comments.count', 1 do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of myself',
@@ -69,7 +69,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment from other user (not follower)
-    login_as_noriwasa
+    login_for_test @noriwasa
     assert_difference '@okaka_project1.comments.count', 1 do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of others',
@@ -78,7 +78,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment from other user (follower)
-    login_as_noritama
+    login_for_test @noritama
     assert_difference '@okaka_project1.comments.count', 1 do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of others',
@@ -87,7 +87,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment of myself
-    login_as_okaka
+    login_for_test @okaka
     assert_difference '@okaka_project1.comments.count', 1 do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of myself',
@@ -116,7 +116,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
         end
 
         # Comment from other user (not follower)
-        login_as_noriwasa
+        login_for_test @noriwasa
         assert_no_difference '@okaka_project1.comments.count' do
           post note_comments_path(@okaka_project1), params: { comment: {
             text: 'Comment of others',
@@ -125,7 +125,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
         end
 
         # Comment from other user (follower)
-        login_as_noritama
+        login_for_test @noritama
         assert_difference '@okaka_project1.comments.count', 1 do
           post note_comments_path(@okaka_project1), params: { comment: {
             text: 'Comment of others',
@@ -134,7 +134,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
         end
 
         # Comment of myself
-        login_as_okaka
+        login_for_test @okaka
         assert_difference '@okaka_project1.comments.count', 1 do
           post note_comments_path(@okaka_project1), params: { comment: {
             text: 'Comment of myself',
@@ -159,7 +159,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment from other user (not follower)
-    login_as_noriwasa
+    login_for_test @noriwasa
     assert_no_difference '@okaka_project1.comments.count' do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of others',
@@ -168,7 +168,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment from other user (follower)
-    login_as_noritama
+    login_for_test @noritama
     assert_no_difference '@okaka_project1.comments.count' do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of others',
@@ -177,7 +177,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     # Comment of myself
-    login_as_okaka
+    login_for_test @okaka
     assert_difference '@okaka_project1.comments.count', 1 do
       post note_comments_path(@okaka_project1), params: { comment: {
         text: 'Comment of myself',
@@ -187,7 +187,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'delete comment' do
-    login_as_okaka
+    login_for_test @okaka
 
     # deleting a comment
     assert_difference 'Comment.count', -1 do
@@ -205,7 +205,8 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'delete comment as admin' do
-    login_as_okaka
+    admin = create(:user, :admin)
+    login_for_test admin
 
     # deleting a comment
     assert_difference 'Comment.count', -1 do
@@ -223,7 +224,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'delete comment as others' do
-    login_as_noritama
+    login_for_test @noritama
 
     # deleting a comment(failure)
     assert_no_difference 'Comment.count' do

@@ -1,3 +1,4 @@
+
 # == Schema Information
 #
 # Table name: notes
@@ -22,32 +23,45 @@
 #  rating                 :integer          default("everyone")
 #
 
-require 'test_helper'
+FactoryBot.define do
+  factory :project do
+    type { 'Project' }
+    stage { :in_progress }
+    name { Faker::Lorem.word }
+    desc { Faker::Lorem.paragraph }
+    view_stance { :everyone }
+    comment_receive_stance { :everyone }
+    comment_share_stance { :only_me }
 
-class NoteTest < ActiveSupport::TestCase
-  test 'invalid note uniqueness' do
-    user = create(:user)
-    project = create(:project, user: user)
-    # Same user cant have same name note
-    same_name_project = build(:project, user: user, name: project.name)
-    assert_not same_name_project.valid?
-    # Other user can have same name note
-    same_name_other_user_project = build(:project, name: project.name)
-    assert same_name_other_user_project.valid?
+    association :user
+
+    after(:build) do |note|
+      10.times do
+        FactoryBot.create(:post, note: note)
+      end
+      10.times do
+        FactoryBot.create(:comment, to_note: note)
+      end
+    end
   end
 
-  test 'invalid note no_type' do
-    # Type "" means plain note, but it isn't allowed.
-    project = build(:project)
-    project.type = ''
-    assert_not project.valid?
-  end
+  factory :request_box do
+    type { 'RequestBox' }
+    name { Faker::Lorem.word }
+    desc { Faker::Lorem.paragraph }
+    view_stance { :everyone }
+    comment_receive_stance { :everyone }
+    comment_share_stance { :everyone }
 
-  test 'invalid note wrong_type' do
-    # Setting wrong type raises ArgumentError.
-    project = build(:project)
-    assert_raises(ArgumentError) do
-      project.type = 'Undefined'
+    association :user
+
+    after(:build) do |note|
+      10.times do
+        FactoryBot.create(:post, note: note)
+      end
+      10.times do
+        FactoryBot.create(:comment, to_note: note)
+      end
     end
   end
 end

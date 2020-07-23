@@ -90,6 +90,8 @@ gem 'loofah', '>= 2.2.3'
 group :development, :test do
   gem 'byebug', '~>9.1', platforms: %i[mri mingw x64_mingw]
   gem 'capybara', '~> 2.13'
+  gem 'factory_bot_rails'
+  gem 'faker'
   gem 'selenium-webdriver', '~>3.8'
 
   # Relationship diagrams

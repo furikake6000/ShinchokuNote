@@ -2,13 +2,13 @@
 #
 # Table name: user_blocks
 #
-#  id                  :integer          not null, primary key
-#  user_id             :integer
-#  blocking_user_id    :integer
+#  id                  :bigint(8)        not null, primary key
+#  user_id             :bigint(8)
+#  blocking_user_id    :bigint(8)
 #  blocking_addr       :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
-#  blocking_comment_id :integer
+#  blocking_comment_id :bigint(8)
 #
 
 class UserBlock < ApplicationRecord
