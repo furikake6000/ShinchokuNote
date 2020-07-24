@@ -52,9 +52,61 @@ paths:
                     type: string
                   user:
                     $ref: '#/components/schemas/User'
+                required:
+                  - type
+                  - name
+                  - desc
+                  - stage
+                  - view_stance
+                  - rating
+                  - watchers_count
+                  - shinchoku_dodeskas_count
+                  - comments_count
+                  - created_at
+                  - user
               examples: {}
       operationId: get-note
       description: Get note information
+  '/notes/{id}/posts':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+      operationId: get-notes-id-posts
+  '/notes/{id}/comments':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+      operationId: get-notes-id-comments
 components:
   schemas:
     User:
@@ -79,6 +131,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Note'
+      required:
+        - name
+        - url
+        - thumb_url
+        - twitter_screen_name
+        - desc
+        - projects
+        - request_boxes
     Note:
       title: Note
       type: object
@@ -101,4 +161,99 @@ components:
           type: string
         watchers_count:
           type: integer
+      required:
+        - type
+        - name
+        - desc
+        - url
+        - watch_url
+        - stage
+        - view_stance
+        - rating
+        - watchers_count
+    Post:
+      title: Post
+      type: object
+      properties:
+        id:
+          type: number
+        type:
+          type: string
+        text:
+          type: string
+        date:
+          type: string
+        scheduled_date:
+          type: string
+        finished_date:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+        responded_comment:
+          type: object
+          properties:
+            author:
+              type: object
+              required:
+                - screen_name
+                - url
+              properties:
+                screen_name:
+                  type: string
+                url:
+                  type: string
+            text:
+              type: string
+            date:
+              type: string
+          required:
+            - text
+            - date
+      required:
+        - id
+        - type
+        - text
+        - date
+    Comment:
+      title: Comment
+      type: object
+      properties:
+        id:
+          type: integer
+        text:
+          type: string
+        favored:
+          type: boolean
+        muted:
+          type: boolean
+        date:
+          type: string
+        author:
+          type: object
+          properties:
+            screen_name:
+              type: string
+            url:
+              type: string
+          required:
+            - screen_name
+            - url
+        response_post:
+          type: object
+          properties:
+            text:
+              type: string
+            date:
+              type: string
+          required:
+            - text
+            - date
+      required:
+        - id
+        - text
+        - favored
+        - muted
+        - date
   securitySchemes: {}
