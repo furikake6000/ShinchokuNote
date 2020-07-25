@@ -1,0 +1,271 @@
+openapi: 3.0.0
+info:
+  title: api
+  version: '1.0'
+  description: main api
+  contact: {}
+  termsOfService: 'https://shinchoku.net'
+servers:
+  - url: 'http://localhost:3000'
+    description: development
+  - url: 'https://shinchoku.net'
+    description: production
+paths:
+  '/notes/{id}':
+    parameters:
+      - schema:
+          type: number
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  name:
+                    type: string
+                  desc:
+                    type: string
+                  stage:
+                    type: string
+                  view_stance:
+                    type: string
+                  rating:
+                    type: string
+                  watchers_count:
+                    type: integer
+                  shinchoku_dodeskas_count:
+                    type: integer
+                  comments_count:
+                    type: integer
+                  created_at:
+                    type: string
+                  user:
+                    $ref: '#/components/schemas/User'
+                required:
+                  - type
+                  - name
+                  - desc
+                  - stage
+                  - view_stance
+                  - rating
+                  - watchers_count
+                  - shinchoku_dodeskas_count
+                  - comments_count
+                  - created_at
+                  - user
+              examples: {}
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      operationId: get-note
+      description: Get note information
+  '/notes/{id}/posts':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      operationId: get-notes-id-posts
+  '/notes/{id}/comments':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      operationId: get-notes-id-comments
+components:
+  schemas:
+    User:
+      title: USer
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        thumb_url:
+          type: string
+        twitter_screen_name:
+          type: string
+        desc:
+          type: string
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+        request_boxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+      required:
+        - name
+        - url
+        - thumb_url
+        - twitter_screen_name
+        - desc
+        - projects
+        - request_boxes
+    Note:
+      title: Note
+      type: object
+      properties:
+        type:
+          type: string
+        name:
+          type: string
+        desc:
+          type: string
+        url:
+          type: string
+        watch_url:
+          type: string
+        stage:
+          type: string
+        view_stance:
+          type: string
+        rating:
+          type: string
+        watchers_count:
+          type: integer
+      required:
+        - type
+        - name
+        - desc
+        - url
+        - watch_url
+        - stage
+        - view_stance
+        - rating
+        - watchers_count
+    Post:
+      title: Post
+      type: object
+      properties:
+        id:
+          type: number
+        type:
+          type: string
+        text:
+          type: string
+        date:
+          type: string
+        scheduled_date:
+          type: string
+        finished_date:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+        responded_comment:
+          type: object
+          properties:
+            author:
+              type: object
+              required:
+                - screen_name
+                - url
+              properties:
+                screen_name:
+                  type: string
+                url:
+                  type: string
+            text:
+              type: string
+            date:
+              type: string
+          required:
+            - text
+            - date
+      required:
+        - id
+        - type
+        - text
+        - date
+    Comment:
+      title: Comment
+      type: object
+      properties:
+        id:
+          type: integer
+        text:
+          type: string
+        favored:
+          type: boolean
+        muted:
+          type: boolean
+        date:
+          type: string
+        author:
+          type: object
+          properties:
+            screen_name:
+              type: string
+            url:
+              type: string
+          required:
+            - screen_name
+            - url
+        response_post:
+          type: object
+          properties:
+            text:
+              type: string
+            date:
+              type: string
+          required:
+            - text
+            - date
+      required:
+        - id
+        - text
+        - favored
+        - muted
+        - date
+  securitySchemes: {}
