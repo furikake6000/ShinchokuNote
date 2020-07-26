@@ -80,6 +80,9 @@ gem 'okcomputer'
 # シンプルなWebpacker, simpacker
 gem 'simpacker'
 
+# jbuilderより軽量なシリアライズ用gem
+gem 'active_model_serializers'
+
 # fixing security vulnerabilities
 gem 'sprockets', '~> 3.7.2'
 gem 'ffi', '~> 1.9.25'
