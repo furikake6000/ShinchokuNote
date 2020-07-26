@@ -18,7 +18,7 @@ services:
   db_dev:
     image: postgres:10.1
     volumes:
-      - ./tmp/db:/var/lib/postgresql
+      - dbdata:/var/lib/postgresql/data
     environment:
       - "POSTGRES_USER=postgres"
       - "POSTGRES_PASSWORD=password"
@@ -36,4 +36,6 @@ volumes:
   node_modules:
     driver: local
   yarn_cache:
+    driver: local
+  dbdata:
     driver: local
