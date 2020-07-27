@@ -6,9 +6,9 @@ info:
   contact: {}
   termsOfService: 'https://shinchoku.net'
 servers:
-  - url: 'http://localhost:3000'
+  - url: 'http://localhost:3000/api/v1'
     description: development
-  - url: 'https://shinchoku.net'
+  - url: 'https://shinchoku.net/api/v1'
     description: production
 paths:
   '/notes/{id}':
