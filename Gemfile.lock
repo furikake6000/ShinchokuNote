@@ -89,6 +89,15 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     colorize (0.8.1)
+    committee (4.1.0)
+      json_schema (~> 0.14, >= 0.14.3)
+      openapi_parser (>= 0.11.1)
+      rack (>= 1.5)
+    committee-rails (0.5.1)
+      actionpack
+      activesupport
+      committee (>= 3.0.0)
+      railties
     concurrent-ruby (1.1.4)
     crass (1.0.5)
     declarative (0.0.10)
@@ -163,6 +172,7 @@ GEM
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
     json (2.2.0)
+    json_schema (0.20.9)
     jsonapi-renderer (0.2.2)
     jwt (2.1.0)
     libv8 (6.7.288.46.1)
@@ -216,6 +226,7 @@ GEM
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
+    openapi_parser (0.11.2)
     os (0.9.6)
     parallel (1.12.1)
     paranoia (2.4.1)
@@ -397,6 +408,8 @@ DEPENDENCIES
   byebug (~> 9.1)
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
+  committee
+  committee-rails
   enum_help (~> 0.0)
   factory_bot_rails
   faker
