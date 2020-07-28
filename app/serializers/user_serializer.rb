@@ -1,9 +1,9 @@
 class UserSerializer < ActiveModel::Serializer
   attributes :name,
-             :userpage_url,
              :thumb_url,
              :desc
   attribute :screen_name, key: :twitter_screen_name
+  attribute :userpage_url, key: :url
   attribute :url, key: :twitter_url
   has_many :recent_projects, key: :projects
   has_many :request_boxes

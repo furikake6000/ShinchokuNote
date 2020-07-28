@@ -5,10 +5,21 @@ class NoteSerializer < ActiveModel::Serializer
              :stage,
              :view_stance,
              :rating,
+             :url,
+             :watch_url,
+             :created_at,
              :watchers_count,
              :shinchoku_dodeskas_count,
              :comments_count
   belongs_to :user
+
+  def url
+    Rails.application.routes.url_helpers.note_path(object)
+  end
+
+  def watch_url
+    Rails.application.routes.url_helpers.note_watchlists_toggle_path(object)
+  end
   
   def watchers_count
     object.watchlists.count
