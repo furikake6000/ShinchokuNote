@@ -14,7 +14,9 @@ module Api
         @committee_options ||= { schema_path: Rails.root.join('reference', 'api.v1.yaml').to_s, prefix: '/api/v1' }
       end
 
-      test '正常なリクエスト' do
+      # GET /notes/{id}
+
+      test 'GET /notes/{id} 正常なリクエスト' do
         get api_v1_note_path(@project)
         assert_response 200
         assert_response_schema_confirm
@@ -34,14 +36,14 @@ module Api
         assert_equal DateTime.parse(r['created_at']).to_i, @project.created_at.to_i
       end
 
-      test '存在しないnoteへのリクエスト' do
+      test 'GET /notes/{id} 存在しないnoteへのリクエスト' do
         @project.destroy!
 
         get api_v1_note_path(@project)
         assert_response 404
       end
 
-      test 'アクセス不可なnoteへのリクエスト' do
+      test 'GET /notes/{id} アクセス不可なnoteへのリクエスト' do
         @project.only_me_view_stance!
 
         # 未ログイン時403
