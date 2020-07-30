@@ -19,6 +19,7 @@ end
 class ActiveSupport::TestCase
   include UserTestHelper
   include FactoryBot::Syntax::Methods
+  include Committee::Rails::Test::Methods
 
   # Setup all fixtures in test/fixtures/*.yml
   # for all tests in alphabetical order.
@@ -44,4 +45,13 @@ class ActiveSupport::TestCase
     end
   end
   ApplicationHelper.send :prepend, ApplicationHelperFixes
+
+  # committee用のconfig
+  def committee_options
+    @committee_options ||= {
+      schema_path: Rails.root.join('reference', 'api.v1.yaml').to_s,
+      prefix: '/api/v1',
+      parse_response_by_content_type: false
+    }
+  end
 end
