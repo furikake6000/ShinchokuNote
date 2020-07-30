@@ -11,7 +11,11 @@ module Api
       end
 
       def committee_options
-        @committee_options ||= { schema_path: Rails.root.join('reference', 'api.v1.yaml').to_s, prefix: '/api/v1' }
+        @committee_options ||= {
+          schema_path: Rails.root.join('reference', 'api.v1.yaml').to_s,
+          prefix: '/api/v1',
+          parse_response_by_content_type: false
+        }
       end
 
       # GET /notes/{id}
