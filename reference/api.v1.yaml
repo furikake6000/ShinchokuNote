@@ -205,6 +205,7 @@ components:
           type: string
         finished_date:
           type: string
+          nullable: true
         images:
           type: array
           items:
