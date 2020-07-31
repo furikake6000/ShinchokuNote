@@ -68,7 +68,8 @@
 #                           help GET    /help(.:format)                                                                          static_pages#help
 #                         manage GET    /manage(.:format)                                                                        static_pages#manage
 #                          terms GET    /terms(.:format)                                                                         static_pages#terms
-#                    api_v1_note GET    /api/v1/notes/:id(.:format)                                                              api/v1/notes#show
+#              api_v1_note_posts GET    /api/v1/notes/:note_id/posts(.:format)                                                   api/v1/posts#index {:format=>/json/}
+#                    api_v1_note GET    /api/v1/notes/:id(.:format)                                                              api/v1/notes#show {:format=>/json/}
 #             rails_service_blob GET    /rails/active_storage/blobs/:signed_id/*filename(.:format)                               active_storage/blobs#show
 #      rails_blob_representation GET    /rails/active_storage/representations/:signed_blob_id/:variation_key/*filename(.:format) active_storage/representations#show
 #             rails_disk_service GET    /rails/active_storage/disk/:encoded_key/*filename(.:format)                              active_storage/disk#show
@@ -161,7 +162,9 @@ Rails.application.routes.draw do
   # Vue向けAPI
   namespace 'api', format: 'json' do
     namespace 'v1' do
-      resources :notes, only: %i[show]
+      resources :notes, only: %i[show] do
+        resources :posts, only: %i[index]
+      end
     end
   end
 end
