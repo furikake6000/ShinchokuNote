@@ -46,6 +46,56 @@ module Api
         get api_v1_note_posts_path(@project)
         assert_response 200
       end
+
+      test 'GET /notes/{id}/posts PlainPostが日付降順にソートされる' do
+        new_post = create(:post, note: @project, created_at: Time.current.next_month)
+        newer_post = create(:post, note: @project, created_at: Time.current.next_month.tomorrow)
+
+        get api_v1_note_posts_path(@project)
+        r = JSON.parse(response.body)
+        assert_equal r['posts'].first['id'], newer_post.id
+        assert_equal r['posts'].second['id'], new_post.id
+      end
+
+      test 'GET /notes/{id}/posts Scheduleが予定日降順にソートされる' do
+        new_schedule = create(
+          :schedule, note: @project,
+          created_at: Time.current.yesterday,
+          scheduled_at: Time.current.next_month
+        )
+        newer_schedule = create(
+          :schedule, note: @project,
+          created_at: Time.current.yesterday.yesterday,
+          scheduled_at: Time.current.next_month.tomorrow
+        )
+
+        get api_v1_note_posts_path(@project)
+        r = JSON.parse(response.body)
+        assert_equal r['posts'].first['id'], newer_schedule.id
+        assert_equal r['posts'].second['id'], new_schedule.id
+      end
+
+      test 'GET /notes/{id}/posts 完了済みのScheduleも予定日降順にソートされる' do
+        new_schedule = create(
+          :schedule, note: @project,
+          status: 1,
+          created_at: Time.current.prev_month,
+          finished_at: Time.current.yesterday.yesterday,
+          scheduled_at: Time.current.next_month
+        )
+        newer_schedule = create(
+          :schedule, note: @project,
+          status: 1,
+          created_at: Time.current.prev_month.yesterday,
+          finished_at: Time.current.yesterday,
+          scheduled_at: Time.current.next_month.tomorrow
+        )
+
+        get api_v1_note_posts_path(@project)
+        r = JSON.parse(response.body)
+        assert_equal r['posts'].first['id'], newer_schedule.id
+        assert_equal r['posts'].second['id'], new_schedule.id
+      end
     end
   end
 end
