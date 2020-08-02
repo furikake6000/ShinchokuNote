@@ -20,7 +20,8 @@ module Api
           return
         end
 
-        render json: @note.posts, root: 'posts', adapter: :json
+        @posts = @note.posts.sort_by{ |p| p.schedule? ? p.scheduled_at : p.created_at }.reverse
+        render json: @posts, root: 'posts', adapter: :json
       end
     end
   end

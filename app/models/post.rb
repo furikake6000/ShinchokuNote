@@ -36,6 +36,11 @@ class Post < ApplicationRecord
   validates :type, presence: true
 
   def sort_condition_date
+    # APIでは使用していない
     created_at
+  end
+
+  def schedule?
+    false
   end
 end
