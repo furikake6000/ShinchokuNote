@@ -30,7 +30,7 @@ class User < ApplicationRecord
   validates :twitter_id, uniqueness: true
   validates :screen_name, presence: true
 
-  has_many :notes,
+  has_many :notes, -> { order("updated_at desc") },
            dependent: :destroy
 
   has_many :comments,
