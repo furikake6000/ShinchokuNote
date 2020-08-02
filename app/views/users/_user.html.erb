@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="col-12 text-center text-lightgray">最近のノート</div>
-            <% user.notes.last(2).each do |n| %>
+            <% user.notes.limit(2).each do |n| %>
             <div class="col-12 col-sm-6">
                 <%= render n %>
             </div>
