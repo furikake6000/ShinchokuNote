@@ -60,12 +60,10 @@ module Api
       test 'GET /notes/{id}/posts Scheduleが予定日降順にソートされる' do
         new_schedule = create(
           :schedule, note: @project,
-          created_at: Time.current.yesterday,
           scheduled_at: Time.current.next_month
         )
         newer_schedule = create(
           :schedule, note: @project,
-          created_at: Time.current.yesterday.yesterday,
           scheduled_at: Time.current.next_month.tomorrow
         )
 
@@ -79,14 +77,12 @@ module Api
         new_schedule = create(
           :schedule, note: @project,
           status: 1,
-          created_at: Time.current.prev_month,
           finished_at: Time.current.yesterday.yesterday,
           scheduled_at: Time.current.next_month
         )
         newer_schedule = create(
           :schedule, note: @project,
           status: 1,
-          created_at: Time.current.prev_month.yesterday,
           finished_at: Time.current.yesterday,
           scheduled_at: Time.current.next_month.tomorrow
         )
