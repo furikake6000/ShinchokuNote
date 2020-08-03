@@ -32,6 +32,7 @@ FactoryBot.define do
     scheduled_at { Time.current.since 7.days }
 
     trait :finished do
+      status { 'done' }
       finished_at { Time.current.ago 1.days }
     end
 

@@ -75,14 +75,12 @@ module Api
 
       test 'GET /notes/{id}/posts 完了済みのScheduleも予定日降順にソートされる' do
         new_schedule = create(
-          :schedule, note: @project,
-          status: 1,
+          :schedule, :finished, note: @project,
           finished_at: Time.current.yesterday.yesterday,
           scheduled_at: Time.current.next_month
         )
         newer_schedule = create(
-          :schedule, note: @project,
-          status: 1,
+          :schedule, :finished, note: @project,
           finished_at: Time.current.yesterday,
           scheduled_at: Time.current.next_month.tomorrow
         )
