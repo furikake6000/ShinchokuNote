@@ -28,5 +28,5 @@ class PostSerializer < ActiveModel::Serializer
     object.type == 'Schedule'
   end
 
-  # TODO: response_postの実装
+  has_one :responded_comment
 end
