@@ -212,6 +212,7 @@ components:
             type: string
         responded_comment:
           type: object
+          nullable: true
           properties:
             author:
               type: object
@@ -235,6 +236,7 @@ components:
         - type
         - text
         - date
+        - responded_comment
     Comment:
       title: Comment
       type: object
