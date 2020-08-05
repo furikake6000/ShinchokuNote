@@ -90,6 +90,20 @@ module Api
         assert_equal r['posts'].first['id'], newer_schedule.id
         assert_equal r['posts'].second['id'], new_schedule.id
       end
+
+      test 'GET /notes/{id}/posts commentに対するresponsePostを正常に出力できる' do
+        post = create(:post, :with_responded_comment, note: @project)
+        comment = post.responded_comment
+
+        get api_v1_note_posts_path(@project)
+        assert_response 200
+        assert_response_schema_confirm
+        
+        r = JSON.parse(response.body)
+        post_hash = r['posts'].find { |p| p['id'] == post.id }
+        assert_equal post_hash['responded_comment']['text'], comment.text
+        assert_equal DateTime.parse(post_hash['responded_comment']['date']).to_i, comment.created_at.to_i
+      end
     end
   end
 end

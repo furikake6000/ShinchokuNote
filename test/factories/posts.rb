@@ -23,6 +23,12 @@ FactoryBot.define do
 
     association :note, factory: :project
 
+    trait :with_responded_comment do
+      after(:build) do |post|
+        FactoryBot.create(:comment, to_note: post.note, response_post: post)
+      end
+    end
+
     # TODO: 必要になったら :with_image のtraitを作成する
   end
 
