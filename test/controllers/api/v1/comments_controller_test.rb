@@ -45,6 +45,16 @@ module Api
         get api_v1_note_comments_path(@project)
         assert_response 200
       end
+
+      test 'GET /notes/{id}/comments 日付降順にソートされる' do
+        new_comment = create(:comment, to_note: @project)
+        newer_comment = create(:comment, to_note: @project)
+
+        get api_v1_note_comments_path(@project)
+        r = JSON.parse(response.body)
+        assert_equal r['comments'].first['id'], newer_comment.id
+        assert_equal r['comments'].second['id'], new_comment.id
+      end
     end
   end
 end
