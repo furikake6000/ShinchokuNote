@@ -263,6 +263,7 @@ components:
             - url
         response_post:
           type: object
+          nullable: true
           properties:
             text:
               type: string
@@ -277,4 +278,5 @@ components:
         - favored
         - muted
         - date
+        - response_post
   securitySchemes: {}
