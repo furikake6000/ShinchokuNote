@@ -23,4 +23,6 @@ class CommentSerializer < ActiveModel::Serializer
              :muted
   attribute :favor_flag, key: :favored
   attribute :created_at, key: :date
+
+  belongs_to :response_post
 end
