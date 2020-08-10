@@ -57,7 +57,7 @@ class Note < ApplicationRecord
   has_many :posts,
            dependent: :destroy
 
-  has_many :comments,
+  has_many :comments, -> { order("created_at desc") },
            class_name: 'Comment',
            foreign_key: 'to_note_id',
            dependent: :destroy
