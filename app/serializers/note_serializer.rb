@@ -37,6 +37,10 @@ class NoteSerializer < ActiveModel::Serializer
              :comments_count
   belongs_to :user
 
+  def type
+    object.type.downcase
+  end
+
   def url
     Rails.application.routes.url_helpers.note_path(object)
   end
