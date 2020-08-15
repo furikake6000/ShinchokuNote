@@ -5,8 +5,11 @@ import App from './app.vue';
 import VueRouter from 'vue-router';
 import router from './routes';
 import vuetify from './plugins/vuetify';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 
 Vue.use(VueRouter);
+Vue.use(VueAxios, axios);
 
 // mixins
 import datestr from './mixins/datestr';
