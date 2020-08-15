@@ -58,64 +58,7 @@ import icon from '../../../assets/images/icon.svg';
 export default {
   data: function () {
     return {
-      note: {
-        type: 'project',
-        name: 'test',
-        desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-        stage: 'finished',
-        viewStance: 'only_me',
-        rating: 'restricted_18',
-        watchersCount: 3,
-        shinchokuDodeskasCount: 15,
-        commentsCount: 5,
-        createdAt: '1 Jan 2019 07:00:00 +0900',
-        user: {
-          name: 'ふりかけ',
-          url: '/users/furikake555',
-          thumbUrl: 'https://pbs.twimg.com/profile_images/1258916109442404353/I-NTF47_.jpg',
-          twitterUrl: 'https://twitter.com/furikake555',
-          twitterScreenName: 'furikake555',
-          desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. https://example.com',
-          projects: [
-            {
-              type: 'project',
-              name: 'test',
-              desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-              url: '/notes/1',
-              watchUrl: '',
-              stage: 'finished',
-              viewStance: 'only_me',
-              rating: 'restricted_18',
-              watchersCount: 10
-            },
-            {
-              type: 'project',
-              name: '寿限無寿限無五劫の擦り切れ海砂利水魚の水行末雲来末風来末食う寝る処に住む処やぶら小路の藪柑子パイポパイポパイポのシューリンガンシューリンガンのグーリンダイグーリンダイのポンポコピーのポンポコナーの長久命の長助',
-              desc: '寿限無寿限無五劫の擦り切れ海砂利水魚の水行末雲来末風来末食う寝る処に住む処やぶら小路の藪柑子パイポパイポパイポのシューリンガンシューリンガンのグーリンダイグーリンダイのポンポコピーのポンポコナーの長久命の長助',
-              url: '/notes/1',
-              watchUrl: '',
-              thumbUrl: 'http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f97e59db7026b209deb6890df4bc5551512f79f5/blob',
-              stage: 'in_progress',
-              viewStance: 'everyone',
-              rating: 'everyone',
-              watchersCount: 10
-            },
-          ],
-          requestBoxes: [
-            {
-              type: 'request_box',
-              name: 'testaaa',
-              desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-              url: '/notes/1',
-              watchUrl: '',
-              stage: 'in_progress',
-              viewStance: 'only_follower',
-              rating: 'restricted_18',
-              watchersCount: 10
-            }
-          ]
-        },
-      },
+      note: {},
       posts: [
         {
           id: 10,
@@ -261,6 +204,11 @@ export default {
       ],
       icon: icon
     };
+  },
+  mounted () {
+    this.axios.get(`/api/v1/notes/${ this.$route.params.id }`).then(response => {
+      this.note = this.deepCamelCase(response.data);
+    });
   },
   methods: {
     elapsedDaysFrom(dateStr) {
