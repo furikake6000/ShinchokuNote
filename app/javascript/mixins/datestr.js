@@ -21,17 +21,18 @@ const timeFormatter = Intl.DateTimeFormat('ja-JP', {
 
 export default {
   methods: {
-    dateStr(date) {
+    dateStr(dateStr) {
+      const date = new Date(dateStr);
       if(date.getFullYear() != new Date().getFullYear()){
         return dateFormatterWithYear.format(date);
       }
       return dateFormatter.format(date);
     },
-    dateStrWithoutYear(date) {
-      return dateFormatter.format(date);
+    dateStrWithoutYear(dateStr) {
+      return dateFormatter.format(new Date(dateStr));
     },
-    timeStr(date) {
-      return timeFormatter.format(date);
+    timeStr(dateStr) {
+      return timeFormatter.format(new Date(dateStr));
     }
   }
 };

@@ -80,7 +80,7 @@ export default {
   props: {
     id: Number,
     text: String,
-    date: Date,
+    date: String,
     favored: Boolean,
     muted: Boolean,
     author: Object,

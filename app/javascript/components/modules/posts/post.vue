@@ -29,9 +29,9 @@ export default {
     type: String,
     text: String,
     images: Array,
-    date: Date,
-    scheduledDate: Date,
-    finishedDate: Date,
+    date: String,
+    scheduledDate: String,
+    finishedDate: String,
     respondedComment: Object
   },
   components: {

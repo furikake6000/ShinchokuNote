@@ -27,8 +27,7 @@ export default {
   computed: {
     groupedPosts: function() {
       var sortDate = (post) => {
-        if(post.type == 'schedule') return post.scheduledDate;
-        return post.date;
+        return new Date(post.type == 'schedule' ? post.scheduledDate : post.date);
       };
       
       // postsを時間「降順」でソート

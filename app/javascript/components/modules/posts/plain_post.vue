@@ -50,7 +50,7 @@ export default {
     id: Number,
     text: String,
     images: Array,
-    date: Date,
+    date: String,
     respondedComment: Object
   },
   data: function() {

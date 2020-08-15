@@ -57,9 +57,9 @@ export default {
   props: {
     id: Number,
     text: String,
-    date: Date,
-    scheduledDate: Date,
-    finishedDate: Date
+    date: String,
+    scheduledDate: String,
+    finishedDate: String
   },
   data: function() {
     return {
@@ -71,7 +71,7 @@ export default {
   computed: {
     status: function() {
       if(this.finishedDate) return 'finished';
-      if(this.scheduledDate > Date.now()) return 'unfinished';
+      if(new Date(this.scheduledDate) > Date.now()) return 'unfinished';
       return 'outdated';
     },
     statusIcon: function() {
