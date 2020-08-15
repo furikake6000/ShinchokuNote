@@ -13,8 +13,10 @@ Vue.use(VueAxios, axios);
 
 // mixins
 import datestr from './mixins/datestr';
+import deepCamelSnake from './mixins/deep_camel_snake';
 
 Vue.mixin(datestr);
+Vue.mixin(deepCamelSnake);
 
 document.addEventListener('DOMContentLoaded', () => {
   // Vueが使われていないページでは無効化
