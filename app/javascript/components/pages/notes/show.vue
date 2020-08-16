@@ -59,84 +59,7 @@ export default {
   data: function () {
     return {
       note: {},
-      posts: [
-        {
-          id: 10,
-          type: 'schedule',
-          text: '未完のスケジュール',
-          date: '24 May 2020 13:57:00 +0900',
-          scheduledDate: '31 May 2020 07:00:00 +0900'
-        },
-        {
-          id: 9,
-          type: 'schedule',
-          text: '完了したスケジュール',
-          date: '24 May 2020 13:57:00 +0900',
-          scheduledDate: '31 May 2020 07:00:00 +0900',
-          finishedDate: '31 May 2020 09:23:00 +0900'
-        },
-        {
-          id: 8,
-          type: 'schedule',
-          text: '時間切れのスケジュール',
-          date: '24 May 2020 13:57:00 +0900',
-          scheduledDate: '11 May 2020 07:00:00 +0900'
-        },
-        {
-          id: 6,
-          text: 'a',
-          images: [
-            'http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f97e59db7026b209deb6890df4bc5551512f79f5/blob'
-          ],
-          date: '24 May 2020 13:57:00 +0900'
-        },
-        {
-          id: 5,
-          text: 'hogehogehogehoge~~~~~~~~~~~',
-          date: '24 May 2020 12:00:00 +0900'
-        },
-        {
-          id: 7,
-          text: 'poyopoyo',
-          respondedComment: {
-            from: 'furikake555',
-            text: 'piyopiyo',
-            date: '23 May 2020 11:00:00 +0900'
-          },
-          date: '24 May 2020 12:00:00 +0900'
-        },
-        {
-          id: 4,
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-          date: '21 May 2020 19:00:00 +0900'
-        },
-        {
-          id: 3,
-          text: 'poyo',
-          images: [
-            'http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--efa9c0f7721c8f0adc8ce9d3b494cfd33efeff1e/blob',
-            'http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--e1577d0c41acd953cfe105de0d9da9009c955ab6/blob'
-          ],
-          date: '21 May 2020 12:00:00 +0900'
-        },
-        {
-          id: 2,
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-          date: '1 Dec 2019 19:00:00 +0900'
-        },
-        {
-          id: 1,
-          images: [
-            'http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--38a1a23da3d044d9c627bc246c838e29d660ec21/blob'
-          ],
-          respondedComment: {
-            text: 'piyo',
-            date: '23 May 2020 11:00:00 +0900'
-          },
-          text: 'poyo',
-          date: '31 Dec 2019 12:00:00 +0900'
-        },
-      ],
+      posts: [],
       commentsCount: 5,
       comments: [
         {
@@ -208,6 +131,9 @@ export default {
   mounted () {
     this.axios.get(`/api/v1/notes/${ this.$route.params.id }`).then(response => {
       this.note = this.deepCamelCase(response.data);
+    });
+    this.axios.get(`/api/v1/notes/${ this.$route.params.id }/posts`).then(response => {
+      this.posts = this.deepCamelCase(response.data).posts;
     });
   },
   methods: {
