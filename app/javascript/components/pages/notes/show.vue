@@ -61,70 +61,7 @@ export default {
       note: {},
       posts: [],
       commentsCount: 5,
-      comments: [
-        {
-          id: 4,
-          text: 'コメント4',
-          favored: false,
-          muted: false,
-          date: '25 May 2020 14:00:00 +0900',
-          author: {
-            screenName: 'ふりかけ',
-            url: '/users/furikake555'
-          },
-          responsePost: {
-            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-            date: '21 May 2020 19:00:00 +0900'
-          }
-        },
-        {
-          id: 3,
-          text: 'コメント3',
-          favored: true,
-          muted: false,
-          date: '24 May 2020 13:59:00 +0900',
-          responsePost: {
-            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-            images: [
-              'http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f97e59db7026b209deb6890df4bc5551512f79f5/blob',
-              'http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--38a1a23da3d044d9c627bc246c838e29d660ec21/blob'
-            ],
-            date: '13 Apr 2020 19:00:00 +0900'
-          }
-        },
-        {
-          id: 2,
-          text: 'コメント2',
-          favored: false,
-          muted: false,
-          date: '24 May 2020 13:58:00 +0900'
-        },
-        {
-          id: 1,
-          text: 'コメント',
-          favored: false,
-          muted: false,
-          date: '24 May 2020 13:57:00 +0900',
-          author: {
-            screenName: 'ふりかけ',
-            url: '/users/furikake555'
-          }
-        },
-        {
-          id: 6,
-          text: 'ミュートされたコメント',
-          favored: false,
-          muted: true,
-          date: '21 May 2020 13:57:00 +0900'
-        },
-        {
-          id: 5,
-          text: 'コメント5',
-          favored: true,
-          muted: false,
-          date: '24 Dec 2019 13:57:00 +0900'
-        }
-      ],
+      comments: [],
       icon: icon
     };
   },
@@ -134,6 +71,9 @@ export default {
     });
     this.axios.get(`/api/v1/notes/${ this.$route.params.id }/posts`).then(response => {
       this.posts = this.deepCamelCase(response.data).posts;
+    });
+    this.axios.get(`/api/v1/notes/${ this.$route.params.id }/comments`).then(response => {
+      this.comments = this.deepCamelCase(response.data).comments;
     });
   },
   methods: {
