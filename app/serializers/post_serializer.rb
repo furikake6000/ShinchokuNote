@@ -24,6 +24,10 @@ class PostSerializer < ActiveModel::Serializer
   attribute :scheduled_at, key: :scheduled_date, if: :is_schedule?
   attribute :finished_at, key: :finished_date, if: :is_schedule?
 
+  def type
+    object.type.downcase
+  end
+
   def is_schedule?
     object.type == 'Schedule'
   end
