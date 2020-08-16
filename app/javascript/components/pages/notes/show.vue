@@ -34,7 +34,7 @@
           v-col.main-col(cols="8")
             post-form.post-form
             post-timeline(:posts="posts")
-            comments(:comments="comments" :count="commentsCount")
+            comments(:comments="comments" :count="note.commentsCount")
 
           v-col.d-flex.flex-column(cols="4")
             user(v-bind="note.user")
@@ -60,7 +60,6 @@ export default {
     return {
       note: {},
       posts: [],
-      commentsCount: 5,
       comments: [],
       icon: icon
     };
