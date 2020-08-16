@@ -19,7 +19,8 @@
 class PostSerializer < ActiveModel::Serializer
   attributes :id,
              :type,
-             :text
+             :text,
+             :images
   attribute :created_at, key: :date
   attribute :scheduled_at, key: :scheduled_date, if: :is_schedule?
   attribute :finished_at, key: :finished_date, if: :is_schedule?
@@ -30,6 +31,10 @@ class PostSerializer < ActiveModel::Serializer
 
   def is_schedule?
     object.type == 'Schedule'
+  end
+
+  def images
+    object.media.map{ |m| Rails.application.routes.url_helpers.rails_blob_path(m, only_path: true) }
   end
 
   has_one :responded_comment
