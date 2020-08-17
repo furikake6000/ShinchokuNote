@@ -9,7 +9,20 @@
       v-btn(value="all") すべて
       v-btn(value="unreplied") 未返信
       v-btn(value="favored") お気に入り
+
+    v-pagination.my-4(
+      v-model="currentPage" circle
+      :length="totalPages"
+      :total-visible="9"
+      v-if="totalPages != 1"
+    )
     comment.my-4(v-bind="comment" v-for="comment in filteredComments" :key="comment.id")
+    v-pagination.my-4(
+      v-model="currentPage" circle
+      :length="totalPages"
+      :total-visible="9"
+      v-if="totalPages != 1"
+    )
 </template>
 
 <script>
@@ -19,13 +32,7 @@ import Comment from './comment.vue';
 export default {
   name: 'comments',
   mounted () {
-    this.axios.get(`/api/v1/notes/${ this.$route.params.id }/comments`).then(response => {
-      const data = this.deepCamelCase(response.data);
-      this.comments = data.comments;
-      this.totalCount = data.meta.totalCount;
-      this.currentPage = data.meta.currentPage;
-      this.totalPages = data.meta.totalPages;
-    });
+    this.fetchComments();
   },
   data: function() {
     return {
@@ -46,6 +53,26 @@ export default {
         default:  // includes 'all'
           return this.comments.filter(c => !c.muted);
       }
+    }
+  },
+  methods: {
+    fetchComments (page = 1) {
+      this.axios.get(`/api/v1/notes/${ this.$route.params.id }/comments`, {
+        params: {
+          page: page
+        }
+      }).then(response => {
+        const data = this.deepCamelCase(response.data);
+        this.comments = data.comments;
+        this.currentPage = data.meta.currentPage;
+        this.totalCount = data.meta.totalCount;
+        this.totalPages = data.meta.totalPages;
+      });
+    }
+  },
+  watch: {
+    currentPage (val) {
+      this.fetchComments(val);
     }
   },
   components: {
