@@ -83,6 +83,9 @@ gem 'simpacker'
 # jbuilderより軽量なシリアライズ用gem
 gem 'active_model_serializers'
 
+# pagination用gem kaminari
+gem 'kaminari'
+
 # fixing security vulnerabilities
 gem 'sprockets', '~> 3.7.2'
 gem 'ffi', '~> 1.9.25'
