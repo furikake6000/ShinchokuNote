@@ -20,8 +20,13 @@ module Api
           return
         end
 
-        @comments = @note.comments
-        render json: @comments, root: 'comments', adapter: :json
+        @comments = @note.comments.page(params[:page] || 1)
+        render json: @comments, root: 'comments', adapter: :json, meta: {
+          current_page: @comments.current_page,
+          total_pages: @comments.total_pages,
+          count: @comments.limit_value,
+          total_count: @note.comments.count
+        }
       end
     end
   end
