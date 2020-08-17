@@ -36,7 +36,7 @@ export default {
   },
   data: function() {
     return {
-      comments: {},
+      comments: [],
       totalCount: 0,
       currentPage: 1,
       totalPages: 1,
