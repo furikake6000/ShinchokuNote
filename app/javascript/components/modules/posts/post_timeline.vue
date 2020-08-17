@@ -21,8 +21,16 @@ const monthEnFormatter = Intl.DateTimeFormat('en-US', { month: 'short' });
 
 export default {
   name: 'post-timeline',
-  props: {
-    posts: Array
+  mounted () {
+    this.fetchPosts();
+  },
+  data () {
+    return {
+      posts: [],
+      totalCount: 0,
+      currentPage: 1,
+      totalPages: 1,
+    };
   },
   computed: {
     groupedPosts: function() {
@@ -63,6 +71,21 @@ export default {
         return groupedPosts;
       }, []);
       return groupedPosts;
+    }
+  },
+  methods: {
+    fetchPosts (page = 1) {
+      this.axios.get(`/api/v1/notes/${ this.$route.params.id }/posts`, {
+        params: {
+          page: page
+        }
+      }).then(response => {
+        const data = this.deepCamelCase(response.data);
+        this.posts = data.posts;
+        this.currentPage = data.meta.currentPage;
+        this.totalCount = data.meta.totalCount;
+        this.totalPages = data.meta.totalPages;
+      });
     }
   },
   components: {

@@ -33,7 +33,7 @@
         v-row
           v-col.main-col(cols="8")
             post-form.post-form
-            post-timeline(:posts="posts")
+            post-timeline
             comments
 
           v-col.d-flex.flex-column(cols="4")
@@ -59,16 +59,12 @@ export default {
   data: function () {
     return {
       note: {},
-      posts: [],
       icon: icon
     };
   },
   mounted () {
     this.axios.get(`/api/v1/notes/${ this.$route.params.id }`).then(response => {
       this.note = this.deepCamelCase(response.data);
-    });
-    this.axios.get(`/api/v1/notes/${ this.$route.params.id }/posts`).then(response => {
-      this.posts = this.deepCamelCase(response.data).posts;
     });
   },
   methods: {
