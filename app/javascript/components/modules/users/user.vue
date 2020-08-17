@@ -8,10 +8,10 @@
       span @{{twitterScreenName}}
     .my-3.body-2 {{desc}}
     .notes.mt-3(v-if="projects || requestBoxes")
-      .text-center.secondary--text(v-if="projects") 最近のノート
+      .text-center.mt-4.secondary--text(v-if="projects.length > 0") 最近のノート
       template(v-for="note in projects")
         note(v-bind="note").my-4
-      .text-center.secondary--text(v-if="requestBoxes") リクエストボックス
+      .text-center.secondary--text(v-if="requestBoxes.length > 0") リクエストボックス
       template(v-for="note in requestBoxes")
         note(v-bind="note").my-4
 
