@@ -1,6 +1,12 @@
 <template lang="pug">
   .timeline
-    .month-section.my-8(v-for="monthlyPosts in groupedPosts")
+    v-pagination.mt-6(
+      v-model="currentPage" circle
+      :length="totalPages"
+      :total-visible="9"
+      v-if="totalPages != 1"
+    )
+    .month-section.mt-6(v-for="monthlyPosts in groupedPosts")
       .month-sign.small
         .month {{monthlyPosts.month}}
         .year / {{monthlyPosts.year}}
@@ -11,6 +17,12 @@
         .month {{monthlyPosts.month}}
         .year / {{monthlyPosts.year}}
         .month-en {{monthlyPosts.monthEn}}
+    v-pagination.mt-3.mb-6(
+      v-model="currentPage" circle
+      :length="totalPages"
+      :total-visible="9"
+      v-if="totalPages != 1"
+    )
 </template>
 
 <script>
@@ -86,6 +98,11 @@ export default {
         this.totalCount = data.meta.totalCount;
         this.totalPages = data.meta.totalPages;
       });
+    }
+  },
+  watch: {
+    currentPage (val) {
+      this.fetchPosts(val);
     }
   },
   components: {
