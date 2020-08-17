@@ -26,7 +26,7 @@
                   span コメント
                 shinchoku-button.ml-2(noBackground=true color="secondary" size="36px")
           .d-flex.flex-column.flex-md-row.mt-4
-            p {{note.desc}}
+            p.flex-grow-1 {{note.desc}}
             .flex-shrink-0.text-right.align-self-end
               .secondary--text.text--lighten-1.font-weight-bold {{dateStr(note.createdAt)}}作成 ({{elapsedDaysFrom(note.createdAt)}}日め)
       v-container
