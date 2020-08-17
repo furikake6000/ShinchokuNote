@@ -21,7 +21,7 @@ module Api
         
         post_hash = r['posts'].first
         post = Post.find(post_hash['id'])
-        assert_equal post_hash['type'], post.type
+        assert_equal post_hash['type'], post.type.downcase
         assert_equal post_hash['text'], post.text
         assert_equal DateTime.parse(post_hash['date']).to_i, post.created_at.to_i
       end
