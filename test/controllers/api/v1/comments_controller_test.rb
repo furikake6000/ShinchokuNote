@@ -69,6 +69,28 @@ module Api
         assert_equal comment_hash['response_post']['text'], post.text
         assert_equal DateTime.parse(comment_hash['response_post']['date']).to_i, post.created_at.to_i
       end
+
+      test 'GET /notes/{id}/comments ページネーションで2ページ目を取ってくると先頭が31個目' do
+        create_list(:comment, 100, to_note: @project)
+
+        get api_v1_note_comments_path(@project, page: 2)
+        r = JSON.parse(response.body)
+        comment_hash = r['comments'].first
+        assert_equal comment_hash['id'], @project.comments[30].id
+      end
+
+      test 'GET /notes/{id}/comments メタ情報が正しい' do
+        @project.comments.destroy_all
+        create_list(:comment, 100, to_note: @project)
+
+        get api_v1_note_comments_path(@project, page: 2)
+        r = JSON.parse(response.body)
+        meta_hash = r['meta']
+        assert_equal meta_hash['current_page'], 2
+        assert_equal meta_hash['total_pages'], 4
+        assert_equal meta_hash['count'], 30
+        assert_equal meta_hash['total_count'], 100
+      end
     end
   end
 end
