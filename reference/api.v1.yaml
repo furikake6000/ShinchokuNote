@@ -93,6 +93,22 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Post'
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                      total_pages:
+                        type: integer
+                      count:
+                        type: integer
+                      total_count:
+                        type: integer
+                    required:
+                      - current_page
+                      - total_pages
+                      - count
+                      - total_count
         '403':
           description: Forbidden
         '404':
@@ -120,6 +136,22 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Comment'
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                      total_pages:
+                        type: integer
+                      count:
+                        type: integer
+                      total_count:
+                        type: integer
+                    required:
+                      - current_page
+                      - total_pages
+                      - count
+                      - total_count
         '403':
           description: Forbidden
         '404':
