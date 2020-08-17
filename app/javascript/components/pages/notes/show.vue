@@ -34,7 +34,7 @@
           v-col.main-col(cols="8")
             post-form.post-form
             post-timeline(:posts="posts")
-            comments(:comments="comments" :count="note.commentsCount")
+            comments
 
           v-col.d-flex.flex-column(cols="4")
             user(v-bind="note.user")
@@ -60,7 +60,6 @@ export default {
     return {
       note: {},
       posts: [],
-      comments: [],
       icon: icon
     };
   },
@@ -70,9 +69,6 @@ export default {
     });
     this.axios.get(`/api/v1/notes/${ this.$route.params.id }/posts`).then(response => {
       this.posts = this.deepCamelCase(response.data).posts;
-    });
-    this.axios.get(`/api/v1/notes/${ this.$route.params.id }/comments`).then(response => {
-      this.comments = this.deepCamelCase(response.data).comments;
     });
   },
   methods: {

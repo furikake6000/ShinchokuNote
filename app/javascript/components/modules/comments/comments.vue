@@ -2,7 +2,7 @@
   .comments
     .bgstr.top
       v-icon(color="secondary lighten-3") mdi-email
-    .comments-title.secondary--text.font-weight-bold コメント({{count}})
+    .comments-title.secondary--text.font-weight-bold コメント({{totalCount}})
     comment-form.mt-2
     v-divider
     v-btn-toggle(borderless dense mandatory v-model="filter")
@@ -18,12 +18,21 @@ import Comment from './comment.vue';
 
 export default {
   name: 'comments',
-  props: {
-    comments: Array,
-    count: Number
+  mounted () {
+    this.axios.get(`/api/v1/notes/${ this.$route.params.id }/comments`).then(response => {
+      const data = this.deepCamelCase(response.data);
+      this.comments = data.comments;
+      this.totalCount = data.meta.totalCount;
+      this.currentPage = data.meta.currentPage;
+      this.totalPages = data.meta.totalPages;
+    });
   },
   data: function() {
     return {
+      comments: {},
+      totalCount: 0,
+      currentPage: 1,
+      totalPages: 1,
       filter: 'all'
     };
   },
