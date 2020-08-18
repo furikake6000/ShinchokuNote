@@ -15,8 +15,10 @@
         span 返信
       v-tooltip(bottom)
         template(v-slot:activator="{ on }")
-          v-btn.mr-3(@click="toggleFavored" v-on="on" icon small :color="favored ? 'primary' : 'secondary lighten-1'")
-            v-icon(small) mdi-star
+          v-btn.mr-3(v-if="favored" @click="toggleFavored" v-on="on" icon small color='primary')
+            v-icon(small) mdi-heart
+          v-btn.mr-3(v-else @click="toggleFavored" v-on="on" icon small color='secondary lighten-1')
+            v-icon(small) mdi-heart-outline
         span お気に入り
       v-tooltip(bottom)
         template(v-slot:activator="{ on }")
