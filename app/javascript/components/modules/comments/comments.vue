@@ -8,7 +8,9 @@
     v-btn-toggle(borderless dense mandatory v-model="filter")
       v-btn(value="all") すべて
       v-btn(value="unreplied") 未返信
-      v-btn(value="favored") お気に入り
+      v-btn(value="favored")
+        v-icon(small color="secondary darken-3") mdi-star
+        span お気に入り
 
     v-pagination.my-4(
       v-model="currentPage" circle

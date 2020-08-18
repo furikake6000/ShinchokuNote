@@ -4,36 +4,30 @@
     .comment-text {{text}}
     .d-flex.align-center
       template(v-if="responsePost")
-        v-btn(v-if="responseEnabled" @click="hideResponse" text small color="secondary")
+        v-btn(v-if="responseEnabled" @click="hideResponse" text small color="secondary lighten-1")
           v-icon(small) mdi-chevron-up
           span 返信を非表示
-        v-btn(v-else @click="showResponse" text small color="secondary")
+        v-btn(v-else @click="showResponse" text small color="secondary lighten-1")
           v-icon(small) mdi-chevron-down
           span 返信を表示
-      v-btn(v-else text small color="secondary")
+      v-btn(v-else text small color="secondary lighten-1")
         v-icon(small) mdi-reply
         span 返信
-      v-btn(@click="toggleFavored" text small :color="favored ? 'primary' : 'secondary'")
-        v-icon(small) mdi-star
+      v-tooltip(bottom)
+        template(v-slot:activator="{ on }")
+          v-btn.mr-3(@click="toggleFavored" v-on="on" icon small :color="favored ? 'primary' : 'secondary lighten-1'")
+            v-icon(small) mdi-star
         span お気に入り
-      v-btn(@click="toggleMuted" v-on="on" text small :color="muted ? 'primary' : 'secondary'")
-        v-icon(small) mdi-eye-off
+      v-tooltip(bottom)
+        template(v-slot:activator="{ on }")
+          v-btn.mr-3(@click="toggleMuted" v-on="on" icon small :color="muted ? 'primary' : 'secondary lighten-1'")
+            v-icon(small) mdi-eye-off
         span ミュート
-      v-dialog(v-model="deleteDialogEnabled" width="500")
-          template(v-slot:activator="{ on }")
-            v-btn(v-on="on" text color="secondary")
-              v-icon(small) mdi-delete
-              span 削除
-          v-card
-            v-card-title.headline コメントを削除します
-            v-card-text
-              span このコメントを削除します。
-              br
-              span.error--text.font-weight-bold 復元はできません。本当によろしいですか？
-            v-card-actions
-              v-spacer
-              v-btn.font-weight-bold(@click="hideDeleteDialog" text color="secondary") キャンセル
-              v-btn.font-weight-bold(text color="error") 削除する
+      v-tooltip(bottom)
+        template(v-slot:activator="{ on }")
+          v-btn(@click="showDeleteDialog" v-on="on" icon small color="secondary lighten-1")
+            v-icon(small) mdi-delete
+        span 削除
       v-dialog(v-model="muteDialogEnabled" width="500")
         v-card
           v-card-title.headline 投稿者をブロックしますか？
@@ -45,6 +39,17 @@
             v-spacer
             v-btn.font-weight-bold(@click="hideMuteDialog" text color="secondary") ブロックしない
             v-btn.font-weight-bold(text color="error") ブロックする
+      v-dialog(v-model="deleteDialogEnabled" width="500")
+        v-card
+          v-card-title.headline コメントを削除します
+          v-card-text
+            span このコメントを削除します。
+            br
+            span.error--text.font-weight-bold 復元はできません。本当によろしいですか？
+          v-card-actions
+            v-spacer
+            v-btn.font-weight-bold(@click="hideDeleteDialog" text color="secondary") キャンセル
+            v-btn.font-weight-bold(text color="error") 削除する
       span.caption.secondary--text.ml-auto {{ dateStr(date) }}
     .ml-4(v-if="responsePost && responseEnabled")
       span {{responsePost.text}}
@@ -114,6 +119,9 @@ export default {
     },
     hideMuteDialog() {
       this.muteDialogEnabled = false;
+    },
+    showDeleteDialog() {
+      this.deleteDialogEnabled = true;
     },
     hideDeleteDialog() {
       this.deleteDialogEnabled = false;
