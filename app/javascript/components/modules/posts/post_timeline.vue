@@ -1,5 +1,5 @@
 <template lang="pug">
-  .timeline
+  .timeline.mb-6
     v-pagination.mt-6(
       v-model="currentPage" circle
       :length="totalPages"
@@ -17,7 +17,7 @@
         .month {{monthlyPosts.month}}
         .year / {{monthlyPosts.year}}
         .month-en {{monthlyPosts.monthEn}}
-    v-pagination.mt-3.mb-6(
+    v-pagination.mt-3(
       v-model="currentPage" circle
       :length="totalPages"
       :total-visible="9"
