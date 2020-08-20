@@ -78,6 +78,10 @@ paths:
         name: id
         in: path
         required: true
+      - schema:
+          type: integer
+        name: page
+        in: query
     get:
       summary: Your GET endpoint
       tags: []
@@ -121,6 +125,10 @@ paths:
         name: id
         in: path
         required: true
+      - schema:
+          type: integer
+        name: page
+        in: query
     get:
       summary: Your GET endpoint
       tags: []
