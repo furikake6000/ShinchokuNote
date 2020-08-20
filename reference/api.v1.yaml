@@ -129,6 +129,15 @@ paths:
           type: integer
         name: page
         in: query
+      - schema:
+          type: string
+          enum:
+            - all
+            - unreplied
+            - replied
+            - favored
+        name: filter
+        in: query
     get:
       summary: Your GET endpoint
       tags: []
