@@ -34,5 +34,13 @@ FactoryBot.define do
         FactoryBot.create(:post, note: comment.to_note, responded_comment: comment)
       end
     end
+
+    trait :favored do
+      favor_flag { true }
+    end
+
+    trait :muted do
+      muted { true }
+    end
   end
 end
