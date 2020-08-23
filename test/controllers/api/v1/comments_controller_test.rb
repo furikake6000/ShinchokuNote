@@ -91,6 +91,86 @@ module Api
         assert_equal meta_hash['count'], 30
         assert_equal meta_hash['total_count'], 100
       end
+
+      test 'GET /notes/{id}/comments 未返信/返信済のfilterが正しく取れる' do
+        @project.comments.destroy_all
+        create_list(:comment, 10, to_note: @project)
+        create_list(:comment, 10, :with_response, to_note: @project)
+
+        # 未返信
+        get api_v1_note_comments_path(@project, filter: 'unreplied')
+        r = JSON.parse(response.body)
+
+        # 抜き出されたコメントが全て返信済のものである
+        comment_hash = r['comments']
+        comment_hash.each do |c|
+          assert_nil c['response_post']
+        end
+
+        # countが未返信コメントの件数のみを返す
+        # total_countが全件数を返す
+        meta_hash = r['meta']
+        assert_equal meta_hash['count'], 10
+        assert_equal meta_hash['total_count'], 20
+
+        # 返信済
+        get api_v1_note_comments_path(@project, filter: 'replied')
+        r = JSON.parse(response.body)
+
+        # 抜き出されたコメントが全て返信済のものである
+        comment_hash = r['comments']
+        comment_hash.each do |c|
+          assert_not_nil c['response_post']
+        end
+
+        # countが返信済コメントの件数のみを返す
+        # total_countが全件数を返す
+        meta_hash = r['meta']
+        assert_equal meta_hash['count'], 10
+        assert_equal meta_hash['total_count'], 20
+      end
+
+      test 'GET /notes/{id}/comments お気に入りのfilterが正しく取れる' do
+        @project.comments.destroy_all
+        create_list(:comment, 10, to_note: @project)
+        create_list(:comment, 10, :favored, to_note: @project)
+
+        get api_v1_note_comments_path(@project, filter: 'favored')
+        r = JSON.parse(response.body)
+
+        # 抜き出されたコメントが全てfavoredされたものである
+        comment_hash = r['comments']
+        comment_hash.each do |c|
+          assert c['favored']
+        end
+
+        # countがfavoredなコメントの件数のみを返す
+        # total_countが全件数を返す
+        meta_hash = r['meta']
+        assert_equal meta_hash['count'], 10
+        assert_equal meta_hash['total_count'], 20
+      end
+
+      test 'GET /notes/{id}/comments ミュートされたコメントの存在がなかったことになる' do
+        @project.comments.destroy_all
+        create_list(:comment, 10, to_note: @project)
+        create_list(:comment, 10, :muted, to_note: @project)
+
+        get api_v1_note_comments_path(@project)
+        r = JSON.parse(response.body)
+
+        # 抜き出されたコメントが全てmutedでないものである
+        comment_hash = r['comments']
+        comment_hash.each do |c|
+          assert_not c['muted']
+        end
+
+        # countがmutedされていないコメントの件数を返す
+        # total_countがmutedされていない件数を返す
+        meta_hash = r['meta']
+        assert_equal meta_hash['count'], 10
+        assert_equal meta_hash['total_count'], 10
+      end
     end
   end
 end
