@@ -171,6 +171,56 @@ module Api
         assert_equal meta_hash['count'], 10
         assert_equal meta_hash['total_count'], 10
       end
+
+      test 'GET /notes/{id}/comments block済みのユーザーからのコメントの存在がなかったことになる' do
+        blocked_user = create(:user)
+        blocked_comment = create(:comment, to_note: @project, from_user: blocked_user)
+        @project.user.user_blocks.create!(blocking_user: blocked_user, blocking_comment: blocked_comment)
+
+        create_list(:comment, 10, to_note: @project)
+        create_list(:comment, 10, to_note: @project, from_user: blocked_user)
+        
+        get api_v1_note_comments_path(@project)
+        r = JSON.parse(response.body)
+
+        # 抜き出されたコメントにblocked_userからのものが含まれていない
+        comment_hash = r['comments']
+        comment_hash.each do |c|
+          next unless c.has_key?('author')
+          assert_not_equal c['author']['screen_name'], blocked_user.screen_name
+        end
+
+        # countがblockされたコメントを考慮しない
+        # total_countがblockされたコメントを考慮しない
+        meta_hash = r['meta']
+        assert_equal meta_hash['count'], 10
+        assert_equal meta_hash['total_count'], 10
+      end
+
+      test 'GET /notes/{id}/comments block済みのアドレスからのコメントの存在がなかったことになる' do
+        blocked_addr = Faker::Internet.ip_v4_address
+        blocked_comment = create(:comment, to_note: @project, from_addr: blocked_addr)
+        @project.user.user_blocks.create!(blocking_addr: blocked_addr, blocking_comment: blocked_comment)
+
+        create_list(:comment, 10, to_note: @project)
+        blocked_posts = create_list(:comment, 10, to_note: @project, from_addr: blocked_addr)
+        blocked_posts_ids = blocked_posts.map(&:id)
+        
+        get api_v1_note_comments_path(@project)
+        r = JSON.parse(response.body)
+
+        # 抜き出されたコメントにblocked_addrからのものが含まれていない
+        comment_hash = r['comments']
+        comment_hash.each do |c|
+          assert_not_includes blocked_posts_ids, c['id']
+        end
+
+        # countがblockされたコメントを考慮しない
+        # total_countがblockされたコメントを考慮しない
+        meta_hash = r['meta']
+        assert_equal meta_hash['count'], 10
+        assert_equal meta_hash['total_count'], 10
+      end
     end
   end
 end
