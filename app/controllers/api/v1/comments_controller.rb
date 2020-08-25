@@ -20,23 +20,23 @@ module Api
           return
         end
 
+        @comments = @note.comments.not_muted
+
         case params[:filter]
         when 'replied'
-          @comments = @note.comments.replied
+          @comments_filtered = @comments.replied
         when 'unreplied'
-          @comments = @note.comments.unreplied
+          @comments_filtered = @comments.unreplied
         when 'favored'
-          @comments = @note.comments.favored
-        else
-          @comments = @note.comments
+          @comments_filtered = @comments.favored
         end
 
-        @comments_page = @comments.page(params[:page] || 1)
+        @comments_page = (@comments_filtered || @comments).page(params[:page] || 1)
         render json: @comments_page, root: 'comments', adapter: :json, meta: {
           current_page: @comments_page.current_page,
           total_pages: @comments_page.total_pages,
           count: @comments_page.size,
-          total_count: @note.comments.count
+          total_count: @comments.count
         }
       end
     end
