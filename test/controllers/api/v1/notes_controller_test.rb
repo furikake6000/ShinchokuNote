@@ -17,7 +17,7 @@ module Api
         assert_response_schema_confirm
         
         r = JSON.parse(response.body)
-        assert_equal r['type'], 'Project'
+        assert_equal r['type'], 'project'
         assert_equal r['name'], @project.name
         assert_equal r['desc'], @project.desc
         assert_equal r['stage'], @project.stage
