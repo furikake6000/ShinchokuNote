@@ -190,8 +190,8 @@ module Api
           assert_not_equal c['author']['screen_name'], blocked_user.screen_name
         end
 
-        # countがblockされたコメントを考慮しない
-        # total_countがblockされたコメントを考慮しない
+        # countがblockされたコメントを除いてカウントする
+        # total_countがblockされたコメントを除いてカウントする
         meta_hash = r['meta']
         assert_equal meta_hash['count'], 10
         assert_equal meta_hash['total_count'], 10
@@ -215,8 +215,8 @@ module Api
           assert_not_includes blocked_posts_ids, c['id']
         end
 
-        # countがblockされたコメントを考慮しない
-        # total_countがblockされたコメントを考慮しない
+        # countがblockされたコメントを除いてカウントする
+        # total_countがblockされたコメントを除いてカウントする
         meta_hash = r['meta']
         assert_equal meta_hash['count'], 10
         assert_equal meta_hash['total_count'], 10
