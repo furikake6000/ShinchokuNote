@@ -173,6 +173,7 @@ module Api
       end
 
       test 'GET /notes/{id}/comments block済みのユーザーからのコメントの存在がなかったことになる' do
+        @project.comments.destroy_all
         blocked_user = create(:user)
         blocked_comment = create(:comment, to_note: @project, from_user: blocked_user)
         @project.user.user_blocks.create!(blocking_user: blocked_user, blocking_comment: blocked_comment)
@@ -198,6 +199,7 @@ module Api
       end
 
       test 'GET /notes/{id}/comments block済みのアドレスからのコメントの存在がなかったことになる' do
+        @project.comments.destroy_all
         blocked_addr = Faker::Internet.ip_v4_address
         blocked_comment = create(:comment, to_note: @project, from_addr: blocked_addr)
         @project.user.user_blocks.create!(blocking_addr: blocked_addr, blocking_comment: blocked_comment)

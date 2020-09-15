@@ -20,23 +20,29 @@ module Api
           return
         end
 
-        @comments = @note.comments.not_muted
+        comments = @note.comments.not_muted
+        comments_not_blocked = comments - comments.blocked
 
         case params[:filter]
         when 'replied'
-          @comments_filtered = @comments.replied
+          comments_filtered = comments.replied
         when 'unreplied'
-          @comments_filtered = @comments.unreplied
+          comments_filtered = comments.unreplied
         when 'favored'
-          @comments_filtered = @comments.favored
+          comments_filtered = comments.favored
+        else
+          comments_filtered = comments
         end
 
-        @comments_page = (@comments_filtered || @comments).page(params[:page] || 1)
+        # ブロックされているコメントを除外する(SQLが思いつかないための暫定的処理)
+        comments_filtered -= comments_filtered.blocked
+
+        @comments_page = Kaminari.paginate_array(comments_filtered).page(params[:page] || 1).per(30)
         render json: @comments_page, root: 'comments', adapter: :json, meta: {
           current_page: @comments_page.current_page,
           total_pages: @comments_page.total_pages,
           count: @comments_page.size,
-          total_count: @comments.count
+          total_count: comments_not_blocked.count
         }
       end
     end
