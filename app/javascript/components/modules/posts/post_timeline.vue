@@ -4,7 +4,7 @@
       v-model="currentPage" circle
       :length="totalPages"
       :total-visible="9"
-      v-if="totalPages != 1"
+      v-if="totalPages > 1"
     )
     .month-section.mt-6(v-for="monthlyPosts in groupedPosts")
       .month-sign.small
@@ -21,7 +21,7 @@
       v-model="currentPage" circle
       :length="totalPages"
       :total-visible="9"
-      v-if="totalPages != 1"
+      v-if="totalPages > 1"
     )
 </template>
 

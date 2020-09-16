@@ -16,14 +16,14 @@
       v-model="currentPage" circle
       :length="totalPages"
       :total-visible="9"
-      v-if="totalPages != 1"
+      v-if="totalPages > 1"
     )
     comment.my-4(v-bind="comment" v-for="comment in filteredComments" :key="comment.id")
     v-pagination.my-4(
       v-model="currentPage" circle
       :length="totalPages"
       :total-visible="9"
-      v-if="totalPages != 1"
+      v-if="totalPages > 1"
     )
 </template>
 
