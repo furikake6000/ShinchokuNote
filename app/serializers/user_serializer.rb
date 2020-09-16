@@ -32,7 +32,7 @@ class UserSerializer < ActiveModel::Serializer
   has_many :request_boxes
 
   def userpage_url
-    Rails.application.routes.url_helpers.user_path(object)
+    Rails.application.routes.url_helpers.user_path(object.screen_name)
   end
 
   def recent_projects
