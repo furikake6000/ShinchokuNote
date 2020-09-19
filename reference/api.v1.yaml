@@ -125,22 +125,23 @@ paths:
         name: id
         in: path
         required: true
-      - schema:
-          type: integer
-        name: page
-        in: query
-      - schema:
-          type: string
-          enum:
-            - all
-            - unreplied
-            - replied
-            - favored
-        name: filter
-        in: query
     get:
       summary: Your GET endpoint
       tags: []
+      parameters:
+        - schema:
+            type: integer
+          name: page
+          in: query
+        - schema:
+            type: string
+            enum:
+              - all
+              - unreplied
+              - replied
+              - favored
+          name: filter
+          in: query
       responses:
         '200':
           description: OK
@@ -174,6 +175,27 @@ paths:
         '404':
           description: Not Found
       operationId: get-notes-id-comments
+    post:
+      summary: コメントを新しく投稿する
+      tags: []
+      parameters: 
+        - name: comment
+          in: query
+          required: true
+          schema:
+            type: object
+            properties:
+              text:
+                type: string
+            required:
+              - text
+      responses:
+        '201':
+          description: Created
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
 components:
   schemas:
     User:
