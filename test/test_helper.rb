@@ -6,12 +6,11 @@ require 'mocha/minitest'
 
 module UserTestHelper
   def login_for_test(user, token = 'token', secret = 'secret')
-    verify_user_mock = Minitest::Mock.new.expect :call, true
-    self.stub(:verify_user_info, verify_user_mock) do
-      @current_user = nil
-      @master_user = nil
-      login_user user, token, secret
-    end
+    self.expects(:verify_user_info).returns(true)
+
+    @current_user = nil
+    @master_user = nil
+    login_user user, token, secret
   end
 end
 
