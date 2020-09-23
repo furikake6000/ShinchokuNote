@@ -7,6 +7,7 @@ module Api
 
       def setup
         @project = create(:project)
+        @user = @project.user
       end
 
       # GET /notes/{id}/comments
@@ -39,7 +40,7 @@ module Api
         get api_v1_note_comments_path(@project)
         assert_response 403
 
-        login_for_test @project.user
+        login_for_test @user
 
         # 作成者ログイン時200
         get api_v1_note_comments_path(@project)
@@ -176,7 +177,7 @@ module Api
         @project.comments.destroy_all
         blocked_user = create(:user)
         blocked_comment = create(:comment, to_note: @project, from_user: blocked_user)
-        @project.user.user_blocks.create!(blocking_user: blocked_user, blocking_comment: blocked_comment)
+        @user.user_blocks.create!(blocking_user: blocked_user, blocking_comment: blocked_comment)
 
         create_list(:comment, 10, to_note: @project)
         create_list(:comment, 10, to_note: @project, from_user: blocked_user)
@@ -202,7 +203,7 @@ module Api
         @project.comments.destroy_all
         blocked_addr = Faker::Internet.ip_v4_address
         blocked_comment = create(:comment, to_note: @project, from_addr: blocked_addr)
-        @project.user.user_blocks.create!(blocking_addr: blocked_addr, blocking_comment: blocked_comment)
+        @user.user_blocks.create!(blocking_addr: blocked_addr, blocking_comment: blocked_comment)
 
         create_list(:comment, 10, to_note: @project)
         blocked_posts = create_list(:comment, 10, to_note: @project, from_addr: blocked_addr)
