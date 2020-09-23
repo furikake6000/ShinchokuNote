@@ -217,7 +217,7 @@ GEM
     mini_racer (0.2.3)
       libv8 (>= 6.3)
     minitest (5.11.3)
-    minitest-stub_any_instance (1.0.2)
+    mocha (1.11.2)
     momentjs-rails (2.20.1)
       railties (>= 3.1)
     multi_json (1.13.1)
@@ -437,7 +437,7 @@ DEPENDENCIES
   loofah (>= 2.2.3)
   mini_magick (~> 4.8)
   mini_racer (~> 0.2.3)
-  minitest-stub_any_instance
+  mocha
   momentjs-rails (>= 2.9.0)
   newrelic_rpm
   okcomputer
