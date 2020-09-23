@@ -165,7 +165,7 @@ Rails.application.routes.draw do
     namespace 'v1' do
       resources :notes, only: %i[show] do
         resources :posts, only: %i[index]
-        resources :comments, only: %i[index]
+        resources :comments, only: %i[index create]
       end
     end
   end
