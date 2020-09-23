@@ -112,7 +112,6 @@ end
 group :test do
   gem 'rails-controller-testing', '~>1.0'
   gem 'timecop'
-  gem "minitest-stub_any_instance"
   gem 'mocha'
 end
 
