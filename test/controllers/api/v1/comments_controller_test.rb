@@ -224,6 +224,149 @@ module Api
         assert_equal meta_hash['count'], 10
         assert_equal meta_hash['total_count'], 10
       end
+
+      # POST /notes/{id}/comments
+
+      test 'POST /notes/{id}/comments 正常なリクエスト' do
+        post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+        assert_response :created
+        assert_schema_conform
+      end
+
+      test 'POST /notes/{id}/comments 存在しないnoteへのリクエスト' do
+        @project.destroy!
+
+        post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+        assert_response :not_found
+      end
+
+      test 'POST /notes/{id}/comments コメントスタンス:だれでも' do
+        @project.everyone_comment_receive_stance!
+        @project.save!
+
+        # 未ログインユーザー
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          assert_response :created
+        end
+
+        # not follower
+        login_for_test @not_follower
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          assert_response :created
+        end
+
+        # follower
+        login_for_test @follower
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          assert_response :created
+        end
+
+        # 作成者
+        login_for_test @user
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          assert_response :created
+        end
+      end
+
+      test 'POST /notes/{id}/comments コメントスタンス:ログイン済み' do
+        @project.only_signed_comment_receive_stance!
+        @project.save!
+
+        # 未ログインユーザー
+        assert_no_difference '@project.comments.count' do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          assert_response :forbidden
+        end
+
+        # not follower
+        login_for_test @not_follower
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          assert_response :created
+        end
+
+        # follower
+        login_for_test @follower
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          assert_response :created
+        end
+
+        # 作成者
+        login_for_test @user
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          assert_response :created
+        end
+      end
+
+      test 'POST /notes/{id}/comments コメントスタンス:フォロワー' do
+        @project.only_follower_comment_receive_stance!
+        @project.save!
+
+        # 未ログインユーザー
+        assert_no_difference '@project.comments.count' do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          assert_response :forbidden
+        end
+
+        # not follower
+        login_for_test @not_follower
+        assert_no_difference '@project.comments.count' do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          assert_response :forbidden
+        end
+
+        # follower
+        login_for_test @follower
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          assert_response :created
+        end
+
+        # 作成者
+        login_for_test @user
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          assert_response :created
+        end
+      end
+
+      test 'POST /notes/{id}/comments コメントスタンス:自分のみ' do
+        @project.only_me_comment_receive_stance!
+        @project.save!
+
+        # 未ログインユーザー
+        assert_no_difference '@project.comments.count' do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          assert_response :forbidden
+        end
+
+        # not follower
+        login_for_test @not_follower
+        assert_no_difference '@project.comments.count' do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          assert_response :forbidden
+        end
+
+        # follower
+        login_for_test @follower
+        assert_no_difference '@project.comments.count' do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          assert_response :forbidden
+        end
+
+        # 作成者
+        login_for_test @user
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          assert_response :created
+        end
+      end
     end
   end
 end
