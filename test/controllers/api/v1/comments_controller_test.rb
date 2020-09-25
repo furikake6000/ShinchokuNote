@@ -17,7 +17,7 @@ module Api
                              .returns(true)
         Twitter::REST::Client.any_instance.stubs(:friendship?)
                              .with(@not_follower.screen_name, @user.screen_name)
-                             .returns(true)
+                             .returns(false)
       end
 
       # GET /notes/{id}/comments
@@ -254,7 +254,7 @@ module Api
       test 'POST /notes/{id}/comments 正常なリクエスト' do
         post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
         assert_response :created
-        assert_schema_conform
+        assert_request_schema_confirm
       end
 
       test 'POST /notes/{id}/comments 存在しないnoteへのリクエスト' do
