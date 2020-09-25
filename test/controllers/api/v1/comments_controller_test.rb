@@ -8,6 +8,16 @@ module Api
       def setup
         @project = create(:project)
         @user = @project.user
+        @follower = create(:user)
+        @not_follower = create(:user)
+
+        # Twitter stubs
+        Twitter::REST::Client.any_instance.stubs(:friendship?)
+                             .with(@follower.screen_name, @user.screen_name)
+                             .returns(true)
+        Twitter::REST::Client.any_instance.stubs(:friendship?)
+                             .with(@not_follower.screen_name, @user.screen_name)
+                             .returns(true)
       end
 
       # GET /notes/{id}/comments
