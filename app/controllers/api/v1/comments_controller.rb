@@ -45,6 +45,59 @@ module Api
           total_count: comments_not_blocked.count
         }
       end
+
+      def create
+        begin
+          @note = Note.find(params[:note_id])
+        rescue ActiveRecord::RecordNotFound
+          render json: {
+            code: 'note_not_found',
+            message: 'ノートが見つかりませんでした。'
+          }, status: :not_found
+          return
+        end
+
+        unless user_can_comment?(@note, current_user)
+          render json: {
+            code: 'note_forbidden',
+            message: 'ノートにコメントする権限がありません。'
+          }, status: :forbidden
+          return
+        end
+
+        @comment = @note.comments.new(comments_params)
+
+        # 投稿者情報の埋め込み
+        if logged_in?
+          @comment.from_user = current_user
+        else
+          @comment.from_addr =
+            request.env['HTTP_X_FORWARDED_FOR'] ||
+            request.remote_ip
+        end
+
+        if @comment.save
+          # 保存成功
+          render json: {
+            code: 'success',
+            message: '投稿が完了しました。'
+          }, status: :created
+
+          # ToDo: ノート保持者への通知
+        else
+          # 保存失敗
+          render json: {
+            code: 'server_error',
+            message: '保存時にエラーが発生しました。'
+          }, status: :internal_server_error
+        end
+      end
+
+      private
+
+      def comments_params
+        params.require(:comment).permit(:text)
+      end
     end
   end
 end
