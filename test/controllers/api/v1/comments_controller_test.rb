@@ -47,6 +47,20 @@ module Api
         assert_response 200
       end
 
+      test 'GET /notes/{id}/comments コメントシェアスタンス' do
+        @project.only_me_comment_share_stance!
+
+        # 未ログイン時403
+        get api_v1_note_comments_path(@project)
+        assert_response 403
+
+        login_for_test @user
+
+        # 作成者ログイン時200
+        get api_v1_note_comments_path(@project)
+        assert_response 200
+      end
+
       test 'GET /notes/{id}/comments 日付降順にソートされる' do
         new_comment = create(:comment, to_note: @project)
         newer_comment = create(:comment, to_note: @project)
