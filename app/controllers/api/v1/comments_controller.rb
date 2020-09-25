@@ -12,7 +12,7 @@ module Api
           return
         end
 
-        unless user_can_see? @note, current_user
+        unless user_can_see?(@note, current_user) && user_can_see_comments?(@note, current_user)
           render json: {
             code: 'note_forbidden',
             message: 'ノートの閲覧権限がありません。'
