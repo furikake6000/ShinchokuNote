@@ -125,17 +125,22 @@ class PostsController < ApplicationController
     # note_idがwatching_noteであるpostを抽出
     allowed_types = %w[TweetPost PlainPost]
 
+    posts = []
     if from_post.nil?
-      Post.where('type IN (?)', allowed_types)
+      posts = Post.where('type IN (?)', allowed_types)
           .where('note_id IN (?)', current_user.watching_notes.map(&:id))
           .order('created_at DESC')
           .limit(size)
     else
-      Post.where('type IN (?)', allowed_types)
+      posts = Post.where('type IN (?)', allowed_types)
           .where('note_id IN (?)', current_user.watching_notes.map(&:id))
           .where('created_at < (?)', from_post.created_at)
           .order('created_at DESC')
           .limit(size)
+    end
+
+    posts.select do |p|
+      user_can_see? p.note, current_user
     end
   end
 end
