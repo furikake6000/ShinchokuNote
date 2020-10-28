@@ -249,6 +249,23 @@ module Api
         assert_equal meta_hash['total_count'], 10
       end
 
+      test 'GET /notes/{id}/comments anonimityによってauthorの情報が入ったり入らなかったりする' do
+        comment_author = create(:user)
+        anonymous_comment = create(:comment, :anonymous, to_note: @project, from_user: comment_author)
+        onymous_comment = create(:comment, :onymous, to_note: @project, from_user: comment_author)
+
+        get api_v1_note_comments_path(@project)
+        r = JSON.parse(response.body)
+        comment_hash = r['comments']
+        anonymous_comment_hash = comment_hash.find { |c| c['id'] == anonymous_comment.id }
+        assert_nil anonymous_comment_hash['author']
+
+        onymous_comment_hash = comment_hash.find { |c| c['id'] == onymous_comment.id }
+        assert_not_nil onymous_comment_hash['author']
+        assert_equal onymous_comment_hash['author']['screen_name'], comment_author.screen_name
+        assert_equal onymous_comment_hash['author']['url'], user_path(comment_author.screen_name)
+      end
+
       # POST /notes/{id}/comments
 
       test 'POST /notes/{id}/comments 正常なリクエスト' do

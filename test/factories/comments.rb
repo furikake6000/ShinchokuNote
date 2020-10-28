@@ -42,5 +42,13 @@ FactoryBot.define do
     trait :muted do
       muted { true }
     end
+
+    trait :anonymous do
+      anonimity { 'secret' }
+    end
+
+    trait :onymous do
+      anonimity { 'open' }
+    end
   end
 end
