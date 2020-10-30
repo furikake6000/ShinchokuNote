@@ -178,7 +178,7 @@ paths:
     post:
       summary: コメントを新しく投稿する
       tags: []
-      parameters: 
+      parameters:
         - name: comment
           in: query
           required: true
@@ -327,22 +327,43 @@ components:
         author:
           type: object
           properties:
-            screen_name:
+            name:
+              type: string
+            thumb_url:
+              type: string
+            desc:
+              type: string
+            twitter_screen_name:
               type: string
             url:
               type: string
+            twitter_url:
+              type: string
           required:
-            - screen_name
+            - name
+            - thumb_url
+            - twitter_screen_name
             - url
+            - twitter_url
         response_post:
           type: object
           nullable: true
           properties:
+            id:
+              type: integer
+            type:
+              type: string
             text:
               type: string
+            images:
+              type: array
+              items:
+                type: string
             date:
               type: string
           required:
+            - id
+            - type
             - text
             - date
       required:
