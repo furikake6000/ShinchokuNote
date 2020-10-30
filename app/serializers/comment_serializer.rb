@@ -25,4 +25,5 @@ class CommentSerializer < ActiveModel::Serializer
   attribute :created_at, key: :date
 
   belongs_to :response_post
+  belongs_to :from_user, key: :author, if: -> { object.open_anonimity? }
 end
