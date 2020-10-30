@@ -262,7 +262,7 @@ module Api
 
         onymous_comment_hash = comment_hash.find { |c| c['id'] == onymous_comment.id }
         assert_not_nil onymous_comment_hash['author']
-        assert_equal onymous_comment_hash['author']['screen_name'], comment_author.screen_name
+        assert_equal onymous_comment_hash['author']['twitter_screen_name'], comment_author.screen_name
         assert_equal onymous_comment_hash['author']['url'], user_path(comment_author.screen_name)
       end
 
