@@ -7,7 +7,7 @@
       auto-grow
     )
     .d-flex.align-center
-      v-switch.ma-0(label="投稿者を公開する")
+      v-switch.ma-0(v-model="showAuthor" label="投稿者を公開する")
       span.secondary--text.subtitle-1.font-weight-bold.ml-auto.mr-4 {{newComment.text.length}} / 1000
       v-btn(rounded color="primary" :disabled="newComment.text.length == 0").follow-btn.font-weight-bold コメントする
 </template>
@@ -19,8 +19,14 @@ export default {
     return {
       newComment: {
         text: ''
-      }
+      },
+      showAuthor: false
     };
+  },
+  computed: {
+    anonimity() {
+      return this.showAuthor ? 'open' : 'secret'
+    }
   }
 };
 </script>
