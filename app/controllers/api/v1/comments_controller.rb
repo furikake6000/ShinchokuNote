@@ -80,7 +80,7 @@ module Api
           # 保存成功
           render json: {
             code: 'success',
-            message: '投稿が完了しました。'
+            message: 'コメントを投稿しました。'
           }, status: :created
 
           # ToDo: ノート保持者への通知

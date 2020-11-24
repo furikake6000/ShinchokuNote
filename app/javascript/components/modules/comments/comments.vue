@@ -3,7 +3,7 @@
     .bgstr.top
       v-icon(color="secondary lighten-3") mdi-email
     .comments-title.secondary--text.font-weight-bold コメント({{totalCount}})
-    comment-form.mt-2
+    comment-form.mt-2(@refreshComments="fetchComments()")
     v-divider
     v-btn-toggle(borderless dense mandatory v-model="filter")
       v-btn(value="all") すべて

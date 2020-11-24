@@ -10,6 +10,8 @@
       v-switch.ma-0(v-model="showAuthor" label="投稿者を公開する")
       span.secondary--text.subtitle-1.font-weight-bold.ml-auto.mr-4 {{text.length}} / 1000
       v-btn(@click="postComment" rounded color="primary" :disabled="text.length == 0").follow-btn.font-weight-bold コメントする
+
+      v-snackbar(v-model="snackbarEnabled" timeout=3000) {{snackbarText}}
 </template>
 
 <script>
@@ -18,7 +20,9 @@ export default {
   data: () => {
     return {
       text: '',
-      showAuthor: false
+      showAuthor: false,
+      snackbarEnabled: false,
+      snackbarText: ''
     };
   },
   computed: {
@@ -38,8 +42,21 @@ export default {
         comment: this.newComment
       })
       .then((response) => {
-        console.log(response)
+        this.showSnackbar(response.data.message)
+        this.text = ''
+        this.showAuthor = false
       })
+      .catch((error) => {
+        this.showSnackbar(error.response.data.message)
+      })
+      .then(() => {
+        // always executed
+        this.$emit('refreshComments')
+      })
+    },
+    showSnackbar(message) {
+      this.snackbarText = message
+      this.snackbarEnabled = true
     }
   }
 };
