@@ -188,7 +188,7 @@ paths:
               text:
                 type: string
               anonimity:
-                type: boolean
+                type: string
             required:
               - text
       responses:

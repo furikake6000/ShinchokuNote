@@ -96,7 +96,7 @@ module Api
       private
 
       def comments_params
-        params.require(:comment).permit(:text)
+        params.require(:comment).permit(:text, :anonimity)
       end
     end
   end
