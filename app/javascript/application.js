@@ -18,6 +18,12 @@ import deepCamelSnake from './mixins/deep_camel_snake';
 Vue.mixin(datestr);
 Vue.mixin(deepCamelSnake);
 
+// CSRF Tokenをaxiosで用いる
+axios.defaults.headers.common = {
+  'X-Requested-With': 'XMLHttpRequest',
+  'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   // Vueが使われていないページでは無効化
   if (document.getElementById('app') == null) {
