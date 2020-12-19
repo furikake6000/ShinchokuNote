@@ -31,7 +31,7 @@ FactoryBot.define do
     desc { Faker::Lorem.paragraph }
     view_stance { :everyone }
     comment_receive_stance { :everyone }
-    comment_share_stance { :only_me }
+    comment_share_stance { :everyone }
 
     association :user
 
