@@ -1,6 +1,6 @@
 <template lang="pug">
   .comment
-    .caption.secondary--text(v-if="author") {{author.screenName}}さんより
+    .caption.secondary--text(v-if="author") {{author.name}}さんより
     .comment-text {{text}}
     .d-flex.align-center
       template(v-if="responsePost")
