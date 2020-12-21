@@ -34,7 +34,7 @@
           v-col.main-col(cols="8")
             post-form.post-form
             post-timeline
-            comments
+            comments(:commentFormVisibility="note.commentFormVisibility")
 
           v-col.d-flex.flex-column(cols="4")
             user(v-bind="note.user")

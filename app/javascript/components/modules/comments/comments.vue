@@ -2,10 +2,11 @@
   .comments
     .bgstr.top
       v-icon(color="secondary lighten-3") mdi-email
-    .comments-title.secondary--text.font-weight-bold コメント
+    .comments-title.secondary--text.font-weight-bold.mb-4 コメント
       span(v-if="commentsVisibility") ({{totalCount}})
-    comment-form.mt-2(@refreshComments="fetchComments()")
-    v-divider
+    template(v-if="commentFormVisibility")
+      comment-form(@refreshComments="fetchComments()")
+      v-divider
     template(v-if="commentsVisibility")
       v-btn-toggle(borderless dense mandatory v-model="filter")
         v-btn(value="all") すべて
@@ -41,6 +42,9 @@ export default {
   name: 'comments',
   mounted () {
     this.fetchComments();
+  },
+  props: {
+    commentFormVisibility: Boolean
   },
   data: function() {
     return {
