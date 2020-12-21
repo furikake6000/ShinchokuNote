@@ -48,6 +48,8 @@ paths:
                     type: integer
                   comments_count:
                     type: integer
+                  comment_form_visibility:
+                    type: boolean
                   created_at:
                     type: string
                   user:
@@ -62,6 +64,7 @@ paths:
                   - watchers_count
                   - shinchoku_dodeskas_count
                   - comments_count
+                  - comment_form_visibility
                   - created_at
                   - user
               examples: {}

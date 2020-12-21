@@ -23,6 +23,8 @@
 #
 
 class NoteSerializer < ActiveModel::Serializer
+  include NotesHelper
+
   attributes :type,
              :name,
              :desc,
@@ -34,7 +36,8 @@ class NoteSerializer < ActiveModel::Serializer
              :created_at,
              :watchers_count,
              :shinchoku_dodeskas_count,
-             :comments_count
+             :comments_count,
+             :comment_form_visibility
   belongs_to :user
 
   def type
@@ -59,5 +62,9 @@ class NoteSerializer < ActiveModel::Serializer
 
   def comments_count
     object.comments.count
+  end
+
+  def comment_form_visibility
+    user_can_comment?(object, current_user)
   end
 end
