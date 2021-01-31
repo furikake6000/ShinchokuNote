@@ -15,6 +15,10 @@
 </template>
 
 <script>
+import { load } from 'recaptcha-v3'
+
+const recaptchaKey = '6Lf4JqgUAAAAANnrDZwns_XB_Sw0Vm3KdSKROLZk'
+
 export default {
   name: 'comment-form',
   data: () => {
@@ -22,8 +26,12 @@ export default {
       text: '',
       showAuthor: false,
       snackbarEnabled: false,
-      snackbarText: ''
+      snackbarText: '',
+      recaptcha: null
     };
+  },
+  async created() {
+    this.recaptcha = await load(recaptchaKey)
   },
   computed: {
     anonimity() {
@@ -38,20 +46,23 @@ export default {
   },
   methods: {
     postComment() {
-      this.axios.post(`/api/v1/notes/${ this.$route.params.id }/comments`, {
-        comment: this.newComment
-      })
-      .then((response) => {
-        this.showSnackbar(response.data.message)
-        this.text = ''
-        this.showAuthor = false
-      })
-      .catch((error) => {
-        this.showSnackbar(error.response.data.message)
-      })
-      .then(() => {
-        // always executed
-        this.$emit('refreshComments')
+      this.recaptcha.execute('social').then(token => {
+        this.axios.post(`/api/v1/notes/${ this.$route.params.id }/comments`, {
+          comment: this.newComment,
+          recaptcha: token
+        })
+        .then((response) => {
+          this.showSnackbar(response.data.message)
+          this.text = ''
+          this.showAuthor = false
+        })
+        .catch((error) => {
+          this.showSnackbar(error.response.data.message)
+        })
+        .then(() => {
+          // always executed
+          this.$emit('refreshComments')
+        })
       })
     },
     showSnackbar(message) {
