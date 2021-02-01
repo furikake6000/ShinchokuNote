@@ -117,7 +117,7 @@ GEM
       railties (>= 5.0.0)
     faker (2.2.1)
       i18n (>= 0.8)
-    faraday (0.15.2)
+    faraday (0.17.3)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
     font-awesome-rails (4.7.0.4)
@@ -221,7 +221,7 @@ GEM
     momentjs-rails (2.20.1)
       railties (>= 3.1)
     multi_json (1.13.1)
-    multipart-post (2.0.0)
+    multipart-post (2.1.1)
     naught (1.1.0)
     newrelic_rpm (5.1.0.344)
     nio4r (2.3.1)
@@ -426,6 +426,7 @@ DEPENDENCIES
   enum_help (~> 0.0)
   factory_bot_rails
   faker
+  faraday
   ffi (~> 1.9.25)
   font-awesome-rails (~> 4.7)
   google-cloud-storage (~> 1.3)

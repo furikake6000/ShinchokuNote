@@ -86,6 +86,9 @@ gem 'active_model_serializers'
 # pagination用gem kaminari
 gem 'kaminari'
 
+# HTTPクライアント Faraday
+gem 'faraday'
+
 # fixing security vulnerabilities
 gem 'sprockets', '~> 3.7.2'
 gem 'ffi', '~> 1.9.25'
