@@ -65,6 +65,21 @@ module Api
           return
         end
 
+        # reCAPTCHA認証処理
+        conn = Faraday.new(url: 'https://www.google.com')
+        response = conn.post '/recaptcha/api/siteverify', {
+          secret: Rails.application.credentials.recaptcha[:secret],
+          response: params[:recaptcha]
+        }
+        response_hash = JSON.parse response.body
+        unless response_hash['success']
+          render json: {
+            code: 'recaptcha_failed',
+            message: 'reCAPTCHAによる認証に失敗しました。'
+          }, status: :bad_request
+          return
+        end
+
         @comment = @note.comments.new(comments_params)
 
         # 投稿者情報の埋め込み
