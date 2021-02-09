@@ -9,10 +9,10 @@
     .d-flex.align-center
       v-switch.ma-0(v-model="showAuthor" label="投稿者を公開する")
       span.secondary--text.subtitle-1.font-weight-bold.ml-auto.mr-4 {{text.length}} / 1000
-      v-btn(@click="postComment" rounded color="primary" :disabled="text.length == 0").follow-btn.font-weight-bold コメントする
+      v-btn(@click="onSubmit" rounded color="primary" :disabled="text.length == 0").follow-btn.font-weight-bold コメントする
 
       v-snackbar(v-model="snackbarEnabled" timeout=3000) {{snackbarText}}
-    vue-recaptcha(v-if="recaptchaV2Enabled" :sitekey="recaptchaKeyV2")
+    vue-recaptcha(ref="recaptchaV2" v-if="recaptchaV2Enabled" @verify="onVerifyRecaptchaV2" :sitekey="recaptchaKeyV2")
 </template>
 
 <script>
@@ -58,12 +58,19 @@ export default {
     recaptchaKeyV2: () => recaptchaKeyV2
   },
   methods: {
-    postComment() {
+    postComment(token, usingCheckbox) {
+      return this.axios.post(`/api/v1/notes/${ this.$route.params.id }/comments`, this.deepSnakeCase({
+        comment: this.newComment,
+        recaptcha: { token, usingCheckbox }
+      }))
+    },
+    showSnackbar(message) {
+      this.snackbarText = message
+      this.snackbarEnabled = true
+    },
+    onSubmit() {
       this.recaptchaV3.execute('social').then(token => {
-        this.axios.post(`/api/v1/notes/${ this.$route.params.id }/comments`, {
-          comment: this.newComment,
-          recaptcha: token
-        })
+        this.postComment(token, false)
         .then((response) => {
           this.showSnackbar(response.data.message)
           this.text = ''
@@ -85,9 +92,22 @@ export default {
         })
       })
     },
-    showSnackbar(message) {
-      this.snackbarText = message
-      this.snackbarEnabled = true
+    onVerifyRecaptchaV2(token) {
+      this.postComment(token, true)
+      .then((response) => {
+        this.showSnackbar(response.data.message)
+        this.text = ''
+        this.showAuthor = false
+      })
+      .catch((error) => {
+        this.showSnackbar(error.response.data.message)
+      })
+      .then(() => {
+        // always executed
+        this.$refs.recaptchaV2.reset()
+        this.recaptchaV2Enabled = false
+        this.$emit('refreshComments')
+      })
     }
   }
 };

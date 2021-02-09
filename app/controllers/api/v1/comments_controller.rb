@@ -66,10 +66,12 @@ module Api
         end
 
         # reCAPTCHA認証処理
+        recaptcha_token = recaptcha_params[:token]
+        recaptcha_secret = recaptcha_params[:using_checkbox] ? Rails.application.credentials.recaptcha_v2[:secret] : Rails.application.credentials.recaptcha[:secret]
         conn = Faraday.new(url: 'https://www.google.com')
         response = conn.post '/recaptcha/api/siteverify', {
-          secret: Rails.application.credentials.recaptcha[:secret],
-          response: params[:recaptcha]
+          secret: recaptcha_secret,
+          response: recaptcha_token
         }
         response_hash = JSON.parse response.body
         unless response_hash['success']
@@ -112,6 +114,10 @@ module Api
 
       def comments_params
         params.require(:comment).permit(:text, :anonimity)
+      end
+
+      def recaptcha_params
+        params.require(:recaptcha).permit(:token, :using_checkbox)
       end
     end
   end
