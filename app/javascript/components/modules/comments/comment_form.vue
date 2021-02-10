@@ -65,8 +65,10 @@ export default {
       }))
     },
     showSnackbar(message) {
+      // 連続してメッセージを表示する場合を考え、一度非表示にして再度表示する
+      this.snackbarEnabled = false
       this.snackbarText = message
-      this.snackbarEnabled = true
+      this.$nextTick(() => { this.snackbarEnabled = true })
     },
     onSubmit() {
       this.recaptchaV3.execute('social').then(token => {
