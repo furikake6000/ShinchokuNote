@@ -33,10 +33,13 @@
     "webpack-assets-manifest": "^3.1.1",
     "webpack-cli": "^3.3.12"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^26.6.3"
+  },
   "scripts": {
     "watch": "./node_modules/.bin/webpack --watch",
     "build": "NODE_ENV=production ./node_modules/.bin/webpack",
-    "lint": "./node_modules/.bin/eslint 'app/javascript/**/*'"
+    "lint": "./node_modules/.bin/eslint 'app/javascript/**/*'",
+    "test": "jest"
   }
 }

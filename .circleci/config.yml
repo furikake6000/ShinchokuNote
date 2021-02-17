@@ -106,12 +106,20 @@ jobs:
       - static_files_copy
       - run: bundle exec rails db:create db:migrate --trace
       - run: bundle exec rake test
+  jest:
+    executor: default
+    steps:
+      - checkout
+      - yarn_install
+      - run: yarn test
+
 
 workflows:
   version: 2
   build:
     jobs:
       - minitest
+      - jest
   auto_bundle_update:
     triggers:
       - schedule:
