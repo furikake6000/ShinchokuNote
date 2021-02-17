@@ -16,6 +16,7 @@
   },
   "scripts": {
     "watch": "./node_modules/.bin/webpack --watch",
-    "build": "NODE_ENV=production ./node_modules/.bin/webpack"
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack",
+    "test": "jest"
   }
 }
