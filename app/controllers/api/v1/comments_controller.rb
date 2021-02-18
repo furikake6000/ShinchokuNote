@@ -65,6 +65,23 @@ module Api
           return
         end
 
+        # reCAPTCHA認証処理
+        recaptcha_token = recaptcha_params[:token]
+        recaptcha_secret = recaptcha_params[:using_checkbox] ? Rails.application.credentials.recaptcha_v2[:secret] : Rails.application.credentials.recaptcha[:secret]
+        conn = Faraday.new(url: 'https://www.google.com')
+        response = conn.post '/recaptcha/api/siteverify', {
+          secret: recaptcha_secret,
+          response: recaptcha_token
+        }
+        response_hash = JSON.parse response.body
+        unless response_hash['success']
+          render json: {
+            code: 'recaptcha_failed',
+            message: 'reCAPTCHAによる認証に失敗しました。'
+          }, status: :bad_request
+          return
+        end
+
         @comment = @note.comments.new(comments_params)
 
         # 投稿者情報の埋め込み
@@ -97,6 +114,10 @@ module Api
 
       def comments_params
         params.require(:comment).permit(:text, :anonimity)
+      end
+
+      def recaptcha_params
+        params.require(:recaptcha).permit(:token, :using_checkbox)
       end
     end
   end

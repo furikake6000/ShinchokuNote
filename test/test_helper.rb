@@ -1,6 +1,7 @@
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'mocha/minitest'
+require 'webmock/minitest'
 
 module UserTestHelper
   def login_for_test(user, token = 'token', secret = 'secret')
