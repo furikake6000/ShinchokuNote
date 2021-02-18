@@ -18,6 +18,15 @@ module Api
         Twitter::REST::Client.any_instance.stubs(:friendship?)
                              .with(@not_follower.screen_name, @user.screen_name)
                              .returns(false)
+
+        # reCAPTCHA stub
+        # Rails 6にバージョンアップしたら、reCAPTCHAのダミートークンが使えるかも
+        # (参考: https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha.-what-should-i-do)
+        stub_request(:post, "https://www.google.com/recaptcha/api/siteverify").to_return(
+          status: 200,
+          body: { success: true }.to_json,
+          headers: {}
+        )
       end
 
       # GET /notes/{id}/comments
@@ -269,7 +278,7 @@ module Api
       # POST /notes/{id}/comments
 
       test 'POST /notes/{id}/comments 正常なリクエスト' do
-        post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+        post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
         assert_response :created
         assert_request_schema_confirm
       end
@@ -277,7 +286,7 @@ module Api
       test 'POST /notes/{id}/comments 存在しないnoteへのリクエスト' do
         @project.destroy!
 
-        post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+        post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
         assert_response :not_found
       end
 
@@ -287,28 +296,28 @@ module Api
 
         # 未ログインユーザー
         assert_difference '@project.comments.count', 1 do
-          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
           assert_response :created
         end
 
         # not follower
         login_for_test @not_follower
         assert_difference '@project.comments.count', 1 do
-          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
           assert_response :created
         end
 
         # follower
         login_for_test @follower
         assert_difference '@project.comments.count', 1 do
-          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
           assert_response :created
         end
 
         # 作成者
         login_for_test @user
         assert_difference '@project.comments.count', 1 do
-          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
           assert_response :created
         end
       end
@@ -319,28 +328,28 @@ module Api
 
         # 未ログインユーザー
         assert_no_difference '@project.comments.count' do
-          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
           assert_response :forbidden
         end
 
         # not follower
         login_for_test @not_follower
         assert_difference '@project.comments.count', 1 do
-          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
           assert_response :created
         end
 
         # follower
         login_for_test @follower
         assert_difference '@project.comments.count', 1 do
-          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
           assert_response :created
         end
 
         # 作成者
         login_for_test @user
         assert_difference '@project.comments.count', 1 do
-          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
           assert_response :created
         end
       end
@@ -351,28 +360,28 @@ module Api
 
         # 未ログインユーザー
         assert_no_difference '@project.comments.count' do
-          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
           assert_response :forbidden
         end
 
         # not follower
         login_for_test @not_follower
         assert_no_difference '@project.comments.count' do
-          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
           assert_response :forbidden
         end
 
         # follower
         login_for_test @follower
         assert_difference '@project.comments.count', 1 do
-          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
           assert_response :created
         end
 
         # 作成者
         login_for_test @user
         assert_difference '@project.comments.count', 1 do
-          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
           assert_response :created
         end
       end
@@ -383,28 +392,28 @@ module Api
 
         # 未ログインユーザー
         assert_no_difference '@project.comments.count' do
-          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
           assert_response :forbidden
         end
 
         # not follower
         login_for_test @not_follower
         assert_no_difference '@project.comments.count' do
-          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
           assert_response :forbidden
         end
 
         # follower
         login_for_test @follower
         assert_no_difference '@project.comments.count' do
-          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
           assert_response :forbidden
         end
 
         # 作成者
         login_for_test @user
         assert_difference '@project.comments.count', 1 do
-          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' } }
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
           assert_response :created
         end
       end
