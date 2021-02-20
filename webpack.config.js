@@ -70,5 +70,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: isProd ? '[name]-[hash].css' : '[name].css'
     })
-  ]
+  ],
+  watchOptions: {
+    poll: true
+  }
 };
