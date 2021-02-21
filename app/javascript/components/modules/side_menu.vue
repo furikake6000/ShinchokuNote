@@ -22,7 +22,12 @@
       .mt-n4.text-right
         v-tooltip(bottom)
           template(v-slot:activator="{ on }")
-            v-btn(v-on="on" fab color="twitter" dark small)
+            v-btn(
+              v-on="on" fab dark small color="twitter"
+              :href="twitterIntentUrl"
+              target="_new"
+              rel="noopener noreferrer"
+            )
               v-icon mdi-twitter
           span ツイート
         v-tooltip(bottom)
@@ -44,7 +49,8 @@ export default {
   props: {
     watchersCount: Number,
     shinchokuDodeskasCount: Number,
-    commentsCount: Number
+    commentsCount: Number,
+    name: String
   },
   data: () => {
     return {
@@ -67,6 +73,9 @@ export default {
   computed: {
     currentUrl() {
       return location.href;
+    },
+    twitterIntentUrl() {
+      return `https://twitter.com/share?text=${encodeURIComponent(this.name)}&url=${location.href}&hashtags=進捗ノート`
     }
   },
   components: {
@@ -107,4 +116,6 @@ export default {
       &::after
         left: 20px
         border-top-color: var(--v-shinchoku-lighten1)
+  a.v-btn
+    text-decoration: none
 </style>
