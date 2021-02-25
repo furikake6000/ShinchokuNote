@@ -1,6 +1,7 @@
 # == Route Map
 #
 #                         Prefix Verb   URI Pattern                                                                              Controller#Action
+#                     okcomputer        /health                                                                                  OkComputer::Engine
 #                           root GET    /                                                                                        users#home
 #                     note_posts GET    /notes/:note_id/posts(.:format)                                                          posts#index
 #                                POST   /notes/:note_id/posts(.:format)                                                          posts#create
@@ -23,6 +24,7 @@
 #                  note_watchers GET    /notes/:note_id/watchers(.:format)                                                       notes#watchers
 #        note_shinchoku_dodeskas POST   /notes/:note_id/shinchoku_dodeskas(.:format)                                             shinchoku_dodeskas#create
 # note_shinchoku_dodeskas_toggle POST   /notes/:note_id/shinchoku_dodeskas/toggle(.:format)                                      shinchoku_dodeskas#toggle
+#                note_new_viewer GET    /notes/:note_id/new_viewer(.:format)                                                     notes#new_viewer
 #                     user_notes GET    /users/:user_id/notes(.:format)                                                          notes#index
 #                                POST   /users/:user_id/notes(.:format)                                                          notes#create
 #                  new_user_note GET    /users/:user_id/notes/new(.:format)                                                      notes#new
@@ -38,6 +40,7 @@
 #                                PATCH  /users/:id(.:format)                                                                     users#update
 #                                PUT    /users/:id(.:format)                                                                     users#update
 #                                DELETE /users/:id(.:format)                                                                     users#destroy
+#                                POST   /notes/:id(.:format)                                                                     notes#update
 #                      announces GET    /announces(.:format)                                                                     announces#index
 #                                POST   /announces(.:format)                                                                     announces#create
 #                       announce GET    /announces/:id(.:format)                                                                 announces#show
@@ -65,11 +68,19 @@
 #                           help GET    /help(.:format)                                                                          static_pages#help
 #                         manage GET    /manage(.:format)                                                                        static_pages#manage
 #                          terms GET    /terms(.:format)                                                                         static_pages#terms
+#              api_v1_note_posts GET    /api/v1/notes/:note_id/posts(.:format)                                                   api/v1/posts#index {:format=>/json/}
+#           api_v1_note_comments GET    /api/v1/notes/:note_id/comments(.:format)                                                api/v1/comments#index {:format=>/json/}
+#                    api_v1_note GET    /api/v1/notes/:id(.:format)                                                              api/v1/notes#show {:format=>/json/}
 #             rails_service_blob GET    /rails/active_storage/blobs/:signed_id/*filename(.:format)                               active_storage/blobs#show
 #      rails_blob_representation GET    /rails/active_storage/representations/:signed_blob_id/:variation_key/*filename(.:format) active_storage/representations#show
 #             rails_disk_service GET    /rails/active_storage/disk/:encoded_key/*filename(.:format)                              active_storage/disk#show
 #      update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:format)                                      active_storage/disk#update
 #           rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
+# 
+# Routes for OkComputer::Engine:
+#              root GET|OPTIONS /                 ok_computer/ok_computer#show {:check=>"default"}
+# okcomputer_checks GET|OPTIONS /all(.:format)    ok_computer/ok_computer#index
+#  okcomputer_check GET|OPTIONS /:check(.:format) ok_computer/ok_computer#show
 
 Rails.application.routes.draw do
   # トップページ
@@ -104,6 +115,9 @@ Rails.application.routes.draw do
       # 進捗どうですか
       resources :shinchoku_dodeskas, only: :create
       post '/shinchoku_dodeskas/toggle', to: 'shinchoku_dodeskas#toggle'
+
+      # 新ノートページ(仮置き、最終的にNote#showに)
+      get '/new_viewer', to: 'notes#new_viewer'
     end
 
     # 削除メニュー
@@ -145,4 +159,14 @@ Rails.application.routes.draw do
   get '/terms', to: 'static_pages#terms'
 
   # ユーザー関連
+
+  # Vue向けAPI
+  namespace 'api', format: 'json' do
+    namespace 'v1' do
+      resources :notes, only: %i[show] do
+        resources :posts, only: %i[index]
+        resources :comments, only: %i[index create]
+      end
+    end
+  end
 end

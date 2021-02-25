@@ -47,6 +47,17 @@ class Comment < ApplicationRecord
   scope :unread, ->{
     where(read_flag: false)
   }
+  scope :favored, ->{
+    where(favor_flag: true)
+  }
+  
+  scope :replied, ->{
+    where.not(response_id: nil)
+  }
+  scope :unreplied, ->{
+    where(response_id: nil)
+  }
+
   scope :join_blockdata, ->{
     joins(to_note: { user: :user_blocks } )
   }

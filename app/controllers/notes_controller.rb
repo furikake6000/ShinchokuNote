@@ -1,10 +1,12 @@
 class NotesController < ApplicationController
   before_action -> { load_user_as_me :user_id }, only: %i[new create]
   before_action -> { load_note :id }, only: %i[show]
-  before_action -> { load_note :note_id }, only: %i[watchers]
+  before_action -> { load_note :note_id }, only: %i[watchers new_viewer]
   before_action -> { load_comments }, only: %i[show]
   before_action -> { load_note_as_mine_or_admin :id },
                 only: %i[edit update destroy]
+
+  layout 'vue', only: %i[new_viewer]
 
   def index
     # Userのshowアクションと同じなのでリダイレクト
@@ -23,6 +25,13 @@ class NotesController < ApplicationController
     # before_actionですでに@noteは取得済
     @omakase = params[:omakase]
     @current_user_can_comment = user_can_comment? @note, current_user
+  end
+
+  def new_viewer
+    unless user_can_see? @note, current_user
+      render 'forbidden', layout: 'simple', status: :forbidden
+      return
+    end
   end
 
   def create

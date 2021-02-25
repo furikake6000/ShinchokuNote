@@ -1,0 +1,422 @@
+require 'test_helper'
+
+module Api
+  module V1
+    class CommentsControllerTest < ActionDispatch::IntegrationTest
+      include UsersHelper
+
+      def setup
+        @project = create(:project)
+        @user = @project.user
+        @follower = create(:user)
+        @not_follower = create(:user)
+
+        # Twitter stubs
+        Twitter::REST::Client.any_instance.stubs(:friendship?)
+                             .with(@follower.screen_name, @user.screen_name)
+                             .returns(true)
+        Twitter::REST::Client.any_instance.stubs(:friendship?)
+                             .with(@not_follower.screen_name, @user.screen_name)
+                             .returns(false)
+
+        # reCAPTCHA stub
+        # Rails 6にバージョンアップしたら、reCAPTCHAのダミートークンが使えるかも
+        # (参考: https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha.-what-should-i-do)
+        stub_request(:post, "https://www.google.com/recaptcha/api/siteverify").to_return(
+          status: 200,
+          body: { success: true }.to_json,
+          headers: {}
+        )
+      end
+
+      # GET /notes/{id}/comments
+
+      test 'GET /notes/{id}/comments 正常なリクエスト' do
+        get api_v1_note_comments_path(@project)
+        assert_response 200
+        assert_response_schema_confirm
+        
+        r = JSON.parse(response.body)
+        assert r.has_key?('comments')
+        
+        comment_hash = r['comments'].first
+        comment = Comment.find(comment_hash['id'])
+        assert_equal comment_hash['text'], comment.text
+        assert_equal DateTime.parse(comment_hash['date']).to_i, comment.created_at.to_i
+      end
+
+      test 'GET /notes/{id}/comments 存在しないnoteへのリクエスト' do
+        @project.destroy!
+
+        get api_v1_note_comments_path(@project)
+        assert_response 404
+      end
+
+      test 'GET /notes/{id}/comments アクセス不可なnoteへのリクエスト' do
+        @project.only_me_view_stance!
+
+        # 未ログイン時403
+        get api_v1_note_comments_path(@project)
+        assert_response 403
+
+        login_for_test @user
+
+        # 作成者ログイン時200
+        get api_v1_note_comments_path(@project)
+        assert_response 200
+      end
+
+      test 'GET /notes/{id}/comments コメントシェアスタンス' do
+        @project.only_me_comment_share_stance!
+
+        # 未ログイン時403
+        get api_v1_note_comments_path(@project)
+        assert_response 403
+
+        login_for_test @user
+
+        # 作成者ログイン時200
+        get api_v1_note_comments_path(@project)
+        assert_response 200
+      end
+
+      test 'GET /notes/{id}/comments 日付降順にソートされる' do
+        new_comment = create(:comment, to_note: @project)
+        newer_comment = create(:comment, to_note: @project)
+
+        get api_v1_note_comments_path(@project)
+        r = JSON.parse(response.body)
+        assert_equal r['comments'].first['id'], newer_comment.id
+        assert_equal r['comments'].second['id'], new_comment.id
+      end
+
+      test 'GET /notes/{id}/comments commentに対するresponsePostを正常に出力できる' do
+        post = create(:post, :with_responded_comment, note: @project)
+        comment = post.responded_comment
+
+        get api_v1_note_comments_path(@project)
+        assert_response 200
+        assert_response_schema_confirm
+        
+        r = JSON.parse(response.body)
+        comment_hash = r['comments'].find { |c| c['id'] == comment.id }
+        assert_equal comment_hash['response_post']['text'], post.text
+        assert_equal DateTime.parse(comment_hash['response_post']['date']).to_i, post.created_at.to_i
+      end
+
+      test 'GET /notes/{id}/comments ページネーションで2ページ目を取ってくると先頭が31個目' do
+        create_list(:comment, 100, to_note: @project)
+
+        get api_v1_note_comments_path(@project, page: 2)
+        r = JSON.parse(response.body)
+        comment_hash = r['comments'].first
+        assert_equal comment_hash['id'], @project.comments[30].id
+      end
+
+      test 'GET /notes/{id}/comments メタ情報が正しい' do
+        @project.comments.destroy_all
+        create_list(:comment, 100, to_note: @project)
+
+        get api_v1_note_comments_path(@project, page: 2)
+        r = JSON.parse(response.body)
+        meta_hash = r['meta']
+        assert_equal meta_hash['current_page'], 2
+        assert_equal meta_hash['total_pages'], 4
+        assert_equal meta_hash['count'], 30
+        assert_equal meta_hash['total_count'], 100
+      end
+
+      test 'GET /notes/{id}/comments 未返信/返信済のfilterが正しく取れる' do
+        @project.comments.destroy_all
+        create_list(:comment, 10, to_note: @project)
+        create_list(:comment, 10, :with_response, to_note: @project)
+
+        # 未返信
+        get api_v1_note_comments_path(@project, filter: 'unreplied')
+        r = JSON.parse(response.body)
+
+        # 抜き出されたコメントが全て返信済のものである
+        comment_hash = r['comments']
+        comment_hash.each do |c|
+          assert_nil c['response_post']
+        end
+
+        # countが未返信コメントの件数のみを返す
+        # total_countが全件数を返す
+        meta_hash = r['meta']
+        assert_equal meta_hash['count'], 10
+        assert_equal meta_hash['total_count'], 20
+
+        # 返信済
+        get api_v1_note_comments_path(@project, filter: 'replied')
+        r = JSON.parse(response.body)
+
+        # 抜き出されたコメントが全て返信済のものである
+        comment_hash = r['comments']
+        comment_hash.each do |c|
+          assert_not_nil c['response_post']
+        end
+
+        # countが返信済コメントの件数のみを返す
+        # total_countが全件数を返す
+        meta_hash = r['meta']
+        assert_equal meta_hash['count'], 10
+        assert_equal meta_hash['total_count'], 20
+      end
+
+      test 'GET /notes/{id}/comments お気に入りのfilterが正しく取れる' do
+        @project.comments.destroy_all
+        create_list(:comment, 10, to_note: @project)
+        create_list(:comment, 10, :favored, to_note: @project)
+
+        get api_v1_note_comments_path(@project, filter: 'favored')
+        r = JSON.parse(response.body)
+
+        # 抜き出されたコメントが全てfavoredされたものである
+        comment_hash = r['comments']
+        comment_hash.each do |c|
+          assert c['favored']
+        end
+
+        # countがfavoredなコメントの件数のみを返す
+        # total_countが全件数を返す
+        meta_hash = r['meta']
+        assert_equal meta_hash['count'], 10
+        assert_equal meta_hash['total_count'], 20
+      end
+
+      test 'GET /notes/{id}/comments ミュートされたコメントの存在がなかったことになる' do
+        @project.comments.destroy_all
+        create_list(:comment, 10, to_note: @project)
+        create_list(:comment, 10, :muted, to_note: @project)
+
+        get api_v1_note_comments_path(@project)
+        r = JSON.parse(response.body)
+
+        # 抜き出されたコメントが全てmutedでないものである
+        comment_hash = r['comments']
+        comment_hash.each do |c|
+          assert_not c['muted']
+        end
+
+        # countがmutedされていないコメントの件数を返す
+        # total_countがmutedされていない件数を返す
+        meta_hash = r['meta']
+        assert_equal meta_hash['count'], 10
+        assert_equal meta_hash['total_count'], 10
+      end
+
+      test 'GET /notes/{id}/comments block済みのユーザーからのコメントの存在がなかったことになる' do
+        @project.comments.destroy_all
+        blocked_user = create(:user)
+        blocked_comment = create(:comment, to_note: @project, from_user: blocked_user)
+        @user.user_blocks.create!(blocking_user: blocked_user, blocking_comment: blocked_comment)
+
+        create_list(:comment, 10, to_note: @project)
+        create_list(:comment, 10, to_note: @project, from_user: blocked_user)
+        
+        get api_v1_note_comments_path(@project)
+        r = JSON.parse(response.body)
+
+        # 抜き出されたコメントにblocked_userからのものが含まれていない
+        comment_hash = r['comments']
+        comment_hash.each do |c|
+          next unless c.has_key?('author')
+          assert_not_equal c['author']['screen_name'], blocked_user.screen_name
+        end
+
+        # countがblockされたコメントを除いてカウントする
+        # total_countがblockされたコメントを除いてカウントする
+        meta_hash = r['meta']
+        assert_equal meta_hash['count'], 10
+        assert_equal meta_hash['total_count'], 10
+      end
+
+      test 'GET /notes/{id}/comments block済みのアドレスからのコメントの存在がなかったことになる' do
+        @project.comments.destroy_all
+        blocked_addr = Faker::Internet.ip_v4_address
+        blocked_comment = create(:comment, to_note: @project, from_addr: blocked_addr)
+        @user.user_blocks.create!(blocking_addr: blocked_addr, blocking_comment: blocked_comment)
+
+        create_list(:comment, 10, to_note: @project)
+        blocked_posts = create_list(:comment, 10, to_note: @project, from_addr: blocked_addr)
+        blocked_posts_ids = blocked_posts.map(&:id)
+        
+        get api_v1_note_comments_path(@project)
+        r = JSON.parse(response.body)
+
+        # 抜き出されたコメントにblocked_addrからのものが含まれていない
+        comment_hash = r['comments']
+        comment_hash.each do |c|
+          assert_not_includes blocked_posts_ids, c['id']
+        end
+
+        # countがblockされたコメントを除いてカウントする
+        # total_countがblockされたコメントを除いてカウントする
+        meta_hash = r['meta']
+        assert_equal meta_hash['count'], 10
+        assert_equal meta_hash['total_count'], 10
+      end
+
+      test 'GET /notes/{id}/comments anonimityによってauthorの情報が入ったり入らなかったりする' do
+        comment_author = create(:user)
+        anonymous_comment = create(:comment, :anonymous, to_note: @project, from_user: comment_author)
+        onymous_comment = create(:comment, :onymous, to_note: @project, from_user: comment_author)
+
+        get api_v1_note_comments_path(@project)
+        r = JSON.parse(response.body)
+        comment_hash = r['comments']
+        anonymous_comment_hash = comment_hash.find { |c| c['id'] == anonymous_comment.id }
+        assert_nil anonymous_comment_hash['author']
+
+        onymous_comment_hash = comment_hash.find { |c| c['id'] == onymous_comment.id }
+        assert_not_nil onymous_comment_hash['author']
+        assert_equal onymous_comment_hash['author']['twitter_screen_name'], comment_author.screen_name
+        assert_equal onymous_comment_hash['author']['url'], user_path(comment_author.screen_name)
+      end
+
+      # POST /notes/{id}/comments
+
+      test 'POST /notes/{id}/comments 正常なリクエスト' do
+        post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
+        assert_response :created
+        assert_request_schema_confirm
+      end
+
+      test 'POST /notes/{id}/comments 存在しないnoteへのリクエスト' do
+        @project.destroy!
+
+        post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
+        assert_response :not_found
+      end
+
+      test 'POST /notes/{id}/comments コメントスタンス:だれでも' do
+        @project.everyone_comment_receive_stance!
+        @project.save!
+
+        # 未ログインユーザー
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
+          assert_response :created
+        end
+
+        # not follower
+        login_for_test @not_follower
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
+          assert_response :created
+        end
+
+        # follower
+        login_for_test @follower
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
+          assert_response :created
+        end
+
+        # 作成者
+        login_for_test @user
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
+          assert_response :created
+        end
+      end
+
+      test 'POST /notes/{id}/comments コメントスタンス:ログイン済み' do
+        @project.only_signed_comment_receive_stance!
+        @project.save!
+
+        # 未ログインユーザー
+        assert_no_difference '@project.comments.count' do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
+          assert_response :forbidden
+        end
+
+        # not follower
+        login_for_test @not_follower
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
+          assert_response :created
+        end
+
+        # follower
+        login_for_test @follower
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
+          assert_response :created
+        end
+
+        # 作成者
+        login_for_test @user
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
+          assert_response :created
+        end
+      end
+
+      test 'POST /notes/{id}/comments コメントスタンス:フォロワー' do
+        @project.only_follower_comment_receive_stance!
+        @project.save!
+
+        # 未ログインユーザー
+        assert_no_difference '@project.comments.count' do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
+          assert_response :forbidden
+        end
+
+        # not follower
+        login_for_test @not_follower
+        assert_no_difference '@project.comments.count' do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
+          assert_response :forbidden
+        end
+
+        # follower
+        login_for_test @follower
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
+          assert_response :created
+        end
+
+        # 作成者
+        login_for_test @user
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
+          assert_response :created
+        end
+      end
+
+      test 'POST /notes/{id}/comments コメントスタンス:自分のみ' do
+        @project.only_me_comment_receive_stance!
+        @project.save!
+
+        # 未ログインユーザー
+        assert_no_difference '@project.comments.count' do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
+          assert_response :forbidden
+        end
+
+        # not follower
+        login_for_test @not_follower
+        assert_no_difference '@project.comments.count' do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
+          assert_response :forbidden
+        end
+
+        # follower
+        login_for_test @follower
+        assert_no_difference '@project.comments.count' do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
+          assert_response :forbidden
+        end
+
+        # 作成者
+        login_for_test @user
+        assert_difference '@project.comments.count', 1 do
+          post api_v1_note_comments_path(@project), params: { comment: { text: 'Comment!' }, recaptcha: { token: 'recaptcha_token', using_checkbox: true } }
+          assert_response :created
+        end
+      end
+    end
+  end
+end

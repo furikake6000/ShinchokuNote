@@ -32,6 +32,8 @@ class User < ApplicationRecord
 
   has_many :notes, -> { order("updated_at desc") },
            dependent: :destroy
+  has_many :projects
+  has_many :request_boxes
 
   has_many :comments,
            class_name: 'Comment',

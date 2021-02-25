@@ -30,8 +30,37 @@ module.exports = {
         loader: 'vue-loader'
       },
       {
+        test: /\.s(c|a)ss$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              implementation: require('sass'),
+              sassOptions: {
+                fiber: require('fibers'),
+                indentedSyntax: true // optional
+              },
+            },
+          },
+        ],
+      },
+      {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader']
+      },
+      {
+        test: /\.pug$/,
+        loader: 'pug-plain-loader'
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader'
+      },
+      {
+        test: /\.(png|jpe?g|gif|woff|woff2|ttf|eot|ico)$/,
+        loader: 'file-loader?name=assets/[name].[hash].[ext]'
       }
     ]
   },

@@ -34,6 +34,11 @@ class Schedule < Post
   end
   
   def sort_condition_date
-    done_status? ? finished_date : scheduled_at
+    # APIでは使用していない
+    done_status? && return_finished_if_done ? finished_date : scheduled_at
+  end
+
+  def schedule?
+    true
   end
 end

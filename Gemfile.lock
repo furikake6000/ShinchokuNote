@@ -24,6 +24,11 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_model_serializers (0.10.10)
+      actionpack (>= 4.1, < 6.1)
+      activemodel (>= 4.1, < 6.1)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     activejob (5.2.2)
       activesupport (= 5.2.2)
       globalid (>= 0.3.6)
@@ -70,6 +75,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (>= 2.0, < 4.0)
+    case_transform (0.2)
+      activesupport
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
     choice (0.2.0)
@@ -82,7 +89,18 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     colorize (0.8.1)
+    committee (4.1.0)
+      json_schema (~> 0.14, >= 0.14.3)
+      openapi_parser (>= 0.11.1)
+      rack (>= 1.5)
+    committee-rails (0.5.1)
+      actionpack
+      activesupport
+      committee (>= 3.0.0)
+      railties
     concurrent-ruby (1.1.4)
+    crack (0.4.5)
+      rexml
     crass (1.0.5)
     declarative (0.0.10)
     declarative-option (0.1.0)
@@ -101,7 +119,7 @@ GEM
       railties (>= 5.0.0)
     faker (2.2.1)
       i18n (>= 0.8)
-    faraday (0.15.2)
+    faraday (0.17.3)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
     font-awesome-rails (4.7.0.4)
@@ -132,6 +150,7 @@ GEM
       multi_json (~> 1.11)
       os (~> 0.9)
       signet (~> 0.7)
+    hashdiff (1.0.1)
     hashie (3.6.0)
     hkdf (0.3.0)
     http (3.3.0)
@@ -156,7 +175,21 @@ GEM
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
     json (2.2.0)
+    json_schema (0.20.9)
+    jsonapi-renderer (0.2.2)
     jwt (2.1.0)
+    kaminari (1.2.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.1)
+      kaminari-activerecord (= 1.2.1)
+      kaminari-core (= 1.2.1)
+    kaminari-actionview (1.2.1)
+      actionview
+      kaminari-core (= 1.2.1)
+    kaminari-activerecord (1.2.1)
+      activerecord
+      kaminari-core (= 1.2.1)
+    kaminari-core (1.2.1)
     libv8 (6.7.288.46.1)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -191,7 +224,7 @@ GEM
     momentjs-rails (2.20.1)
       railties (>= 3.1)
     multi_json (1.13.1)
-    multipart-post (2.0.0)
+    multipart-post (2.1.1)
     naught (1.1.0)
     newrelic_rpm (5.1.0.344)
     nio4r (2.3.1)
@@ -208,6 +241,7 @@ GEM
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
+    openapi_parser (0.11.2)
     os (0.9.6)
     parallel (1.12.1)
     paranoia (2.4.1)
@@ -271,6 +305,7 @@ GEM
       declarative-option (< 0.2.0)
       uber (< 0.2.0)
     retriable (3.1.2)
+    rexml (3.2.4)
     rubocop (0.55.0)
       parallel (~> 1.10)
       parser (>= 2.5)
@@ -366,6 +401,10 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    webmock (3.11.2)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     webpush (0.3.4)
       hkdf (~> 0.2)
       jwt (~> 2.0)
@@ -382,6 +421,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers
   annotate (~> 2.7.4)
   bootstrap (~> 4.3.1)
   bootstrap-will_paginate (~> 1.0.0)
@@ -389,15 +429,19 @@ DEPENDENCIES
   byebug (~> 9.1)
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
+  committee
+  committee-rails
   enum_help (~> 0.0)
   factory_bot_rails
   faker
+  faraday
   ffi (~> 1.9.25)
   font-awesome-rails (~> 4.7)
   google-cloud-storage (~> 1.3)
   jbuilder (~> 2.5)
   jquery-rails (~> 4.3.1)
   jquery-ui-rails (~> 6.0.1)
+  kaminari
   listen (~> 3.1)
   loofah (>= 2.2.3)
   mini_magick (~> 4.8)
@@ -432,6 +476,7 @@ DEPENDENCIES
   twitter (~> 6.2.0)
   uglifier (>= 1.3.0)
   web-console (~> 3.5)
+  webmock
   webpush
   whenever (~> 0.10.0)
   will_paginate (~> 3.1.5)

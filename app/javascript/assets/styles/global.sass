@@ -1,0 +1,33 @@
+@charset "utf-8"
+
+.bgstr
+  position: absolute
+  z-index: 0
+  bottom: -80px
+  right: -20px
+  white-space: nowrap
+  font-size: 14rem
+  font-weight: bold
+  transform: rotate(-30deg)
+  .v-icon.v-icon
+    font-size: unset
+    color: unset
+  &.small
+    bottom: -40px
+    right: 20px
+    font-size: 7rem
+  &.left
+    right: auto
+    left: 20px
+    transform: rotate(30deg)
+  &.top
+    top: -120px
+    bottom: auto
+
+.grid-bg
+  background-image: linear-gradient(transparent 95%, rgba(40, 40, 60, .03) 5%), linear-gradient(90deg, transparent 95%, rgba(40, 40, 60, .03) 5%)
+  background-size: 20px 20px
+  background-repeat: repeat
+
+label.v-label
+  margin-bottom: 0
