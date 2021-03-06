@@ -194,6 +194,19 @@ paths:
                 type: string
             required:
               - text
+        - name: recaptcha
+          in: query
+          required: true
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+              using_checkbox:
+                type: boolean
+            required:
+              - token
+              
       responses:
         '201':
           description: Created
