@@ -20,7 +20,11 @@ module Api
           return
         end
 
-        @posts = @note.posts.sort_by{ |p| p.schedule? ? p.scheduled_at : p.created_at }.reverse
+        @posts = @note.posts
+                      .eager_load(:responded_comment)
+                      .with_attached_media
+                      .sort_by{ |p| p.schedule? ? p.scheduled_at : p.created_at }
+                      .reverse
         @posts = Kaminari.paginate_array(@posts).page(params[:page] || 1).per(30)
         render json: @posts, root: 'posts', adapter: :json, meta: {
           current_page: @posts.current_page,
