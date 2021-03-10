@@ -43,3 +43,5 @@ class ActiveSupport::TestCase
   end
   ApplicationHelper.send :prepend, ApplicationHelperFixes
 end
+
+require 'minitest/rails'
