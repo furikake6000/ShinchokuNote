@@ -54,3 +54,5 @@ class ActiveSupport::TestCase
     }
   end
 end
+
+require 'minitest/rails'
