@@ -187,6 +187,9 @@ GEM
     mini_racer (0.2.3)
       libv8 (>= 6.3)
     minitest (5.11.3)
+    minitest-rails (5.2.0)
+      minitest (~> 5.10)
+      railties (~> 5.2.0)
     mocha (1.11.2)
     momentjs-rails (2.20.1)
       railties (>= 3.1)
@@ -402,6 +405,7 @@ DEPENDENCIES
   loofah (>= 2.2.3)
   mini_magick (~> 4.8)
   mini_racer (~> 0.2.3)
+  minitest-rails
   mocha
   momentjs-rails (>= 2.9.0)
   newrelic_rpm
