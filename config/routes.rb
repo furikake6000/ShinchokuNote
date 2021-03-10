@@ -71,8 +71,8 @@
 #              api_v1_note_posts GET    /api/v1/notes/:note_id/posts(.:format)                                                   api/v1/posts#index {:format=>/json/}
 #           api_v1_note_comments GET    /api/v1/notes/:note_id/comments(.:format)                                                api/v1/comments#index {:format=>/json/}
 #                                POST   /api/v1/notes/:note_id/comments(.:format)                                                api/v1/comments#create {:format=>/json/}
-#         api_v1_note_watchlists POST   /api/v1/notes/:note_id/watchlists(.:format)                                              api/v1/watchlists#create {:format=>/json/}
-#          api_v1_note_watchlist DELETE /api/v1/notes/:note_id/watchlists/:id(.:format)                                          api/v1/watchlists#destroy {:format=>/json/}
+#          api_v1_note_watchlist DELETE /api/v1/notes/:note_id/watchlist(.:format)                                               api/v1/watchlists#destroy {:format=>/json/}
+#                                POST   /api/v1/notes/:note_id/watchlist(.:format)                                               api/v1/watchlists#create {:format=>/json/}
 #                    api_v1_note GET    /api/v1/notes/:id(.:format)                                                              api/v1/notes#show {:format=>/json/}
 #             rails_service_blob GET    /rails/active_storage/blobs/:signed_id/*filename(.:format)                               active_storage/blobs#show
 #      rails_blob_representation GET    /rails/active_storage/representations/:signed_blob_id/:variation_key/*filename(.:format) active_storage/representations#show
@@ -169,7 +169,7 @@ Rails.application.routes.draw do
       resources :notes, only: %i[show] do
         resources :posts, only: %i[index]
         resources :comments, only: %i[index create]
-        resources :watchlists, only: %i[create destroy]
+        resource :watchlist, only: %i[create destroy]
       end
     end
   end
