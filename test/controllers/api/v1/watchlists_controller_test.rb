@@ -35,6 +35,17 @@ module Api
             end
           end
 
+          describe 'ログインしていない場合' do
+            before { logout_for_test }
+
+            it '400を返す' do
+              assert_no_difference 'Watchlist.count' do
+                subject
+              end
+              assert_response :bad_request
+            end
+          end
+
           describe 'ノートが存在しない場合' do
             before { project.destroy! }
             
@@ -74,6 +85,17 @@ module Api
           end
 
           describe '登録していなかった場合' do
+            it '400を返す' do
+              assert_no_difference 'Watchlist.count' do
+                subject
+              end
+              assert_response :bad_request
+            end
+          end
+
+          describe 'ログインしていない場合' do
+            before { logout_for_test }
+
             it '400を返す' do
               assert_no_difference 'Watchlist.count' do
                 subject
