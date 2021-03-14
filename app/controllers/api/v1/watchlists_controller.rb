@@ -1,6 +1,7 @@
 module Api
   module V1
     class WatchlistsController < ApplicationController
+      before_action :check_logged_in
       before_action :load_note
       before_action :check_note_authority
       before_action :load_watchlist
@@ -41,6 +42,15 @@ module Api
       end
 
       private
+
+      def check_logged_in
+        unless current_user
+          render json: {
+            code: 'not_logged_in',
+            message: 'ログインしてください。'
+          }, status: :bad_request
+        end
+      end
 
       def load_note
         begin
