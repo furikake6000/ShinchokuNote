@@ -7,9 +7,13 @@ module UserTestHelper
   def login_for_test(user, token = 'token', secret = 'secret')
     self.expects(:verify_user_info).returns(true)
 
+    logout_for_test
+    login_user user, token, secret
+  end
+
+  def logout_for_test
     @current_user = nil
     @master_user = nil
-    login_user user, token, secret
   end
 end
 
