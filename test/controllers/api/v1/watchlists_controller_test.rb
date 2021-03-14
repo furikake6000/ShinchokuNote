@@ -22,7 +22,6 @@ module Api
             end
             assert watcher.watching_notes.include?(project)
             assert_response :created
-            assert_request_schema_confirm
           end
 
           describe '元々ウォッチしていた場合' do
@@ -71,7 +70,6 @@ module Api
               end
               refute watcher.watching_notes.include?(project)
               assert_response :ok
-              assert_request_schema_confirm
             end
           end
 
