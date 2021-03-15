@@ -8,8 +8,8 @@
       .pop
         span.number {{watchersCount}}
         span.ml-1 ウォッチ中
-      v-btn.ml-1.mb-4(fab small color="secondary")
-        v-icon mdi-star
+      v-btn.ml-1.mb-4(fab small color="secondary" :outlined="isWatching")
+        v-icon {{ isWatching ? 'mdi-star-check' : 'mdi-star-plus' }}
       .pop
         span.number {{commentsCount}}
         span.ml-1 コメント
@@ -50,7 +50,8 @@ export default {
     watchersCount: Number,
     shinchokuDodeskasCount: Number,
     commentsCount: Number,
-    name: String
+    name: String,
+    isWatching: Boolean
   },
   data: () => {
     return {
@@ -118,4 +119,7 @@ export default {
         border-top-color: var(--v-shinchoku-lighten1)
   a.v-btn
     text-decoration: none
+  .v-btn--outlined
+    background-color: white
+    border-width: 2.5px
 </style>
