@@ -6,7 +6,6 @@ module Api
       include UsersHelper
 
       let(:project) { create :project }
-      let(:watcher) { create :user }
 
       describe 'GET /notes/{id}' do
         subject { get api_v1_note_path(project) }
@@ -57,6 +56,32 @@ module Api
             it '200が返る' do
               subject
               assert_response :ok
+            end
+          end
+        end
+
+        describe 'is_watchingに関して' do
+          it '未ログイン時 falseが返る' do
+            subject
+            refute JSON.parse(response.body)['is_watching']
+          end
+
+          describe 'ログイン時' do
+            let(:watcher) { create :user }
+            before { login_for_test watcher }
+
+            it 'ウォッチしていない場合 falseが返る' do
+              subject
+              refute JSON.parse(response.body)['is_watching']
+            end
+
+            describe 'ウォッチしている場合' do
+              before { Watchlist.create!(watching_user: watcher, watching_note: project) }
+
+              it 'trueが返る' do
+                subject
+                assert JSON.parse(response.body)['is_watching']
+              end
             end
           end
         end
