@@ -50,6 +50,8 @@ paths:
                     type: integer
                   comment_form_visibility:
                     type: boolean
+                  is_watching:
+                    type: boolean
                   created_at:
                     type: string
                   user:
