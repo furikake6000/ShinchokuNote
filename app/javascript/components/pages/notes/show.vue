@@ -4,27 +4,14 @@
       .cover.grid-bg
         v-container
           h1.name.mt-4.pb-3
-            .d-flex.flex-column.flex-md-row
-              .flex-grow-1.d-flex
-                span {{note.name}}
-                note-badges.ml-2(
-                  :stage="(note.type == 'request_box' ? null : note.stage)"
-                  :viewStance="note.viewStance"
-                  :rating="note.rating"
-                  outlined
-                )
-              .d-flex.align-center
-                v-tooltip(bottom)
-                  template(v-slot:activator="{ on }")
-                    v-btn(v-on="on" icon large color="secondary")
-                      v-icon mdi-star
-                  span ウォッチ！
-                v-tooltip(bottom)
-                  template(v-slot:activator="{ on }")
-                    v-btn(@click="$vuetify.goTo('.comments')" v-on="on" icon large color="secondary")
-                      v-icon mdi-email
-                  span コメント
-                shinchoku-button.ml-2(noBackground=true color="secondary" size="36px")
+            .d-flex
+              span {{note.name}}
+              note-badges.ml-2(
+                :stage="(note.type == 'request_box' ? null : note.stage)"
+                :viewStance="note.viewStance"
+                :rating="note.rating"
+                outlined
+              )
           .d-flex.flex-column.flex-md-row.mt-4
             p.flex-grow-1 {{note.desc}}
             .flex-shrink-0.text-right.align-self-end
