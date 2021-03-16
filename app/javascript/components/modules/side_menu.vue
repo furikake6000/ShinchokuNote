@@ -5,10 +5,10 @@
         span.number {{shinchokuDodeskasCount}}
         span.ml-1 進捗どうですか
       shinchoku-button.mb-4
-      .pop
+      .pop(:class="isWatching && 'primary-color'")
         span.number {{watchersCount}}
         span.ml-1 ウォッチ中
-      v-btn.ml-1.mb-4(fab small color="secondary" :outlined="isWatching")
+      v-btn.ml-1.mb-4(fab small :color="isWatching ? 'primary' : 'secondary'" :outlined="isWatching")
         v-icon {{ isWatching ? 'mdi-star-check' : 'mdi-star-plus' }}
       .pop
         span.number {{commentsCount}}
@@ -117,6 +117,10 @@ export default {
       &::after
         left: 20px
         border-top-color: var(--v-shinchoku-lighten1)
+    &.primary-color
+      background-color: var(--v-primary-lighten1)
+      &::after
+        border-top-color: var(--v-primary-lighten1)
   a.v-btn
     text-decoration: none
   .v-btn--outlined
