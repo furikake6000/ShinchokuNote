@@ -8,7 +8,7 @@
       .pop(:class="isWatching && 'primary-color'")
         span.number {{watchersCount}}
         span.ml-1 ウォッチ中
-      v-btn.ml-1.mb-4(fab small :color="isWatching ? 'primary' : 'secondary'" :outlined="isWatching")
+      v-btn.ml-1.mb-4(@click="toggleWatching" fab small :color="isWatching ? 'primary' : 'secondary'" :outlined="isWatching")
         v-icon {{ isWatching ? 'mdi-star-check' : 'mdi-star-plus' }}
       .pop
         span.number {{commentsCount}}
@@ -39,6 +39,8 @@
             )
               v-icon {{currentUrlCopied ? 'mdi-check' : 'mdi-link-variant'}}
           span {{currentUrlCopied ? 'コピーしました！' : 'URLをコピー'}}
+
+    v-snackbar(v-model="snackbarEnabled" timeout=3000) {{snackbarText}}
 </template>
 
 <script>
@@ -56,7 +58,9 @@ export default {
   data: () => {
     return {
       currentUrlCopied: false,
-      stampFormEnabled: false
+      stampFormEnabled: false,
+      snackbarEnabled: false,
+      snackbarText: ''
     };
   },
   methods: {
@@ -69,6 +73,22 @@ export default {
       setTimeout(() => {
         this.currentUrlCopied = false;
       }, 10000);
+    },
+    showSnackbar(message) {
+      // 連続してメッセージを表示する場合を考え、一度非表示にして再度表示する
+      this.snackbarEnabled = false
+      this.snackbarText = message
+      this.$nextTick(() => { this.snackbarEnabled = true })
+    },
+    toggleWatching() {
+      const url = `/api/v1/notes/${ this.$route.params.id }/watchlist`
+      const func = this.isWatching ? this.axios.delete(url) : this.axios.post(url)
+      func.then((response) => {
+        this.showSnackbar(response.data.message)
+      })
+      .catch((error) => {
+        this.showSnackbar(error.response.data.message)
+      })
     }
   },
   computed: {
