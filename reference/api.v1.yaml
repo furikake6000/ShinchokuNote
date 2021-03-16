@@ -50,6 +50,8 @@ paths:
                     type: integer
                   comment_form_visibility:
                     type: boolean
+                  is_watching:
+                    type: boolean
                   created_at:
                     type: string
                   user:
@@ -214,6 +216,37 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+  '/notes/{id}/watchlists':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ウォッチリストに登録する
+      tags: []
+      responses:
+        '201':
+          description: 登録成功
+        '400':
+          description: 既に登録されている
+        '403':
+          description: 登録する権限なし
+        '404':
+          description: ノートが見つからない
+    delete:
+      summary: ウォッチリストの登録を解除する
+      tags: []
+      responses:
+        '200':
+          description: 解除完了
+        '400':
+          description: 元々登録されていない
+        '403':
+          description: 登録する権限なし
+        '404':
+          description: ノートが見つからない
 components:
   schemas:
     User:

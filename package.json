@@ -2,7 +2,7 @@
   "name": "shinchokunote",
   "private": true,
   "dependencies": {
-    "@mdi/font": "^5.2.45",
+    "@mdi/font": "^5.9.55",
     "axios": "^0.19.2",
     "blueimp-load-image": "^5.12.0",
     "css-loader": "^3.5.3",

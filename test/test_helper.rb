@@ -11,6 +11,10 @@ module UserTestHelper
     @master_user = nil
     login_user user, token, secret
   end
+
+  def logout_for_test
+    logout_user master_user
+  end
 end
 
 # Add more helper methods to be used by all tests here...

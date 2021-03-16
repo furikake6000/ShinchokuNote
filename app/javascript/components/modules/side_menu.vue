@@ -5,11 +5,17 @@
         span.number {{shinchokuDodeskasCount}}
         span.ml-1 進捗どうですか
       shinchoku-button.mb-4
-      .pop
+      .pop(:class="watchingStatus && 'primary-color'")
         span.number {{watchersCount}}
         span.ml-1 ウォッチ中
-      v-btn.ml-1.mb-4(fab small color="secondary")
-        v-icon mdi-star
+      v-btn.ml-1.mb-4(
+        @click="toggleWatching"
+        :loading="loadingWatchButton"
+        :color="watchingStatus ? 'primary' : 'secondary'"
+        :outlined="watchingStatus"
+        fab small
+      )
+        v-icon {{ watchingStatus ? 'mdi-star-check' : 'mdi-star-plus' }}
       .pop
         span.number {{commentsCount}}
         span.ml-1 コメント
@@ -39,6 +45,17 @@
             )
               v-icon {{currentUrlCopied ? 'mdi-check' : 'mdi-link-variant'}}
           span {{currentUrlCopied ? 'コピーしました！' : 'URLをコピー'}}
+
+    v-snackbar(v-model="snackbarEnabled" timeout=3000) {{snackbarText}}
+
+    v-dialog(v-model="loginDialogEnabled" width="400")
+      v-card
+        v-card-title
+        v-card-text ウォッチリストの登録にはログインが必要です。
+        v-card-actions
+          v-spacer
+          v-btn.font-weight-bold(@click="loginDialogEnabled = false" text color="secondary") キャンセル
+          v-btn.font-weight-bold(href="/login" text color="primary") ログイン/新規登録
 </template>
 
 <script>
@@ -50,13 +67,22 @@ export default {
     watchersCount: Number,
     shinchokuDodeskasCount: Number,
     commentsCount: Number,
-    name: String
+    name: String,
+    isWatching: Boolean
   },
   data: () => {
     return {
       currentUrlCopied: false,
-      stampFormEnabled: false
+      stampFormEnabled: false,
+      snackbarEnabled: false,
+      snackbarText: '',
+      loadingWatchButton: false,
+      watchingStatus: false,
+      loginDialogEnabled: false
     };
+  },
+  mounted (){
+    this.watchingStatus = this.isWatching
   },
   methods: {
     copyCurrentUrl() {
@@ -68,6 +94,38 @@ export default {
       setTimeout(() => {
         this.currentUrlCopied = false;
       }, 10000);
+    },
+    showSnackbar(message) {
+      // 連続してメッセージを表示する場合を考え、一度非表示にして再度表示する
+      this.snackbarEnabled = false
+      this.snackbarText = message
+      this.$nextTick(() => { this.snackbarEnabled = true })
+    },
+    toggleWatching() {
+      // 未ログイン状態ならばダイアログ表示
+      if (!this.loggedIn) {
+        this.loginDialogEnabled = true
+        return
+      }
+
+      const url = `/api/v1/notes/${ this.$route.params.id }/watchlist`
+      const func = this.watchingStatus ? this.axios.delete(url) : this.axios.post(url)
+
+      // ロード状態に
+      this.loadingWatchButton = true
+      // イベント発火
+      func.then((response) => {
+        this.showSnackbar(response.data.message)
+        this.watchingStatus = !this.watchingStatus
+      })
+      .catch((error) => {
+        this.showSnackbar(error.response.data.message)
+      })
+      .then(() => {
+        // always executed
+        this.loadingWatchButton = false
+        this.$emit('fetchNote')
+      })
     }
   },
   computed: {
@@ -76,6 +134,16 @@ export default {
     },
     twitterIntentUrl() {
       return `https://twitter.com/share?text=${encodeURIComponent(this.name)}&url=${location.href}&hashtags=進捗ノート`
+    },
+    loggedIn() {
+      return document.querySelector('meta[name="logged_in"]').content.toLowerCase() === 'true' 
+    }
+  },
+  watch: {
+    isWatching(val) {
+      // isWatchingが変化した時、watchingStatusを変化させる
+      // (逆は然りでない)
+      this.watchingStatus = val
     }
   },
   components: {
@@ -116,6 +184,13 @@ export default {
       &::after
         left: 20px
         border-top-color: var(--v-shinchoku-lighten1)
+    &.primary-color
+      background-color: var(--v-primary-lighten1)
+      &::after
+        border-top-color: var(--v-primary-lighten1)
   a.v-btn
     text-decoration: none
+  .v-btn--outlined
+    background-color: white
+    border-width: 2.5px
 </style>

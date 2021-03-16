@@ -5,51 +5,86 @@ module Api
     class NotesControllerTest < ActionDispatch::IntegrationTest
       include UsersHelper
 
-      def setup
-        @project = create(:project)
-      end
+      let(:project) { create :project }
 
-      # GET /notes/{id}
+      describe 'GET /notes/{id}' do
+        subject { get api_v1_note_path(project) }
 
-      test 'GET /notes/{id} 正常なリクエスト' do
-        get api_v1_note_path(@project)
-        assert_response 200
-        assert_response_schema_confirm
-        
-        r = JSON.parse(response.body)
-        assert_equal r['type'], 'project'
-        assert_equal r['name'], @project.name
-        assert_equal r['desc'], @project.desc
-        assert_equal r['stage'], @project.stage
-        assert_equal r['view_stance'], @project.view_stance
-        assert_equal r['rating'], @project.rating
-        assert_equal r['url'], note_path(@project)
-        assert_equal r['watch_url'], note_watchlists_toggle_path(@project)
-        assert_equal r['watchers_count'], @project.watching_users.count
-        assert_equal r['shinchoku_dodeskas_count'], @project.shinchoku_dodeskas.count
-        assert_equal r['comments_count'], @project.comments.count
-        assert_equal DateTime.parse(r['created_at']).to_i, @project.created_at.to_i
-      end
+        it '200が返る' do
+          subject
+          assert_response :ok
+          assert_response_schema_confirm
+        end
 
-      test 'GET /notes/{id} 存在しないnoteへのリクエスト' do
-        @project.destroy!
+        it '正しい値が返る' do
+          subject
+          r = JSON.parse(response.body)
+          assert_equal r['type'], 'project'
+          assert_equal r['name'], project.name
+          assert_equal r['desc'], project.desc
+          assert_equal r['stage'], project.stage
+          assert_equal r['view_stance'], project.view_stance
+          assert_equal r['rating'], project.rating
+          assert_equal r['url'], note_path(project)
+          assert_equal r['watch_url'], note_watchlists_toggle_path(project)
+          assert_equal r['watchers_count'], project.watching_users.count
+          assert_equal r['shinchoku_dodeskas_count'], project.shinchoku_dodeskas.count
+          assert_equal r['comments_count'], project.comments.count
+          assert_equal DateTime.parse(r['created_at']).to_i, project.created_at.to_i
+        end
 
-        get api_v1_note_path(@project)
-        assert_response 404
-      end
+        describe 'ノートが存在しない場合' do
+          before { project.destroy! }
 
-      test 'GET /notes/{id} アクセス不可なnoteへのリクエスト' do
-        @project.only_me_view_stance!
+          it '404が返る' do
+            subject
+            assert_response :not_found
+          end
+        end
 
-        # 未ログイン時403
-        get api_v1_note_path(@project)
-        assert_response 403
+        describe '作成者だけ閲覧可なnoteへのリクエスト' do
+          before { project.only_me_view_stance! }
 
-        login_for_test @project.user
+          it '未ログイン時403が返る' do
+            subject
+            assert_response :forbidden
+          end
 
-        # 作成者ログイン時200
-        get api_v1_note_path(@project)
-        assert_response 200
+          describe '作成者としてログインした場合' do
+            before { login_for_test project.user }
+
+            it '200が返る' do
+              subject
+              assert_response :ok
+            end
+          end
+        end
+
+        describe 'is_watchingに関して' do
+          it '未ログイン時 falseが返る' do
+            subject
+            refute JSON.parse(response.body)['is_watching']
+          end
+
+          describe 'ログイン時' do
+            let(:watcher) { create :user }
+            before { login_for_test watcher }
+
+            it 'ウォッチしていない場合 falseが返る' do
+              subject
+              refute JSON.parse(response.body)['is_watching']
+            end
+
+            describe 'ウォッチしている場合' do
+              before { Watchlist.create!(watching_user: watcher, watching_note: project) }
+
+              it 'trueが返る' do
+                subject
+                assert JSON.parse(response.body)['is_watching']
+              end
+            end
+          end
+        end
       end
     end
   end

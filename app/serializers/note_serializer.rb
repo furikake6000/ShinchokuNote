@@ -37,7 +37,8 @@ class NoteSerializer < ActiveModel::Serializer
              :watchers_count,
              :shinchoku_dodeskas_count,
              :comments_count,
-             :comment_form_visibility
+             :comment_form_visibility,
+             :is_watching
   belongs_to :user
 
   def type
@@ -66,5 +67,9 @@ class NoteSerializer < ActiveModel::Serializer
 
   def comment_form_visibility
     user_can_comment?(object, current_user)
+  end
+
+  def is_watching
+    current_user ? current_user.watching_notes.include?(object) : false
   end
 end
