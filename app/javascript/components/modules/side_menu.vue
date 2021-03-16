@@ -5,11 +5,17 @@
         span.number {{shinchokuDodeskasCount}}
         span.ml-1 進捗どうですか
       shinchoku-button.mb-4
-      .pop(:class="isWatching && 'primary-color'")
+      .pop(:class="watchingStatus && 'primary-color'")
         span.number {{watchersCount}}
         span.ml-1 ウォッチ中
-      v-btn.ml-1.mb-4(@click="toggleWatching" fab small :color="isWatching ? 'primary' : 'secondary'" :outlined="isWatching")
-        v-icon {{ isWatching ? 'mdi-star-check' : 'mdi-star-plus' }}
+      v-btn.ml-1.mb-4(
+        @click="toggleWatching"
+        :loading="loadingWatchButton"
+        :color="watchingStatus ? 'primary' : 'secondary'"
+        :outlined="watchingStatus"
+        fab small
+      )
+        v-icon {{ watchingStatus ? 'mdi-star-check' : 'mdi-star-plus' }}
       .pop
         span.number {{commentsCount}}
         span.ml-1 コメント
@@ -60,8 +66,13 @@ export default {
       currentUrlCopied: false,
       stampFormEnabled: false,
       snackbarEnabled: false,
-      snackbarText: ''
+      snackbarText: '',
+      loadingWatchButton: false,
+      watchingStatus: false
     };
+  },
+  mounted (){
+    this.watchingStatus = this.isWatching
   },
   methods: {
     copyCurrentUrl() {
@@ -82,13 +93,22 @@ export default {
     },
     toggleWatching() {
       const url = `/api/v1/notes/${ this.$route.params.id }/watchlist`
-      const func = this.isWatching ? this.axios.delete(url) : this.axios.post(url)
+      const func = this.watchingStatus ? this.axios.delete(url) : this.axios.post(url)
+
+      // ロード状態に
+      this.loadingWatchButton = true
+      // イベント発火
       func.then((response) => {
         this.showSnackbar(response.data.message)
-        this.$emit('fetchNote')
+        this.watchingStatus = !this.watchingStatus
       })
       .catch((error) => {
         this.showSnackbar(error.response.data.message)
+      })
+      .then(() => {
+        // always executed
+        this.loadingWatchButton = false
+        this.$emit('fetchNote')
       })
     }
   },
@@ -98,6 +118,13 @@ export default {
     },
     twitterIntentUrl() {
       return `https://twitter.com/share?text=${encodeURIComponent(this.name)}&url=${location.href}&hashtags=進捗ノート`
+    }
+  },
+  watch: {
+    isWatching(val) {
+      // isWatchingが変化した時、watchingStatusを変化させる
+      // (逆は然りでない)
+      this.watchingStatus = val
     }
   },
   components: {
