@@ -81,7 +81,6 @@ export default {
         this.totalCount = data.meta.totalCount;
         this.totalPages = data.meta.totalPages;
       }).catch(error => {
-        console.log(error.response);
         if(error.response.status == 403) {
           this.commentsVisibility = false;
         }
