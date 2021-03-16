@@ -47,6 +47,15 @@
           span {{currentUrlCopied ? 'コピーしました！' : 'URLをコピー'}}
 
     v-snackbar(v-model="snackbarEnabled" timeout=3000) {{snackbarText}}
+
+    v-dialog(v-model="loginDialogEnabled" width="400")
+      v-card
+        v-card-title
+        v-card-text ウォッチリストの登録にはログインが必要です。
+        v-card-actions
+          v-spacer
+          v-btn.font-weight-bold(@click="loginDialogEnabled = false" text color="secondary") キャンセル
+          v-btn.font-weight-bold(href="/login" text color="primary") ログイン/新規登録
 </template>
 
 <script>
@@ -68,7 +77,8 @@ export default {
       snackbarEnabled: false,
       snackbarText: '',
       loadingWatchButton: false,
-      watchingStatus: false
+      watchingStatus: false,
+      loginDialogEnabled: false
     };
   },
   mounted (){
@@ -92,6 +102,12 @@ export default {
       this.$nextTick(() => { this.snackbarEnabled = true })
     },
     toggleWatching() {
+      // 未ログイン状態ならばダイアログ表示
+      if (!this.loggedIn) {
+        this.loginDialogEnabled = true
+        return
+      }
+
       const url = `/api/v1/notes/${ this.$route.params.id }/watchlist`
       const func = this.watchingStatus ? this.axios.delete(url) : this.axios.post(url)
 
@@ -118,6 +134,9 @@ export default {
     },
     twitterIntentUrl() {
       return `https://twitter.com/share?text=${encodeURIComponent(this.name)}&url=${location.href}&hashtags=進捗ノート`
+    },
+    loggedIn() {
+      return document.querySelector('meta[name="logged_in"]').content.toLowerCase() === 'true' 
     }
   },
   watch: {
