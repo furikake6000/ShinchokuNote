@@ -85,6 +85,7 @@ export default {
       const func = this.isWatching ? this.axios.delete(url) : this.axios.post(url)
       func.then((response) => {
         this.showSnackbar(response.data.message)
+        this.$emit('fetchNote')
       })
       .catch((error) => {
         this.showSnackbar(error.response.data.message)

@@ -26,7 +26,7 @@
           v-col.d-flex.flex-column(cols="4")
             user(v-bind="note.user")
             .flex-grow-1
-              side-menu(v-bind="note")
+              side-menu(v-bind="note" @fetchNote="fetchNote")
     footer.grid-bg
       footer-links
 </template>
@@ -50,13 +50,16 @@ export default {
     };
   },
   mounted () {
-    this.axios.get(`/api/v1/notes/${ this.$route.params.id }`).then(response => {
-      this.note = this.deepCamelCase(response.data);
-    });
+    this.fetchNote()
   },
   methods: {
     elapsedDaysFrom(dateStr) {
       return Math.floor((Date.now() - Date.parse(dateStr)) / (1000 * 60 * 60 * 24));
+    },
+    fetchNote() {
+      this.axios.get(`/api/v1/notes/${ this.$route.params.id }`).then(response => {
+        this.note = this.deepCamelCase(response.data);
+      });
     }
   },
   components: {
