@@ -216,7 +216,7 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
-  '/notes/{id}/watchlists':
+  '/notes/{id}/watchlist':
     parameters:
       - schema:
           type: string
