@@ -247,6 +247,37 @@ paths:
           description: 登録する権限なし
         '404':
           description: ノートが見つからない
+  '/notes/{id}/shinchoku_dodeska':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: 進捗どうですかを投稿する
+      tags: []
+      responses:
+        '201':
+          description: 投稿完了
+        '400':
+          description: 既に今日進捗どうですかを投稿済み
+        '403':
+          description: 投稿する権限なし
+        '404':
+          description: ノートが見つからない
+    delete:
+      summary: 進捗どうですかの投稿を解除する
+      tags: []
+      responses:
+        '200':
+          description: 解除完了
+        '400':
+          description: 今日進捗どうですかを投稿していない
+        '403':
+          description: 登録する権限なし
+        '404':
+          description: ノートが見つからない
 components:
   schemas:
     User:
