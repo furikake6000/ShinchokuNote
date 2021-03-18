@@ -9,7 +9,9 @@ module Api
         let(:project) { create :project }
 
         describe 'POST /notes/{id}/shinchoku_dodeska' do
-          subject { post api_v1_note_shinchoku_dodeska_path(project) }
+          let(:content) { '' }
+
+          subject { post api_v1_note_shinchoku_dodeska_path(project), params: { content: content } }
 
           it '201を返す' do
             subject
