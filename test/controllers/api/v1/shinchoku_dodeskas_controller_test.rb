@@ -15,7 +15,7 @@ module Api
         end
 
         describe 'POST /notes/{id}/shinchoku_dodeska' do
-          let(:content) { '' }
+          let(:content) { 'plain' }
 
           subject do
             post api_v1_note_shinchoku_dodeska_path(project),
@@ -34,7 +34,7 @@ module Api
             subject
 
             new_dodeska = ShinchokuDodeska.last
-            assert_equal new_dodeska.from_user watcher
+            assert_equal new_dodeska.from_user, watcher
           end
 
           describe '既に進捗どうですかを作成していた場合' do
@@ -55,7 +55,7 @@ module Api
               assert_no_difference 'Watchlist.count' do
                 subject
               end
-              assert_response :bad_request
+              assert_response :created
             end
 
             it '作成された進捗どうですかのfrom_userはnilでありfrom_addrは自分のアドレスである' do
@@ -67,7 +67,7 @@ module Api
             end
 
             describe '既に進捗どうですかを作成していた場合' do
-              before { create :shinchoku_dodeska, from_user: watcher, to_note: project }
+              before { create :shinchoku_dodeska, from_addr: addr, to_note: project }
 
               it '400を返す' do
                 assert_no_difference 'ShinchokuDodeska.count' do
@@ -102,7 +102,10 @@ module Api
         end
 
         describe 'DELETE /notes/{id}/shinchoku_dodeska' do
-          subject { delete api_v1_note_shinchoku_dodeska_path(project) }
+          subject do
+            delete api_v1_note_shinchoku_dodeska_path(project),
+                   headers: { 'REMOTE_ADDR' => addr }
+          end
 
           describe '既に進捗どうですかを作成していた場合' do
             before { create :shinchoku_dodeska, from_user: watcher, to_note: project }
@@ -111,7 +114,7 @@ module Api
               assert_difference 'ShinchokuDodeska.count', -1 do
                 subject
               end
-              assert_response :bad_request
+              assert_response :ok
             end
           end
 
@@ -134,7 +137,7 @@ module Api
                 assert_difference 'ShinchokuDodeska.count', -1 do
                   subject
                 end
-                assert_response :bad_request
+                assert_response :ok
               end
             end
 
