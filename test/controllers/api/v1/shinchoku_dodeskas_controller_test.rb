@@ -38,7 +38,7 @@ module Api
           end
 
           describe '既に進捗どうですかを作成していた場合' do
-            before { ShinchokuDodeska.create!(from_user: watcher, to_note: project) }
+            before { create :shinchoku_dodeska, from_user: watcher, to_note: project }
 
             it '400を返す' do
               assert_no_difference 'ShinchokuDodeska.count' do
@@ -67,7 +67,7 @@ module Api
             end
 
             describe '既に進捗どうですかを作成していた場合' do
-              before { ShinchokuDodeska.create!(from_user: watcher, to_note: project) }
+              before { create :shinchoku_dodeska, from_user: watcher, to_note: project }
 
               it '400を返す' do
                 assert_no_difference 'ShinchokuDodeska.count' do
@@ -105,7 +105,7 @@ module Api
           subject { delete api_v1_note_shinchoku_dodeska_path(project) }
 
           describe '既に進捗どうですかを作成していた場合' do
-            before { ShinchokuDodeska.create!(from_user: watcher, to_note: project) }
+            before { create :shinchoku_dodeska, from_user: watcher, to_note: project }
 
             it '200を返す' do
               assert_difference 'ShinchokuDodeska.count', -1 do
@@ -128,7 +128,7 @@ module Api
             before { logout_for_test }
 
             describe '既に進捗どうですかを作成していた場合' do
-              before { ShinchokuDodeska.create!(from_addr: addr, to_note: project) }
+              before { create :shinchoku_dodeska, from_addr: addr, to_note: project }
 
               it '200を返す' do
                 assert_difference 'ShinchokuDodeska.count', -1 do
