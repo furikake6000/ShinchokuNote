@@ -19,7 +19,6 @@ module Api
 
           subject do
             post api_v1_note_shinchoku_dodeska_path(project),
-                 params: { content: content },
                  headers: { 'REMOTE_ADDR' => addr } 
           end
 
@@ -97,6 +96,36 @@ module Api
                 subject
               end
               assert_response :forbidden
+            end
+          end
+
+          describe 'contentに関して' do
+            it '何も指定しない場合plainが指定される' do
+              subject
+
+              new_dodeska = ShinchokuDodeska.last
+              assert_equal new_dodeska.content, 'plain'
+            end
+
+            it '指定した場合そのcontentになる' do
+              post api_v1_note_shinchoku_dodeska_path(project), params: { content: 'otukare' }
+
+              new_dodeska = ShinchokuDodeska.last
+              assert_equal new_dodeska.content, 'otukare'
+            end
+
+            it '誤ったcontentを指定した場合Bad Requestになる' do
+              assert_no_difference 'ShinchokuDodeska.count' do
+                post api_v1_note_shinchoku_dodeska_path(project), params: { content: 'wrong_content' }
+              end
+              assert_response :bad_request
+            end
+
+            it '空のcontentを指定した場合Bad Requestになる' do
+              assert_no_difference 'ShinchokuDodeska.count' do
+                post api_v1_note_shinchoku_dodeska_path(project), params: { content: '' }
+              end
+              assert_response :bad_request
             end
           end
         end
