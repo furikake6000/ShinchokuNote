@@ -31,11 +31,11 @@ module Api
           code: 'success',
           message: '「進捗どうですか」を投稿しました。'
         }, status: :created
-      rescue ActiveRecord::RecordInvalid
+      rescue ActiveRecord::RecordInvalid, ActiveRecord::NotNullViolation, ArgumentError
         render json: {
-          code: 'server_error',
-          message: '保存時にエラーが発生しました。'
-        }, status: :internal_server_error
+          code: 'invalid_params',
+          message: 'パラメータが不正です。'
+        }, status: :bad_request
       end
 
       def destroy
