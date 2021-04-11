@@ -81,21 +81,9 @@ module Api
       # 今日同一のユーザーから@noteに既に投稿された「進捗どうですか」
       def todays_shinchoku_dodeska
         @todays_shinchoku_dodeska ||= (
-          logged_in? ? todays_shinchoku_dodeska_of_user(@note, current_user)
-                     : todays_shinchoku_dodeska_of_addr(@note, request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip)
+          logged_in? ? ShinchokuDodeska.todays_shinchoku_dodeska_of_user(@note, current_user)
+                     : ShinchokuDodeska.todays_shinchoku_dodeska_of_addr(@note, request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip)
         )
-      end
-
-      def todays_shinchoku_dodeska_of_user(note, user)
-        ShinchokuDodeska.where(from_user: user, to_note: note)
-                        .where('created_at > ?', Time.now.beginning_of_day)
-                        .to_a.first
-      end
-
-      def todays_shinchoku_dodeska_of_addr(note, addr)
-        ShinchokuDodeska.where(from_addr: addr, to_note: note)
-                        .where('created_at > ?', Time.now.beginning_of_day)
-                        .to_a.first
       end
 
       def shinchoku_dodeskas_params
