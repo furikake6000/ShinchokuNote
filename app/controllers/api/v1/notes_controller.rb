@@ -20,7 +20,7 @@ module Api
           return
         end
 
-        render json: @note, include: { user: %i[projects request_boxes] }
+        render json: @note, include: { user: %i[projects request_boxes] }, current_addr: request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip
       end
     end
   end

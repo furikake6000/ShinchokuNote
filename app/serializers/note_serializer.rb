@@ -38,7 +38,8 @@ class NoteSerializer < ActiveModel::Serializer
              :shinchoku_dodeskas_count,
              :comments_count,
              :comment_form_visibility,
-             :is_watching
+             :is_watching,
+             :sent_shinchoku_dodeska
   belongs_to :user
 
   def type
@@ -71,5 +72,13 @@ class NoteSerializer < ActiveModel::Serializer
 
   def is_watching
     current_user ? current_user.watching_notes.include?(object) : false
+  end
+
+  def sent_shinchoku_dodeska
+    todays_shinchoku_dodeska ||= (
+      current_user ? ShinchokuDodeska.todays_shinchoku_dodeska_of_user(object, current_user)
+                   : ShinchokuDodeska.todays_shinchoku_dodeska_of_addr(object, instance_options[:current_addr])
+    )
+    todays_shinchoku_dodeska.present?
   end
 end
