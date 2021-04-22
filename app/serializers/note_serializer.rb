@@ -22,6 +22,10 @@
 #  rating                 :integer          default("everyone")
 #
 
+# comment_form_visibility, is_watching, sent_shinchoku_dodeskaの3つのパラメータはN+1を引き起こす可能性があるため、
+# ノートを何百件も同時に取得したい場合などは新しいSerializerを作る必要があるかもしれない...
+# (現状、一度に取るノートはたかだか10件なのでSerializer分けは保留)
+
 class NoteSerializer < ActiveModel::Serializer
   include NotesHelper
 
