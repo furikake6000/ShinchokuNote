@@ -24,4 +24,14 @@ class ShinchokuDodeska < ApplicationRecord
     ouen: 3,
     machimasu: 4
   }
+
+  scope :today, -> { where('created_at > ?', Time.now.beginning_of_day) }
+
+  def self.todays_shinchoku_dodeska_of_user(note, user)
+    ShinchokuDodeska.today.where(from_user: user, to_note: note).to_a.first
+  end
+
+  def self.todays_shinchoku_dodeska_of_addr(note, addr)
+    ShinchokuDodeska.today.where(from_addr: addr, to_note: note).to_a.first
+  end
 end

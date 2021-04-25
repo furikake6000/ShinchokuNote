@@ -22,6 +22,10 @@
 #  rating                 :integer          default("everyone")
 #
 
+# comment_form_visibility, is_watching, sent_shinchoku_dodeskaの3つのパラメータはN+1を引き起こす可能性があるため、
+# ノートを何百件も同時に取得したい場合などは新しいSerializerを作る必要があるかもしれない...
+# (現状、一度に取るノートはたかだか10件なのでSerializer分けは保留)
+
 class NoteSerializer < ActiveModel::Serializer
   include NotesHelper
 
@@ -38,7 +42,8 @@ class NoteSerializer < ActiveModel::Serializer
              :shinchoku_dodeskas_count,
              :comments_count,
              :comment_form_visibility,
-             :is_watching
+             :is_watching,
+             :sent_shinchoku_dodeska
   belongs_to :user
 
   def type
@@ -71,5 +76,13 @@ class NoteSerializer < ActiveModel::Serializer
 
   def is_watching
     current_user ? current_user.watching_notes.include?(object) : false
+  end
+
+  def sent_shinchoku_dodeska
+    todays_shinchoku_dodeska ||= (
+      current_user ? ShinchokuDodeska.todays_shinchoku_dodeska_of_user(object, current_user)
+                   : ShinchokuDodeska.todays_shinchoku_dodeska_of_addr(object, instance_options[:current_addr])
+    )
+    todays_shinchoku_dodeska.present?
   end
 end

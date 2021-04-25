@@ -1,7 +1,7 @@
 <template lang="pug">
   .side-menu
     .d-flex.flex-column.pa-4
-      .pop.shinchoku-dodeska
+      .pop.shinchoku-color.for-large-button
         span.number {{shinchokuDodeskasCount}}
         span.ml-1 進捗どうですか
       shinchoku-button.mb-4
@@ -179,15 +179,17 @@ export default {
       border-top: 10px solid var(--v-secondary-lighten1)
       border-right: 10px solid transparent
       border-left: 10px solid transparent
-    &.shinchoku-dodeska
+    &.shinchoku-color
       background-color: var(--v-shinchoku-lighten1)
       &::after
-        left: 20px
         border-top-color: var(--v-shinchoku-lighten1)
     &.primary-color
       background-color: var(--v-primary-lighten1)
       &::after
         border-top-color: var(--v-primary-lighten1)
+    &.for-large-button::after
+      left: 20px
+
   a.v-btn
     text-decoration: none
   .v-btn--outlined

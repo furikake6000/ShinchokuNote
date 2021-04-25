@@ -6,9 +6,13 @@ module Api
       include UsersHelper
 
       let(:project) { create :project }
+      let(:addr) { '198.51.100.1' }
 
       describe 'GET /notes/{id}' do
-        subject { get api_v1_note_path(project) }
+        subject do
+          get api_v1_note_path(project),
+              headers: { 'REMOTE_ADDR' => addr } 
+        end
 
         it '200が返る' do
           subject
@@ -81,6 +85,43 @@ module Api
               it 'trueが返る' do
                 subject
                 assert JSON.parse(response.body)['is_watching']
+              end
+            end
+          end
+        end
+
+        describe 'sent_shinchoku_dodeskaに関して' do
+          describe '未ログイン時' do
+            it '進捗どうですかを送っていない場合 falseが返る' do
+              subject
+              refute JSON.parse(response.body)['sent_shinchoku_dodeska']
+            end
+
+            describe '進捗どうですかを送った場合' do
+              before { create :shinchoku_dodeska, from_addr: addr, to_note: project }
+
+              it 'trueが返る' do
+                subject
+                assert JSON.parse(response.body)['sent_shinchoku_dodeska']
+              end
+            end
+          end
+
+          describe 'ログイン時' do
+            let(:watcher) { create :user }
+            before { login_for_test watcher }
+
+            it '進捗どうですかを送っていない場合 falseが返る' do
+              subject
+              refute JSON.parse(response.body)['sent_shinchoku_dodeska']
+            end
+
+            describe '進捗どうですかを送った場合' do
+              before { create :shinchoku_dodeska, from_user: watcher, to_note: project }
+
+              it 'trueが返る' do
+                subject
+                assert JSON.parse(response.body)['sent_shinchoku_dodeska']
               end
             end
           end
