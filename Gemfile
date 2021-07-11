@@ -9,7 +9,7 @@ end
 gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
 gem 'listen', '~>3.1'
-gem 'mini_magick', '~> 4.8'
+gem 'mini_magick', '~> 4.9'
 gem 'puma', '~> 3.12'
 gem 'rails', '~> 5.2.2'
 gem 'sass-rails', '~> 5.0'
